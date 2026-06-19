@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Consumir la base de datos JSON generada por Python
-    fetch('assets/data/catalogo_oficial.json')
+    fetch('./assets/data/catalogo_oficial.json')
         .then(response => response.json())
         .then(data => {
             renderCertifications(data.certificaciones_delf_dalf);
@@ -45,3 +45,5 @@ function renderCourses(cursos) {
     });
     container.innerHTML = html;
 }
+
+
