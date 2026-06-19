@@ -153,3 +153,74 @@ body {
     border: 1px solid var(--gold);
 }
 .btn-outline:hover { background: var(--goldx); transform: translateY(-3px); }
+
+/* ==========================================================================
+   SECCIONES DINÁMICAS (CURSOS Y DELF)
+   ========================================================================== */
+.dynamic-section {
+    padding: 6rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-title em {
+    color: var(--gold-accent);
+    font-style: normal;
+}
+
+.data-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.data-card {
+    background: var(--panel);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    border-radius: 8px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.data-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+    border-color: var(--gold-accent);
+}
+
+.data-level {
+    font-family: 'Space Mono', monospace;
+    font-size: 2.5rem;
+    color: var(--gold-accent);
+    margin-bottom: 0.5rem;
+}
+
+.data-desc {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.data-price {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.2rem;
+    color: var(--af-red);
+    margin-bottom: 1.5rem;
+}
+
+.data-meta {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+}
