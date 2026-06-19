@@ -1,0 +1,12 @@
+{
+  "proyectos_movilidad": [
+    {
+      "id": "vichy-lasalle-2026",
+      "titulo": "Inmersión Lingüística CAVILAM 2026",
+      "alianza": "Centro de Estudios La Salle",
+      "repositorio": "https://github.com/migueltillero-ship-it/Vichy2026LaSalle",
+      "endpoint_api": "https://raw.githubusercontent.com/migueltillero-ship-it/Vichy2026LaSalle/main/",
+      "estado": "activo"
+    }
+  ]
+}
