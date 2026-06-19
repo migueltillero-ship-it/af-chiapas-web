@@ -1218,10 +1218,10 @@ const EVENTOS = [
 ];
 
 const ALIANZAS = [
-  {t:'Alianza académica activa', n:'Centro de Estudios La Salle',              d:'Preparación y certificación DELF Junior. Tasa de aprobación del 100% en la sesión 2026.',               l:'San Cristóbal de Las Casas',  activa:true},
-  {t:'Alianza académica activa', n:'Instituto Parmentier',                      d:'Programa de enseñanza del francés y preparación para certificaciones DELF en San Cristóbal.',          l:'San Cristóbal de Las Casas',  activa:true},
-  {t:'Alianza de movilidad',     n:'CAVILAM - Alliance Française de Vichy',     d:'Programa Vichy 2026: inmersión lingüística en Francia, septiembre 6-23.',                             l:'Vichy, Francia',              activa:true},
-  {t:'Convenio en negociación',  n:'UNICACH',                                   d:'Universidad de Ciencias y Artes de Chiapas. Convenio en proceso de formalización.',                   l:'Tuxtla Gutiérrez, Chiapas',   activa:false}
+  {t:'Alianza académica activa', n:'Centro de Estudios La Salle', d:'Preparación y certificación DELF Junior. Tasa de aprobación del 100% en la sesión 2026.', l:'San Cristóbal de Las Casas', activa:true, img:'assets/media/alianzas/lasalle.svg'},
+  {t:'Alianza académica activa', n:'Instituto Parmentier', d:'Programa de enseñanza del francés y preparación para certificaciones DELF en San Cristóbal.', l:'San Cristóbal de Las Casas', activa:true, img:'assets/media/alianzas/parmentier.svg'},
+  {t:'Alianza de movilidad', n:'CAVILAM — Alliance Française de Vichy', d:'Programa Vichy 2026: inmersión lingüística en Francia, septiembre 6–23.', l:'Vichy, Francia', activa:true, img:'assets/media/alianzas/cavilam.svg'},
+  {t:'Convenio en negociación', n:'UNICACH', d:'Universidad de Ciencias y Artes de Chiapas. Convenio en proceso de formalización.', l:'Tuxtla Gutiérrez, Chiapas', activa:false, img:'assets/media/alianzas/unicach.svg'}
 ];
 
 const NOTICIAS = [
@@ -1347,14 +1347,17 @@ const AF = (() => {
   function renderAlianzas(){
     const c=document.getElementById('alianzas-container');
     if(!c)return;
-    c.innerHTML=ALIANZAS.map(a=>`
-      <div class="glass alianza-card" style="opacity:${a.activa?1:0.55}">
+    c.innerHTML=ALIANZAS.map(a=>
+      <div class="glass alianza-card" style="opacity:${a.activa?1:0.55}; display:flex; flex-direction:column;">
+        <div style="height:55px; margin-bottom:1.5rem; display:flex; align-items:flex-start;">
+            <img src="${a.img}" alt="${a.n}" style="max-height:100%; max-width:100%; object-fit:contain; filter: brightness(0) invert(1) opacity(0.85);">
+        </div>
         <span class="alianza-tipo">${a.t}</span>
         <h3 class="alianza-nombre">${a.n}</h3>
         <p class="alianza-desc">${a.d}</p>
-        <p class="alianza-lugar"><i class="fa fa-map-marker-alt"></i> ${a.l}</p>
+        <p class="alianza-lugar" style="margin-top:auto; padding-top:1rem;"><i class="fa fa-map-marker-alt"></i> ${a.l}</p>
         <span class="badge ${a.activa?'badge-green':'badge-red'}" style="margin-top:0.75rem">${a.activa?'Convenio activo':'En negociación'}</span>
-      </div>`).join('');
+      </div>).join('');
   }
 
   function renderNoticias(){
@@ -1535,3 +1538,4 @@ document.addEventListener('DOMContentLoaded',()=>AF.init());
 </script>
 </body>
 </html>
+
