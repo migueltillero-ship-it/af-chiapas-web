@@ -1,0 +1,10 @@
+[
+  {
+    "id": "noticia-001",
+    "fecha": "2026-06-25",
+    "etiqueta": "Institucional",
+    "titulo": "Apertura de Nueva Plataforma Web",
+    "extracto": "La Alliance Française moderniza su infraestructura digital para brindar un servicio optimizado a todos nuestros estudiantes y candidatos DELF/DALF.",
+    "activa": true
+  }
+]
