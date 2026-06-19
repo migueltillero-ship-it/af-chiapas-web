@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alliance Française Chiapas | L'excellence linguistique</title>
-    
+    <meta name="description" content="Unico centro oficial DELF/DALF en Chiapas. Cursos de frances para todas las edades en San Cristobal de Las Casas y Tapachula. Certificaciones internacionales y diplomacia cultural.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <link rel="stylesheet" href="src/assets/css/styles.css">
 </head>
 <body>
     <div class="texture-overlay"></div>
 
+    <!-- NAVEGACION -->
     <nav id="nav" class="glass-nav">
         <div class="nav-container">
             <div class="nav-brand">
@@ -22,40 +23,37 @@
                 Alliance Française <span>Chiapas</span>
             </div>
             <ul class="nav-links">
-                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#porque">¿Por qué?</a></li>
                 <li><a href="#cours">Cursos</a></li>
                 <li><a href="#certifications">DELF / DALF</a></li>
                 <li><a href="#mobilite">Campus France</a></li>
-                <li><a href="#culture">Cultura</a></li>
+                <li><a href="#agenda">Cultura</a></li>
+                <li><a href="#alianzas">Alianzas</a></li>
+                <li><a href="#actualidades">Noticias</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact">Contacto</a></li>
+                <li><a href="#preinscripcion" class="nav-cta">Preinscribirse</a></li>
             </ul>
         </div>
     </nav>
 
+    <!-- HERO -->
     <header id="accueil" class="hero-section">
         <div class="hud-corner hud-tl">SYS.INIT / RED ESTATAL<br>SCSC · TAPACHULA</div>
         <div class="hud-corner hud-tr">NODE: AF-CHIAPAS<br>CENTRO DELF / DALF</div>
-        
         <div class="container hero-inner">
             <div class="hero-content glass-panel">
-                <div class="hero-pre">
-                    <span>Réseau d'excellence · Fondation AF</span>
-                </div>
-                <h1 class="hero-title">
-                    Alliance Française
-                    <em>Chiapas</em>
-                </h1>
-                <p class="hero-tagline">
-                    Un puente directo entre la riqueza de Chiapas y las oportunidades del mundo francófono. Centro oficial evaluador e institución de diplomacia cultural.
-                </p>
-                
+                <div class="hero-pre"><span>Réseau d'excellence · Fondation AF · 824 centros · 138 países</span></div>
+                <h1 class="hero-title">Alliance Française<em>Chiapas</em></h1>
+                <p class="hero-tagline">Un puente directo entre la riqueza de Chiapas y las oportunidades del mundo francófono. Único centro oficial evaluador DELF/DALF en el estado.</p>
                 <div class="routing-kiosk">
                     <h3 class="kiosk-title">Démarrez votre parcours</h3>
-                    <p class="kiosk-desc">Selecciona tu sede de adscripción para acceder a inscripciones, pasarelas de pago y servicios administrativos automatizados:</p>
+                    <p class="kiosk-desc">Selecciona tu sede de adscripción para acceder a inscripciones, pasarelas de pago y servicios administrativos:</p>
                     <div class="hero-cta">
-                        <a href="/scsc" class="btn btn-red">
+                        <a href="#preinscripcion" class="btn btn-red" onclick="AF && AF.selectSede('scsc','San Cristóbal de Las Casas')">
                             <i class="fa fa-map-marker-alt"></i> San Cristóbal de Las Casas
                         </a>
-                        <a href="/tapachula" class="btn btn-outline">
+                        <a href="#preinscripcion" class="btn btn-outline" onclick="AF && AF.selectSede('tapachula','Tapachula')">
                             <i class="fa fa-map-marker-alt"></i> Tapachula
                         </a>
                     </div>
@@ -64,51 +62,216 @@
         </div>
     </header>
 
-        <section id="histoire" class="af-section af-section--dark">
+    <!-- HISTORIA -->
+    <section id="histoire" class="af-section af-section--dark">
       <div class="container">
         <div class="section-header">
           <span class="section-tag">Histoire & Mission</span>
           <h2 class="section-title">Notre <em>héritage</em></h2>
-          <p class="section-sub">
-            Pertenecemos a la red cultural más extensa del mundo, bajo los más altos
-            estándares de excelencia académica y diplomacia cultural.
+          <p class="section-sub">Pertenecemos a la red cultural más extensa del mundo, bajo los más altos estándares de excelencia académica y diplomacia cultural.</p>
+        </div>
+        <div class="glass-panel" style="text-align:left;padding:3.5rem;margin:0 auto;max-width:900px;border-left:3px solid var(--gold)">
+          <p style="margin-bottom:1.5rem;color:rgba(255,255,255,0.9);line-height:1.8;font-size:1.05rem">
+            La <strong>Association Alliance Française</strong> fue fundada en París el 21 de julio de 1883 por el diplomático <strong>Paul Cambon</strong> y el geógrafo <strong>Pierre Foncin</strong>, junto a figuras como Louis Pasteur y Jules Verne. Su misión: la difusión del idioma francés y el fomento del diálogo intercultural.
+          </p>
+          <p style="margin-bottom:1.5rem;color:rgba(255,255,255,0.9);line-height:1.8;font-size:1.05rem">
+            Coordinada globalmente por la <strong>Fondation des Alliances Françaises</strong> (instituida en 2007), la red opera <strong>824 centros en 138 países</strong>, formando a más de <strong>428,000 estudiantes</strong> anualmente.
+          </p>
+          <p style="color:rgba(255,255,255,0.9);line-height:1.8;font-size:1.05rem">
+            En México, la <strong>Alliance Française Chiapas</strong> pertenece a la red de <strong>31 sedes oficiales</strong> nacionales y opera como único centro evaluador oficial DELF/DALF en Chiapas.
           </p>
         </div>
-        <div class="glass-panel" style="text-align:left; padding:3.5rem;
-             margin:0 auto; max-width:900px; border-left:3px solid var(--gold);">
-          <p style="margin-bottom:1.5rem; color:rgba(255,255,255,0.9);
-                    line-height:1.8; font-size:1.05rem;">
-            La <strong>Association Alliance Française</strong> fue fundada en París
-            el 21 de julio de 1883 por el diplomático <strong>Paul Cambon</strong>
-            y el geógrafo <strong>Pierre Foncin</strong>, junto a figuras como
-            Louis Pasteur y Jules Verne. Su misión: la difusión del idioma francés
-            y el fomento del diálogo intercultural.
+      </div>
+Set-Location "C:\AF_Chiapas_Web"
+
+$html = @'
+<!DOCTYPE html>
+<html lang="es" data-lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alliance Française Chiapas | L'excellence linguistique</title>
+    <meta name="description" content="Unico centro oficial DELF/DALF en Chiapas. Cursos de frances para todas las edades en San Cristobal de Las Casas y Tapachula. Certificaciones internacionales y diplomacia cultural.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <link rel="stylesheet" href="src/assets/css/styles.css">
+</head>
+<body>
+    <div class="texture-overlay"></div>
+
+    <!-- NAVEGACION -->
+    <nav id="nav" class="glass-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span class="dot"></span>
+                Alliance Française <span>Chiapas</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#porque">¿Por qué?</a></li>
+                <li><a href="#cours">Cursos</a></li>
+                <li><a href="#certifications">DELF / DALF</a></li>
+                <li><a href="#mobilite">Campus France</a></li>
+                <li><a href="#agenda">Cultura</a></li>
+                <li><a href="#alianzas">Alianzas</a></li>
+                <li><a href="#actualidades">Noticias</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact">Contacto</a></li>
+                <li><a href="#preinscripcion" class="nav-cta">Preinscribirse</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header id="accueil" class="hero-section">
+        <div class="hud-corner hud-tl">SYS.INIT / RED ESTATAL<br>SCSC · TAPACHULA</div>
+        <div class="hud-corner hud-tr">NODE: AF-CHIAPAS<br>CENTRO DELF / DALF</div>
+        <div class="container hero-inner">
+            <div class="hero-content glass-panel">
+                <div class="hero-pre"><span>Réseau d'excellence · Fondation AF · 824 centros · 138 países</span></div>
+                <h1 class="hero-title">Alliance Française<em>Chiapas</em></h1>
+                <p class="hero-tagline">Un puente directo entre la riqueza de Chiapas y las oportunidades del mundo francófono. Único centro oficial evaluador DELF/DALF en el estado.</p>
+                <div class="routing-kiosk">
+                    <h3 class="kiosk-title">Démarrez votre parcours</h3>
+                    <p class="kiosk-desc">Selecciona tu sede de adscripción para acceder a inscripciones, pasarelas de pago y servicios administrativos:</p>
+                    <div class="hero-cta">
+                        <a href="#preinscripcion" class="btn btn-red" onclick="AF && AF.selectSede('scsc','San Cristóbal de Las Casas')">
+                            <i class="fa fa-map-marker-alt"></i> San Cristóbal de Las Casas
+                        </a>
+                        <a href="#preinscripcion" class="btn btn-outline" onclick="AF && AF.selectSede('tapachula','Tapachula')">
+                            <i class="fa fa-map-marker-alt"></i> Tapachula
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HISTORIA -->
+    <section id="histoire" class="af-section af-section--dark">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Histoire & Mission</span>
+          <h2 class="section-title">Notre <em>héritage</em></h2>
+          <p class="section-sub">Pertenecemos a la red cultural más extensa del mundo, bajo los más altos estándares de excelencia académica y diplomacia cultural.</p>
+        </div>
+        <div class="glass-panel" style="text-align:left;padding:3.5rem;margin:0 auto;max-width:900px;border-left:3px solid var(--gold)">
+          <p style="margin-bottom:1.5rem;color:rgba(255,255,255,0.9);line-height:1.8;font-size:1.05rem">
+            La <strong>Association Alliance Française</strong> fue fundada en París el 21 de julio de 1883 por el diplomático <strong>Paul Cambon</strong> y el geógrafo <strong>Pierre Foncin</strong>, junto a figuras como Louis Pasteur y Jules Verne. Su misión: la difusión del idioma francés y el fomento del diálogo intercultural.
           </p>
-          <p style="margin-bottom:1.5rem; color:rgba(255,255,255,0.9);
-                    line-height:1.8; font-size:1.05rem;">
-            Coordinada globalmente por la <strong>Fondation des Alliances
-            Françaises</strong> (instituida en 2007), la red opera
-            <strong>824 centros en 138 países</strong>, formando a más de
-            <strong>428,000 estudiantes</strong> anualmente.
+          <p style="margin-bottom:1.5rem;color:rgba(255,255,255,0.9);line-height:1.8;font-size:1.05rem">
+            Coordinada globalmente por la <strong>Fondation des Alliances Françaises</strong> (instituida en 2007), la red opera <strong>824 centros en 138 países</strong>, formando a más de <strong>428,000 estudiantes</strong> anualmente.
           </p>
-          <p style="color:rgba(255,255,255,0.9); line-height:1.8; font-size:1.05rem;">
-            En México, la <strong>Alliance Française Chiapas</strong> pertenece
-            a la red de <strong>31 sedes oficiales</strong> nacionales y opera
-            como único centro evaluador oficial DELF/DALF en Chiapas.
+          <p style="color:rgba(255,255,255,0.9);line-height:1.8;font-size:1.05rem">
+            En México, la <strong>Alliance Française Chiapas</strong> pertenece a la red de <strong>31 sedes oficiales</strong> nacionales y opera como único centro evaluador oficial DELF/DALF en Chiapas.
+          </p>
+        </div>
+      </div>
+Set-Location "C:\AF_Chiapas_Web"
+
+$html = @'
+<!DOCTYPE html>
+<html lang="es" data-lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alliance Française Chiapas | L'excellence linguistique</title>
+    <meta name="description" content="Unico centro oficial DELF/DALF en Chiapas. Cursos de frances para todas las edades en San Cristobal de Las Casas y Tapachula. Certificaciones internacionales y diplomacia cultural.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <link rel="stylesheet" href="src/assets/css/styles.css">
+</head>
+<body>
+    <div class="texture-overlay"></div>
+
+    <!-- NAVEGACION -->
+    <nav id="nav" class="glass-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span class="dot"></span>
+                Alliance Française <span>Chiapas</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#porque">¿Por qué?</a></li>
+                <li><a href="#cours">Cursos</a></li>
+                <li><a href="#certifications">DELF / DALF</a></li>
+                <li><a href="#mobilite">Campus France</a></li>
+                <li><a href="#agenda">Cultura</a></li>
+                <li><a href="#alianzas">Alianzas</a></li>
+                <li><a href="#actualidades">Noticias</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact">Contacto</a></li>
+                <li><a href="#preinscripcion" class="nav-cta">Preinscribirse</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header id="accueil" class="hero-section">
+        <div class="hud-corner hud-tl">SYS.INIT / RED ESTATAL<br>SCSC · TAPACHULA</div>
+        <div class="hud-corner hud-tr">NODE: AF-CHIAPAS<br>CENTRO DELF / DALF</div>
+        <div class="container hero-inner">
+            <div class="hero-content glass-panel">
+                <div class="hero-pre"><span>Réseau d'excellence · Fondation AF · 824 centros · 138 países</span></div>
+                <h1 class="hero-title">Alliance Française<em>Chiapas</em></h1>
+                <p class="hero-tagline">Un puente directo entre la riqueza de Chiapas y las oportunidades del mundo francófono. Único centro oficial evaluador DELF/DALF en el estado.</p>
+                <div class="routing-kiosk">
+                    <h3 class="kiosk-title">Démarrez votre parcours</h3>
+                    <p class="kiosk-desc">Selecciona tu sede de adscripción para acceder a inscripciones, pasarelas de pago y servicios administrativos:</p>
+                    <div class="hero-cta">
+                        <a href="#preinscripcion" class="btn btn-red" onclick="AF && AF.selectSede('scsc','San Cristóbal de Las Casas')">
+                            <i class="fa fa-map-marker-alt"></i> San Cristóbal de Las Casas
+                        </a>
+                        <a href="#preinscripcion" class="btn btn-outline" onclick="AF && AF.selectSede('tapachula','Tapachula')">
+                            <i class="fa fa-map-marker-alt"></i> Tapachula
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HISTORIA -->
+    <section id="histoire" class="af-section af-section--dark">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Histoire & Mission</span>
+          <h2 class="section-title">Notre <em>héritage</em></h2>
+          <p class="section-sub">Pertenecemos a la red cultural más extensa del mundo, bajo los más altos estándares de excelencia académica y diplomacia cultural.</p>
+        </div>
+        <div class="glass-panel" style="text-align:left;padding:3.5rem;margin:0 auto;max-width:900px;border-left:3px solid var(--gold)">
+          <p style="margin-bottom:1.5rem;color:rgba(255,255,255,0.9);line-height:1.8;font-size:1.05rem">
+            La <strong>Association Alliance Française</strong> fue fundada en París el 21 de julio de 1883 por el diplomático <strong>Paul Cambon</strong> y el geógrafo <strong>Pierre Foncin</strong>, junto a figuras como Louis Pasteur y Jules Verne. Su misión: la difusión del idioma francés y el fomento del diálogo intercultural.
+          </p>
+          <p style="margin-bottom:1.5rem;color:rgba(255,255,255,0.9);line-height:1.8;font-size:1.05rem">
+            Coordinada globalmente por la <strong>Fondation des Alliances Françaises</strong> (instituida en 2007), la red opera <strong>824 centros en 138 países</strong>, formando a más de <strong>428,000 estudiantes</strong> anualmente.
+          </p>
+          <p style="color:rgba(255,255,255,0.9);line-height:1.8;font-size:1.05rem">
+            En México, la <strong>Alliance Française Chiapas</strong> pertenece a la red de <strong>31 sedes oficiales</strong> nacionales y opera como único centro evaluador oficial DELF/DALF en Chiapas.
           </p>
         </div>
       </div>
     </section>
 
+    <!-- ESTADÍSTICAS -->
+    <section id="stats" class="af-section">
+      <div class="container">
+        <div id="stats-container" class="stats-grid"></div>
+      </div>
+    </section>
+
+    <!-- POR QUÉ FRANCÉS -->
     <section id="porque" class="af-section af-section--dark">
       <div class="container">
         <div class="section-header">
           <span class="section-tag">Pourquoi le français ?</span>
           <h2 class="section-title">¿Por qué aprender <em>francés</em>?</h2>
-          <p class="section-sub">
-            El francés no es solo un idioma — es una llave hacia la educación,
-            el trabajo y la cultura de nivel mundial.
-          </p>
+          <p class="section-sub">El francés no es solo un idioma — es una llave hacia la educación, el trabajo y la cultura de nivel mundial.</p>
         </div>
         <div id="porque-container" class="porque-grid">
           <div class="skeleton-card"></div>
@@ -118,13 +281,124 @@
       </div>
     </section>
 
-    <section id="stats" class="af-section">
+    <!-- CURSOS -->
+    <section id="cours" class="af-section">
       <div class="container">
-        <div id="stats-container" class="stats-grid"></div>
+        <div class="section-header">
+          <span class="section-tag">Nos programmes</span>
+          <h2 class="section-title">Nuestra oferta <em>académica</em></h2>
+          <p class="section-sub">Selecciona el programa que se adapta a tu perfil y objetivos. Todos los niveles según el Marco Común Europeo de Referencia (MCER).</p>
+        </div>
+        <div id="cursos-container" class="cards-grid">
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+        </div>
       </div>
     </section>
 
-    <section id="faq" class="af-section af-section--dark">
+    <!-- DELF/DALF -->
+    <section id="certifications" class="af-section af-section--dark">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Centre officiel évaluateur</span>
+          <h2 class="section-title">Certifications <em>officielles</em></h2>
+          <p class="section-sub">Único centro oficial DELF/DALF en Chiapas. Diplomas vitalicios expedidos por el Ministerio de Educación de Francia.</p>
+        </div>
+        <div id="delf-container" class="cards-grid cards-grid--6">
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+        </div>
+        <p class="nota-legal">* Tarifas 2026 orientativas. Confirmar al momento de inscripción. El pago debe realizarse en la sede donde se presentará el examen.</p>
+      </div>
+    </section>
+
+    <!-- MOVILIDAD / CAMPUS FRANCE -->
+    <section id="mobilite" class="af-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Mobilité internationale</span>
+          <h2 class="section-title">Estudia en <em>Francia</em></h2>
+          <p class="section-sub">Campus France y programas de inmersión lingüística. Tu puerta de entrada al mundo francófono.</p>
+        </div>
+        <div class="mobilite-grid">
+          <div class="glass-panel mobilite-card">
+            <span class="section-tag">Programa destacado 2026</span>
+            <h3 class="mobilite-title">Vichy — Inmersión Total</h3>
+            <p class="mobilite-desc">6 al 23 de septiembre de 2026. CAVILAM Alliance Française de Vichy, en colaboración con Centro de Estudios La Salle y Alliance Française Chiapas. Tres semanas de francés intensivo en el corazón de Francia.</p>
+            <ul class="mobilite-list">
+              <li><i class="fa fa-calendar"></i> 6–23 septiembre 2026</li>
+              <li><i class="fa fa-map-marker-alt"></i> Vichy, Francia</li>
+              <li><i class="fa fa-euro-sign"></i> €3,500 por estudiante</li>
+              <li><i class="fa fa-users"></i> Cupo limitado</li>
+            </ul>
+            <a href="#preinscripcion" class="btn btn-red" style="margin-top:1.5rem">Solicitar información</a>
+          </div>
+          <div class="glass-panel mobilite-card">
+            <span class="section-tag">Campus France México</span>
+            <h3 class="mobilite-title">Estudia en Francia</h3>
+            <p class="mobilite-desc">La Alliance Française Chiapas es oficina de enlace de Campus France para la región. Te asesoramos gratuitamente en procesos de admisión, becas y trámites migratorios para estudiar en universidades francesas.</p>
+            <ul class="mobilite-list">
+              <li><i class="fa fa-graduation-cap"></i> Licenciatura, Maestría, Doctorado</li>
+              <li><i class="fa fa-certificate"></i> Requisito B2 (Lic.) / C1 (Maestría)</li>
+              <li><i class="fa fa-handshake"></i> Asesoría gratuita</li>
+            </ul>
+            <a href="#preinscripcion" class="btn btn-outline" style="margin-top:1.5rem">Agendar asesoría</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AGENDA CULTURAL -->
+    <section id="agenda" class="af-section af-section--dark">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Agenda culturelle</span>
+          <h2 class="section-title">Agenda <em>cultural</em></h2>
+          <p class="section-sub">Cine francés, música, exposiciones y certificaciones. La vida cultural francófona en Chiapas.</p>
+        </div>
+        <div id="eventos-container" class="eventos-grid">
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ALIANZAS -->
+    <section id="alianzas" class="af-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Partenariats & Coopération</span>
+          <h2 class="section-title">Alianzas <em>estratégicas</em></h2>
+          <p class="section-sub">Instituciones y organismos con quienes construimos puentes entre Chiapas y el mundo francófono.</p>
+        </div>
+        <div id="alianzas-container" class="cards-grid">
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACTUALIDADES -->
+    <section id="actualidades" class="af-section af-section--dark">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Actualités institutionnelles</span>
+          <h2 class="section-title">Noticias y <em>actualidades</em></h2>
+          <p class="section-sub">Logros académicos, eventos culturales y novedades de la red Alliance Française Chiapas.</p>
+        </div>
+        <div id="actualidades-container" class="cards-grid">
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="af-section">
       <div class="container">
         <div class="section-header">
           <span class="section-tag">Questions fréquentes</span>
@@ -136,20 +410,147 @@
         </div>
       </div>
     </section>
-<section id="cours" class="dynamic-section">
-        <h2 class="section-title">Notre offre <em>académique</em></h2>
-        <div id="cursos-container" class="data-grid">
+
+    <!-- PREINSCRIPCIÓN -->
+    <section id="preinscripcion" class="af-section af-section--dark">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Démarrez maintenant</span>
+          <h2 class="section-title">Preinscripción <em>en línea</em></h2>
+          <p class="section-sub">Completa el formulario. Nuestro equipo te contactará para confirmar disponibilidad, horarios y forma de pago.</p>
+        </div>
+        <div class="form-shell glass-panel">
+
+          <div class="form-step active" id="step-1">
+            <h3 class="step-title"><span class="step-num">01</span> Selecciona tu sede</h3>
+            <div class="sede-selector">
+              <button class="sede-btn" data-sede="scsc" onclick="AF.selectSede('scsc','San Cristóbal de Las Casas')">
+                <i class="fa fa-map-marker-alt"></i>
+                <span class="sede-btn-name">San Cristóbal de Las Casas</span>
+                <span class="sede-btn-sub">Av. La Almolonga 80</span>
+              </button>
+              <button class="sede-btn" data-sede="tapachula" onclick="AF.selectSede('tapachula','Tapachula')">
+                <i class="fa fa-map-marker-alt"></i>
+                <span class="sede-btn-name">Tapachula</span>
+                <span class="sede-btn-sub">1a Norte #124</span>
+              </button>
             </div>
+          </div>
+
+          <div class="form-step" id="step-2">
+            <h3 class="step-title"><span class="step-num">02</span> Elige tu programa y modalidad</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Programa</label>
+                <select id="f-curso" class="af-select" onchange="AF.updateModalidades()">
+                  <option value="">Seleccionar...</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Nivel</label>
+                <select id="f-nivel" class="af-select"><option value="">Seleccionar...</option></select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Modalidad</label>
+                <select id="f-modalidad" class="af-select"><option value="">Seleccionar...</option></select>
+              </div>
+            </div>
+            <div class="resumen-seleccion glass-panel" id="resumen-box" style="display:none">
+              <p class="resumen-label">Tu selección:</p>
+              <p id="resumen-texto" class="resumen-texto"></p>
+            </div>
+            <button class="btn btn-red step-next" onclick="AF.goToStep(3)">Continuar <i class="fa fa-arrow-right"></i></button>
+          </div>
+
+          <div class="form-step" id="step-3">
+            <h3 class="step-title"><span class="step-num">03</span> Tus datos de contacto</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Nombre completo *</label>
+                <input type="text" id="f-nombre" class="af-input" placeholder="Prénom Nom" autocomplete="name">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Correo electrónico *</label>
+                <input type="email" id="f-email" class="af-input" placeholder="correo@ejemplo.com" autocomplete="email">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Teléfono / WhatsApp *</label>
+                <input type="tel" id="f-tel" class="af-input" placeholder="+52 967 000 0000" autocomplete="tel">
+              </div>
+              <div class="form-group">
+                <label class="form-label">¿Cómo nos conociste?</label>
+                <select id="f-fuente" class="af-select">
+                  <option value="">Seleccionar...</option>
+                  <option>Redes sociales</option>
+                  <option>Recomendación</option>
+                  <option>Google</option>
+                  <option>Institución educativa</option>
+                  <option>Otro</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Mensaje adicional (opcional)</label>
+              <textarea id="f-mensaje" class="af-input af-textarea" rows="3" placeholder="Horario preferido, preguntas, etc."></textarea>
+            </div>
+            <div class="form-actions">
+              <button class="btn btn-outline" onclick="AF.goToStep(2)"><i class="fa fa-arrow-left"></i> Anterior</button>
+              <button class="btn btn-red" id="btn-enviar" onclick="AF.enviarPreinscripcion()"><i class="fa fa-paper-plane"></i> Enviar preinscripción</button>
+            </div>
+          </div>
+
+          <div class="form-step" id="step-ok">
+            <div class="confirmacion-box">
+              <div class="confirm-icon">✓</div>
+              <h3 class="confirm-title">¡Solicitud recibida!</h3>
+              <p class="confirm-msg">Tu preinscripción fue enviada a la sede de <strong id="confirm-sede"></strong>. Nuestro equipo te contactará en las próximas <strong>24 horas hábiles</strong>.</p>
+              <p class="confirm-sub">Contacto directo: <a href="mailto:direccionsancristobal@alianzafr.edu.mx" class="af-link">direccionsancristobal@alianzafr.edu.mx</a></p>
+              <button class="btn btn-outline" onclick="AF.resetForm()">Nueva preinscripción</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </section>
 
-    <section id="certifications" class="dynamic-section">
-        <h2 class="section-title">Certifications <em>officielles</em></h2>
-        <div id="delf-container" class="data-grid">
-            </div>
+    <!-- CONTACTO -->
+    <section id="contact" class="af-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Nous contacter</span>
+          <h2 class="section-title">Encuéntranos en <em>Chiapas</em></h2>
+        </div>
+        <div class="contacto-grid">
+          <div class="glass-panel contacto-sede">
+            <span class="sede-tag">AFSC</span>
+            <h3 class="contacto-ciudad">San Cristóbal de Las Casas</h3>
+            <ul class="contacto-list">
+              <li><i class="fa fa-map-marker-alt"></i> Av. La Almolonga 80, Barrio Santa Lucía</li>
+              <li><i class="fa fa-phone"></i> <a href="tel:+529673424456">+52 967 342 44 56</a></li>
+              <li><i class="fa fa-envelope"></i> <a href="mailto:direccionsancristobal@alianzafr.edu.mx">direccionsancristobal@alianzafr.edu.mx</a></li>
+              <li><i class="fab fa-whatsapp"></i> <a href="https://wa.me/529671721870" target="_blank">WhatsApp</a></li>
+            </ul>
+            <a href="#preinscripcion" class="btn btn-red" style="margin-top:1.5rem;width:100%;justify-content:center">Preinscribirme — SCSC</a>
+          </div>
+          <div class="glass-panel contacto-sede">
+            <span class="sede-tag">AFT</span>
+            <h3 class="contacto-ciudad">Tapachula</h3>
+            <ul class="contacto-list">
+              <li><i class="fa fa-map-marker-alt"></i> 1a Norte #124, entre 17a y 19a Oriente</li>
+              <li><i class="fa fa-phone"></i> <a href="tel:+529626428479">+52 962 642 84 79</a></li>
+              <li><i class="fa fa-envelope"></i> <a href="mailto:alianzafrancesatapachula@gmail.com">alianzafrancesatapachula@gmail.com</a></li>
+            </ul>
+            <a href="#preinscripcion" class="btn btn-outline" style="margin-top:1.5rem;width:100%;justify-content:center">Preinscribirme — Tapachula</a>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <script src="assets/js/main.js"></script>
-
+    <!-- FOOTER -->
     <footer class="af-footer-full glass-panel">
       <div class="footer-grid">
         <div class="footer-brand">
@@ -160,31 +561,24 @@
         <div class="footer-col">
           <p class="footer-col-title">San Cristóbal de Las Casas</p>
           <p>Av. La Almolonga 80, Barrio Santa Lucía</p>
-          <p><a href="mailto:direccionsancristobal@alianzafr.edu.mx">
-            direccionsancristobal@alianzafr.edu.mx</a></p>
+          <p><a href="mailto:direccionsancristobal@alianzafr.edu.mx">direccionsancristobal@alianzafr.edu.mx</a></p>
           <p><a href="tel:+529673424456">+52 967 342 44 56</a></p>
         </div>
         <div class="footer-col">
           <p class="footer-col-title">Tapachula</p>
           <p>1a Norte #124, entre 17a y 19a Oriente</p>
-          <p><a href="mailto:alianzafrancesatapachula@gmail.com">
-            alianzafrancesatapachula@gmail.com</a></p>
+          <p><a href="mailto:alianzafrancesatapachula@gmail.com">alianzafrancesatapachula@gmail.com</a></p>
           <p><a href="tel:+529626428479">+52 962 642 84 79</a></p>
         </div>
         <div class="footer-col">
           <p class="footer-col-title">Dirección General</p>
           <p>Miguel David Tillero Álvarez</p>
           <p>Director General — AFSC</p>
-          <p class="footer-legal">
-            © 2026 Alliance Française Chiapas · Todos los derechos reservados
-          </p>
+          <p class="footer-legal">© 2026 Alliance Française Chiapas · Todos los derechos reservados</p>
         </div>
       </div>
     </footer>
+
+    <script src="src/assets/js/main.js"></script>
 </body>
 </html>
-
-
-
-
-
