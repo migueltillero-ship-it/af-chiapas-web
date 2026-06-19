@@ -1,0 +1,155 @@
+/* ==========================================================================
+   VARIABLES INSTITUCIONALES Y SISTEMA FUTURISTA
+   ========================================================================== */
+:root {
+    /* Paleta Institucional AF */
+    --af-blue: #002654;
+    --af-red: #ED2939;
+    --af-white: #FFFFFF;
+    
+    /* Sistema de Cristal y Acentos */
+    --void: #010a14;
+    --panel: rgba(0, 38, 84, 0.45);
+    --gold: #c9a96e;
+    --goldx: rgba(201,169,110,0.13);
+    --muted: rgba(255, 255, 255, 0.6);
+    --border: rgba(255, 255, 255, 0.15);
+    --glow: 0 0 40px rgba(237, 41, 57, 0.2);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+    background: var(--void);
+    color: var(--af-white);
+    font-family: 'Syne', sans-serif;
+    overflow-x: hidden;
+}
+
+/* Textura de fondo sutil */
+.texture-overlay {
+    position: fixed; inset: 0; z-index: -1;
+    background: radial-gradient(ellipse at bottom right, rgba(0, 38, 84, 0.8) 0%, var(--void) 100%);
+    opacity: 0.9;
+}
+
+/* ==========================================================================
+   NAVEGACIÓN (GLASSMORPHISM)
+   ========================================================================== */
+.glass-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+    padding: 1.2rem 2.5rem;
+    background: rgba(1, 10, 20, 0.7);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid var(--border);
+}
+
+.nav-container {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+}
+
+.nav-brand {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.4rem;
+    display: flex; align-items: center; gap: 0.6rem; letter-spacing: 1px;
+}
+
+.nav-brand .dot {
+    width: 6px; height: 6px; background: var(--af-red);
+    transform: rotate(45deg);
+}
+
+.nav-brand span { color: var(--gold); font-style: italic; }
+
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+    font-family: 'Space Mono', monospace; font-size: 0.65rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--af-white); }
+
+/* ==========================================================================
+   HERO Y KIOSCO ADMINISTRATIVO
+   ========================================================================== */
+.hero-section {
+    min-height: 100vh; display: flex; align-items: center;
+    padding: 8rem 2rem 4rem; position: relative;
+}
+
+.container { max-width: 1200px; margin: 0 auto; }
+
+.glass-panel {
+    background: var(--panel);
+    backdrop-filter: blur(28px) saturate(130%);
+    -webkit-backdrop-filter: blur(28px) saturate(130%);
+    border: 1px solid var(--border);
+    padding: 4rem; border-radius: 12px;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+    max-width: 850px; margin: 0 auto; text-align: center;
+}
+
+.hero-pre {
+    font-family: 'Space Mono', monospace; font-size: 0.6rem;
+    letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold);
+    margin-bottom: 1.5rem;
+}
+
+.hero-title {
+    font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 300; line-height: 1; margin-bottom: 1.5rem;
+}
+
+.hero-title em { font-style: normal; color: var(--gold); }
+
+.hero-tagline {
+    font-size: 1.1rem; line-height: 1.8; color: var(--muted);
+    margin-bottom: 3rem; max-width: 700px; margin-left: auto; margin-right: auto;
+}
+
+/* Detalles HUD */
+.hud-corner {
+    position: absolute; z-index: 5;
+    font-family: 'Space Mono', monospace; font-size: 0.5rem;
+    letter-spacing: 0.2em; color: rgba(255,255,255,0.2);
+}
+.hud-tl { top: 6rem; left: 2.5rem; }
+.hud-tr { top: 6rem; right: 2.5rem; text-align: right; }
+
+/* Kiosco */
+.routing-kiosk {
+    background: rgba(0, 0, 0, 0.3); border-radius: 8px;
+    padding: 2.5rem; border: 1px solid rgba(201,169,110,0.2);
+}
+
+.kiosk-title {
+    font-family: 'Cormorant Garamond', serif; font-size: 2rem;
+    font-weight: 400; margin-bottom: 0.5rem; color: var(--af-white);
+}
+
+.kiosk-desc {
+    font-size: 0.9rem; color: var(--muted); margin-bottom: 2rem;
+}
+
+.hero-cta { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+
+.btn {
+    display: inline-flex; align-items: center; gap: 0.8rem;
+    padding: 1rem 2rem; font-family: 'Space Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    text-decoration: none; transition: all 0.3s; border-radius: 4px;
+}
+
+.btn-red {
+    background: var(--af-red); color: var(--af-white); font-weight: 700;
+    border: 1px solid var(--af-red); box-shadow: var(--glow);
+}
+.btn-red:hover { background: #c21a28; transform: translateY(-3px); }
+
+.btn-outline {
+    background: transparent; color: var(--gold);
+    border: 1px solid var(--gold);
+}
+.btn-outline:hover { background: var(--goldx); transform: translateY(-3px); }
