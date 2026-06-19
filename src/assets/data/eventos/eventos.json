@@ -1,0 +1,68 @@
+[
+  {
+    "id": "ev001",
+    "titulo": "Fête de la Musique 2026",
+    "fecha": "2026-06-21",
+    "hora": "18:00",
+    "lugar": "Av. La Almolonga 80, San Cristóbal de Las Casas",
+    "sede": "scsc",
+    "categoria": "Música",
+    "descripcion": "Celebración musical mundial. Artistas locales e invitados francófonos. Entrada libre.",
+    "gratuito": true
+  },
+  {
+    "id": "ev002",
+    "titulo": "Sesión DELF/DALF — Septiembre 2026",
+    "fecha": "2026-09-13",
+    "hora": "09:00",
+    "lugar": "Sede San Cristóbal de Las Casas",
+    "sede": "scsc",
+    "categoria": "Certificaciones",
+    "descripcion": "Sesión oficial DELF y DALF para todos los niveles. Único centro evaluador en Chiapas. Inscripción previa obligatoria.",
+    "gratuito": false
+  },
+  {
+    "id": "ev003",
+    "titulo": "Tour de Cine Francés 2026",
+    "fecha": "2026-10-10",
+    "hora": "19:00",
+    "lugar": "Por confirmar — San Cristóbal de Las Casas",
+    "sede": "scsc",
+    "categoria": "Cine",
+    "descripcion": "Cine francés contemporáneo en pantalla grande. Proyección con subtítulos en español. Registro previo gratuito.",
+    "gratuito": true
+  },
+  {
+    "id": "ev004",
+    "titulo": "Taller de Cocina Francesa",
+    "fecha": "2026-07-18",
+    "hora": "11:00",
+    "lugar": "Sede San Cristóbal de Las Casas",
+    "sede": "scsc",
+    "categoria": "Gastronomía",
+    "descripcion": "Aprende recetas clásicas de la gastronomía francesa mientras practicas el idioma. Cupo limitado a 15 personas.",
+    "gratuito": false
+  },
+  {
+    "id": "ev005",
+    "titulo": "Fiesta Nacional Francesa — 14 de Julio",
+    "fecha": "2026-07-14",
+    "hora": "19:00",
+    "lugar": "Sede Alliance Française Chiapas",
+    "sede": "scsc",
+    "categoria": "Diplomacia",
+    "descripcion": "Celebración oficial del Día Nacional de Francia. Recepción diplomática con participación de la comunidad francófona de Chiapas.",
+    "gratuito": true
+  },
+  {
+    "id": "ev006",
+    "titulo": "Sesión DELF/DALF — Noviembre 2026",
+    "fecha": "2026-11-14",
+    "hora": "09:00",
+    "lugar": "Sede Tapachula",
+    "sede": "tapachula",
+    "categoria": "Certificaciones",
+    "descripcion": "Sesión oficial en Tapachula. Niveles A1 a C2 disponibles. Inscripción obligatoria en sede.",
+    "gratuito": false
+  }
+]

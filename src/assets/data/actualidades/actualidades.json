@@ -1,0 +1,56 @@
+[
+  {
+    "id": "001",
+    "fecha": "2026-06-01",
+    "categoria": "Certificaciones",
+    "titulo": "100% de aprobación en sesión DELF Junior 2026",
+    "resumen": "La Alliance Française Chiapas logró una tasa de aprobación absoluta en su sesión DELF Junior más reciente, con candidatos del Centro de Estudios La Salle en niveles A1, A2 y B1.",
+    "tag": "Logro institucional",
+    "destacado": true
+  },
+  {
+    "id": "002",
+    "fecha": "2026-05-15",
+    "categoria": "Movilidad",
+    "titulo": "Convocatoria Vichy 2026 — Inscripciones abiertas",
+    "resumen": "En alianza con el Centro de Estudios La Salle y CAVILAM, ofrecemos inmersión lingüística en Vichy, Francia del 6 al 23 de septiembre de 2026. Cupo limitado.",
+    "tag": "Convocatoria",
+    "destacado": true
+  },
+  {
+    "id": "003",
+    "fecha": "2026-06-21",
+    "categoria": "Cultura",
+    "titulo": "Fête de la Musique 2026 — ¡Celebra con nosotros!",
+    "resumen": "Cada 21 de junio el mundo francófono celebra la música. San Cristóbal de Las Casas se une con artistas locales e invitados. Evento gratuito y abierto a toda la comunidad.",
+    "tag": "Próximo evento",
+    "destacado": false
+  },
+  {
+    "id": "004",
+    "fecha": "2026-04-10",
+    "categoria": "Diplomacia",
+    "titulo": "La AF Chiapas refuerza vínculos con la Embajada de Francia",
+    "resumen": "La Dirección General sostiene reunión de trabajo con representantes de la Embajada de Francia en México para coordinar la programación cultural y la agenda de certificaciones 2026–2027.",
+    "tag": "Institucional",
+    "destacado": false
+  },
+  {
+    "id": "005",
+    "fecha": "2026-03-20",
+    "categoria": "Francofonía",
+    "titulo": "Mes de la Francofonía — Celebración en Chiapas",
+    "resumen": "Durante marzo, la AF Chiapas organizó actividades culturales, proyecciones de cine y talleres en el marco del Mes Internacional de la Francofonía, con la participación de más de 200 personas.",
+    "tag": "Reporte",
+    "destacado": false
+  },
+  {
+    "id": "006",
+    "fecha": "2026-02-01",
+    "categoria": "Alianzas",
+    "titulo": "Nuevo convenio con Instituto Parmentier",
+    "resumen": "La Alliance Française Chiapas formaliza su alianza académica con el Instituto Parmentier para la enseñanza del francés y la preparación para certificaciones DELF en San Cristóbal de Las Casas.",
+    "tag": "Convenio",
+    "destacado": false
+  }
+]

@@ -1,0 +1,86 @@
+[
+  {
+    "categoria": "Cursos",
+    "preguntas": [
+      {
+        "q": "¿Necesito saber francés para inscribirme?",
+        "a": "No. Tenemos grupos para todos los niveles, incluyendo principiantes absolutos (A1). Si ya tienes conocimientos previos, te hacemos una prueba de nivel gratuita para ubicarte en el grupo correcto."
+      },
+      {
+        "q": "¿Cuánto tiempo tarda llegar al nivel B2?",
+        "a": "Aproximadamente 2.5 a 3 años con el ritmo regular (3h/semana). Con el ritmo intensivo puedes reducirlo a 18 meses. El nivel B2 es el requerido para estudiar una Licenciatura en Francia."
+      },
+      {
+        "q": "¿Qué pasa si pierdo clases?",
+        "a": "Nuestros profesores proporcionan el material de cada sesión. En casos de ausencia prolongada, ofrecemos orientación para recuperar el contenido. Te recomendamos contactar directamente a tu profesor."
+      },
+      {
+        "q": "¿Los cursos son presenciales u online?",
+        "a": "Ofrecemos modalidad presencial en nuestras sedes de San Cristóbal de Las Casas y Tapachula. También contamos con opciones híbridas y, a través de la Federación, acceso a plataformas de e-learning como Frantastique."
+      },
+      {
+        "q": "¿Cuántos alumnos hay por grupo?",
+        "a": "Nuestros grupos son reducidos, generalmente entre 8 y 15 estudiantes, para garantizar atención personalizada y práctica oral efectiva."
+      }
+    ]
+  },
+  {
+    "categoria": "Certificaciones DELF/DALF",
+    "preguntas": [
+      {
+        "q": "¿El diploma DELF caduca?",
+        "a": "No. El DELF y el DALF son diplomas vitalicios. Una vez aprobados, su validez es permanente y no requieren renovación. Es una de sus grandes ventajas frente a otros exámenes como el TOEFL o el IELTS."
+      },
+      {
+        "q": "¿Puedo presentar el DELF sin haber tomado clases en la AF?",
+        "a": "Sí. La inscripción al examen está abierta a cualquier candidato. No es requisito haber tomado cursos con nosotros. Sin embargo, recomendamos nuestros talleres de preparación para maximizar las posibilidades de éxito."
+      },
+      {
+        "q": "¿Qué nivel necesito para entrar a una universidad en Francia?",
+        "a": "B2 para programas de Licenciatura y C1 para programas de Maestría o Doctorado. La Alliance Française Chiapas es el único centro donde puedes obtener esta certificación en todo el estado."
+      },
+      {
+        "q": "¿Cuándo son las fechas de examen?",
+        "a": "Las sesiones principales son en septiembre, octubre y noviembre. Los niveles C1 y C2 solo se ofrecen en septiembre y noviembre. Contáctanos para el calendario exacto del ciclo 2026."
+      },
+      {
+        "q": "¿Puedo pagar el examen en cualquier sede?",
+        "a": "No. El pago debe realizarse exclusivamente en la sede donde presentará el examen. Esta es una norma de la red nacional para garantizar la autonomía financiera de cada centro."
+      }
+    ]
+  },
+  {
+    "categoria": "Movilidad y Campus France",
+    "preguntas": [
+      {
+        "q": "¿Qué es Campus France?",
+        "a": "Campus France es la agencia oficial del gobierno francés para la promoción de la educación superior. En Chiapas, la Alliance Française opera como oficina de enlace y ofrece asesoría gratuita para estudiar en Francia."
+      },
+      {
+        "q": "¿Qué incluye la asesoría de Campus France?",
+        "a": "Orientación sobre universidades y programas, ayuda con preinscripciones, información sobre becas (Eiffel, PHC, etc.), gestión del visado estudiantil y preparación del expediente migratorio."
+      },
+      {
+        "q": "¿Qué es el programa Vichy 2026?",
+        "a": "Es un programa de inmersión lingüística total en CAVILAM Alliance Française de Vichy, Francia, del 6 al 23 de septiembre de 2026. Costo: €3,500 por estudiante. En alianza con el Centro de Estudios La Salle y la Alliance Française Chiapas."
+      }
+    ]
+  },
+  {
+    "categoria": "Inscripciones y pagos",
+    "preguntas": [
+      {
+        "q": "¿Cómo me inscribo?",
+        "a": "Puedes preinscribirte desde esta página en cualquier momento. Nuestro equipo te contactará en menos de 24 horas hábiles para confirmar tu lugar, orientarte sobre el nivel adecuado y darte los detalles de pago."
+      },
+      {
+        "q": "¿Qué métodos de pago aceptan?",
+        "a": "Aceptamos depósito bancario, transferencia electrónica y tarjeta de débito o crédito. Algunas modalidades ofrecen descuento por pago anticipado."
+      },
+      {
+        "q": "¿Hay descuentos disponibles?",
+        "a": "Sí. Ofrecemos descuentos por pago anticipado, para estudiantes con credencial vigente y para grupos o convenios institucionales. Consulta con nuestra sede para las promociones del ciclo actual."
+      }
+    ]
+  }
+]

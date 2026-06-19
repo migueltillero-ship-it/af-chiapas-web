@@ -49,3 +49,87 @@ function renderCourses(cursos) {
 
 
 
+
+// ══════════════════════════════════════════════════════════
+// RENDERS ADICIONALES — AF-CHIS-2026-004
+// ══════════════════════════════════════════════════════════
+
+// ── Por qué estudiar francés ──────────────────────────────
+async function renderPorQue() {
+  const c = document.getElementById('porque-container');
+  if (!c) return;
+  try {
+    const data = await fetch('./assets/data/cursos/catalogo_cursos.json')
+                       .then(r => r.json());
+    c.innerHTML = data.por_que_estudiar.map(item => `
+      <div class="porque-card glass-panel">
+        <i class="fa ${item.icono} porque-icon"></i>
+        <h3 class="porque-titulo">${item.titulo}</h3>
+        <p class="porque-texto">${item.texto}</p>
+      </div>`
+    ).join('');
+  } catch(e) { console.error('[AF] porque:', e); }
+}
+
+// ── FAQ accordion ─────────────────────────────────────────
+async function renderFAQ() {
+  const c = document.getElementById('faq-container');
+  if (!c) return;
+  try {
+    const data = await fetch('./assets/data/cursos/faq.json')
+                       .then(r => r.json());
+    c.innerHTML = data.map(cat => `
+      <div class="faq-categoria">
+        <h3 class="faq-cat-titulo">
+          <i class="fa fa-layer-group"></i> ${cat.categoria}
+        </h3>
+        ${cat.preguntas.map((item, i) => `
+          <div class="faq-item" id="faq-${cat.categoria}-${i}">
+            <button class="faq-pregunta"
+                    onclick="AF.toggleFAQ('faq-${cat.categoria}-${i}')">
+              <span>${item.q}</span>
+              <i class="fa fa-chevron-down faq-chevron"></i>
+            </button>
+            <div class="faq-respuesta">
+              <p>${item.a}</p>
+            </div>
+          </div>`
+        ).join('')}
+      </div>`
+    ).join('');
+  } catch(e) { console.error('[AF] faq:', e); }
+}
+
+// ── Contador de estadísticas ──────────────────────────────
+function renderStats() {
+  const c = document.getElementById('stats-container');
+  if (!c) return;
+  const stats = [
+    { numero: '824',  sufijo: '',  label: 'Centros AF en el mundo' },
+    { numero: '138',  sufijo: '',  label: 'Países con presencia' },
+    { numero: '428K', sufijo: '+', label: 'Estudiantes anuales' },
+    { numero: '31',   sufijo: '',  label: 'Sedes en México' },
+    { numero: '100',  sufijo: '%', label: 'Aprobación DELF Junior 2026' },
+    { numero: '1',    sufijo: '',  label: 'Único centro DELF en Chiapas' }
+  ];
+  c.innerHTML = stats.map(s => `
+    <div class="stat-card glass-panel">
+      <span class="stat-numero">${s.numero}<em>${s.sufijo}</em></span>
+      <span class="stat-label">${s.label}</span>
+    </div>`
+  ).join('');
+}
+
+// ── Toggle FAQ ────────────────────────────────────────────
+function toggleFAQ(id) {
+  const item = document.getElementById(id);
+  if (!item) return;
+  item.classList.toggle('open');
+}
+
+// ── Inicializar todos ─────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  renderPorQue();
+  renderFAQ();
+  renderStats();
+});

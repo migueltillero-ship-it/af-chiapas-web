@@ -1,0 +1,168 @@
+{
+  "_meta": {
+    "institucion": "Alliance Française Chiapas",
+    "ciclo": "2026",
+    "ref": "AF-CHIS-2026-004",
+    "nota": "Tarifas orientativas. Confirmar con sede al inscribirse."
+  },
+  "por_que_estudiar": [
+    {
+      "icono": "fa-globe",
+      "titulo": "Idioma del mundo",
+      "texto": "El francés es lengua oficial en 29 países y lengua de trabajo en la ONU, UNESCO, Unión Europea y Cruz Roja Internacional."
+    },
+    {
+      "icono": "fa-graduation-cap",
+      "titulo": "Universidades de élite",
+      "texto": "Francia es el 3er destino mundial para estudiantes extranjeros. Accede a universidades públicas con matrícula desde €170/año."
+    },
+    {
+      "icono": "fa-briefcase",
+      "titulo": "Ventaja profesional",
+      "texto": "El francés es el idioma de la diplomacia, la moda, la gastronomía, las artes y la industria aeronáutica. Diferénciate en el mercado laboral."
+    },
+    {
+      "icono": "fa-certificate",
+      "titulo": "Diplomas vitalicios",
+      "texto": "Los diplomas DELF y DALF no caducan. Una vez aprobados, son reconocidos de por vida por empleadores e instituciones de todo el mundo."
+    },
+    {
+      "icono": "fa-map-marked-alt",
+      "titulo": "Único centro en Chiapas",
+      "texto": "La Alliance Française Chiapas es el único centro evaluador oficial DELF/DALF en todo el estado. Certifícate sin salir de Chiapas."
+    },
+    {
+      "icono": "fa-users",
+      "titulo": "Comunidad francófona",
+      "texto": "300 millones de hablantes en el mundo. Únete a una comunidad global de estudiantes, profesionales y artistas que comparten el amor por el francés."
+    }
+  ],
+  "segmentos": [
+    {
+      "id": "adultos",
+      "nombre": "Adultos",
+      "subtitulo": "Les Adultes",
+      "edad": "15 años en adelante",
+      "icono": "fa-user-graduate",
+      "color": "#00c896",
+      "descripcion": "Aprende francés con profesionales del idioma. Nuestra metodología comunicativa prioriza situaciones reales de la vida cotidiana y profesional. Al finalizar cada nivel, tendrás las herramientas para presentar con éxito un examen oficial DELF.",
+      "niveles": [
+        { "codigo": "A1", "nombre": "Débutant", "descripcion": "Primeros pasos. Presentaciones, saludos, familia, números. Base del idioma.", "modulos": 4, "horas_modulo": 30 },
+        { "codigo": "A2", "nombre": "Élémentaire", "descripcion": "Comunicación básica. Compras, transporte, trabajo, gustos y preferencias.", "modulos": 4, "horas_modulo": 30 },
+        { "codigo": "B1", "nombre": "Intermédiaire", "descripcion": "Independencia lingüística. Viajes, medios, opiniones, narraciones.", "modulos": 9, "horas_modulo": 30 },
+        { "codigo": "B2", "nombre": "Avancé", "descripcion": "Fluidez funcional. Textos complejos, debates, argumentación formal.", "modulos": 9, "horas_modulo": 30 },
+        { "codigo": "C1", "nombre": "Autonome", "descripcion": "Dominio avanzado. Textos académicos, uso flexible en entornos profesionales.", "modulos": "variable", "horas_modulo": 30 },
+        { "codigo": "C2", "nombre": "Maîtrise", "descripcion": "Nivel bilingüe. Comprensión plena y expresión con total naturalidad.", "modulos": "variable", "horas_modulo": 30 }
+      ],
+      "modalidades": [
+        { "id": "regular",    "nombre": "Regular",    "sesiones": "2 veces/semana", "horas_bimestre": 30,  "desc": "El ritmo más popular. Clases entre semana, grupos reducidos." },
+        { "id": "intensivo",  "nombre": "Intensivo",  "sesiones": "4 veces/semana", "horas_bimestre": 60,  "desc": "Avanza al doble de velocidad. Ideal si tienes una fecha de examen." },
+        { "id": "sabatino",   "nombre": "Sabatino",   "sesiones": "Sábados",        "horas_bimestre": 32,  "desc": "Todo el aprendizaje en una sesión semanal larga." },
+        { "id": "particular", "nombre": "Particular", "sesiones": "A convenir",     "horas_bimestre": "flexible", "desc": "Atención 1 a 1 o micro-grupos hasta 3 personas. Horario a tu medida." }
+      ],
+      "manual": "Défi (tomos 1–4)",
+      "evaluacion": "Continua + simulacros DELF por nivel"
+    },
+    {
+      "id": "junior",
+      "nombre": "Jóvenes",
+      "subtitulo": "Junior",
+      "edad": "11 a 17 años",
+      "icono": "fa-user-friends",
+      "color": "#c9a84c",
+      "descripcion": "Programa diseñado para adolescentes con contenidos de su entorno: redes sociales, música, deportes, amistad. El mismo rigor académico que el programa adultos, con una metodología adaptada a su etapa de desarrollo.",
+      "niveles": [
+        { "codigo": "A1", "nombre": "Débutant Junior",    "descripcion": "Primeros contactos con el francés. Enfoque oral y lúdico.", "modulos": 4, "horas_modulo": 28 },
+        { "codigo": "A2", "nombre": "Élémentaire Junior", "descripcion": "Comunicación cotidiana adaptada al mundo adolescente.", "modulos": 4, "horas_modulo": 28 },
+        { "codigo": "B1", "nombre": "Intermédiaire Junior","descripcion": "Expresión de opiniones, proyectos y creatividad.", "modulos": 8, "horas_modulo": 28 },
+        { "codigo": "B2", "nombre": "Avancé Junior",      "descripcion": "Preparación DELF B2 Junior. Nivel universitario.", "modulos": 8, "horas_modulo": 28 }
+      ],
+      "modalidades": [
+        { "id": "regular",  "nombre": "Regular",  "sesiones": "3 horas/semana", "horas_bimestre": 28, "desc": "Clases entre semana o mixtas." },
+        { "id": "sabatino", "nombre": "Sabatino", "sesiones": "Sábados",        "horas_bimestre": 28, "desc": "Sesión semanal intensiva." }
+      ],
+      "manual": "À la Une (tomos 1–4)",
+      "evaluacion": "Continua + DELF Junior (A1, A2, B1, B2)"
+    },
+    {
+      "id": "ninos",
+      "nombre": "Niños",
+      "subtitulo": "Les Enfants",
+      "edad": "4 a 11 años",
+      "icono": "fa-child",
+      "color": "#ed2939",
+      "descripcion": "La infancia es el mejor momento para aprender idiomas. Nuestro programa infantil combina canciones, cuentos, juegos y manualidades para que los niños adquieran el francés de forma natural y divertida.",
+      "niveles": [
+        { "codigo": "Iniciación", "nombre": "Les Petits Loups (4–6 años)", "descripcion": "Acercamiento oral al idioma. Sin lectoescritura. Colores, animales, familia.", "modulos": "variable", "horas_modulo": 16 },
+        { "codigo": "A1",         "nombre": "Les Loups (6–9 años)",         "descripcion": "Introducción formal con apoyo en ilustraciones y actividades lúdicas.", "modulos": 6, "horas_modulo": 20 },
+        { "codigo": "A2",         "nombre": "Les Loups Avancés (9–11 años)","descripcion": "Comprensión y producción oral y escrita básica.", "modulos": 6, "horas_modulo": 20 }
+      ],
+      "modalidades": [
+        { "id": "regular",  "nombre": "Regular",  "sesiones": "2 horas/semana", "horas_bimestre": 16, "desc": "Dos sesiones semanales cortas, ideal para la concentración infantil." },
+        { "id": "sabatino", "nombre": "Sabatino", "sesiones": "Sábados",        "horas_bimestre": 16, "desc": "Sesión sabatina dinámica." }
+      ],
+      "manual": "Loustics (tomos 1–3)",
+      "evaluacion": "DELF Prim (A1.1, A1, A2)"
+    },
+    {
+      "id": "empresarial",
+      "nombre": "Francés Empresarial",
+      "subtitulo": "Pour les Professionnels",
+      "edad": "Profesionales y empresas",
+      "icono": "fa-briefcase",
+      "color": "#002654",
+      "descripcion": "Programas B2B diseñados para empresas, instituciones y profesionales que requieren el francés como herramienta de trabajo. Impartimos en sus instalaciones o en nuestra sede. Ideal para empresas con operaciones en el mundo francófono.",
+      "niveles": [
+        { "codigo": "A2", "nombre": "Comunicación básica", "descripcion": "Correspondencia, saludos protocolarios, presentaciones corporativas.", "modulos": "a definir", "horas_modulo": "a definir" },
+        { "codigo": "B1", "nombre": "Comunicación operativa", "descripcion": "Reuniones, negociaciones, correos formales, atención a clientes.", "modulos": "a definir", "horas_modulo": "a definir" },
+        { "codigo": "B2", "nombre": "Francés ejecutivo", "descripcion": "Presentaciones de alto nivel, contratos, gestión intercultural.", "modulos": "a definir", "horas_modulo": "a definir" }
+      ],
+      "modalidades": [
+        { "id": "grupo_empresa", "nombre": "Grupo empresa",  "sesiones": "3h/semana en su empresa", "horas_bimestre": "a convenir", "desc": "Impartimos en sus instalaciones." },
+        { "id": "ejecutivo",     "nombre": "Ejecutivo 1a1",  "sesiones": "A convenir",               "horas_bimestre": "flexible",    "desc": "Clases privadas para directivos." }
+      ],
+      "manual": "Matériel professionnel spécialisé",
+      "evaluacion": "DELF Pro / DFP (Diplôme de Français Professionnel)"
+    },
+    {
+      "id": "turismo",
+      "nombre": "Gastronomía y Turismo",
+      "subtitulo": "Cours Spécialisé",
+      "edad": "Prestadores de servicios turísticos",
+      "icono": "fa-utensils",
+      "color": "#9c27b0",
+      "descripcion": "Programa único en Chiapas. 48 horas de francés aplicado al sector turístico y hostelero. Diseñado para guías de turistas, chefs, meseros, recepcionistas y todo el personal de contacto con turistas francófonos.",
+      "niveles": [
+        { "codigo": "Módulo 1", "nombre": "La Recepción",  "descripcion": "Check-in, fichas de reservación, pasaportes europeos, protocolos de bienvenida.", "modulos": 1, "horas_modulo": 12 },
+        { "codigo": "Módulo 2", "nombre": "El Hotel",      "descripcion": "Servicios de habitación, quejas, solicitudes, comunicación con huéspedes.", "modulos": 1, "horas_modulo": 12 },
+        { "codigo": "Módulo 3", "nombre": "El Restaurante","descripcion": "Menús, platillos, alérgenos, toma de pedidos, costumbres gastronómicas francesas.", "modulos": 1, "horas_modulo": 12 },
+        { "codigo": "Módulo 4", "nombre": "La Ciudad",     "descripcion": "Direcciones, transportes, sitios de interés, cultura y protocolo de saludo.", "modulos": 1, "horas_modulo": 12 }
+      ],
+      "modalidades": [
+        { "id": "intensivo", "nombre": "Intensivo temático", "sesiones": "4 módulos de 12h", "horas_bimestre": 48, "desc": "Puede tomarse completo o por módulos independientes." }
+      ],
+      "manual": "Material especializado AF Chiapas",
+      "evaluacion": "Constancia AF Chiapas + DFP Tourisme (opcional)"
+    },
+    {
+      "id": "delf_prep",
+      "nombre": "Preparación DELF/DALF",
+      "subtitulo": "Ateliers Intensifs",
+      "edad": "Candidatos a examen",
+      "icono": "fa-certificate",
+      "color": "#ff9800",
+      "descripcion": "Talleres intensivos de preparación para candidatos con fecha de examen. Trabajamos las 4 competencias: comprensión oral, comprensión escrita, producción oral y producción escrita. Simulacros cronometrados con corrección por docente especializado.",
+      "niveles": [
+        { "codigo": "A1–B2", "nombre": "DELF Tous publics",  "descripcion": "Preparación para los 4 niveles DELF adultos.", "modulos": 1, "horas_modulo": 12 },
+        { "codigo": "A1–B2", "nombre": "DELF Junior",        "descripcion": "Preparación específica para candidatos de 12 a 17 años.", "modulos": 1, "horas_modulo": 12 },
+        { "codigo": "C1–C2", "nombre": "DALF",               "descripcion": "Preparación avanzada para los niveles C1 y C2.", "modulos": 1, "horas_modulo": 16 }
+      ],
+      "modalidades": [
+        { "id": "taller",    "nombre": "Taller intensivo", "sesiones": "3 semanas previas al examen", "horas_bimestre": 12, "desc": "Formato intensivo preexamen." },
+        { "id": "particular","nombre": "Particular",       "sesiones": "A convenir",                  "horas_bimestre": "flexible", "desc": "Atención personalizada." }
+      ],
+      "manual": "Réussir le DELF / DALF (Didier)",
+      "evaluacion": "Simulacro completo + retroalimentación individual"
+    }
+  ]
+}
