@@ -815,6 +815,59 @@ body::after{
 }
 .fab:hover .fab-label{opacity:1;transform:translateY(-50%) translateX(-4px)}
 
+/* ──────────────────── BIENVENIDA INMERSIVA ──────────────────── */
+.welcome-hero{
+  text-align:center;padding:1rem 0 2.5rem;position:relative;
+}
+.welcome-eyebrow{
+  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:1rem;display:inline-flex;align-items:center;gap:0.5rem;
+}
+.welcome-eyebrow::before{content:'✦';color:var(--gold)}
+.welcome-title{
+  font-family:var(--display);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:300;
+  line-height:1.15;margin-bottom:0.75rem;
+}
+.welcome-title em{color:var(--gold);font-style:italic}
+.welcome-sub{
+  font-size:1rem;color:var(--muted);max-width:540px;margin:0 auto 1.5rem;line-height:1.7;
+}
+
+/* ──────────────────── OPCIONES (tarjetas seleccionables) ──────────────────── */
+.opt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.85rem;margin-bottom:1.5rem}
+.opt-pick{
+  background:var(--panel);border:1px solid var(--border);border-radius:var(--r);
+  padding:1.25rem 1rem;cursor:pointer;color:var(--white);
+  display:flex;flex-direction:column;align-items:center;gap:0.4rem;
+  font-family:inherit;text-align:center;transition:all 0.25s;
+  position:relative;
+}
+.opt-pick i{font-size:1.4rem;color:var(--gold)}
+.opt-pick:hover{border-color:var(--border-gold);transform:translateY(-2px)}
+.opt-pick.active{border-color:var(--gold);background:rgba(201,164,78,0.08);box-shadow:0 0 24px rgba(201,164,78,0.15)}
+.opt-pick.active::after{
+  content:'✓';position:absolute;top:0.5rem;right:0.6rem;
+  width:20px;height:20px;border-radius:50%;background:var(--gold);color:var(--void);
+  font-size:0.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;
+}
+.opt-pick-name{font-family:var(--display);font-size:1.05rem;font-weight:600}
+.opt-pick-sub{font-size:0.72rem;color:var(--muted);font-family:var(--mono);letter-spacing:0.05em}
+
+/* ──────────────────── RESUMEN CON COSTOS Y HORARIOS ──────────────────── */
+.summary-card{
+  background:linear-gradient(135deg, rgba(201,164,78,0.08), rgba(212,43,58,0.04));
+  border:1px solid var(--border-gold);border-radius:var(--r-lg);padding:1.5rem;margin-bottom:1.5rem;
+}
+.summary-row{display:flex;justify-content:space-between;gap:1rem;padding:0.5rem 0;border-bottom:1px solid var(--border)}
+.summary-row:last-child{border-bottom:none}
+.summary-key{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);align-self:center}
+.summary-val{font-family:var(--display);font-size:1rem;color:var(--white);text-align:right;font-weight:500}
+.summary-note{
+  margin-top:1rem;padding-top:1rem;border-top:1px dashed var(--border);
+  font-size:0.82rem;color:var(--muted);line-height:1.6;
+}
+.summary-note strong{color:var(--gold)}
+
 /* ──────────────────── WHATSAPP CTA POR SECCIÓN ──────────────────── */
 .wa-cta{
   display:flex;align-items:center;justify-content:space-between;gap:1.25rem;
@@ -1310,14 +1363,20 @@ body::after{
     </div>
     <div class="glass form-shell">
       <ol class="form-stepper" id="form-stepper">
-        <li data-step="1" class="active">Modalidad</li>
-        <li data-step="2">Programa</li>
+        <li data-step="1" class="active">¿Dónde?</li>
+        <li data-step="2">Tu curso</li>
         <li data-step="3">Tus datos</li>
+        <li data-step="4">¡Listo!</li>
       </ol>
 
+      <!-- PASO 1: Bienvenida + selección de sede -->
       <div class="form-step active" id="step-1">
-        <h3 class="step-title">¿Dónde quieres estudiar?</h3>
-        <p class="step-help">Elige una opción. Puedes cambiarla después con tu coordinador.</p>
+        <div class="welcome-hero">
+          <p class="welcome-eyebrow">Tu aventura empieza aquí</p>
+          <h3 class="welcome-title">¿Listo / lista para comenzar tu <em>aventura con el francés</em>?</h3>
+          <p class="welcome-sub">Te acompañamos paso a paso. Elige cómo prefieres estudiar y configura tu curso a tu medida — desde donde estés, en grupo o uno a uno, al ritmo que te funcione.</p>
+        </div>
+        <p class="step-help" style="text-align:center;margin-bottom:1.25rem"><strong style="color:var(--gold)">Paso 1 de 3</strong> · ¿Dónde quieres tomar tus clases?</p>
         <div class="sede-grid">
           <button type="button" class="sede-btn virtual" data-sede="virtual" onclick="AF.selectSede('virtual','AF Virtual')">
             <i class="fa fa-globe"></i>
@@ -1333,9 +1392,11 @@ body::after{
         </div>
       </div>
 
+      <!-- PASO 2: Configura tu curso (programa + nivel + formato + ritmo) -->
       <div class="form-step" id="step-2">
-        <h3 class="step-title">¿Qué quieres estudiar?</h3>
-        <p class="step-help">Selecciona programa, nivel y modalidad. Si no sabes tu nivel, déjalo en blanco — te haremos prueba gratuita.</p>
+        <h3 class="step-title">Configura tu curso</h3>
+        <p class="step-help"><strong style="color:var(--gold)">Paso 2 de 3</strong> · Personalízalo a tu medida. Si no sabes tu nivel, déjalo en blanco — te haremos prueba gratuita.</p>
+
         <div class="form-row">
           <div class="form-group">
             <label class="form-label" for="f-curso">Programa *</label>
@@ -1350,22 +1411,54 @@ body::after{
             </select>
           </div>
         </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label" for="f-modalidad">Modalidad *</label>
-            <select id="f-modalidad" class="af-select" onchange="AF.actualizarResumen()">
-              <option value="">Selecciona programa primero</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="f-inicio">¿Cuándo quieres empezar?</label>
-            <select id="f-inicio" class="af-select">
-              <option value="lo_antes_posible">Lo antes posible</option>
-              <option value="proximo_bimestre">Próximo bimestre</option>
-              <option value="solo_consulta">Solo estoy consultando</option>
-            </select>
-          </div>
+
+        <p class="form-label" style="margin:1.25rem 0 0.5rem">Formato de clase *</p>
+        <div class="opt-grid">
+          <button type="button" class="opt-pick" data-formato="individual" onclick="AF.setFormato('individual','Individual (1 a 1)')">
+            <i class="fa fa-user"></i>
+            <span class="opt-pick-name">Individual</span>
+            <span class="opt-pick-sub">1 a 1 · A tu medida</span>
+          </button>
+          <button type="button" class="opt-pick" data-formato="grupal" onclick="AF.setFormato('grupal','Grupal')">
+            <i class="fa fa-users"></i>
+            <span class="opt-pick-name">Grupal</span>
+            <span class="opt-pick-sub">Grupo reducido 8–15</span>
+          </button>
         </div>
+
+        <p class="form-label" style="margin:1rem 0 0.5rem">Ritmo *</p>
+        <div class="opt-grid">
+          <button type="button" class="opt-pick" data-ritmo="regular" onclick="AF.setRitmo('regular','Regular','2 sesiones / semana')">
+            <i class="fa fa-leaf"></i>
+            <span class="opt-pick-name">Regular</span>
+            <span class="opt-pick-sub">2 sesiones / semana</span>
+          </button>
+          <button type="button" class="opt-pick" data-ritmo="intensivo" onclick="AF.setRitmo('intensivo','Intensivo','4 sesiones / semana')">
+            <i class="fa fa-bolt"></i>
+            <span class="opt-pick-name">Intensivo</span>
+            <span class="opt-pick-sub">4 sesiones / semana</span>
+          </button>
+          <button type="button" class="opt-pick" data-ritmo="superintensivo" onclick="AF.setRitmo('superintensivo','Super-intensivo','5 sesiones / semana')">
+            <i class="fa fa-rocket"></i>
+            <span class="opt-pick-name">Super-intensivo</span>
+            <span class="opt-pick-sub">5 sesiones / semana</span>
+          </button>
+          <button type="button" class="opt-pick" data-ritmo="sabatino" onclick="AF.setRitmo('sabatino','Sabatino','1 sesión larga · sábados')">
+            <i class="fa fa-calendar-day"></i>
+            <span class="opt-pick-name">Sabatino</span>
+            <span class="opt-pick-sub">Sábados · sesión larga</span>
+          </button>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="f-inicio">¿Cuándo quieres empezar?</label>
+          <select id="f-inicio" class="af-select">
+            <option value="lo_antes_posible">Lo antes posible</option>
+            <option value="proximo_bimestre">Próximo bimestre</option>
+            <option value="solo_consulta">Solo estoy consultando</option>
+          </select>
+        </div>
+
         <div id="resumen-box" class="resumen" style="display:none">
           <p class="resumen-label">Tu selección</p>
           <p id="resumen-texto" class="resumen-texto"></p>
@@ -1376,9 +1469,23 @@ body::after{
         </div>
       </div>
 
+      <!-- PASO 3: Datos personales + resumen con costos/horarios -->
       <div class="form-step" id="step-3">
         <h3 class="step-title">Tus datos</h3>
-        <p class="step-help">Te contactaremos por correo y WhatsApp con tu folio de seguimiento.</p>
+        <p class="step-help"><strong style="color:var(--gold)">Paso 3 de 3</strong> · Verifica tu configuración y déjanos cómo contactarte.</p>
+
+        <div class="summary-card" id="summary-card">
+          <div class="summary-row"><span class="summary-key">Modalidad</span><span class="summary-val" id="sum-sede">—</span></div>
+          <div class="summary-row"><span class="summary-key">Programa</span><span class="summary-val" id="sum-curso">—</span></div>
+          <div class="summary-row"><span class="summary-key">Nivel</span><span class="summary-val" id="sum-nivel">por evaluar</span></div>
+          <div class="summary-row"><span class="summary-key">Formato</span><span class="summary-val" id="sum-formato">—</span></div>
+          <div class="summary-row"><span class="summary-key">Ritmo</span><span class="summary-val" id="sum-ritmo">—</span></div>
+          <p class="summary-note">
+            <strong>Costos y horarios:</strong> nuestro equipo te enviará el desglose exacto de tarifas y los horarios disponibles
+            para tu configuración en un plazo <strong>máximo de 48 horas hábiles</strong> tras esta solicitud.
+          </p>
+        </div>
+
         <div class="form-row">
           <div class="form-group">
             <label class="form-label" for="f-nombre">Nombre completo *</label>
@@ -1417,27 +1524,44 @@ body::after{
         <div class="form-actions">
           <button type="button" class="btn btn-secondary" onclick="AF.goToStep(2)"><i class="fa fa-arrow-left"></i> Atrás</button>
           <button type="button" class="btn btn-primary" id="btn-enviar" onclick="AF.enviarPreinscripcion()">
-            <i class="fa fa-paper-plane"></i> Enviar preinscripción
+            <i class="fa fa-paper-plane"></i> Enviar solicitud
           </button>
         </div>
       </div>
 
+      <!-- PASO 4: Confirmación con promesa 48h + WhatsApp -->
       <div class="form-step" id="step-ok">
         <div class="confirm-box">
           <div class="confirm-icon">✓</div>
-          <h3 class="confirm-titulo">¡Solicitud recibida!</h3>
+          <h3 class="confirm-titulo">¡Bienvenido / bienvenida, <span id="confirm-nombre">estudiante</span>!</h3>
           <p class="confirm-msg">
-            Tu preinscripción para <strong id="confirm-sede"></strong> fue registrada con éxito.
-            Recibirás un correo de confirmación con tu folio en los próximos minutos.
+            Tu solicitud para <strong id="confirm-sede"></strong> fue <strong style="color:var(--green)">procesada con éxito</strong>.
+            Estamos felices de iniciar este camino contigo.
           </p>
           <p class="confirm-track">Folio de seguimiento: <strong id="confirm-folio"></strong></p>
-          <p class="confirm-msg" style="font-size:0.85rem">
-            Nuestro equipo validará tu solicitud y te contactará en las próximas <strong>24 horas hábiles</strong>
-            por correo y WhatsApp con los siguientes pasos.
+
+          <div class="summary-card" style="text-align:left;width:100%;max-width:480px">
+            <div class="summary-row"><span class="summary-key">Procesada el</span><span class="summary-val" id="confirm-fecha">—</span></div>
+            <div class="summary-row"><span class="summary-key">Respuesta</span><span class="summary-val" style="color:var(--gold)">Máximo 48 h hábiles</span></div>
+            <div class="summary-row"><span class="summary-key">Canal</span><span class="summary-val">Correo + WhatsApp</span></div>
+          </div>
+
+          <p class="confirm-msg" style="font-size:0.92rem">
+            Recibirás de nuestro equipo:
+            <strong>(1)</strong> confirmación de cupo y horario asignado ·
+            <strong>(2)</strong> desglose de costos ·
+            <strong>(3)</strong> datos de pago ·
+            <strong>(4)</strong> acceso a la plataforma.
           </p>
-          <p style="font-size:0.85rem;color:var(--muted)">
+
+          <a id="confirm-wa-btn" href="#" target="_blank" rel="noopener" class="btn btn-glow" style="background:#25d366;box-shadow:0 6px 28px rgba(37,211,102,0.45)">
+            <i class="fab fa-whatsapp"></i> Confirmar por WhatsApp ahora
+          </a>
+
+          <p style="font-size:0.82rem;color:var(--muted);max-width:480px">
             Contacto directo:
-            <a href="mailto:direccionsancristobal@alianzafr.edu.mx" class="af-link">direccionsancristobal@alianzafr.edu.mx</a>
+            <a href="mailto:afsancris@gmail.com" class="af-link">afsancris@gmail.com</a> ·
+            <a href="https://wa.me/529671721870" target="_blank" rel="noopener" class="af-link">+52 967 172 1870</a>
           </p>
           <button type="button" class="btn btn-secondary" onclick="AF.resetForm()">Nueva preinscripción</button>
         </div>
@@ -1638,7 +1762,7 @@ const FAQ = [
 /* ──────────────────── APP ──────────────────── */
 const AF = (() => {
   let cat = null;
-  let estado = {sede:'',sedeName:'',curso:'',cursoNombre:'',nivel:'',modalidad:'',modalidadNombre:'',step:1};
+  let estado = {sede:'',sedeName:'',curso:'',cursoNombre:'',nivel:'',formato:'',formatoNombre:'',ritmo:'',ritmoNombre:'',ritmoDetalle:'',step:1};
 
   function init(){
     if(window.emailjs){ try{ emailjs.init(EMAILJS_PK); }catch(e){ console.warn('[EmailJS]',e); } }
@@ -1841,10 +1965,8 @@ const AF = (() => {
   function updateModalidades(){
     const cid = document.getElementById('f-curso')?.value;
     const sn = document.getElementById('f-nivel');
-    const sm = document.getElementById('f-modalidad');
     if(!cid){
       sn.innerHTML = '<option value="">Selecciona programa primero</option>';
-      sm.innerHTML = '<option value="">Selecciona programa primero</option>';
       return;
     }
     const seg = cat?.segmentos?.find(s => s.id === cid);
@@ -1854,39 +1976,50 @@ const AF = (() => {
     } else {
       sn.innerHTML = '<option value="">Consultar con coordinación</option>';
     }
-    if(seg?.modalidades){
-      sm.innerHTML = '<option value="">Selecciona…</option>' +
-        seg.modalidades.map(m => `<option value="${m.id}">${m.nombre}${m.sesiones?' · '+m.sesiones:''}</option>`).join('');
-    } else {
-      const fb = CURSOS_FALLBACK.find(c => c.id === cid);
-      sm.innerHTML = '<option value="">Selecciona…</option>' +
-        (fb?.tags||['Regular']).map(t => `<option value="${t.toLowerCase()}">${t}</option>`).join('');
-    }
     estado.curso = cid;
     estado.cursoNombre = seg?.nombre || CURSOS_FALLBACK.find(c=>c.id===cid)?.n || cid;
+    actualizarResumen();
+  }
+
+  function setFormato(id, nombre){
+    estado.formato = id;
+    estado.formatoNombre = nombre;
+    document.querySelectorAll('[data-formato]').forEach(b => b.classList.toggle('active', b.dataset.formato === id));
+    actualizarResumen();
+  }
+
+  function setRitmo(id, nombre, detalle){
+    estado.ritmo = id;
+    estado.ritmoNombre = nombre;
+    estado.ritmoDetalle = detalle || '';
+    document.querySelectorAll('[data-ritmo]').forEach(b => b.classList.toggle('active', b.dataset.ritmo === id));
     actualizarResumen();
   }
 
   function actualizarResumen(){
     const curso = document.getElementById('f-curso')?.value;
     const nivel = document.getElementById('f-nivel')?.value;
-    const mod   = document.getElementById('f-modalidad')?.value;
     const box   = document.getElementById('resumen-box');
     const txt   = document.getElementById('resumen-texto');
     if(!box||!txt) return;
-    if(curso && mod){
+    if(curso && estado.formato && estado.ritmo){
       const cNom = estado.cursoNombre || curso;
       const nNom = nivel || 'nivel por evaluar';
-      const mSel = document.getElementById('f-modalidad');
-      const mNom = mSel?.options[mSel.selectedIndex]?.text || mod;
-      txt.textContent = `${cNom} · ${nNom} · ${mNom}`;
+      txt.textContent = `${cNom} · ${nNom} · ${estado.formatoNombre} · ${estado.ritmoNombre}`;
       box.style.display = 'block';
       estado.nivel = nivel;
-      estado.modalidad = mod;
-      estado.modalidadNombre = mNom;
     } else {
       box.style.display = 'none';
     }
+  }
+
+  function llenarResumenFinal(){
+    const set = (id,val) => { const el = document.getElementById(id); if(el) el.textContent = val || '—'; };
+    set('sum-sede',    estado.sedeName);
+    set('sum-curso',   estado.cursoNombre);
+    set('sum-nivel',   estado.nivel || 'por evaluar (prueba gratuita)');
+    set('sum-formato', estado.formatoNombre);
+    set('sum-ritmo',   estado.ritmoNombre + (estado.ritmoDetalle ? ' · ' + estado.ritmoDetalle : ''));
   }
 
   /* ─── Stepper ─── */
@@ -1897,6 +2030,10 @@ const AF = (() => {
       if(i+1 < estado.step) li.classList.add('done');
       else if(i+1 === estado.step) li.classList.add('active');
     });
+    if(estado.step === 4){
+      lis.forEach(li => li.classList.remove('active'));
+      lis.forEach(li => li.classList.add('done'));
+    }
   }
 
   function selectSede(sedeId, sedeNombre){
@@ -1908,15 +2045,18 @@ const AF = (() => {
 
   function goToStep(n){
     if(n === 2 && !estado.sede){
-      alert('Por favor selecciona una modalidad.');
+      alert('Por favor elige dónde quieres estudiar.');
       return;
     }
     if(n === 3){
-      if(!estado.sede){ alert('Selecciona una modalidad primero.'); goToStep(1); return; }
+      if(!estado.sede){ alert('Elige primero dónde quieres estudiar.'); goToStep(1); return; }
       if(!document.getElementById('f-curso')?.value){ alert('Por favor selecciona un programa.'); return; }
-      if(!document.getElementById('f-modalidad')?.value){ alert('Por favor selecciona la modalidad del programa.'); return; }
+      if(!estado.formato){ alert('Por favor selecciona el formato (Individual o Grupal).'); return; }
+      if(!estado.ritmo){ alert('Por favor selecciona el ritmo de estudio.'); return; }
+      llenarResumenFinal();
     }
-    estado.step = (n === 99 ? 3 : n);
+    if(n === 99) estado.step = 4;
+    else estado.step = n;
     document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
     document.getElementById('step-' + (n === 99 ? 'ok' : n))?.classList.add('active');
     updateStepper();
@@ -1971,52 +2111,67 @@ const AF = (() => {
     btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Enviando…';
 
     const folio = generarFolio();
+    const ahora = new Date().toLocaleString('es-MX');
+    const nombre = document.getElementById('f-nombre').value.trim();
+    const email  = document.getElementById('f-email').value.trim();
+    const tel    = document.getElementById('f-tel').value.trim();
+
     const payload = {
       folio,
-      sede: estado.sedeName,
-      curso: estado.cursoNombre || estado.curso,
-      nivel: estado.nivel || '(por evaluar)',
-      modalidad: estado.modalidadNombre || estado.modalidad,
-      nombre:  document.getElementById('f-nombre').value.trim(),
-      email_estudiante: document.getElementById('f-email').value.trim(),
-      telefono: document.getElementById('f-tel').value.trim(),
-      fuente:   document.getElementById('f-fuente').value || 'No indicado',
-      inicio:   document.getElementById('f-inicio').value || 'lo_antes_posible',
-      mensaje:  document.getElementById('f-mensaje').value.trim() || '(Sin mensaje)',
-      fecha:    new Date().toLocaleString('es-MX'),
-      to_email: estado.sede === 'virtual'
-                ? 'direccionsancristobal@alianzafr.edu.mx'
-                : 'direccionsancristobal@alianzafr.edu.mx'
+      sede:      estado.sedeName,
+      curso:     estado.cursoNombre || estado.curso,
+      nivel:     estado.nivel || '(por evaluar)',
+      formato:   estado.formatoNombre || estado.formato || '(no indicado)',
+      ritmo:     estado.ritmoNombre + (estado.ritmoDetalle ? ' (' + estado.ritmoDetalle + ')' : ''),
+      nombre,
+      email_estudiante: email,
+      telefono:  tel,
+      fuente:    document.getElementById('f-fuente').value || 'No indicado',
+      inicio:    document.getElementById('f-inicio').value || 'lo_antes_posible',
+      mensaje:   document.getElementById('f-mensaje').value.trim() || '(Sin mensaje)',
+      fecha:     ahora,
+      to_email:  'afsancris@gmail.com'
     };
 
     try{
       if(!window.emailjs) throw new Error('EmailJS no cargado');
       await emailjs.send(EMAILJS_SID, EMAILJS_TID, payload);
-      document.getElementById('confirm-sede').textContent = estado.sedeName;
-      document.getElementById('confirm-folio').textContent = folio;
+
+      // Confirmación visual con datos del estudiante y promesa 48h
+      document.getElementById('confirm-nombre').textContent = nombre.split(/\s+/)[0] || 'estudiante';
+      document.getElementById('confirm-sede').textContent   = estado.sedeName;
+      document.getElementById('confirm-folio').textContent  = folio;
+      document.getElementById('confirm-fecha').textContent  = ahora;
+
+      // Botón WhatsApp con mensaje pre-rellenado de cierre por parte del estudiante
+      const waMsg = `Hola, soy ${nombre}. Acabo de enviar mi solicitud de preinscripción (folio ${folio}) para ${payload.curso} · ${payload.formato} · ${payload.ritmo} en ${estado.sedeName}. Quedo atento(a) a su respuesta. ¡Gracias!`;
+      const waUrl = `https://wa.me/529671721870?text=${encodeURIComponent(waMsg)}`;
+      const waBtn = document.getElementById('confirm-wa-btn');
+      if(waBtn) waBtn.href = waUrl;
+
       goToStep(99);
     } catch(err){
       console.error('[EmailJS]',err);
-      alert('Hubo un problema al enviar tu preinscripción. Por favor escríbenos directamente a ' + payload.to_email);
+      alert('Hubo un problema al enviar tu solicitud. Por favor escríbenos directamente a afsancris@gmail.com o por WhatsApp al +52 967 172 1870.');
       btn.disabled = false;
-      btn.innerHTML = '<i class="fa fa-paper-plane"></i> Enviar preinscripción';
+      btn.innerHTML = '<i class="fa fa-paper-plane"></i> Enviar solicitud';
     }
   }
 
   function resetForm(){
-    estado = {sede:'',sedeName:'',curso:'',cursoNombre:'',nivel:'',modalidad:'',modalidadNombre:'',step:1};
+    estado = {sede:'',sedeName:'',curso:'',cursoNombre:'',nivel:'',formato:'',formatoNombre:'',ritmo:'',ritmoNombre:'',ritmoDetalle:'',step:1};
     ['f-nombre','f-email','f-tel','f-mensaje'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
-    ['f-curso','f-nivel','f-modalidad','f-fuente','f-inicio'].forEach(id => { const el=document.getElementById(id); if(el) el.selectedIndex=0; });
-    document.querySelectorAll('.sede-btn').forEach(b => b.classList.remove('active'));
+    ['f-curso','f-nivel','f-fuente','f-inicio'].forEach(id => { const el=document.getElementById(id); if(el) el.selectedIndex=0; });
+    document.querySelectorAll('.sede-btn, .opt-pick').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.af-input,.af-select').forEach(e => e.classList.remove('error'));
     document.querySelectorAll('.form-error').forEach(e => e.classList.remove('show'));
     const box = document.getElementById('resumen-box'); if(box) box.style.display='none';
     const btn = document.getElementById('btn-enviar');
-    if(btn){ btn.disabled = false; btn.innerHTML = '<i class="fa fa-paper-plane"></i> Enviar preinscripción'; }
+    if(btn){ btn.disabled = false; btn.innerHTML = '<i class="fa fa-paper-plane"></i> Enviar solicitud'; }
     goToStep(1);
   }
 
-  return { init, toggleMenu, selectSede, goToStep, irA, updateModalidades, actualizarResumen, enviarPreinscripcion, resetForm, toggleFAQ };
+  return { init, toggleMenu, selectSede, goToStep, irA, updateModalidades, setFormato, setRitmo, actualizarResumen, enviarPreinscripcion, resetForm, toggleFAQ };
 })();
 
 document.addEventListener('DOMContentLoaded', () => AF.init());
