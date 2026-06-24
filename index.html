@@ -653,6 +653,42 @@ body::after{
 }
 .slides-frame iframe{width:100%;height:100%;border:0;display:block}
 
+/* ──────────────────── MAPA & SOCIAL ──────────────────── */
+.mapa-wrap{
+  border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--border);
+  aspect-ratio:21/9;box-shadow:var(--shadow);margin-top:2rem;
+}
+.mapa-wrap iframe{width:100%;height:100%;border:0;filter:grayscale(0.2) contrast(1.05)}
+.social-row{
+  display:flex;flex-wrap:wrap;gap:0.75rem;margin-top:1rem;
+}
+.social-btn{
+  width:42px;height:42px;border-radius:50%;
+  background:var(--panel);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--white);text-decoration:none;font-size:1rem;
+  transition:transform 0.2s,background 0.2s,border-color 0.2s,color 0.2s;
+}
+.social-btn:hover{transform:translateY(-3px);border-color:var(--gold);color:var(--gold)}
+.social-btn.fb:hover{color:#1877f2;border-color:#1877f2}
+.social-btn.ig:hover{color:#e4405f;border-color:#e4405f}
+.social-btn.yt:hover{color:#ff0000;border-color:#ff0000}
+.social-btn.wa:hover{color:#25d366;border-color:#25d366}
+.social-btn.tk:hover{color:#fff;border-color:#fff}
+.federation-strip{
+  margin-top:2rem;padding:1.25rem 1.5rem;border-radius:var(--r-lg);
+  background:linear-gradient(135deg,rgba(0,38,84,0.4),rgba(212,43,58,0.2));
+  border:1px solid var(--border-gold);
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+}
+.federation-strip-text{font-size:0.9rem;color:var(--muted);line-height:1.5}
+.federation-strip-text strong{color:var(--white)}
+.federation-strip a{
+  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--gold);text-decoration:none;white-space:nowrap;
+}
+.federation-strip a:hover{text-decoration:underline}
+
 /* ──────────────────── FAB WHATSAPP ──────────────────── */
 .fab{
   position:fixed;bottom:1.5rem;right:1.5rem;z-index:800;
@@ -1036,6 +1072,24 @@ body::after{
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
     </div>
     <p class="nota-legal">* Tarifas 2026 orientativas — confirmar con la sede al momento de inscripción.</p>
+
+    <div class="grid-3" style="margin-top:3rem">
+      <div class="glass porque-card">
+        <div class="porque-icon-wrap"><i class="fa fa-bolt"></i></div>
+        <h3 class="porque-titulo">TCF</h3>
+        <p class="porque-texto">Test de Connaissance du Français. Prueba de nivel oficial con resultados en 24h. Válida 2 años. Acceso a universidades y formación.</p>
+      </div>
+      <div class="glass porque-card">
+        <div class="porque-icon-wrap"><i class="fa fa-passport"></i></div>
+        <h3 class="porque-titulo">TCF Canadá · TEF Canada</h3>
+        <p class="porque-texto">Exámenes oficiales requeridos para inmigración a Quebec y Canadá. Reconocidos por el ministerio MIDI. Validez 2 años.</p>
+      </div>
+      <div class="glass porque-card">
+        <div class="porque-icon-wrap"><i class="fa fa-briefcase"></i></div>
+        <h3 class="porque-titulo">DFP — Francés Profesional</h3>
+        <p class="porque-texto">Diplôme de Français Professionnel de la Cámara de Comercio de París. Sectores: turismo, negocios, hostelería.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1298,7 +1352,33 @@ body::after{
           <li><i class="fab fa-whatsapp"></i><a href="https://wa.me/529671721870" target="_blank" rel="noopener">WhatsApp</a></li>
         </ul>
         <a href="#preinscripcion" class="btn btn-primary" style="margin-top:1.5rem;width:100%;justify-content:center" onclick="AF.selectSede('scsc','San Cristóbal de Las Casas')">Inscribirme presencial</a>
+        <div class="social-row" aria-label="Redes sociales">
+          <a class="social-btn fb" href="https://www.facebook.com/AlianzaFrancesaSanCristobal" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a class="social-btn ig" href="https://www.instagram.com/afsancristobal" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a class="social-btn yt" href="https://youtube.com/@AlianzaFrancesaSanCristobal" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a class="social-btn tk" href="https://www.tiktok.com/@afsancristobal" target="_blank" rel="noopener" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a class="social-btn wa" href="https://wa.me/529671721870" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
       </div>
+    </div>
+
+    <div class="mapa-wrap" aria-label="Ubicación AF San Cristóbal">
+      <iframe
+        src="https://www.google.com/maps?q=Av.+La+Almolonga+80,+Barrio+Santa+Lucia,+San+Cristobal+de+Las+Casas,+Chiapas&output=embed"
+        title="Mapa Alliance Française San Cristóbal"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen></iframe>
+    </div>
+
+    <div class="federation-strip">
+      <div class="federation-strip-text">
+        Miembro oficial de la <strong>Federación de Alianzas Francesas de México</strong> ·
+        31 sedes coordinadas desde Lafontaine 32, Polanco, CDMX
+      </div>
+      <a href="https://alianzafrancesa.org.mx/" target="_blank" rel="noopener">
+        Visitar federación <i class="fa fa-arrow-right"></i>
+      </a>
     </div>
   </div>
 </section>
@@ -1326,10 +1406,11 @@ body::after{
         <a href="https://wa.me/529671721870" target="_blank" rel="noopener">WhatsApp</a>
       </div>
       <div class="footer-col">
-        <p class="footer-col-title">Red hermana</p>
-        <p>AF Tapachula</p>
-        <p>1a Norte #124</p>
-        <a href="mailto:alianzafrancesatapachula@gmail.com">alianzafrancesatapachula@gmail.com</a>
+        <p class="footer-col-title">Red & Federación</p>
+        <a href="https://alianzafrancesa.org.mx/" target="_blank" rel="noopener">Federación México</a>
+        <a href="https://www.fondation-alliancefr.org/" target="_blank" rel="noopener">Fondation Paris</a>
+        <a href="mailto:alianzafrancesatapachula@gmail.com">AF Tapachula</a>
+        <a href="https://www.cavilam.com/" target="_blank" rel="noopener">CAVILAM Vichy</a>
       </div>
     </div>
     <div class="footer-bottom">
