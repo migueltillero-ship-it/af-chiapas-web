@@ -577,6 +577,72 @@ body::after{
 }
 .nota-legal{text-align:center;font-family:var(--mono);font-size:0.6rem;letter-spacing:0.08em;color:var(--hint);margin-top:2rem}
 
+/* ──────────────────── BANNER PROMO ──────────────────── */
+.promo-banner{
+  display:flex;align-items:center;gap:1.5rem;
+  padding:1.5rem 2rem;border-radius:var(--r-lg);
+  background:linear-gradient(135deg,#d42b3a,#a81f2c);
+  border:1px solid rgba(255,255,255,0.15);
+  position:relative;overflow:hidden;flex-wrap:wrap;
+  box-shadow:0 12px 40px rgba(212,43,58,0.35);
+}
+.promo-banner::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 80% 50%, rgba(255,255,255,0.12) 0%, transparent 60%);
+  pointer-events:none;
+}
+.promo-banner-text{flex:1;min-width:240px;position:relative;z-index:1}
+.promo-banner-eyebrow{
+  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;
+  color:rgba(255,255,255,0.75);margin-bottom:0.4rem;display:block;
+}
+.promo-banner-title{
+  font-family:var(--display);font-size:clamp(1.5rem,3.2vw,2.4rem);font-weight:600;
+  color:#fff;line-height:1.1;margin-bottom:0.4rem;
+}
+.promo-banner-title em{color:var(--gold-light);font-style:italic}
+.promo-banner-sub{color:rgba(255,255,255,0.85);font-size:0.92rem;line-height:1.5}
+.promo-banner-cta{
+  position:relative;z-index:1;background:#fff;color:var(--red-dark);
+  padding:0.95rem 1.8rem;border-radius:var(--r);font-family:var(--mono);
+  font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;
+  text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;
+  transition:transform 0.25s,box-shadow 0.25s;
+}
+.promo-banner-cta:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,0.3)}
+
+/* ──────────────────── GALERÍA POSTERS ──────────────────── */
+.posters-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.25rem;
+}
+.poster{
+  position:relative;border-radius:var(--r-lg);overflow:hidden;
+  border:1px solid var(--border);aspect-ratio:3/4;
+  transition:transform 0.3s,border-color 0.3s,box-shadow 0.3s;
+}
+.poster:hover{transform:translateY(-6px);border-color:var(--border-gold);box-shadow:var(--shadow)}
+.poster img{width:100%;height:100%;object-fit:cover;display:block}
+.poster-overlay{
+  position:absolute;inset:auto 0 0 0;
+  background:linear-gradient(to top,rgba(7,17,29,0.95),transparent);
+  padding:2rem 1.25rem 1.25rem;
+}
+.poster-title{
+  font-family:var(--display);font-size:1.15rem;font-weight:600;color:#fff;
+  margin-bottom:0.3rem;
+}
+.poster-sub{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold-light)}
+
+/* ──────────────────── PRESENTACIÓN ──────────────────── */
+.slides-frame{
+  position:relative;width:100%;aspect-ratio:16/9;
+  border-radius:var(--r-lg);overflow:hidden;
+  border:1px solid var(--border-gold);
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+  background:#000;
+}
+.slides-frame iframe{width:100%;height:100%;border:0;display:block}
+
 /* ──────────────────── FAB WHATSAPP ──────────────────── */
 .fab{
   position:fixed;bottom:1.5rem;right:1.5rem;z-index:800;
@@ -631,6 +697,7 @@ body::after{
     <li><a href="#plataforma">Plataforma</a></li>
     <li><a href="#proceso">Cómo funciona</a></li>
     <li><a href="#cursos">Cursos</a></li>
+    <li><a href="#galeria">Galería</a></li>
     <li><a href="#certifications">DELF/DALF</a></li>
     <li><a href="#agenda">Eventos</a></li>
     <li><a href="#contact">Contacto</a></li>
@@ -663,8 +730,24 @@ body::after{
   </div>
 </header>
 
+<!-- BANNER PROMO CLASE GRATIS -->
+<section class="section" style="padding:2rem 0 1rem">
+  <div class="container">
+    <div class="promo-banner">
+      <div class="promo-banner-text">
+        <span class="promo-banner-eyebrow">Promoción permanente</span>
+        <h2 class="promo-banner-title">1 clase de francés <em>gratis</em></h2>
+        <p class="promo-banner-sub">Vive la experiencia AF San Cristóbal sin compromiso. Online o presencial. Tel: 967 172 1870.</p>
+      </div>
+      <a href="#preinscripcion" class="promo-banner-cta">
+        <i class="fa fa-gift"></i> Reservar clase muestra
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- ESTADÍSTICAS -->
-<section id="stats" class="section">
+<section id="stats" class="section" style="padding-top:3rem">
   <div class="container">
     <div id="stats-container" class="grid-6"></div>
   </div>
@@ -807,6 +890,77 @@ body::after{
     <div id="cursos-container" class="grid-3">
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
     </div>
+  </div>
+</section>
+
+<!-- GALERÍA DE CAMPAÑAS -->
+<section id="galeria" class="section section-dark">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-tag">Nos campagnes</span>
+      <h2 class="section-title">Vive la <em>experiencia</em></h2>
+      <p class="section-sub">Cada curso tiene su personalidad. Conoce los programas que hacen de la AF San Cristóbal una experiencia distinta.</p>
+    </div>
+    <div class="posters-grid">
+      <a href="#preinscripcion" class="poster" onclick="AF.selectSede('virtual','AF Virtual')">
+        <img src="src/assets/img/posters/curso-en-linea.png" alt="Aprende francés en línea — clase muestra gratis" loading="lazy" decoding="async">
+        <div class="poster-overlay">
+          <p class="poster-title">Francés en línea</p>
+          <p class="poster-sub">AF Virtual · Clase gratis</p>
+        </div>
+      </a>
+      <a href="#preinscripcion" class="poster" onclick="AF.irA('ninos')">
+        <img src="src/assets/img/posters/curso-ninos.png" alt="Francés para niños en San Cristóbal" loading="lazy" decoding="async">
+        <div class="poster-overlay">
+          <p class="poster-title">Francés Niños</p>
+          <p class="poster-sub">4 a 11 años</p>
+        </div>
+      </a>
+      <a href="#preinscripcion" class="poster" onclick="AF.irA('adultos')">
+        <img src="src/assets/img/posters/cursos-particulares.png" alt="Cursos particulares de francés a tu ritmo" loading="lazy" decoding="async">
+        <div class="poster-overlay">
+          <p class="poster-title">Cursos particulares</p>
+          <p class="poster-sub">A tu ritmo · A tu medida</p>
+        </div>
+      </a>
+      <a href="#preinscripcion" class="poster">
+        <img src="src/assets/img/posters/promo-clase-gratis.png" alt="1 clase de francés gratis" loading="lazy" decoding="async">
+        <div class="poster-overlay">
+          <p class="poster-title">1 clase gratis</p>
+          <p class="poster-sub">Sin compromiso</p>
+        </div>
+      </a>
+      <a href="#plataforma" class="poster" style="grid-column:span 1">
+        <img src="src/assets/img/posters/club-conversacion.png" alt="Club de conversación AF San Cristóbal" loading="lazy" decoding="async">
+        <div class="poster-overlay">
+          <p class="poster-title">Club de Conversación</p>
+          <p class="poster-sub">Refuerza · 1ª sesión gratis</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PRESENTACIÓN INSTITUCIONAL -->
+<section id="presentacion" class="section">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-tag">Présentation institutionnelle</span>
+      <h2 class="section-title">Conoce nuestra <em>propuesta</em></h2>
+      <p class="section-sub">Presentación oficial de la Alliance Française San Cristóbal: misión, metodología y oferta académica.</p>
+    </div>
+    <div class="slides-frame">
+      <iframe
+        src="https://docs.google.com/presentation/d/12VhnZ3nFNd6jFXfGNoIGAeFBr6PC7W8v/embed?start=false&loop=false&delayms=5000"
+        title="Presentación Alliance Française San Cristóbal"
+        loading="lazy"
+        allowfullscreen></iframe>
+    </div>
+    <p class="nota-legal" style="margin-top:1.5rem">
+      <a href="https://docs.google.com/presentation/d/12VhnZ3nFNd6jFXfGNoIGAeFBr6PC7W8v/edit?usp=sharing" target="_blank" rel="noopener" class="af-link">
+        Abrir presentación en Google Slides <i class="fa fa-arrow-up-right-from-square"></i>
+      </a>
+    </p>
   </div>
 </section>
 
