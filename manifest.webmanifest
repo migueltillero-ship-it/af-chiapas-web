@@ -1,0 +1,17 @@
+{
+  "name": "Alliance Française San Cristóbal · AF Virtual",
+  "short_name": "AF San Cristóbal",
+  "description": "Aprende francés en vivo, con tutor IA y certificación oficial DELF/DALF.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#07111d",
+  "theme_color": "#07111d",
+  "lang": "es-MX",
+  "categories": ["education", "languages"],
+  "icons": [
+    { "src": "src/assets/brand/logo-af-chiapas.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "src/assets/brand/logo-af-chiapas.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
