@@ -633,6 +633,16 @@ body::after{
 }
 .poster-sub{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold-light)}
 
+/* ──────────────────── MOVILIDAD ──────────────────── */
+.mov-card{padding:2.5rem;display:flex;flex-direction:column}
+.mov-card .section-tag{text-align:left;display:block;margin-bottom:0.6rem}
+.mov-title{font-family:var(--display);font-size:1.9rem;font-weight:300;margin-bottom:1rem}
+.mov-desc{font-size:0.92rem;color:var(--muted);line-height:1.8;margin-bottom:1.5rem}
+.mov-list{list-style:none;margin-bottom:1.5rem}
+.mov-list li{display:flex;align-items:center;gap:0.7rem;font-size:0.9rem;color:rgba(245,243,238,0.85);margin-bottom:0.55rem}
+.mov-list li i{color:var(--gold);width:16px;text-align:center}
+.mov-card .btn{align-self:flex-start;margin-top:auto}
+
 /* ──────────────────── PRESENTACIÓN ──────────────────── */
 .slides-frame{
   position:relative;width:100%;aspect-ratio:16/9;
@@ -698,6 +708,7 @@ body::after{
     <li><a href="#proceso">Cómo funciona</a></li>
     <li><a href="#cursos">Cursos</a></li>
     <li><a href="#galeria">Galería</a></li>
+    <li><a href="#mobilite">Francia</a></li>
     <li><a href="#certifications">DELF/DALF</a></li>
     <li><a href="#agenda">Eventos</a></li>
     <li><a href="#contact">Contacto</a></li>
@@ -937,6 +948,55 @@ body::after{
           <p class="poster-sub">Refuerza · 1ª sesión gratis</p>
         </div>
       </a>
+    </div>
+  </div>
+</section>
+
+<!-- MOVILIDAD INTERNACIONAL — CAVILAM VICHY + CAMPUS FRANCE -->
+<section id="mobilite" class="section">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-tag">Mobilité internationale</span>
+      <h2 class="section-title">Estudia en <em>Francia</em></h2>
+      <p class="section-sub">Inmersión lingüística en Vichy y asesoría gratuita Campus France para universidades francesas.</p>
+    </div>
+    <div class="grid-2">
+      <div class="glass mov-card">
+        <span class="section-tag">Programa destacado · CAVILAM 2026</span>
+        <h3 class="mov-title">Vichy — Inmersión Total</h3>
+        <p class="mov-desc">
+          Tres semanas de francés intensivo en el corazón de Francia, en alianza con
+          <strong>CAVILAM — Alliance Française de Vichy</strong> y el <strong>Centro de Estudios La Salle</strong>.
+          Programa de movilidad académica con acompañamiento integral desde San Cristóbal hasta Vichy.
+        </p>
+        <ul class="mov-list">
+          <li><i class="fa fa-calendar"></i> 6 – 23 septiembre 2026</li>
+          <li><i class="fa fa-map-marker-alt"></i> Vichy, Francia</li>
+          <li><i class="fa fa-euro-sign"></i> €3,500 por estudiante</li>
+          <li><i class="fa fa-school"></i> Alianza CAVILAM + La Salle</li>
+          <li><i class="fa fa-users"></i> Cupo limitado</li>
+        </ul>
+        <a href="#preinscripcion" class="btn btn-primary" onclick="AF.selectSede('virtual','AF Virtual')">
+          <i class="fa fa-paper-plane"></i> Solicitar información
+        </a>
+      </div>
+      <div class="glass mov-card">
+        <span class="section-tag">Campus France México</span>
+        <h3 class="mov-title">Estudia en una universidad francesa</h3>
+        <p class="mov-desc">
+          Oficina de enlace <strong>Campus France</strong> en Chiapas.
+          Asesoría gratuita para admisiones, becas y trámites migratorios hacia universidades francesas.
+        </p>
+        <ul class="mov-list">
+          <li><i class="fa fa-graduation-cap"></i> Licenciatura, Maestría, Doctorado</li>
+          <li><i class="fa fa-certificate"></i> B2 (Licenciatura) / C1 (Maestría)</li>
+          <li><i class="fa fa-hand-holding-usd"></i> Becas Eiffel y PHC disponibles</li>
+          <li><i class="fa fa-handshake"></i> Asesoría completamente gratuita</li>
+        </ul>
+        <a href="#preinscripcion" class="btn btn-secondary">
+          <i class="fa fa-calendar-check"></i> Agendar asesoría
+        </a>
+      </div>
     </div>
   </div>
 </section>
