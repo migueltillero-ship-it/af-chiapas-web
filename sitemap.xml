@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- TODO: reemplazar el host por el dominio oficial cuando se registre. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/</loc>
+    <loc>https://migueltillero-ship-it.github.io/af-chiapas-web/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
