@@ -30,7 +30,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
 
@@ -82,6 +82,15 @@ html{scroll-behavior:smooth;font-size:16px;-webkit-text-size-adjust:100%}
   --display:'Cormorant Garamond',Georgia,serif;
   --sans:'Syne',system-ui,sans-serif;
   --mono:'Space Mono',monospace;
+  --poster:'Bebas Neue','Syne',sans-serif;
+  /* Paleta de campaña por segmento */
+  --camp-orange:#e85d2d;
+  --camp-orange-light:#ff7d52;
+  --camp-yellow:#fcc419;
+  --camp-mustard:#c8a93d;
+  --camp-cream:#f0ede6;
+  --camp-pink:#e8a8c5;
+  --camp-rose:#d96a82;
   --r:12px;
   --r-lg:20px;
   --r-xl:28px;
@@ -101,6 +110,37 @@ img{max-width:100%;display:block}
 button{font-family:inherit;color:inherit}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+
+/* ──────────────────── CAMPAÑA: tipografía editorial y acentos ──────────────────── */
+.poster-type{
+  font-family:var(--poster);font-weight:400;letter-spacing:0.01em;
+  text-transform:uppercase;line-height:0.85;
+}
+.francais-mega{
+  font-family:var(--poster);font-weight:400;letter-spacing:-0.005em;
+  font-size:clamp(4rem,16vw,15rem);line-height:0.85;
+  text-transform:uppercase;
+}
+.francais-outline{
+  -webkit-text-stroke:1.5px var(--white);color:transparent;
+}
+.vrail{
+  writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);
+  font-family:var(--poster);font-weight:400;letter-spacing:0.18em;
+  text-transform:uppercase;color:var(--gold);font-size:0.95rem;
+  display:inline-block;
+}
+.vrail-red{color:var(--red)}
+.vrail-cyan{color:var(--cyan)}
+.brand-stamp{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  background:var(--white);color:var(--void);
+  padding:0.35rem 0.65rem;border-radius:4px;font-family:var(--display);
+  font-size:0.95rem;font-weight:600;
+}
+.brand-stamp .stamp-af{
+  font-family:var(--poster);font-size:1.4rem;color:var(--red);line-height:1;
+}
 
 /* ──────────────────── FONDO ATMOSFÉRICO ──────────────────── */
 body::before{
@@ -151,20 +191,32 @@ body::after{
 .nav-cta:hover{background:var(--red-dark) !important}
 .nav-toggle{display:none;background:none;border:none;color:var(--white);font-size:1.3rem;cursor:pointer}
 
-/* ──────────────────── HERO ──────────────────── */
+/* ──────────────────── HERO (estilo campaña) ──────────────────── */
 .hero{
   min-height:100vh;display:flex;align-items:center;
-  padding:8rem 1.5rem 4rem;position:relative;z-index:1;
+  padding:7.5rem 1.5rem 4rem;position:relative;z-index:1;
   overflow:hidden;
 }
 .hero::before{
   content:'';position:absolute;inset:0;
   background:
-    radial-gradient(circle at 20% 30%, rgba(79,209,197,0.12) 0%, transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(212,43,58,0.12) 0%, transparent 45%);
+    radial-gradient(circle at 20% 30%, rgba(232,93,45,0.16) 0%, transparent 45%),
+    radial-gradient(circle at 80% 70%, rgba(252,196,25,0.08) 0%, transparent 45%);
   pointer-events:none;
 }
+.hero-grid{
+  position:relative;z-index:1;width:100%;
+  display:grid;grid-template-columns:auto 1fr auto;gap:2rem;align-items:center;
+  max-width:1280px;margin:0 auto;
+}
+.hero-vrail{display:flex;justify-content:center}
 .hero-inner{max-width:880px;margin:0 auto;text-align:center;position:relative;z-index:1}
+.hero-francais{
+  position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);
+  opacity:0.06;pointer-events:none;z-index:0;
+  font-family:var(--poster);font-size:clamp(8rem,22vw,22rem);line-height:0.85;
+  letter-spacing:-0.01em;color:var(--white);white-space:nowrap;
+}
 .hero-eyebrow{
   font-family:var(--mono);font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;
   color:var(--gold);margin-bottom:1.75rem;
@@ -245,6 +297,14 @@ body::after{
   -webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic;
 }
 .section-sub{font-size:1.02rem;color:var(--muted);max-width:620px;margin:0 auto;line-height:1.8}
+.section-head{position:relative}
+.section-head .section-watermark{
+  position:absolute;top:-0.5rem;left:50%;transform:translateX(-50%);
+  font-family:var(--poster);font-size:clamp(4rem,11vw,9rem);line-height:0.85;
+  letter-spacing:-0.005em;color:var(--white);opacity:0.04;
+  pointer-events:none;white-space:nowrap;z-index:0;
+}
+.section-head > *:not(.section-watermark){position:relative;z-index:1}
 
 /* ──────────────────── CRISTAL ──────────────────── */
 .glass{
@@ -362,13 +422,35 @@ body::after{
 .stat-num sup{font-size:1rem;color:var(--red)}
 .stat-label{font-size:0.78rem;color:var(--muted);margin-top:0.4rem;display:block;line-height:1.4}
 
-/* ──────────────────── CURSOS ──────────────────── */
-.curso-card{padding:2rem;cursor:pointer;display:flex;flex-direction:column}
+/* ──────────────────── CURSOS (campaña por segmento) ──────────────────── */
+.curso-card{
+  padding:2rem;cursor:pointer;display:flex;flex-direction:column;
+  position:relative;overflow:hidden;
+  --c-accent:var(--gold);
+}
+.curso-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:var(--c-accent);opacity:0.85;
+}
+.curso-card::after{
+  content:attr(data-mega);position:absolute;top:-1rem;right:-0.5rem;
+  font-family:var(--poster);font-size:5.5rem;line-height:0.85;color:var(--c-accent);
+  opacity:0.08;letter-spacing:-0.02em;pointer-events:none;
+}
+.curso-card[data-seg="adultos"]    { --c-accent:var(--camp-mustard) }
+.curso-card[data-seg="junior"]     { --c-accent:var(--gold-light) }
+.curso-card[data-seg="ninos"]      { --c-accent:var(--camp-yellow) }
+.curso-card[data-seg="empresarial"]{ --c-accent:#7aa3d9 }
+.curso-card[data-seg="turismo"]    { --c-accent:var(--camp-rose) }
+.curso-card[data-seg="delf_prep"]  { --c-accent:var(--camp-orange) }
+.curso-card[data-seg="virtual"]    { --c-accent:var(--cyan) }
 .curso-icon{
   width:54px;height:54px;border-radius:50%;
-  background:rgba(201,164,78,0.12);border:1px solid var(--border-gold);
+  background:color-mix(in srgb, var(--c-accent) 18%, transparent);
+  border:1px solid color-mix(in srgb, var(--c-accent) 50%, transparent);
   display:flex;align-items:center;justify-content:center;
-  font-size:1.3rem;color:var(--gold);margin-bottom:1.25rem;
+  font-size:1.3rem;color:var(--c-accent);margin-bottom:1.25rem;
+  position:relative;z-index:1;
 }
 .curso-nombre{font-family:var(--display);font-size:1.5rem;font-weight:600;margin-bottom:0.25rem}
 .curso-edad{font-size:0.78rem;color:var(--muted);font-family:var(--mono);letter-spacing:0.1em;margin-bottom:1rem;text-transform:uppercase}
@@ -592,6 +674,12 @@ body::after{
   background:radial-gradient(circle at 80% 50%, rgba(255,255,255,0.12) 0%, transparent 60%);
   pointer-events:none;
 }
+.promo-banner::after{
+  content:'GRATIS';position:absolute;top:50%;right:-1rem;transform:translateY(-50%);
+  font-family:var(--poster);font-size:clamp(5rem,12vw,11rem);line-height:0.85;
+  letter-spacing:-0.01em;color:rgba(255,255,255,0.08);pointer-events:none;
+  white-space:nowrap;z-index:0;
+}
 .promo-banner-text{flex:1;min-width:240px;position:relative;z-index:1}
 .promo-banner-eyebrow{
   font-family:var(--mono);font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;
@@ -627,6 +715,13 @@ body::after{
   position:absolute;inset:auto 0 0 0;
   background:linear-gradient(to top,rgba(7,17,29,0.95),transparent);
   padding:2rem 1.25rem 1.25rem;
+}
+.poster .vrail-tag{
+  position:absolute;top:1rem;left:0.5rem;z-index:2;
+  font-family:var(--poster);font-size:0.85rem;letter-spacing:0.18em;
+  writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);
+  text-transform:uppercase;color:rgba(255,255,255,0.9);
+  text-shadow:0 1px 3px rgba(0,0,0,0.5);
 }
 .poster-title{
   font-family:var(--display);font-size:1.15rem;font-weight:600;color:#fff;
@@ -700,6 +795,151 @@ body::after{
   transition:transform 0.25s;
 }
 .fab:hover{transform:scale(1.1)}
+.fab::before,.fab::after{
+  content:'';position:absolute;inset:0;border-radius:50%;
+  border:2px solid #25d366;pointer-events:none;
+}
+.fab::before{animation:wa-pulse 2.4s infinite}
+.fab::after{animation:wa-pulse 2.4s infinite 1.2s}
+@keyframes wa-pulse{
+  0%{transform:scale(1);opacity:0.9}
+  100%{transform:scale(1.8);opacity:0}
+}
+.fab-label{
+  position:absolute;right:70px;top:50%;transform:translateY(-50%);
+  background:rgba(7,17,29,0.92);color:#fff;
+  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;
+  padding:0.5rem 0.9rem;border-radius:var(--r);
+  border:1px solid rgba(37,211,102,0.35);white-space:nowrap;
+  opacity:0;pointer-events:none;transition:opacity 0.25s,transform 0.25s;
+}
+.fab:hover .fab-label{opacity:1;transform:translateY(-50%) translateX(-4px)}
+
+/* ──────────────────── ANATOMÍA DEL CICLO ──────────────────── */
+.ciclo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.25rem;margin-bottom:2rem}
+.ciclo-card{
+  padding:1.75rem 1.5rem;border-radius:var(--r-lg);
+  background:var(--panel);border:1px solid var(--border);
+  display:flex;flex-direction:column;gap:0.5rem;position:relative;overflow:hidden;
+  --c:var(--gold);
+}
+.ciclo-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--c);
+}
+.ciclo-card[data-r="regular"]        {--c:var(--gold)}
+.ciclo-card[data-r="intensivo"]      {--c:var(--camp-orange)}
+.ciclo-card[data-r="superintensivo"] {--c:var(--red)}
+.ciclo-card[data-r="sabatino"]       {--c:var(--cyan)}
+.ciclo-card[data-r="ninos"]          {--c:var(--camp-yellow)}
+.ciclo-card[data-r="junior"]         {--c:var(--gold-light)}
+.ciclo-tag{
+  font-family:var(--mono);font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--c);
+}
+.ciclo-num{
+  font-family:var(--poster);font-size:3.5rem;line-height:0.85;color:var(--white);
+  letter-spacing:-0.02em;
+}
+.ciclo-num small{font-family:var(--mono);font-size:0.9rem;letter-spacing:0.08em;color:var(--muted);margin-left:0.4rem}
+.ciclo-detalle{font-size:0.86rem;color:var(--muted);line-height:1.6}
+.ciclo-detalle strong{color:var(--white)}
+
+.curso-ciclo-badge{
+  display:inline-flex;align-items:center;gap:0.4rem;
+  font-family:var(--mono);font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;
+  background:rgba(201,164,78,0.08);border:1px solid var(--border-gold);
+  color:var(--gold);padding:0.35rem 0.6rem;border-radius:4px;
+  margin-bottom:0.75rem;align-self:flex-start;
+}
+.curso-ciclo-badge i{color:var(--gold)}
+
+/* ──────────────────── BIENVENIDA INMERSIVA ──────────────────── */
+.welcome-hero{
+  text-align:center;padding:1rem 0 2.5rem;position:relative;
+}
+.welcome-eyebrow{
+  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:1rem;display:inline-flex;align-items:center;gap:0.5rem;
+}
+.welcome-eyebrow::before{content:'✦';color:var(--gold)}
+.welcome-title{
+  font-family:var(--display);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:300;
+  line-height:1.15;margin-bottom:0.75rem;
+}
+.welcome-title em{color:var(--gold);font-style:italic}
+.welcome-sub{
+  font-size:1rem;color:var(--muted);max-width:540px;margin:0 auto 1.5rem;line-height:1.7;
+}
+
+/* ──────────────────── OPCIONES (tarjetas seleccionables) ──────────────────── */
+.opt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.85rem;margin-bottom:1.5rem}
+.opt-pick{
+  background:var(--panel);border:1px solid var(--border);border-radius:var(--r);
+  padding:1.25rem 1rem;cursor:pointer;color:var(--white);
+  display:flex;flex-direction:column;align-items:center;gap:0.4rem;
+  font-family:inherit;text-align:center;transition:all 0.25s;
+  position:relative;
+}
+.opt-pick i{font-size:1.4rem;color:var(--gold)}
+.opt-pick:hover{border-color:var(--border-gold);transform:translateY(-2px)}
+.opt-pick.active{border-color:var(--gold);background:rgba(201,164,78,0.08);box-shadow:0 0 24px rgba(201,164,78,0.15)}
+.opt-pick.active::after{
+  content:'✓';position:absolute;top:0.5rem;right:0.6rem;
+  width:20px;height:20px;border-radius:50%;background:var(--gold);color:var(--void);
+  font-size:0.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;
+}
+.opt-pick-name{font-family:var(--display);font-size:1.05rem;font-weight:600}
+.opt-pick-sub{font-size:0.72rem;color:var(--muted);font-family:var(--mono);letter-spacing:0.05em}
+
+/* ──────────────────── RESUMEN CON COSTOS Y HORARIOS ──────────────────── */
+.summary-card{
+  background:linear-gradient(135deg, rgba(201,164,78,0.08), rgba(212,43,58,0.04));
+  border:1px solid var(--border-gold);border-radius:var(--r-lg);padding:1.5rem;margin-bottom:1.5rem;
+}
+.summary-row{display:flex;justify-content:space-between;gap:1rem;padding:0.5rem 0;border-bottom:1px solid var(--border)}
+.summary-row:last-child{border-bottom:none}
+.summary-key{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);align-self:center}
+.summary-val{font-family:var(--display);font-size:1rem;color:var(--white);text-align:right;font-weight:500}
+.summary-note{
+  margin-top:1rem;padding-top:1rem;border-top:1px dashed var(--border);
+  font-size:0.82rem;color:var(--muted);line-height:1.6;
+}
+.summary-note strong{color:var(--gold)}
+
+/* ──────────────────── WHATSAPP CTA POR SECCIÓN ──────────────────── */
+.wa-cta{
+  display:flex;align-items:center;justify-content:space-between;gap:1.25rem;
+  margin-top:3rem;padding:1.25rem 1.75rem;border-radius:var(--r-lg);
+  background:linear-gradient(135deg, rgba(37,211,102,0.12), rgba(37,211,102,0.04));
+  border:1px solid rgba(37,211,102,0.35);
+  flex-wrap:wrap;position:relative;overflow:hidden;
+}
+.wa-cta::before{
+  content:'';position:absolute;left:-1.5rem;top:50%;transform:translateY(-50%);
+  width:120px;height:120px;border-radius:50%;
+  background:radial-gradient(circle, rgba(37,211,102,0.18), transparent 70%);
+  pointer-events:none;
+}
+.wa-cta-text{
+  font-size:1rem;color:rgba(245,243,238,0.9);line-height:1.5;
+  position:relative;z-index:1;
+}
+.wa-cta-text strong{color:#25d366;font-weight:600}
+.wa-cta-btn{
+  display:inline-flex;align-items:center;gap:0.6rem;position:relative;z-index:1;
+  background:#25d366;color:#fff;padding:0.85rem 1.4rem;border-radius:var(--r);
+  font-family:var(--mono);font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;
+  font-weight:700;text-decoration:none;transition:transform 0.2s,box-shadow 0.25s;
+  white-space:nowrap;
+}
+.wa-cta-btn:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(37,211,102,0.4)}
+.wa-cta-btn i{font-size:1rem}
+
+@media(max-width:640px){
+  .wa-cta{padding:1rem 1.25rem;margin-top:2rem}
+  .wa-cta-btn{font-size:0.55rem;padding:0.7rem 1rem;width:100%;justify-content:center}
+  .wa-cta-text{width:100%}
+}
 
 /* ──────────────────── RESPONSIVE ──────────────────── */
 @media(max-width:960px){
@@ -714,6 +954,12 @@ body::after{
   .nav-links.open{transform:translateY(0)}
   .nav-links a{padding:0.85rem 1rem;font-size:0.7rem;letter-spacing:0.15em}
   .nav-toggle{display:block}
+}
+@media(max-width:960px){
+  .hero-grid{grid-template-columns:1fr;gap:0}
+  .hero-vrail{display:none}
+  .hero-francais{font-size:clamp(6rem,28vw,12rem);opacity:0.05}
+  .section-head .section-watermark{font-size:clamp(3rem,12vw,6rem)}
 }
 @media(max-width:640px){
   .hero-title{font-size:2.6rem}
@@ -744,6 +990,7 @@ body::after{
     <li><a href="#plataforma">Plataforma</a></li>
     <li><a href="#proceso">Cómo funciona</a></li>
     <li><a href="#cursos">Cursos</a></li>
+    <li><a href="#ciclo">Ciclo 6 sem.</a></li>
     <li><a href="#galeria">Galería</a></li>
     <li><a href="#mobilite">Francia</a></li>
     <li><a href="#certifications">DELF/DALF</a></li>
@@ -753,27 +1000,36 @@ body::after{
   </ul>
 </nav>
 
-<!-- HERO -->
+<!-- HERO (estilo campaña editorial) -->
 <header id="accueil" class="hero">
-  <div class="container hero-inner">
-    <div class="hero-pill"><span class="dot"></span> Primera Alliance Française Virtual de México</div>
-    <h1 class="hero-title">
-      Aprende francés
-      <em>desde donde estés.</em>
-      <span class="grad">Certifícate con el mundo.</span>
-    </h1>
-    <p class="hero-tagline">
-      Clases en vivo con profesores certificados, tutor de IA disponible 24/7, comunidad francófona global
-      y certificación oficial DELF/DALF. Único centro evaluador en Chiapas, ahora abierto al mundo.
-    </p>
-    <div class="hero-actions">
-      <a href="#preinscripcion" class="btn btn-glow"><i class="fa fa-rocket"></i> Inscribirme ahora</a>
-      <a href="#plataforma" class="btn btn-ghost"><i class="fa fa-play"></i> Conocer la plataforma</a>
+  <div class="hero-francais" aria-hidden="true">FRANÇAIS</div>
+  <div class="hero-grid">
+    <div class="hero-vrail">
+      <span class="vrail vrail-red">Vive la expérience</span>
     </div>
-    <div class="hero-trust">
-      <span><i class="fa fa-globe"></i> 824 AF · 138 países</span>
-      <span><i class="fa fa-certificate"></i> Centro DELF/DALF oficial</span>
-      <span><i class="fa fa-bolt"></i> Inscripción 100% en línea</span>
+    <div class="hero-inner">
+      <div class="hero-pill"><span class="dot"></span> Primera Alliance Française Virtual de México</div>
+      <h1 class="hero-title">
+        Aprende francés
+        <em>desde donde estés.</em>
+        <span class="grad">Certifícate con el mundo.</span>
+      </h1>
+      <p class="hero-tagline">
+        Clases en vivo con profesores certificados, tutor de IA disponible 24/7, comunidad francófona global
+        y certificación oficial DELF/DALF. Único centro evaluador en Chiapas, ahora abierto al mundo.
+      </p>
+      <div class="hero-actions">
+        <a href="#preinscripcion" class="btn btn-glow"><i class="fa fa-rocket"></i> Inscribirme ahora</a>
+        <a href="#plataforma" class="btn btn-ghost"><i class="fa fa-play"></i> Conocer la plataforma</a>
+      </div>
+      <div class="hero-trust">
+        <span><i class="fa fa-globe"></i> 824 AF · 138 países</span>
+        <span><i class="fa fa-certificate"></i> Centro DELF/DALF oficial</span>
+        <span><i class="fa fa-bolt"></i> 967 172 1870 · Clase muestra gratis</span>
+      </div>
+    </div>
+    <div class="hero-vrail">
+      <span class="vrail">Clase muestra gratis</span>
     </div>
   </div>
 </header>
@@ -802,9 +1058,10 @@ body::after{
 </section>
 
 <!-- PLATAFORMA VIRTUAL -->
-<section id="plataforma" class="section section-dark">
+<section id="plataforma" class="section section-dark" data-wa-section="la Plataforma Virtual">
   <div class="container">
     <div class="section-head">
+      <span class="section-watermark" aria-hidden="true">PLATEFORME</span>
       <span class="section-tag">Notre plateforme</span>
       <h2 class="section-title">La <span class="grad">plataforma virtual</span> más moderna de la red AF</h2>
       <p class="section-sub">
@@ -869,7 +1126,7 @@ body::after{
 </section>
 
 <!-- PROCESO AUTOMATIZADO -->
-<section id="proceso" class="section">
+<section id="proceso" class="section" data-wa-section="el proceso de inscripción">
   <div class="container">
     <div class="section-head">
       <span class="section-tag">100% automatizado</span>
@@ -928,9 +1185,10 @@ body::after{
 </section>
 
 <!-- CURSOS -->
-<section id="cursos" class="section">
+<section id="cursos" class="section" data-wa-section="los programas académicos">
   <div class="container">
     <div class="section-head">
+      <span class="section-watermark" aria-hidden="true">FRANÇAIS</span>
       <span class="section-tag">Nos programmes</span>
       <h2 class="section-title">Oferta <em>académica</em></h2>
       <p class="section-sub">Programas para todas las edades y objetivos. Metodología comunicativa alineada al Marco Común Europeo de Referencia (MCER).</p>
@@ -942,15 +1200,17 @@ body::after{
 </section>
 
 <!-- GALERÍA DE CAMPAÑAS -->
-<section id="galeria" class="section section-dark">
+<section id="galeria" class="section section-dark" data-wa-section="nuestras campañas y carteles">
   <div class="container">
     <div class="section-head">
+      <span class="section-watermark" aria-hidden="true">CAMPAGNES</span>
       <span class="section-tag">Nos campagnes</span>
       <h2 class="section-title">Vive la <em>experiencia</em></h2>
       <p class="section-sub">Cada curso tiene su personalidad. Conoce los programas que hacen de la AF San Cristóbal una experiencia distinta.</p>
     </div>
     <div class="posters-grid">
       <a href="#preinscripcion" class="poster" onclick="AF.selectSede('virtual','AF Virtual')">
+        <span class="vrail-tag">Vive la experiencia</span>
         <img src="src/assets/img/posters/curso-en-linea.png" alt="Aprende francés en línea — clase muestra gratis" loading="lazy" decoding="async">
         <div class="poster-overlay">
           <p class="poster-title">Francés en línea</p>
@@ -958,6 +1218,7 @@ body::after{
         </div>
       </a>
       <a href="#preinscripcion" class="poster" onclick="AF.irA('ninos')">
+        <span class="vrail-tag">Clase muestra gratis</span>
         <img src="src/assets/img/posters/curso-ninos.png" alt="Francés para niños en San Cristóbal" loading="lazy" decoding="async">
         <div class="poster-overlay">
           <p class="poster-title">Francés Niños</p>
@@ -965,6 +1226,7 @@ body::after{
         </div>
       </a>
       <a href="#preinscripcion" class="poster" onclick="AF.irA('adultos')">
+        <span class="vrail-tag">Cursos particulares</span>
         <img src="src/assets/img/posters/cursos-particulares.png" alt="Cursos particulares de francés a tu ritmo" loading="lazy" decoding="async">
         <div class="poster-overlay">
           <p class="poster-title">Cursos particulares</p>
@@ -972,6 +1234,7 @@ body::after{
         </div>
       </a>
       <a href="#preinscripcion" class="poster">
+        <span class="vrail-tag">Vive la experiencia</span>
         <img src="src/assets/img/posters/promo-clase-gratis.png" alt="1 clase de francés gratis" loading="lazy" decoding="async">
         <div class="poster-overlay">
           <p class="poster-title">1 clase gratis</p>
@@ -979,6 +1242,7 @@ body::after{
         </div>
       </a>
       <a href="#plataforma" class="poster" style="grid-column:span 1">
+        <span class="vrail-tag">Refuerza tu conocimiento</span>
         <img src="src/assets/img/posters/club-conversacion.png" alt="Club de conversación AF San Cristóbal" loading="lazy" decoding="async">
         <div class="poster-overlay">
           <p class="poster-title">Club de Conversación</p>
@@ -990,9 +1254,10 @@ body::after{
 </section>
 
 <!-- MOVILIDAD INTERNACIONAL — CAVILAM VICHY + CAMPUS FRANCE -->
-<section id="mobilite" class="section">
+<section id="mobilite" class="section" data-wa-section="estudiar en Francia (CAVILAM / Campus France)">
   <div class="container">
     <div class="section-head">
+      <span class="section-watermark" aria-hidden="true">FRANCE</span>
       <span class="section-tag">Mobilité internationale</span>
       <h2 class="section-title">Estudia en <em>Francia</em></h2>
       <p class="section-sub">Inmersión lingüística en Vichy y asesoría gratuita Campus France para universidades francesas.</p>
@@ -1039,7 +1304,7 @@ body::after{
 </section>
 
 <!-- PRESENTACIÓN INSTITUCIONAL -->
-<section id="presentacion" class="section">
+<section id="presentacion" class="section" data-wa-section="la presentación institucional">
   <div class="container">
     <div class="section-head">
       <span class="section-tag">Présentation institutionnelle</span>
@@ -1061,10 +1326,85 @@ body::after{
   </div>
 </section>
 
-<!-- DELF/DALF -->
-<section id="certifications" class="section section-dark">
+<!-- ANATOMÍA DEL CICLO · 6 semanas estándar -->
+<section id="ciclo" class="section" data-wa-section="el modelo de ciclos de 6 semanas">
   <div class="container">
     <div class="section-head">
+      <span class="section-watermark" aria-hidden="true">CICLO 6 SEMAINES</span>
+      <span class="section-tag">Notre modèle pédagogique</span>
+      <h2 class="section-title">Ciclo estándar de <em>6 semanas</em></h2>
+      <p class="section-sub">
+        Todos nuestros programas operan en ciclos de <strong>6 semanas</strong> (~1.5 meses).
+        Avance medible, contenidos compactos y la flexibilidad de elegir el ritmo que se adapta a tu vida.
+      </p>
+    </div>
+
+    <div class="ciclo-grid">
+      <div class="ciclo-card" data-r="regular">
+        <span class="ciclo-tag">Adultos · Regular</span>
+        <div class="ciclo-num">24<small>horas / ciclo</small></div>
+        <p class="ciclo-detalle"><strong>2 sesiones / semana</strong> · 4 h/sem · clases entre semana</p>
+        <p class="ciclo-detalle">Avance equivalente a <strong>~1/3 de un nivel MCER</strong> (A1, A2…). Llegas al B2 en ~3 años.</p>
+      </div>
+      <div class="ciclo-card" data-r="intensivo">
+        <span class="ciclo-tag">Adultos · Intensivo</span>
+        <div class="ciclo-num">48<small>horas / ciclo</small></div>
+        <p class="ciclo-detalle"><strong>4 sesiones / semana</strong> · 8 h/sem · doble velocidad</p>
+        <p class="ciclo-detalle">Avance equivalente a <strong>~2/3 de un nivel MCER</strong> por ciclo. Ideal con fecha DELF cercana.</p>
+      </div>
+      <div class="ciclo-card" data-r="superintensivo">
+        <span class="ciclo-tag">Adultos · Super-intensivo</span>
+        <div class="ciclo-num">72<small>horas / ciclo</small></div>
+        <p class="ciclo-detalle"><strong>5 sesiones / semana</strong> · 12 h/sem · inmersión total</p>
+        <p class="ciclo-detalle">Avance equivalente a <strong>1 nivel MCER completo</strong> en un solo ciclo de 6 semanas.</p>
+      </div>
+      <div class="ciclo-card" data-r="sabatino">
+        <span class="ciclo-tag">Adultos · Sabatino</span>
+        <div class="ciclo-num">24<small>horas / ciclo</small></div>
+        <p class="ciclo-detalle"><strong>1 sesión larga sabatina</strong> · 4 h/sáb · solo fines de semana</p>
+        <p class="ciclo-detalle">Mismo avance que Regular (<strong>~1/3 de nivel MCER</strong>) concentrado en sábados.</p>
+      </div>
+      <div class="ciclo-card" data-r="junior">
+        <span class="ciclo-tag">Jóvenes · 11–17 años</span>
+        <div class="ciclo-num">24<small>horas / ciclo</small></div>
+        <p class="ciclo-detalle"><strong>2 sesiones / semana</strong> · 4 h/sem · contenidos adolescentes</p>
+        <p class="ciclo-detalle">Avance hacia <strong>DELF Junior A1/A2/B1/B2</strong>. Manual <em>À la Une</em>.</p>
+      </div>
+      <div class="ciclo-card" data-r="ninos">
+        <span class="ciclo-tag">Niños · 4–11 años</span>
+        <div class="ciclo-num">18<small>horas / ciclo</small></div>
+        <p class="ciclo-detalle"><strong>2 sesiones cortas / semana</strong> · 3 h/sem · enfoque lúdico</p>
+        <p class="ciclo-detalle">Vocabulario temático, canciones, juegos. Camino al <strong>DELF Prim</strong>. Manual <em>Loustics</em>.</p>
+      </div>
+    </div>
+
+    <div class="summary-card" style="margin-top:0">
+      <div class="summary-row">
+        <span class="summary-key">Ciclo</span>
+        <span class="summary-val">6 semanas · ~1.5 meses</span>
+      </div>
+      <div class="summary-row">
+        <span class="summary-key">Ciclos por año</span>
+        <span class="summary-val">Hasta 8 ciclos por año</span>
+      </div>
+      <div class="summary-row">
+        <span class="summary-key">Modalidades</span>
+        <span class="summary-val">Virtual · Presencial · Individual · Grupal</span>
+      </div>
+      <p class="summary-note">
+        <strong>¿Por qué 6 semanas?</strong> Ciclos cortos = avance visible, mejor retención y la posibilidad de
+        ajustar tu ritmo cada bimestre. <strong>Niños y adolescentes también</strong> operan bajo el mismo modelo
+        — adaptado en duración de sesión y contenidos a su etapa de desarrollo.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- DELF/DALF -->
+<section id="certifications" class="section section-dark" data-wa-section="los exámenes DELF/DALF/TCF">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-watermark" aria-hidden="true">DELF · DALF</span>
       <span class="section-tag">Centre officiel évaluateur · Único en Chiapas</span>
       <h2 class="section-title">Certifications <em>officielles</em></h2>
       <p class="section-sub">Diplomas vitalicios expedidos por el Ministerio de Educación de Francia. Reconocidos en más de 170 países.</p>
@@ -1099,7 +1439,7 @@ body::after{
 
 
 <!-- AGENDA -->
-<section id="agenda" class="section section-dark">
+<section id="agenda" class="section section-dark" data-wa-section="los eventos culturales">
   <div class="container">
     <div class="section-head">
       <span class="section-tag">Agenda culturelle</span>
@@ -1113,7 +1453,7 @@ body::after{
 </section>
 
 <!-- FAQ -->
-<section id="faq" class="section">
+<section id="faq" class="section" data-wa-section="preguntas frecuentes">
   <div class="container">
     <div class="section-head">
       <span class="section-tag">Questions fréquentes</span>
@@ -1129,20 +1469,27 @@ body::after{
 <section id="preinscripcion" class="section section-dark">
   <div class="container">
     <div class="section-head">
+      <span class="section-watermark" aria-hidden="true">INSCRIPTION</span>
       <span class="section-tag">Démarrez maintenant</span>
       <h2 class="section-title">Preinscripción <em>en línea</em></h2>
       <p class="section-sub">3 pasos. Te enviamos folio de seguimiento al instante y confirmación administrativa en menos de 24 horas hábiles.</p>
     </div>
     <div class="glass form-shell">
       <ol class="form-stepper" id="form-stepper">
-        <li data-step="1" class="active">Modalidad</li>
-        <li data-step="2">Programa</li>
+        <li data-step="1" class="active">¿Dónde?</li>
+        <li data-step="2">Tu curso</li>
         <li data-step="3">Tus datos</li>
+        <li data-step="4">¡Listo!</li>
       </ol>
 
+      <!-- PASO 1: Bienvenida + selección de sede -->
       <div class="form-step active" id="step-1">
-        <h3 class="step-title">¿Dónde quieres estudiar?</h3>
-        <p class="step-help">Elige una opción. Puedes cambiarla después con tu coordinador.</p>
+        <div class="welcome-hero">
+          <p class="welcome-eyebrow">Tu aventura empieza aquí</p>
+          <h3 class="welcome-title">¿Listo / lista para comenzar tu <em>aventura con el francés</em>?</h3>
+          <p class="welcome-sub">Te acompañamos paso a paso. Elige cómo prefieres estudiar y configura tu curso a tu medida — desde donde estés, en grupo o uno a uno, al ritmo que te funcione.</p>
+        </div>
+        <p class="step-help" style="text-align:center;margin-bottom:1.25rem"><strong style="color:var(--gold)">Paso 1 de 3</strong> · ¿Dónde quieres tomar tus clases?</p>
         <div class="sede-grid">
           <button type="button" class="sede-btn virtual" data-sede="virtual" onclick="AF.selectSede('virtual','AF Virtual')">
             <i class="fa fa-globe"></i>
@@ -1158,9 +1505,11 @@ body::after{
         </div>
       </div>
 
+      <!-- PASO 2: Configura tu curso (programa + nivel + formato + ritmo) -->
       <div class="form-step" id="step-2">
-        <h3 class="step-title">¿Qué quieres estudiar?</h3>
-        <p class="step-help">Selecciona programa, nivel y modalidad. Si no sabes tu nivel, déjalo en blanco — te haremos prueba gratuita.</p>
+        <h3 class="step-title">Configura tu curso</h3>
+        <p class="step-help"><strong style="color:var(--gold)">Paso 2 de 3</strong> · Personalízalo a tu medida. Si no sabes tu nivel, déjalo en blanco — te haremos prueba gratuita.</p>
+
         <div class="form-row">
           <div class="form-group">
             <label class="form-label" for="f-curso">Programa *</label>
@@ -1175,22 +1524,54 @@ body::after{
             </select>
           </div>
         </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label" for="f-modalidad">Modalidad *</label>
-            <select id="f-modalidad" class="af-select" onchange="AF.actualizarResumen()">
-              <option value="">Selecciona programa primero</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="f-inicio">¿Cuándo quieres empezar?</label>
-            <select id="f-inicio" class="af-select">
-              <option value="lo_antes_posible">Lo antes posible</option>
-              <option value="proximo_bimestre">Próximo bimestre</option>
-              <option value="solo_consulta">Solo estoy consultando</option>
-            </select>
-          </div>
+
+        <p class="form-label" style="margin:1.25rem 0 0.5rem">Formato de clase *</p>
+        <div class="opt-grid">
+          <button type="button" class="opt-pick" data-formato="individual" onclick="AF.setFormato('individual','Individual (1 a 1)')">
+            <i class="fa fa-user"></i>
+            <span class="opt-pick-name">Individual</span>
+            <span class="opt-pick-sub">1 a 1 · A tu medida</span>
+          </button>
+          <button type="button" class="opt-pick" data-formato="grupal" onclick="AF.setFormato('grupal','Grupal')">
+            <i class="fa fa-users"></i>
+            <span class="opt-pick-name">Grupal</span>
+            <span class="opt-pick-sub">Grupo reducido 8–15</span>
+          </button>
         </div>
+
+        <p class="form-label" style="margin:1rem 0 0.5rem">Ritmo *</p>
+        <div class="opt-grid">
+          <button type="button" class="opt-pick" data-ritmo="regular" onclick="AF.setRitmo('regular','Regular','2 sesiones / semana')">
+            <i class="fa fa-leaf"></i>
+            <span class="opt-pick-name">Regular</span>
+            <span class="opt-pick-sub">2 sesiones / semana</span>
+          </button>
+          <button type="button" class="opt-pick" data-ritmo="intensivo" onclick="AF.setRitmo('intensivo','Intensivo','4 sesiones / semana')">
+            <i class="fa fa-bolt"></i>
+            <span class="opt-pick-name">Intensivo</span>
+            <span class="opt-pick-sub">4 sesiones / semana</span>
+          </button>
+          <button type="button" class="opt-pick" data-ritmo="superintensivo" onclick="AF.setRitmo('superintensivo','Super-intensivo','5 sesiones / semana')">
+            <i class="fa fa-rocket"></i>
+            <span class="opt-pick-name">Super-intensivo</span>
+            <span class="opt-pick-sub">5 sesiones / semana</span>
+          </button>
+          <button type="button" class="opt-pick" data-ritmo="sabatino" onclick="AF.setRitmo('sabatino','Sabatino','1 sesión larga · sábados')">
+            <i class="fa fa-calendar-day"></i>
+            <span class="opt-pick-name">Sabatino</span>
+            <span class="opt-pick-sub">Sábados · sesión larga</span>
+          </button>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="f-inicio">¿Cuándo quieres empezar?</label>
+          <select id="f-inicio" class="af-select">
+            <option value="lo_antes_posible">Lo antes posible</option>
+            <option value="proximo_bimestre">Próximo bimestre</option>
+            <option value="solo_consulta">Solo estoy consultando</option>
+          </select>
+        </div>
+
         <div id="resumen-box" class="resumen" style="display:none">
           <p class="resumen-label">Tu selección</p>
           <p id="resumen-texto" class="resumen-texto"></p>
@@ -1201,9 +1582,25 @@ body::after{
         </div>
       </div>
 
+      <!-- PASO 3: Datos personales + resumen con costos/horarios -->
       <div class="form-step" id="step-3">
         <h3 class="step-title">Tus datos</h3>
-        <p class="step-help">Te contactaremos por correo y WhatsApp con tu folio de seguimiento.</p>
+        <p class="step-help"><strong style="color:var(--gold)">Paso 3 de 3</strong> · Verifica tu configuración y déjanos cómo contactarte.</p>
+
+        <div class="summary-card" id="summary-card">
+          <div class="summary-row"><span class="summary-key">Modalidad</span><span class="summary-val" id="sum-sede">—</span></div>
+          <div class="summary-row"><span class="summary-key">Programa</span><span class="summary-val" id="sum-curso">—</span></div>
+          <div class="summary-row"><span class="summary-key">Nivel</span><span class="summary-val" id="sum-nivel">por evaluar</span></div>
+          <div class="summary-row"><span class="summary-key">Formato</span><span class="summary-val" id="sum-formato">—</span></div>
+          <div class="summary-row"><span class="summary-key">Ritmo</span><span class="summary-val" id="sum-ritmo">—</span></div>
+          <div class="summary-row"><span class="summary-key">Duración del ciclo</span><span class="summary-val">6 semanas (~1.5 meses)</span></div>
+          <div class="summary-row"><span class="summary-key">Horas totales</span><span class="summary-val" id="sum-horas">—</span></div>
+          <p class="summary-note">
+            <strong>Costos y horarios:</strong> nuestro equipo te enviará el desglose exacto de tarifas y los horarios disponibles
+            para tu configuración en un plazo <strong>máximo de 48 horas hábiles</strong> tras esta solicitud.
+          </p>
+        </div>
+
         <div class="form-row">
           <div class="form-group">
             <label class="form-label" for="f-nombre">Nombre completo *</label>
@@ -1242,27 +1639,44 @@ body::after{
         <div class="form-actions">
           <button type="button" class="btn btn-secondary" onclick="AF.goToStep(2)"><i class="fa fa-arrow-left"></i> Atrás</button>
           <button type="button" class="btn btn-primary" id="btn-enviar" onclick="AF.enviarPreinscripcion()">
-            <i class="fa fa-paper-plane"></i> Enviar preinscripción
+            <i class="fa fa-paper-plane"></i> Enviar solicitud
           </button>
         </div>
       </div>
 
+      <!-- PASO 4: Confirmación con promesa 48h + WhatsApp -->
       <div class="form-step" id="step-ok">
         <div class="confirm-box">
           <div class="confirm-icon">✓</div>
-          <h3 class="confirm-titulo">¡Solicitud recibida!</h3>
+          <h3 class="confirm-titulo">¡Bienvenido / bienvenida, <span id="confirm-nombre">estudiante</span>!</h3>
           <p class="confirm-msg">
-            Tu preinscripción para <strong id="confirm-sede"></strong> fue registrada con éxito.
-            Recibirás un correo de confirmación con tu folio en los próximos minutos.
+            Tu solicitud para <strong id="confirm-sede"></strong> fue <strong style="color:var(--green)">procesada con éxito</strong>.
+            Estamos felices de iniciar este camino contigo.
           </p>
           <p class="confirm-track">Folio de seguimiento: <strong id="confirm-folio"></strong></p>
-          <p class="confirm-msg" style="font-size:0.85rem">
-            Nuestro equipo validará tu solicitud y te contactará en las próximas <strong>24 horas hábiles</strong>
-            por correo y WhatsApp con los siguientes pasos.
+
+          <div class="summary-card" style="text-align:left;width:100%;max-width:480px">
+            <div class="summary-row"><span class="summary-key">Procesada el</span><span class="summary-val" id="confirm-fecha">—</span></div>
+            <div class="summary-row"><span class="summary-key">Respuesta</span><span class="summary-val" style="color:var(--gold)">Máximo 48 h hábiles</span></div>
+            <div class="summary-row"><span class="summary-key">Canal</span><span class="summary-val">Correo + WhatsApp</span></div>
+          </div>
+
+          <p class="confirm-msg" style="font-size:0.92rem">
+            Recibirás de nuestro equipo:
+            <strong>(1)</strong> confirmación de cupo y horario asignado ·
+            <strong>(2)</strong> desglose de costos ·
+            <strong>(3)</strong> datos de pago ·
+            <strong>(4)</strong> acceso a la plataforma.
           </p>
-          <p style="font-size:0.85rem;color:var(--muted)">
+
+          <a id="confirm-wa-btn" href="#" target="_blank" rel="noopener" class="btn btn-glow" style="background:#25d366;box-shadow:0 6px 28px rgba(37,211,102,0.45)">
+            <i class="fab fa-whatsapp"></i> Confirmar por WhatsApp ahora
+          </a>
+
+          <p style="font-size:0.82rem;color:var(--muted);max-width:480px">
             Contacto directo:
-            <a href="mailto:direccionsancristobal@alianzafr.edu.mx" class="af-link">direccionsancristobal@alianzafr.edu.mx</a>
+            <a href="mailto:afsancris@gmail.com" class="af-link">afsancris@gmail.com</a> ·
+            <a href="https://wa.me/529671721870" target="_blank" rel="noopener" class="af-link">+52 967 172 1870</a>
           </p>
           <button type="button" class="btn btn-secondary" onclick="AF.resetForm()">Nueva preinscripción</button>
         </div>
@@ -1379,8 +1793,9 @@ body::after{
 </footer>
 
 <!-- FAB WhatsApp -->
-<a href="https://wa.me/529671721870" target="_blank" rel="noopener" class="fab" aria-label="WhatsApp">
+<a href="https://wa.me/529671721870?text=Hola%2C%20deseo%20m%C3%A1s%20informaci%C3%B3n%20sobre%20la%20Alliance%20Fran%C3%A7aise%20San%20Crist%C3%B3bal." target="_blank" rel="noopener" class="fab" aria-label="Contactar por WhatsApp">
   <i class="fab fa-whatsapp"></i>
+  <span class="fab-label">+52 967 172 1870</span>
 </a>
 
 <script>
@@ -1434,7 +1849,23 @@ const EVENTOS = [
   {t:'Taller de Cocina Francesa',   f:'2026-07-18',h:'11:00',l:'Sede San Cristóbal',          cat:'Gastronomía',  libre:false, modo:'presencial'}
 ];
 
+const CICLOS_POR_SEG = {
+  adultos:    '24 h regular · 48 h intensivo',
+  junior:     '24 h regular',
+  ninos:      '18 h por ciclo',
+  empresarial:'24 h por ciclo · a convenir',
+  turismo:    '36 h por ciclo · 4 módulos',
+  delf_prep:  '18 h pre-examen · 3 semanas',
+  default:    '24 h por ciclo'
+};
+
 const FAQ = [
+  {cat:'Ciclos y duración', qs:[
+    {q:'¿Cuánto dura un ciclo?',                      a:'6 semanas (~1.5 meses). Es nuestro estándar para todos los programas — niños, adolescentes y adultos. Ciclos cortos = avance visible y posibilidad de ajustar el ritmo en cada bimestre.'},
+    {q:'¿Cuántas horas tiene un ciclo?',              a:'Depende del ritmo elegido. Regular: 24 h. Intensivo: 48 h. Super-intensivo: 72 h. Sabatino: 24 h. Niños: 18 h. Junior: 24 h. Turismo y DELF Prep tienen su propia estructura modular.'},
+    {q:'¿Cuántos ciclos necesito para un nivel MCER?',a:'En ritmo Regular, ~3 ciclos por nivel (A1, A2…). En Intensivo, 1–2 ciclos. En Super-intensivo, un nivel completo por ciclo. Para B2 (universidad): ~3 años en Regular, ~18 meses en Intensivo.'},
+    {q:'¿Los niños y adolescentes también operan en ciclos de 6 semanas?', a:'Sí, mismo modelo. La diferencia es la duración de cada sesión y la metodología — adaptadas a su etapa de desarrollo. Niños: 18 h/ciclo en sesiones cortas. Adolescentes (Junior): 24 h/ciclo.'}
+  ]},
   {cat:'Plataforma virtual', qs:[
     {q:'¿Las clases virtuales son grabadas o en vivo?', a:'Todas son en vivo con un profesor certificado. Además, cada sesión se graba y queda disponible 30 días para que puedas repasar.'},
     {q:'¿Necesito un equipo especial?',                 a:'No. Solo una computadora o tableta con cámara, micrófono y conexión estable. La plataforma funciona en navegador, sin instalar nada.'},
@@ -1462,7 +1893,7 @@ const FAQ = [
 /* ──────────────────── APP ──────────────────── */
 const AF = (() => {
   let cat = null;
-  let estado = {sede:'',sedeName:'',curso:'',cursoNombre:'',nivel:'',modalidad:'',modalidadNombre:'',step:1};
+  let estado = {sede:'',sedeName:'',curso:'',cursoNombre:'',nivel:'',formato:'',formatoNombre:'',ritmo:'',ritmoNombre:'',ritmoDetalle:'',step:1};
 
   function init(){
     if(window.emailjs){ try{ emailjs.init(EMAILJS_PK); }catch(e){ console.warn('[EmailJS]',e); } }
@@ -1474,6 +1905,26 @@ const AF = (() => {
     renderFAQ();
     loadCatalog();
     initNavScroll();
+    injectWaCtas();
+  }
+
+  function injectWaCtas(){
+    const phone  = '529671721870';
+    const phoneFmt = '+52 1 967 172 1870';
+    document.querySelectorAll('section[data-wa-section]').forEach(sec => {
+      const label = sec.dataset.waSection;
+      const msg = `Hola, vi la sección de ${label} en el sitio de Alliance Française San Cristóbal y deseo más información.`;
+      const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+      const html = `
+        <div class="wa-cta">
+          <div class="wa-cta-text">¿Desea más información sobre <strong>${label}</strong>? Contáctanos por WhatsApp.</div>
+          <a class="wa-cta-btn" href="${url}" target="_blank" rel="noopener">
+            <i class="fab fa-whatsapp"></i> WhatsApp ${phoneFmt}
+          </a>
+        </div>`;
+      const container = sec.querySelector(':scope > .container');
+      if(container) container.insertAdjacentHTML('beforeend', html);
+    });
   }
 
   function loadCatalog(){
@@ -1549,12 +2000,16 @@ const AF = (() => {
         const isVirtual = /virtual/i.test(nombre);
         return `<span class="tag ${isVirtual?'virtual':''}">${nombre}</span>`;
       }).join('');
+      const mega = (s.nombre||'').slice(0,1).toUpperCase();
+      const ciclo = CICLOS_POR_SEG[s.id] || CICLOS_POR_SEG.default;
       return `
-      <div class="glass curso-card" onclick="AF.irA('${s.id}')" role="button" tabindex="0"
+      <div class="glass curso-card" data-seg="${s.id}" data-mega="${mega}"
+           onclick="AF.irA('${s.id}')" role="button" tabindex="0"
            onkeypress="if(event.key==='Enter')AF.irA('${s.id}')">
         <div class="curso-icon"><i class="fa ${s.icono||'fa-book'}"></i></div>
         <h3 class="curso-nombre">${s.nombre}</h3>
         <p class="curso-edad">${s.edad||''}</p>
+        <span class="curso-ciclo-badge"><i class="fa fa-calendar-week"></i> Ciclo · 6 semanas · ${ciclo}</span>
         <p class="curso-desc">${s.descripcion||''}</p>
         <div class="curso-tags">${tags}</div>
         <p class="curso-cta">Inscribirme <i class="fa fa-arrow-right"></i></p>
@@ -1643,10 +2098,8 @@ const AF = (() => {
   function updateModalidades(){
     const cid = document.getElementById('f-curso')?.value;
     const sn = document.getElementById('f-nivel');
-    const sm = document.getElementById('f-modalidad');
     if(!cid){
       sn.innerHTML = '<option value="">Selecciona programa primero</option>';
-      sm.innerHTML = '<option value="">Selecciona programa primero</option>';
       return;
     }
     const seg = cat?.segmentos?.find(s => s.id === cid);
@@ -1656,38 +2109,64 @@ const AF = (() => {
     } else {
       sn.innerHTML = '<option value="">Consultar con coordinación</option>';
     }
-    if(seg?.modalidades){
-      sm.innerHTML = '<option value="">Selecciona…</option>' +
-        seg.modalidades.map(m => `<option value="${m.id}">${m.nombre}${m.sesiones?' · '+m.sesiones:''}</option>`).join('');
-    } else {
-      const fb = CURSOS_FALLBACK.find(c => c.id === cid);
-      sm.innerHTML = '<option value="">Selecciona…</option>' +
-        (fb?.tags||['Regular']).map(t => `<option value="${t.toLowerCase()}">${t}</option>`).join('');
-    }
     estado.curso = cid;
     estado.cursoNombre = seg?.nombre || CURSOS_FALLBACK.find(c=>c.id===cid)?.n || cid;
+    actualizarResumen();
+  }
+
+  function setFormato(id, nombre){
+    estado.formato = id;
+    estado.formatoNombre = nombre;
+    document.querySelectorAll('[data-formato]').forEach(b => b.classList.toggle('active', b.dataset.formato === id));
+    actualizarResumen();
+  }
+
+  function setRitmo(id, nombre, detalle){
+    estado.ritmo = id;
+    estado.ritmoNombre = nombre;
+    estado.ritmoDetalle = detalle || '';
+    document.querySelectorAll('[data-ritmo]').forEach(b => b.classList.toggle('active', b.dataset.ritmo === id));
     actualizarResumen();
   }
 
   function actualizarResumen(){
     const curso = document.getElementById('f-curso')?.value;
     const nivel = document.getElementById('f-nivel')?.value;
-    const mod   = document.getElementById('f-modalidad')?.value;
     const box   = document.getElementById('resumen-box');
     const txt   = document.getElementById('resumen-texto');
     if(!box||!txt) return;
-    if(curso && mod){
+    if(curso && estado.formato && estado.ritmo){
       const cNom = estado.cursoNombre || curso;
       const nNom = nivel || 'nivel por evaluar';
-      const mSel = document.getElementById('f-modalidad');
-      const mNom = mSel?.options[mSel.selectedIndex]?.text || mod;
-      txt.textContent = `${cNom} · ${nNom} · ${mNom}`;
+      txt.textContent = `${cNom} · ${nNom} · ${estado.formatoNombre} · ${estado.ritmoNombre}`;
       box.style.display = 'block';
       estado.nivel = nivel;
-      estado.modalidad = mod;
-      estado.modalidadNombre = mNom;
     } else {
       box.style.display = 'none';
+    }
+  }
+
+  function llenarResumenFinal(){
+    const set = (id,val) => { const el = document.getElementById(id); if(el) el.textContent = val || '—'; };
+    set('sum-sede',    estado.sedeName);
+    set('sum-curso',   estado.cursoNombre);
+    set('sum-nivel',   estado.nivel || 'por evaluar (prueba gratuita)');
+    set('sum-formato', estado.formatoNombre);
+    set('sum-ritmo',   estado.ritmoNombre + (estado.ritmoDetalle ? ' · ' + estado.ritmoDetalle : ''));
+    set('sum-horas',   horasPorRitmo(estado.ritmo, estado.curso));
+  }
+
+  function horasPorRitmo(ritmo, curso){
+    if(curso === 'ninos')   return '18 h en 6 semanas (3 h/semana)';
+    if(curso === 'junior')  return '24 h en 6 semanas (4 h/semana)';
+    if(curso === 'turismo') return '36 h en 6 semanas (módulos)';
+    if(curso === 'delf_prep') return '18 h en 3 semanas (pre-examen)';
+    switch(ritmo){
+      case 'regular':        return '24 h en 6 semanas (4 h/semana)';
+      case 'intensivo':      return '48 h en 6 semanas (8 h/semana)';
+      case 'superintensivo': return '72 h en 6 semanas (12 h/semana)';
+      case 'sabatino':       return '24 h en 6 semanas (4 h/sábado)';
+      default: return '24 h en 6 semanas (por confirmar)';
     }
   }
 
@@ -1699,6 +2178,10 @@ const AF = (() => {
       if(i+1 < estado.step) li.classList.add('done');
       else if(i+1 === estado.step) li.classList.add('active');
     });
+    if(estado.step === 4){
+      lis.forEach(li => li.classList.remove('active'));
+      lis.forEach(li => li.classList.add('done'));
+    }
   }
 
   function selectSede(sedeId, sedeNombre){
@@ -1710,15 +2193,18 @@ const AF = (() => {
 
   function goToStep(n){
     if(n === 2 && !estado.sede){
-      alert('Por favor selecciona una modalidad.');
+      alert('Por favor elige dónde quieres estudiar.');
       return;
     }
     if(n === 3){
-      if(!estado.sede){ alert('Selecciona una modalidad primero.'); goToStep(1); return; }
+      if(!estado.sede){ alert('Elige primero dónde quieres estudiar.'); goToStep(1); return; }
       if(!document.getElementById('f-curso')?.value){ alert('Por favor selecciona un programa.'); return; }
-      if(!document.getElementById('f-modalidad')?.value){ alert('Por favor selecciona la modalidad del programa.'); return; }
+      if(!estado.formato){ alert('Por favor selecciona el formato (Individual o Grupal).'); return; }
+      if(!estado.ritmo){ alert('Por favor selecciona el ritmo de estudio.'); return; }
+      llenarResumenFinal();
     }
-    estado.step = (n === 99 ? 3 : n);
+    if(n === 99) estado.step = 4;
+    else estado.step = n;
     document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
     document.getElementById('step-' + (n === 99 ? 'ok' : n))?.classList.add('active');
     updateStepper();
@@ -1773,52 +2259,67 @@ const AF = (() => {
     btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Enviando…';
 
     const folio = generarFolio();
+    const ahora = new Date().toLocaleString('es-MX');
+    const nombre = document.getElementById('f-nombre').value.trim();
+    const email  = document.getElementById('f-email').value.trim();
+    const tel    = document.getElementById('f-tel').value.trim();
+
     const payload = {
       folio,
-      sede: estado.sedeName,
-      curso: estado.cursoNombre || estado.curso,
-      nivel: estado.nivel || '(por evaluar)',
-      modalidad: estado.modalidadNombre || estado.modalidad,
-      nombre:  document.getElementById('f-nombre').value.trim(),
-      email_estudiante: document.getElementById('f-email').value.trim(),
-      telefono: document.getElementById('f-tel').value.trim(),
-      fuente:   document.getElementById('f-fuente').value || 'No indicado',
-      inicio:   document.getElementById('f-inicio').value || 'lo_antes_posible',
-      mensaje:  document.getElementById('f-mensaje').value.trim() || '(Sin mensaje)',
-      fecha:    new Date().toLocaleString('es-MX'),
-      to_email: estado.sede === 'virtual'
-                ? 'direccionsancristobal@alianzafr.edu.mx'
-                : 'direccionsancristobal@alianzafr.edu.mx'
+      sede:      estado.sedeName,
+      curso:     estado.cursoNombre || estado.curso,
+      nivel:     estado.nivel || '(por evaluar)',
+      formato:   estado.formatoNombre || estado.formato || '(no indicado)',
+      ritmo:     estado.ritmoNombre + (estado.ritmoDetalle ? ' (' + estado.ritmoDetalle + ')' : ''),
+      nombre,
+      email_estudiante: email,
+      telefono:  tel,
+      fuente:    document.getElementById('f-fuente').value || 'No indicado',
+      inicio:    document.getElementById('f-inicio').value || 'lo_antes_posible',
+      mensaje:   document.getElementById('f-mensaje').value.trim() || '(Sin mensaje)',
+      fecha:     ahora,
+      to_email:  'afsancris@gmail.com'
     };
 
     try{
       if(!window.emailjs) throw new Error('EmailJS no cargado');
       await emailjs.send(EMAILJS_SID, EMAILJS_TID, payload);
-      document.getElementById('confirm-sede').textContent = estado.sedeName;
-      document.getElementById('confirm-folio').textContent = folio;
+
+      // Confirmación visual con datos del estudiante y promesa 48h
+      document.getElementById('confirm-nombre').textContent = nombre.split(/\s+/)[0] || 'estudiante';
+      document.getElementById('confirm-sede').textContent   = estado.sedeName;
+      document.getElementById('confirm-folio').textContent  = folio;
+      document.getElementById('confirm-fecha').textContent  = ahora;
+
+      // Botón WhatsApp con mensaje pre-rellenado de cierre por parte del estudiante
+      const waMsg = `Hola, soy ${nombre}. Acabo de enviar mi solicitud de preinscripción (folio ${folio}) para ${payload.curso} · ${payload.formato} · ${payload.ritmo} en ${estado.sedeName}. Quedo atento(a) a su respuesta. ¡Gracias!`;
+      const waUrl = `https://wa.me/529671721870?text=${encodeURIComponent(waMsg)}`;
+      const waBtn = document.getElementById('confirm-wa-btn');
+      if(waBtn) waBtn.href = waUrl;
+
       goToStep(99);
     } catch(err){
       console.error('[EmailJS]',err);
-      alert('Hubo un problema al enviar tu preinscripción. Por favor escríbenos directamente a ' + payload.to_email);
+      alert('Hubo un problema al enviar tu solicitud. Por favor escríbenos directamente a afsancris@gmail.com o por WhatsApp al +52 967 172 1870.');
       btn.disabled = false;
-      btn.innerHTML = '<i class="fa fa-paper-plane"></i> Enviar preinscripción';
+      btn.innerHTML = '<i class="fa fa-paper-plane"></i> Enviar solicitud';
     }
   }
 
   function resetForm(){
-    estado = {sede:'',sedeName:'',curso:'',cursoNombre:'',nivel:'',modalidad:'',modalidadNombre:'',step:1};
+    estado = {sede:'',sedeName:'',curso:'',cursoNombre:'',nivel:'',formato:'',formatoNombre:'',ritmo:'',ritmoNombre:'',ritmoDetalle:'',step:1};
     ['f-nombre','f-email','f-tel','f-mensaje'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
-    ['f-curso','f-nivel','f-modalidad','f-fuente','f-inicio'].forEach(id => { const el=document.getElementById(id); if(el) el.selectedIndex=0; });
-    document.querySelectorAll('.sede-btn').forEach(b => b.classList.remove('active'));
+    ['f-curso','f-nivel','f-fuente','f-inicio'].forEach(id => { const el=document.getElementById(id); if(el) el.selectedIndex=0; });
+    document.querySelectorAll('.sede-btn, .opt-pick').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.af-input,.af-select').forEach(e => e.classList.remove('error'));
     document.querySelectorAll('.form-error').forEach(e => e.classList.remove('show'));
     const box = document.getElementById('resumen-box'); if(box) box.style.display='none';
     const btn = document.getElementById('btn-enviar');
-    if(btn){ btn.disabled = false; btn.innerHTML = '<i class="fa fa-paper-plane"></i> Enviar preinscripción'; }
+    if(btn){ btn.disabled = false; btn.innerHTML = '<i class="fa fa-paper-plane"></i> Enviar solicitud'; }
     goToStep(1);
   }
 
-  return { init, toggleMenu, selectSede, goToStep, irA, updateModalidades, actualizarResumen, enviarPreinscripcion, resetForm, toggleFAQ };
+  return { init, toggleMenu, selectSede, goToStep, irA, updateModalidades, setFormato, setRitmo, actualizarResumen, enviarPreinscripcion, resetForm, toggleFAQ };
 })();
 
 document.addEventListener('DOMContentLoaded', () => AF.init());
