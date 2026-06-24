@@ -30,7 +30,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
 
@@ -82,6 +82,15 @@ html{scroll-behavior:smooth;font-size:16px;-webkit-text-size-adjust:100%}
   --display:'Cormorant Garamond',Georgia,serif;
   --sans:'Syne',system-ui,sans-serif;
   --mono:'Space Mono',monospace;
+  --poster:'Bebas Neue','Syne',sans-serif;
+  /* Paleta de campaña por segmento */
+  --camp-orange:#e85d2d;
+  --camp-orange-light:#ff7d52;
+  --camp-yellow:#fcc419;
+  --camp-mustard:#c8a93d;
+  --camp-cream:#f0ede6;
+  --camp-pink:#e8a8c5;
+  --camp-rose:#d96a82;
   --r:12px;
   --r-lg:20px;
   --r-xl:28px;
@@ -101,6 +110,37 @@ img{max-width:100%;display:block}
 button{font-family:inherit;color:inherit}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+
+/* ──────────────────── CAMPAÑA: tipografía editorial y acentos ──────────────────── */
+.poster-type{
+  font-family:var(--poster);font-weight:400;letter-spacing:0.01em;
+  text-transform:uppercase;line-height:0.85;
+}
+.francais-mega{
+  font-family:var(--poster);font-weight:400;letter-spacing:-0.005em;
+  font-size:clamp(4rem,16vw,15rem);line-height:0.85;
+  text-transform:uppercase;
+}
+.francais-outline{
+  -webkit-text-stroke:1.5px var(--white);color:transparent;
+}
+.vrail{
+  writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);
+  font-family:var(--poster);font-weight:400;letter-spacing:0.18em;
+  text-transform:uppercase;color:var(--gold);font-size:0.95rem;
+  display:inline-block;
+}
+.vrail-red{color:var(--red)}
+.vrail-cyan{color:var(--cyan)}
+.brand-stamp{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  background:var(--white);color:var(--void);
+  padding:0.35rem 0.65rem;border-radius:4px;font-family:var(--display);
+  font-size:0.95rem;font-weight:600;
+}
+.brand-stamp .stamp-af{
+  font-family:var(--poster);font-size:1.4rem;color:var(--red);line-height:1;
+}
 
 /* ──────────────────── FONDO ATMOSFÉRICO ──────────────────── */
 body::before{
@@ -151,20 +191,32 @@ body::after{
 .nav-cta:hover{background:var(--red-dark) !important}
 .nav-toggle{display:none;background:none;border:none;color:var(--white);font-size:1.3rem;cursor:pointer}
 
-/* ──────────────────── HERO ──────────────────── */
+/* ──────────────────── HERO (estilo campaña) ──────────────────── */
 .hero{
   min-height:100vh;display:flex;align-items:center;
-  padding:8rem 1.5rem 4rem;position:relative;z-index:1;
+  padding:7.5rem 1.5rem 4rem;position:relative;z-index:1;
   overflow:hidden;
 }
 .hero::before{
   content:'';position:absolute;inset:0;
   background:
-    radial-gradient(circle at 20% 30%, rgba(79,209,197,0.12) 0%, transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(212,43,58,0.12) 0%, transparent 45%);
+    radial-gradient(circle at 20% 30%, rgba(232,93,45,0.16) 0%, transparent 45%),
+    radial-gradient(circle at 80% 70%, rgba(252,196,25,0.08) 0%, transparent 45%);
   pointer-events:none;
 }
+.hero-grid{
+  position:relative;z-index:1;width:100%;
+  display:grid;grid-template-columns:auto 1fr auto;gap:2rem;align-items:center;
+  max-width:1280px;margin:0 auto;
+}
+.hero-vrail{display:flex;justify-content:center}
 .hero-inner{max-width:880px;margin:0 auto;text-align:center;position:relative;z-index:1}
+.hero-francais{
+  position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);
+  opacity:0.06;pointer-events:none;z-index:0;
+  font-family:var(--poster);font-size:clamp(8rem,22vw,22rem);line-height:0.85;
+  letter-spacing:-0.01em;color:var(--white);white-space:nowrap;
+}
 .hero-eyebrow{
   font-family:var(--mono);font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;
   color:var(--gold);margin-bottom:1.75rem;
@@ -245,6 +297,14 @@ body::after{
   -webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic;
 }
 .section-sub{font-size:1.02rem;color:var(--muted);max-width:620px;margin:0 auto;line-height:1.8}
+.section-head{position:relative}
+.section-head .section-watermark{
+  position:absolute;top:-0.5rem;left:50%;transform:translateX(-50%);
+  font-family:var(--poster);font-size:clamp(4rem,11vw,9rem);line-height:0.85;
+  letter-spacing:-0.005em;color:var(--white);opacity:0.04;
+  pointer-events:none;white-space:nowrap;z-index:0;
+}
+.section-head > *:not(.section-watermark){position:relative;z-index:1}
 
 /* ──────────────────── CRISTAL ──────────────────── */
 .glass{
@@ -362,13 +422,35 @@ body::after{
 .stat-num sup{font-size:1rem;color:var(--red)}
 .stat-label{font-size:0.78rem;color:var(--muted);margin-top:0.4rem;display:block;line-height:1.4}
 
-/* ──────────────────── CURSOS ──────────────────── */
-.curso-card{padding:2rem;cursor:pointer;display:flex;flex-direction:column}
+/* ──────────────────── CURSOS (campaña por segmento) ──────────────────── */
+.curso-card{
+  padding:2rem;cursor:pointer;display:flex;flex-direction:column;
+  position:relative;overflow:hidden;
+  --c-accent:var(--gold);
+}
+.curso-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:var(--c-accent);opacity:0.85;
+}
+.curso-card::after{
+  content:attr(data-mega);position:absolute;top:-1rem;right:-0.5rem;
+  font-family:var(--poster);font-size:5.5rem;line-height:0.85;color:var(--c-accent);
+  opacity:0.08;letter-spacing:-0.02em;pointer-events:none;
+}
+.curso-card[data-seg="adultos"]    { --c-accent:var(--camp-mustard) }
+.curso-card[data-seg="junior"]     { --c-accent:var(--gold-light) }
+.curso-card[data-seg="ninos"]      { --c-accent:var(--camp-yellow) }
+.curso-card[data-seg="empresarial"]{ --c-accent:#7aa3d9 }
+.curso-card[data-seg="turismo"]    { --c-accent:var(--camp-rose) }
+.curso-card[data-seg="delf_prep"]  { --c-accent:var(--camp-orange) }
+.curso-card[data-seg="virtual"]    { --c-accent:var(--cyan) }
 .curso-icon{
   width:54px;height:54px;border-radius:50%;
-  background:rgba(201,164,78,0.12);border:1px solid var(--border-gold);
+  background:color-mix(in srgb, var(--c-accent) 18%, transparent);
+  border:1px solid color-mix(in srgb, var(--c-accent) 50%, transparent);
   display:flex;align-items:center;justify-content:center;
-  font-size:1.3rem;color:var(--gold);margin-bottom:1.25rem;
+  font-size:1.3rem;color:var(--c-accent);margin-bottom:1.25rem;
+  position:relative;z-index:1;
 }
 .curso-nombre{font-family:var(--display);font-size:1.5rem;font-weight:600;margin-bottom:0.25rem}
 .curso-edad{font-size:0.78rem;color:var(--muted);font-family:var(--mono);letter-spacing:0.1em;margin-bottom:1rem;text-transform:uppercase}
@@ -592,6 +674,12 @@ body::after{
   background:radial-gradient(circle at 80% 50%, rgba(255,255,255,0.12) 0%, transparent 60%);
   pointer-events:none;
 }
+.promo-banner::after{
+  content:'GRATIS';position:absolute;top:50%;right:-1rem;transform:translateY(-50%);
+  font-family:var(--poster);font-size:clamp(5rem,12vw,11rem);line-height:0.85;
+  letter-spacing:-0.01em;color:rgba(255,255,255,0.08);pointer-events:none;
+  white-space:nowrap;z-index:0;
+}
 .promo-banner-text{flex:1;min-width:240px;position:relative;z-index:1}
 .promo-banner-eyebrow{
   font-family:var(--mono);font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;
@@ -627,6 +715,13 @@ body::after{
   position:absolute;inset:auto 0 0 0;
   background:linear-gradient(to top,rgba(7,17,29,0.95),transparent);
   padding:2rem 1.25rem 1.25rem;
+}
+.poster .vrail-tag{
+  position:absolute;top:1rem;left:0.5rem;z-index:2;
+  font-family:var(--poster);font-size:0.85rem;letter-spacing:0.18em;
+  writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);
+  text-transform:uppercase;color:rgba(255,255,255,0.9);
+  text-shadow:0 1px 3px rgba(0,0,0,0.5);
 }
 .poster-title{
   font-family:var(--display);font-size:1.15rem;font-weight:600;color:#fff;
@@ -715,6 +810,12 @@ body::after{
   .nav-links a{padding:0.85rem 1rem;font-size:0.7rem;letter-spacing:0.15em}
   .nav-toggle{display:block}
 }
+@media(max-width:960px){
+  .hero-grid{grid-template-columns:1fr;gap:0}
+  .hero-vrail{display:none}
+  .hero-francais{font-size:clamp(6rem,28vw,12rem);opacity:0.05}
+  .section-head .section-watermark{font-size:clamp(3rem,12vw,6rem)}
+}
 @media(max-width:640px){
   .hero-title{font-size:2.6rem}
   .hero-trust{gap:1.25rem;font-size:0.55rem}
@@ -753,27 +854,36 @@ body::after{
   </ul>
 </nav>
 
-<!-- HERO -->
+<!-- HERO (estilo campaña editorial) -->
 <header id="accueil" class="hero">
-  <div class="container hero-inner">
-    <div class="hero-pill"><span class="dot"></span> Primera Alliance Française Virtual de México</div>
-    <h1 class="hero-title">
-      Aprende francés
-      <em>desde donde estés.</em>
-      <span class="grad">Certifícate con el mundo.</span>
-    </h1>
-    <p class="hero-tagline">
-      Clases en vivo con profesores certificados, tutor de IA disponible 24/7, comunidad francófona global
-      y certificación oficial DELF/DALF. Único centro evaluador en Chiapas, ahora abierto al mundo.
-    </p>
-    <div class="hero-actions">
-      <a href="#preinscripcion" class="btn btn-glow"><i class="fa fa-rocket"></i> Inscribirme ahora</a>
-      <a href="#plataforma" class="btn btn-ghost"><i class="fa fa-play"></i> Conocer la plataforma</a>
+  <div class="hero-francais" aria-hidden="true">FRANÇAIS</div>
+  <div class="hero-grid">
+    <div class="hero-vrail">
+      <span class="vrail vrail-red">Vive la expérience</span>
     </div>
-    <div class="hero-trust">
-      <span><i class="fa fa-globe"></i> 824 AF · 138 países</span>
-      <span><i class="fa fa-certificate"></i> Centro DELF/DALF oficial</span>
-      <span><i class="fa fa-bolt"></i> Inscripción 100% en línea</span>
+    <div class="hero-inner">
+      <div class="hero-pill"><span class="dot"></span> Primera Alliance Française Virtual de México</div>
+      <h1 class="hero-title">
+        Aprende francés
+        <em>desde donde estés.</em>
+        <span class="grad">Certifícate con el mundo.</span>
+      </h1>
+      <p class="hero-tagline">
+        Clases en vivo con profesores certificados, tutor de IA disponible 24/7, comunidad francófona global
+        y certificación oficial DELF/DALF. Único centro evaluador en Chiapas, ahora abierto al mundo.
+      </p>
+      <div class="hero-actions">
+        <a href="#preinscripcion" class="btn btn-glow"><i class="fa fa-rocket"></i> Inscribirme ahora</a>
+        <a href="#plataforma" class="btn btn-ghost"><i class="fa fa-play"></i> Conocer la plataforma</a>
+      </div>
+      <div class="hero-trust">
+        <span><i class="fa fa-globe"></i> 824 AF · 138 países</span>
+        <span><i class="fa fa-certificate"></i> Centro DELF/DALF oficial</span>
+        <span><i class="fa fa-bolt"></i> 967 172 1870 · Clase muestra gratis</span>
+      </div>
+    </div>
+    <div class="hero-vrail">
+      <span class="vrail">Clase muestra gratis</span>
     </div>
   </div>
 </header>
@@ -805,6 +915,7 @@ body::after{
 <section id="plataforma" class="section section-dark">
   <div class="container">
     <div class="section-head">
+      <span class="section-watermark" aria-hidden="true">PLATEFORME</span>
       <span class="section-tag">Notre plateforme</span>
       <h2 class="section-title">La <span class="grad">plataforma virtual</span> más moderna de la red AF</h2>
       <p class="section-sub">
@@ -931,6 +1042,7 @@ body::after{
 <section id="cursos" class="section">
   <div class="container">
     <div class="section-head">
+      <span class="section-watermark" aria-hidden="true">FRANÇAIS</span>
       <span class="section-tag">Nos programmes</span>
       <h2 class="section-title">Oferta <em>académica</em></h2>
       <p class="section-sub">Programas para todas las edades y objetivos. Metodología comunicativa alineada al Marco Común Europeo de Referencia (MCER).</p>
@@ -945,12 +1057,14 @@ body::after{
 <section id="galeria" class="section section-dark">
   <div class="container">
     <div class="section-head">
+      <span class="section-watermark" aria-hidden="true">CAMPAGNES</span>
       <span class="section-tag">Nos campagnes</span>
       <h2 class="section-title">Vive la <em>experiencia</em></h2>
       <p class="section-sub">Cada curso tiene su personalidad. Conoce los programas que hacen de la AF San Cristóbal una experiencia distinta.</p>
     </div>
     <div class="posters-grid">
       <a href="#preinscripcion" class="poster" onclick="AF.selectSede('virtual','AF Virtual')">
+        <span class="vrail-tag">Vive la experiencia</span>
         <img src="src/assets/img/posters/curso-en-linea.png" alt="Aprende francés en línea — clase muestra gratis" loading="lazy" decoding="async">
         <div class="poster-overlay">
           <p class="poster-title">Francés en línea</p>
@@ -958,6 +1072,7 @@ body::after{
         </div>
       </a>
       <a href="#preinscripcion" class="poster" onclick="AF.irA('ninos')">
+        <span class="vrail-tag">Clase muestra gratis</span>
         <img src="src/assets/img/posters/curso-ninos.png" alt="Francés para niños en San Cristóbal" loading="lazy" decoding="async">
         <div class="poster-overlay">
           <p class="poster-title">Francés Niños</p>
@@ -965,6 +1080,7 @@ body::after{
         </div>
       </a>
       <a href="#preinscripcion" class="poster" onclick="AF.irA('adultos')">
+        <span class="vrail-tag">Cursos particulares</span>
         <img src="src/assets/img/posters/cursos-particulares.png" alt="Cursos particulares de francés a tu ritmo" loading="lazy" decoding="async">
         <div class="poster-overlay">
           <p class="poster-title">Cursos particulares</p>
@@ -972,6 +1088,7 @@ body::after{
         </div>
       </a>
       <a href="#preinscripcion" class="poster">
+        <span class="vrail-tag">Vive la experiencia</span>
         <img src="src/assets/img/posters/promo-clase-gratis.png" alt="1 clase de francés gratis" loading="lazy" decoding="async">
         <div class="poster-overlay">
           <p class="poster-title">1 clase gratis</p>
@@ -979,6 +1096,7 @@ body::after{
         </div>
       </a>
       <a href="#plataforma" class="poster" style="grid-column:span 1">
+        <span class="vrail-tag">Refuerza tu conocimiento</span>
         <img src="src/assets/img/posters/club-conversacion.png" alt="Club de conversación AF San Cristóbal" loading="lazy" decoding="async">
         <div class="poster-overlay">
           <p class="poster-title">Club de Conversación</p>
@@ -993,6 +1111,7 @@ body::after{
 <section id="mobilite" class="section">
   <div class="container">
     <div class="section-head">
+      <span class="section-watermark" aria-hidden="true">FRANCE</span>
       <span class="section-tag">Mobilité internationale</span>
       <h2 class="section-title">Estudia en <em>Francia</em></h2>
       <p class="section-sub">Inmersión lingüística en Vichy y asesoría gratuita Campus France para universidades francesas.</p>
@@ -1065,6 +1184,7 @@ body::after{
 <section id="certifications" class="section section-dark">
   <div class="container">
     <div class="section-head">
+      <span class="section-watermark" aria-hidden="true">DELF · DALF</span>
       <span class="section-tag">Centre officiel évaluateur · Único en Chiapas</span>
       <h2 class="section-title">Certifications <em>officielles</em></h2>
       <p class="section-sub">Diplomas vitalicios expedidos por el Ministerio de Educación de Francia. Reconocidos en más de 170 países.</p>
@@ -1129,6 +1249,7 @@ body::after{
 <section id="preinscripcion" class="section section-dark">
   <div class="container">
     <div class="section-head">
+      <span class="section-watermark" aria-hidden="true">INSCRIPTION</span>
       <span class="section-tag">Démarrez maintenant</span>
       <h2 class="section-title">Preinscripción <em>en línea</em></h2>
       <p class="section-sub">3 pasos. Te enviamos folio de seguimiento al instante y confirmación administrativa en menos de 24 horas hábiles.</p>
@@ -1549,8 +1670,10 @@ const AF = (() => {
         const isVirtual = /virtual/i.test(nombre);
         return `<span class="tag ${isVirtual?'virtual':''}">${nombre}</span>`;
       }).join('');
+      const mega = (s.nombre||'').slice(0,1).toUpperCase();
       return `
-      <div class="glass curso-card" onclick="AF.irA('${s.id}')" role="button" tabindex="0"
+      <div class="glass curso-card" data-seg="${s.id}" data-mega="${mega}"
+           onclick="AF.irA('${s.id}')" role="button" tabindex="0"
            onkeypress="if(event.key==='Enter')AF.irA('${s.id}')">
         <div class="curso-icon"><i class="fa ${s.icono||'fa-book'}"></i></div>
         <h3 class="curso-nombre">${s.nombre}</h3>
