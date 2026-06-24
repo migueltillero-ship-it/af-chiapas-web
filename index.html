@@ -815,6 +815,44 @@ body::after{
 }
 .fab:hover .fab-label{opacity:1;transform:translateY(-50%) translateX(-4px)}
 
+/* ──────────────────── ANATOMÍA DEL CICLO ──────────────────── */
+.ciclo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.25rem;margin-bottom:2rem}
+.ciclo-card{
+  padding:1.75rem 1.5rem;border-radius:var(--r-lg);
+  background:var(--panel);border:1px solid var(--border);
+  display:flex;flex-direction:column;gap:0.5rem;position:relative;overflow:hidden;
+  --c:var(--gold);
+}
+.ciclo-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--c);
+}
+.ciclo-card[data-r="regular"]        {--c:var(--gold)}
+.ciclo-card[data-r="intensivo"]      {--c:var(--camp-orange)}
+.ciclo-card[data-r="superintensivo"] {--c:var(--red)}
+.ciclo-card[data-r="sabatino"]       {--c:var(--cyan)}
+.ciclo-card[data-r="ninos"]          {--c:var(--camp-yellow)}
+.ciclo-card[data-r="junior"]         {--c:var(--gold-light)}
+.ciclo-tag{
+  font-family:var(--mono);font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--c);
+}
+.ciclo-num{
+  font-family:var(--poster);font-size:3.5rem;line-height:0.85;color:var(--white);
+  letter-spacing:-0.02em;
+}
+.ciclo-num small{font-family:var(--mono);font-size:0.9rem;letter-spacing:0.08em;color:var(--muted);margin-left:0.4rem}
+.ciclo-detalle{font-size:0.86rem;color:var(--muted);line-height:1.6}
+.ciclo-detalle strong{color:var(--white)}
+
+.curso-ciclo-badge{
+  display:inline-flex;align-items:center;gap:0.4rem;
+  font-family:var(--mono);font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;
+  background:rgba(201,164,78,0.08);border:1px solid var(--border-gold);
+  color:var(--gold);padding:0.35rem 0.6rem;border-radius:4px;
+  margin-bottom:0.75rem;align-self:flex-start;
+}
+.curso-ciclo-badge i{color:var(--gold)}
+
 /* ──────────────────── BIENVENIDA INMERSIVA ──────────────────── */
 .welcome-hero{
   text-align:center;padding:1rem 0 2.5rem;position:relative;
@@ -952,6 +990,7 @@ body::after{
     <li><a href="#plataforma">Plataforma</a></li>
     <li><a href="#proceso">Cómo funciona</a></li>
     <li><a href="#cursos">Cursos</a></li>
+    <li><a href="#ciclo">Ciclo 6 sem.</a></li>
     <li><a href="#galeria">Galería</a></li>
     <li><a href="#mobilite">Francia</a></li>
     <li><a href="#certifications">DELF/DALF</a></li>
@@ -1287,6 +1326,80 @@ body::after{
   </div>
 </section>
 
+<!-- ANATOMÍA DEL CICLO · 6 semanas estándar -->
+<section id="ciclo" class="section" data-wa-section="el modelo de ciclos de 6 semanas">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-watermark" aria-hidden="true">CICLO 6 SEMAINES</span>
+      <span class="section-tag">Notre modèle pédagogique</span>
+      <h2 class="section-title">Ciclo estándar de <em>6 semanas</em></h2>
+      <p class="section-sub">
+        Todos nuestros programas operan en ciclos de <strong>6 semanas</strong> (~1.5 meses).
+        Avance medible, contenidos compactos y la flexibilidad de elegir el ritmo que se adapta a tu vida.
+      </p>
+    </div>
+
+    <div class="ciclo-grid">
+      <div class="ciclo-card" data-r="regular">
+        <span class="ciclo-tag">Adultos · Regular</span>
+        <div class="ciclo-num">24<small>horas / ciclo</small></div>
+        <p class="ciclo-detalle"><strong>2 sesiones / semana</strong> · 4 h/sem · clases entre semana</p>
+        <p class="ciclo-detalle">Avance equivalente a <strong>~1/3 de un nivel MCER</strong> (A1, A2…). Llegas al B2 en ~3 años.</p>
+      </div>
+      <div class="ciclo-card" data-r="intensivo">
+        <span class="ciclo-tag">Adultos · Intensivo</span>
+        <div class="ciclo-num">48<small>horas / ciclo</small></div>
+        <p class="ciclo-detalle"><strong>4 sesiones / semana</strong> · 8 h/sem · doble velocidad</p>
+        <p class="ciclo-detalle">Avance equivalente a <strong>~2/3 de un nivel MCER</strong> por ciclo. Ideal con fecha DELF cercana.</p>
+      </div>
+      <div class="ciclo-card" data-r="superintensivo">
+        <span class="ciclo-tag">Adultos · Super-intensivo</span>
+        <div class="ciclo-num">72<small>horas / ciclo</small></div>
+        <p class="ciclo-detalle"><strong>5 sesiones / semana</strong> · 12 h/sem · inmersión total</p>
+        <p class="ciclo-detalle">Avance equivalente a <strong>1 nivel MCER completo</strong> en un solo ciclo de 6 semanas.</p>
+      </div>
+      <div class="ciclo-card" data-r="sabatino">
+        <span class="ciclo-tag">Adultos · Sabatino</span>
+        <div class="ciclo-num">24<small>horas / ciclo</small></div>
+        <p class="ciclo-detalle"><strong>1 sesión larga sabatina</strong> · 4 h/sáb · solo fines de semana</p>
+        <p class="ciclo-detalle">Mismo avance que Regular (<strong>~1/3 de nivel MCER</strong>) concentrado en sábados.</p>
+      </div>
+      <div class="ciclo-card" data-r="junior">
+        <span class="ciclo-tag">Jóvenes · 11–17 años</span>
+        <div class="ciclo-num">24<small>horas / ciclo</small></div>
+        <p class="ciclo-detalle"><strong>2 sesiones / semana</strong> · 4 h/sem · contenidos adolescentes</p>
+        <p class="ciclo-detalle">Avance hacia <strong>DELF Junior A1/A2/B1/B2</strong>. Manual <em>À la Une</em>.</p>
+      </div>
+      <div class="ciclo-card" data-r="ninos">
+        <span class="ciclo-tag">Niños · 4–11 años</span>
+        <div class="ciclo-num">18<small>horas / ciclo</small></div>
+        <p class="ciclo-detalle"><strong>2 sesiones cortas / semana</strong> · 3 h/sem · enfoque lúdico</p>
+        <p class="ciclo-detalle">Vocabulario temático, canciones, juegos. Camino al <strong>DELF Prim</strong>. Manual <em>Loustics</em>.</p>
+      </div>
+    </div>
+
+    <div class="summary-card" style="margin-top:0">
+      <div class="summary-row">
+        <span class="summary-key">Ciclo</span>
+        <span class="summary-val">6 semanas · ~1.5 meses</span>
+      </div>
+      <div class="summary-row">
+        <span class="summary-key">Ciclos por año</span>
+        <span class="summary-val">Hasta 8 ciclos por año</span>
+      </div>
+      <div class="summary-row">
+        <span class="summary-key">Modalidades</span>
+        <span class="summary-val">Virtual · Presencial · Individual · Grupal</span>
+      </div>
+      <p class="summary-note">
+        <strong>¿Por qué 6 semanas?</strong> Ciclos cortos = avance visible, mejor retención y la posibilidad de
+        ajustar tu ritmo cada bimestre. <strong>Niños y adolescentes también</strong> operan bajo el mismo modelo
+        — adaptado en duración de sesión y contenidos a su etapa de desarrollo.
+      </p>
+    </div>
+  </div>
+</section>
+
 <!-- DELF/DALF -->
 <section id="certifications" class="section section-dark" data-wa-section="los exámenes DELF/DALF/TCF">
   <div class="container">
@@ -1480,6 +1593,8 @@ body::after{
           <div class="summary-row"><span class="summary-key">Nivel</span><span class="summary-val" id="sum-nivel">por evaluar</span></div>
           <div class="summary-row"><span class="summary-key">Formato</span><span class="summary-val" id="sum-formato">—</span></div>
           <div class="summary-row"><span class="summary-key">Ritmo</span><span class="summary-val" id="sum-ritmo">—</span></div>
+          <div class="summary-row"><span class="summary-key">Duración del ciclo</span><span class="summary-val">6 semanas (~1.5 meses)</span></div>
+          <div class="summary-row"><span class="summary-key">Horas totales</span><span class="summary-val" id="sum-horas">—</span></div>
           <p class="summary-note">
             <strong>Costos y horarios:</strong> nuestro equipo te enviará el desglose exacto de tarifas y los horarios disponibles
             para tu configuración en un plazo <strong>máximo de 48 horas hábiles</strong> tras esta solicitud.
@@ -1734,7 +1849,23 @@ const EVENTOS = [
   {t:'Taller de Cocina Francesa',   f:'2026-07-18',h:'11:00',l:'Sede San Cristóbal',          cat:'Gastronomía',  libre:false, modo:'presencial'}
 ];
 
+const CICLOS_POR_SEG = {
+  adultos:    '24 h regular · 48 h intensivo',
+  junior:     '24 h regular',
+  ninos:      '18 h por ciclo',
+  empresarial:'24 h por ciclo · a convenir',
+  turismo:    '36 h por ciclo · 4 módulos',
+  delf_prep:  '18 h pre-examen · 3 semanas',
+  default:    '24 h por ciclo'
+};
+
 const FAQ = [
+  {cat:'Ciclos y duración', qs:[
+    {q:'¿Cuánto dura un ciclo?',                      a:'6 semanas (~1.5 meses). Es nuestro estándar para todos los programas — niños, adolescentes y adultos. Ciclos cortos = avance visible y posibilidad de ajustar el ritmo en cada bimestre.'},
+    {q:'¿Cuántas horas tiene un ciclo?',              a:'Depende del ritmo elegido. Regular: 24 h. Intensivo: 48 h. Super-intensivo: 72 h. Sabatino: 24 h. Niños: 18 h. Junior: 24 h. Turismo y DELF Prep tienen su propia estructura modular.'},
+    {q:'¿Cuántos ciclos necesito para un nivel MCER?',a:'En ritmo Regular, ~3 ciclos por nivel (A1, A2…). En Intensivo, 1–2 ciclos. En Super-intensivo, un nivel completo por ciclo. Para B2 (universidad): ~3 años en Regular, ~18 meses en Intensivo.'},
+    {q:'¿Los niños y adolescentes también operan en ciclos de 6 semanas?', a:'Sí, mismo modelo. La diferencia es la duración de cada sesión y la metodología — adaptadas a su etapa de desarrollo. Niños: 18 h/ciclo en sesiones cortas. Adolescentes (Junior): 24 h/ciclo.'}
+  ]},
   {cat:'Plataforma virtual', qs:[
     {q:'¿Las clases virtuales son grabadas o en vivo?', a:'Todas son en vivo con un profesor certificado. Además, cada sesión se graba y queda disponible 30 días para que puedas repasar.'},
     {q:'¿Necesito un equipo especial?',                 a:'No. Solo una computadora o tableta con cámara, micrófono y conexión estable. La plataforma funciona en navegador, sin instalar nada.'},
@@ -1870,6 +2001,7 @@ const AF = (() => {
         return `<span class="tag ${isVirtual?'virtual':''}">${nombre}</span>`;
       }).join('');
       const mega = (s.nombre||'').slice(0,1).toUpperCase();
+      const ciclo = CICLOS_POR_SEG[s.id] || CICLOS_POR_SEG.default;
       return `
       <div class="glass curso-card" data-seg="${s.id}" data-mega="${mega}"
            onclick="AF.irA('${s.id}')" role="button" tabindex="0"
@@ -1877,6 +2009,7 @@ const AF = (() => {
         <div class="curso-icon"><i class="fa ${s.icono||'fa-book'}"></i></div>
         <h3 class="curso-nombre">${s.nombre}</h3>
         <p class="curso-edad">${s.edad||''}</p>
+        <span class="curso-ciclo-badge"><i class="fa fa-calendar-week"></i> Ciclo · 6 semanas · ${ciclo}</span>
         <p class="curso-desc">${s.descripcion||''}</p>
         <div class="curso-tags">${tags}</div>
         <p class="curso-cta">Inscribirme <i class="fa fa-arrow-right"></i></p>
@@ -2020,6 +2153,21 @@ const AF = (() => {
     set('sum-nivel',   estado.nivel || 'por evaluar (prueba gratuita)');
     set('sum-formato', estado.formatoNombre);
     set('sum-ritmo',   estado.ritmoNombre + (estado.ritmoDetalle ? ' · ' + estado.ritmoDetalle : ''));
+    set('sum-horas',   horasPorRitmo(estado.ritmo, estado.curso));
+  }
+
+  function horasPorRitmo(ritmo, curso){
+    if(curso === 'ninos')   return '18 h en 6 semanas (3 h/semana)';
+    if(curso === 'junior')  return '24 h en 6 semanas (4 h/semana)';
+    if(curso === 'turismo') return '36 h en 6 semanas (módulos)';
+    if(curso === 'delf_prep') return '18 h en 3 semanas (pre-examen)';
+    switch(ritmo){
+      case 'regular':        return '24 h en 6 semanas (4 h/semana)';
+      case 'intensivo':      return '48 h en 6 semanas (8 h/semana)';
+      case 'superintensivo': return '72 h en 6 semanas (12 h/semana)';
+      case 'sabatino':       return '24 h en 6 semanas (4 h/sábado)';
+      default: return '24 h en 6 semanas (por confirmar)';
+    }
   }
 
   /* ─── Stepper ─── */
