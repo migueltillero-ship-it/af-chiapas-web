@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Panel de coordinación · AF San Cristóbal</title>
+<link rel="icon" type="image/png" href="../src/assets/brand/logo-af-chiapas.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="../src/config/supabase.js" defer></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --void:#07111d; --deep:#0d1f33; --panel:rgba(255,255,255,0.055); --panel-hover:rgba(255,255,255,0.09);
+  --border:rgba(255,255,255,0.11); --border-gold:rgba(201,164,78,0.4);
+  --white:#f5f3ee; --muted:rgba(245,243,238,0.62); --hint:rgba(245,243,238,0.38);
+  --gold:#c9a44e; --gold-light:#e8c97a; --red:#d42b3a; --green:#22c55e; --cyan:#4fd1c5; --amber:#fbbf24;
+  --display:'Cormorant Garamond',Georgia,serif; --sans:'Syne',system-ui,sans-serif; --mono:'Space Mono',monospace;
+  --r:10px; --r-lg:18px;
+}
+body{
+  background:var(--void);color:var(--white);font-family:var(--sans);font-size:15px;
+  min-height:100vh;line-height:1.5;
+}
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 80% 60% at 15% 10%, rgba(0,38,84,0.4) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 85% 90%, rgba(201,164,78,0.06) 0%, transparent 55%);
+}
+.shell{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:1.5rem}
+
+/* Topbar */
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:2rem;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:0.65rem;font-family:var(--display);font-size:1.2rem;text-decoration:none;color:var(--white)}
+.brand-dot{width:7px;height:7px;background:var(--red);transform:rotate(45deg)}
+.brand em{color:var(--gold);font-style:italic}
+.topbar-tag{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold)}
+.topbar-actions{display:flex;align-items:center;gap:0.75rem}
+.user-pill{font-family:var(--mono);font-size:0.7rem;color:var(--muted);background:var(--panel);padding:0.5rem 0.8rem;border-radius:var(--r);border:1px solid var(--border)}
+
+/* Buttons */
+.btn{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  padding:0.65rem 1.1rem;border-radius:var(--r);border:none;cursor:pointer;
+  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;
+  text-decoration:none;transition:transform 0.2s,background 0.2s,box-shadow 0.2s;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--gold);color:var(--void)}
+.btn-primary:hover{background:var(--gold-light)}
+.btn-ghost{background:var(--panel);color:var(--white);border:1px solid var(--border)}
+.btn-ghost:hover{border-color:var(--gold)}
+.btn-green{background:var(--green);color:#fff}
+.btn-red{background:var(--red);color:#fff}
+.btn-amber{background:var(--amber);color:var(--void)}
+
+/* Cards & layout */
+.card{
+  background:var(--panel);border:1px solid var(--border);border-radius:var(--r-lg);
+  padding:1.5rem;backdrop-filter:blur(20px);
+}
+.grid-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:1.5rem}
+.stat-card{padding:1.2rem 1.25rem;border-radius:var(--r);background:var(--panel);border:1px solid var(--border);position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--c, var(--gold))}
+.stat-card[data-k="pendiente"]   {--c:var(--amber)}
+.stat-card[data-k="en_revision"] {--c:var(--cyan)}
+.stat-card[data-k="aprobada"]    {--c:var(--green)}
+.stat-card[data-k="rechazada"]   {--c:var(--red)}
+.stat-card[data-k="cancelada"]   {--c:var(--hint)}
+.stat-card[data-k="total"]       {--c:var(--gold)}
+.stat-key{font-family:var(--mono);font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted)}
+.stat-num{font-family:'Bebas Neue',var(--sans);font-size:2.8rem;line-height:0.9;color:var(--white);margin:0.4rem 0 0.25rem}
+.stat-sub{font-size:0.72rem;color:var(--hint)}
+
+/* Filtros */
+.filters{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.chip{
+  background:var(--panel);border:1px solid var(--border);color:var(--muted);
+  padding:0.45rem 0.85rem;border-radius:99px;font-family:var(--mono);font-size:0.6rem;
+  letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;
+}
+.chip:hover{color:var(--white);border-color:var(--gold)}
+.chip.active{background:var(--gold);color:var(--void);border-color:var(--gold)}
+
+/* Tabla */
+.table-wrap{overflow-x:auto;border-radius:var(--r-lg);border:1px solid var(--border);background:rgba(0,0,0,0.18)}
+table{width:100%;border-collapse:collapse;font-size:0.85rem}
+thead{background:rgba(0,0,0,0.3)}
+th{
+  text-align:left;font-family:var(--mono);font-size:0.55rem;letter-spacing:0.18em;
+  text-transform:uppercase;color:var(--gold);padding:0.85rem 1rem;border-bottom:1px solid var(--border);
+}
+td{padding:0.85rem 1rem;border-bottom:1px solid var(--border);vertical-align:middle}
+tr:hover{background:rgba(255,255,255,0.02);cursor:pointer}
+.cell-folio{font-family:var(--mono);font-size:0.78rem;color:var(--gold)}
+.cell-nombre{font-weight:600}
+.cell-meta{font-size:0.72rem;color:var(--muted)}
+.badge{
+  display:inline-block;font-family:var(--mono);font-size:0.55rem;letter-spacing:0.15em;
+  text-transform:uppercase;padding:0.22rem 0.55rem;border-radius:4px;
+}
+.b-pendiente   {background:rgba(251,191,36,0.12);color:var(--amber);border:1px solid rgba(251,191,36,0.3)}
+.b-en_revision {background:rgba(79,209,197,0.12);color:var(--cyan);border:1px solid rgba(79,209,197,0.3)}
+.b-aprobada    {background:rgba(34,197,94,0.12);color:var(--green);border:1px solid rgba(34,197,94,0.3)}
+.b-rechazada   {background:rgba(212,43,58,0.12);color:var(--red);border:1px solid rgba(212,43,58,0.3)}
+.b-cancelada   {background:rgba(245,243,238,0.08);color:var(--hint);border:1px solid var(--border)}
+
+/* Modal */
+.modal-bg{
+  position:fixed;inset:0;z-index:1000;background:rgba(7,17,29,0.85);backdrop-filter:blur(8px);
+  display:none;align-items:center;justify-content:center;padding:1.5rem;
+}
+.modal-bg.open{display:flex}
+.modal{
+  background:var(--deep);border:1px solid var(--border-gold);border-radius:var(--r-lg);
+  max-width:640px;width:100%;max-height:90vh;overflow:auto;padding:2rem;
+}
+.modal h2{font-family:var(--display);font-size:1.8rem;font-weight:300;margin-bottom:0.4rem}
+.modal-folio{font-family:var(--mono);font-size:0.7rem;color:var(--gold);letter-spacing:0.15em;margin-bottom:1.5rem}
+.kv{display:grid;grid-template-columns:140px 1fr;gap:0.5rem 1rem;margin-bottom:1.5rem}
+.kv-key{font-family:var(--mono);font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);align-self:center}
+.kv-val{color:var(--white)}
+.modal textarea{
+  width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);
+  color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.85rem;min-height:80px;resize:vertical;
+}
+.modal-actions{display:flex;gap:0.5rem;justify-content:flex-end;flex-wrap:wrap;margin-top:1.5rem}
+
+/* Login */
+.login-wrap{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem;
+  position:relative;z-index:1;
+}
+.login-card{
+  background:var(--panel);border:1px solid var(--border-gold);border-radius:var(--r-lg);
+  padding:2.5rem;max-width:420px;width:100%;backdrop-filter:blur(20px);
+}
+.login-card h1{font-family:var(--display);font-size:1.8rem;font-weight:300;margin-bottom:0.4rem}
+.login-card .sub{color:var(--muted);font-size:0.85rem;margin-bottom:1.75rem}
+.login-card label{
+  display:block;font-family:var(--mono);font-size:0.55rem;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;
+}
+.login-card input{
+  width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);
+  color:var(--white);padding:0.85rem 1rem;font-family:var(--sans);font-size:0.95rem;margin-bottom:1rem;
+}
+.login-card input:focus{outline:none;border-color:var(--gold)}
+.login-card .btn{width:100%;justify-content:center;padding:0.85rem 1.4rem;font-size:0.65rem}
+.login-error{color:var(--red);font-size:0.85rem;margin-bottom:1rem;display:none}
+.login-error.show{display:block}
+
+.empty{padding:3rem;text-align:center;color:var(--muted)}
+.cfg-warn{
+  background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.3);
+  border-radius:var(--r-lg);padding:1.5rem;margin-bottom:1.5rem;
+}
+.cfg-warn h3{font-family:var(--display);color:var(--amber);font-size:1.25rem;margin-bottom:0.5rem}
+.cfg-warn p{color:var(--muted);font-size:0.9rem}
+.cfg-warn code{background:rgba(0,0,0,0.4);padding:0.15rem 0.4rem;border-radius:3px;font-family:var(--mono);font-size:0.8rem}
+
+@media(max-width:640px){
+  .shell{padding:1rem}
+  .kv{grid-template-columns:1fr}
+  th,td{padding:0.7rem 0.6rem;font-size:0.78rem}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-wrap" id="view-login">
+  <div class="login-card">
+    <h1>Panel de <em style="color:var(--gold);font-style:italic">coordinación</em></h1>
+    <p class="sub">Alliance Française San Cristóbal · AF Virtual</p>
+    <form id="login-form" autocomplete="on">
+      <label for="lg-email">Correo institucional</label>
+      <input type="email" id="lg-email" required autocomplete="email">
+      <label for="lg-pass">Contraseña</label>
+      <input type="password" id="lg-pass" required autocomplete="current-password">
+      <p class="login-error" id="lg-error">Credenciales inválidas</p>
+      <button type="submit" class="btn btn-primary"><i class="fa fa-sign-in-alt"></i> Iniciar sesión</button>
+    </form>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="shell" id="view-app" style="display:none">
+  <div class="topbar">
+    <a href="../index.html" class="brand">
+      <span class="brand-dot"></span>
+      AF <em>San Cristóbal</em>
+      <span class="topbar-tag" style="margin-left:0.5rem">· Panel</span>
+    </a>
+    <div class="topbar-actions">
+      <span class="user-pill" id="user-pill">…</span>
+      <button class="btn btn-ghost" onclick="ADMIN.logout()"><i class="fa fa-sign-out-alt"></i> Salir</button>
+    </div>
+  </div>
+
+  <div id="cfg-warn-zone"></div>
+
+  <div class="grid-stats" id="stats"></div>
+
+  <div class="card">
+    <div class="filters" id="filters">
+      <button class="chip active" data-f="todas">Todas</button>
+      <button class="chip" data-f="pendiente">Pendientes</button>
+      <button class="chip" data-f="en_revision">En revisión</button>
+      <button class="chip" data-f="aprobada">Aprobadas</button>
+      <button class="chip" data-f="rechazada">Rechazadas</button>
+    </div>
+    <div class="table-wrap">
+      <table id="tbl">
+        <thead>
+          <tr>
+            <th>Folio</th>
+            <th>Estudiante</th>
+            <th>Curso · Formato · Ritmo</th>
+            <th>Sede</th>
+            <th>Recibida</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL detalle/validar -->
+<div class="modal-bg" id="modal-bg">
+  <div class="modal">
+    <h2 id="m-nombre">—</h2>
+    <p class="modal-folio" id="m-folio">—</p>
+
+    <div class="kv">
+      <span class="kv-key">Estado</span>             <span class="kv-val" id="m-estado">—</span>
+      <span class="kv-key">Email</span>              <span class="kv-val" id="m-email">—</span>
+      <span class="kv-key">Teléfono</span>           <span class="kv-val" id="m-tel">—</span>
+      <span class="kv-key">Modalidad</span>          <span class="kv-val" id="m-sede">—</span>
+      <span class="kv-key">Programa</span>           <span class="kv-val" id="m-curso">—</span>
+      <span class="kv-key">Nivel</span>              <span class="kv-val" id="m-nivel">—</span>
+      <span class="kv-key">Formato</span>            <span class="kv-val" id="m-formato">—</span>
+      <span class="kv-key">Ritmo</span>              <span class="kv-val" id="m-ritmo">—</span>
+      <span class="kv-key">¿Cuándo?</span>           <span class="kv-val" id="m-inicio">—</span>
+      <span class="kv-key">Fuente</span>             <span class="kv-val" id="m-fuente">—</span>
+      <span class="kv-key">Mensaje</span>            <span class="kv-val" id="m-mensaje">—</span>
+      <span class="kv-key">Recibida</span>           <span class="kv-val" id="m-creada">—</span>
+    </div>
+
+    <label class="kv-key" style="display:block;margin-bottom:0.5rem">Notas internas</label>
+    <textarea id="m-notas" placeholder="Notas para la bitácora…"></textarea>
+
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="ADMIN.closeModal()">Cerrar</button>
+      <button class="btn btn-amber" onclick="ADMIN.setEstado('en_revision')"><i class="fa fa-eye"></i> En revisión</button>
+      <button class="btn btn-red"   onclick="ADMIN.setEstado('rechazada')"><i class="fa fa-times"></i> Rechazar</button>
+      <button class="btn btn-green" onclick="ADMIN.setEstado('aprobada')"><i class="fa fa-check"></i> Aprobar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const ADMIN = (() => {
+  let sb = null;
+  let user = null;
+  let perfil = null;
+  let inscripciones = [];
+  let filtro = 'todas';
+  let actual = null;
+
+  function init(){
+    const cfgOk = window.AF_CONFIG?.isSupabaseConfigured?.();
+    if(!cfgOk){ showCfgWarn(); return; }
+    sb = window.supabase.createClient(
+      window.AF_CONFIG.supabase.url,
+      window.AF_CONFIG.supabase.anonKey
+    );
+    sb.auth.getSession().then(({data}) => {
+      if(data.session?.user){
+        user = data.session.user;
+        startApp();
+      } else {
+        showLogin();
+      }
+    });
+    sb.auth.onAuthStateChange((_event, session) => {
+      if(session?.user){ user = session.user; startApp(); }
+      else { showLogin(); }
+    });
+    document.getElementById('login-form').addEventListener('submit', loginSubmit);
+    document.querySelectorAll('#filters .chip').forEach(c => {
+      c.addEventListener('click', () => {
+        filtro = c.dataset.f;
+        document.querySelectorAll('#filters .chip').forEach(x => x.classList.toggle('active', x === c));
+        renderTabla();
+      });
+    });
+  }
+
+  function showCfgWarn(){
+    document.getElementById('view-login').style.display = 'none';
+    document.getElementById('view-app').style.display = 'block';
+    document.getElementById('cfg-warn-zone').innerHTML = `
+      <div class="cfg-warn">
+        <h3><i class="fa fa-triangle-exclamation"></i> Supabase no está configurado todavía</h3>
+        <p>Configura las credenciales en <code>src/config/supabase.js</code>. Pasos completos en <code>supabase/README.md</code>.</p>
+      </div>`;
+  }
+
+  async function loginSubmit(e){
+    e.preventDefault();
+    const email = document.getElementById('lg-email').value.trim();
+    const pass  = document.getElementById('lg-pass').value;
+    const err   = document.getElementById('lg-error');
+    err.classList.remove('show');
+    const {error} = await sb.auth.signInWithPassword({email, password:pass});
+    if(error){
+      err.textContent = error.message || 'Credenciales inválidas';
+      err.classList.add('show');
+    }
+  }
+
+  async function logout(){
+    await sb.auth.signOut();
+    location.reload();
+  }
+
+  function showLogin(){
+    document.getElementById('view-login').style.display = 'flex';
+    document.getElementById('view-app').style.display = 'none';
+  }
+
+  async function startApp(){
+    document.getElementById('view-login').style.display = 'none';
+    document.getElementById('view-app').style.display   = 'block';
+    document.getElementById('user-pill').textContent    = user.email;
+
+    const {data: pf} = await sb.from('perfiles').select('*').eq('id', user.id).single();
+    perfil = pf;
+    if(!pf || !['coordinacion','admin'].includes(pf.rol)){
+      alert('Tu cuenta no tiene permisos de coordinación. Pide al admin agregar tu rol en la tabla perfiles.');
+      await logout();
+      return;
+    }
+    cargarInscripciones();
+    suscribirRealtime();
+  }
+
+  async function cargarInscripciones(){
+    const {data, error} = await sb.from('inscripciones')
+      .select('*').order('creada_en', {ascending:false}).limit(500);
+    if(error){ console.error(error); return; }
+    inscripciones = data || [];
+    renderStats();
+    renderTabla();
+  }
+
+  function suscribirRealtime(){
+    sb.channel('insc-rt')
+      .on('postgres_changes', {event:'*', schema:'public', table:'inscripciones'},
+        () => cargarInscripciones())
+      .subscribe();
+  }
+
+  function renderStats(){
+    const stats = {pendiente:0,en_revision:0,aprobada:0,rechazada:0,cancelada:0,total:inscripciones.length};
+    inscripciones.forEach(i => { if(stats[i.estado] !== undefined) stats[i.estado]++; });
+    const labels = {
+      total:'Total', pendiente:'Pendientes', en_revision:'En revisión',
+      aprobada:'Aprobadas', rechazada:'Rechazadas', cancelada:'Canceladas'
+    };
+    document.getElementById('stats').innerHTML = Object.keys(labels).map(k => `
+      <div class="stat-card" data-k="${k}">
+        <div class="stat-key">${labels[k]}</div>
+        <div class="stat-num">${stats[k]}</div>
+        <div class="stat-sub">Solicitudes</div>
+      </div>`).join('');
+  }
+
+  function renderTabla(){
+    const list = filtro === 'todas' ? inscripciones : inscripciones.filter(i => i.estado === filtro);
+    const tb = document.getElementById('tbody');
+    if(!list.length){
+      tb.innerHTML = `<tr><td colspan="6" class="empty">Sin inscripciones para mostrar.</td></tr>`;
+      return;
+    }
+    tb.innerHTML = list.map(i => {
+      const fecha = new Date(i.creada_en).toLocaleString('es-MX', {dateStyle:'short', timeStyle:'short'});
+      return `<tr onclick="ADMIN.openModal('${i.id}')">
+        <td class="cell-folio">${i.folio}</td>
+        <td>
+          <div class="cell-nombre">${escapeHtml(i.nombre)}</div>
+          <div class="cell-meta">${escapeHtml(i.email)} · ${escapeHtml(i.telefono)}</div>
+        </td>
+        <td>
+          <div>${escapeHtml(i.curso_nombre || i.curso_id)} ${i.nivel ? '· '+i.nivel : ''}</div>
+          <div class="cell-meta">${i.formato || '—'} · ${i.ritmo || '—'}</div>
+        </td>
+        <td><span class="badge">${i.sede === 'virtual' ? 'AF Virtual' : 'SCSC'}</span></td>
+        <td class="cell-meta">${fecha}</td>
+        <td><span class="badge b-${i.estado}">${i.estado.replace('_',' ')}</span></td>
+      </tr>`;
+    }).join('');
+  }
+
+  function openModal(id){
+    actual = inscripciones.find(i => i.id === id);
+    if(!actual) return;
+    const set = (k,v) => { const el = document.getElementById('m-'+k); if(el) el.textContent = v || '—'; };
+    set('nombre',   actual.nombre);
+    set('folio',    'Folio · ' + actual.folio);
+    set('estado',   actual.estado);
+    set('email',    actual.email);
+    set('tel',      actual.telefono);
+    set('sede',     actual.sede === 'virtual' ? 'AF Virtual' : 'San Cristóbal de Las Casas');
+    set('curso',    actual.curso_nombre || actual.curso_id);
+    set('nivel',    actual.nivel || 'por evaluar');
+    set('formato',  actual.formato);
+    set('ritmo',    actual.ritmo);
+    set('inicio',   actual.inicio);
+    set('fuente',   actual.fuente);
+    set('mensaje',  actual.mensaje);
+    set('creada',   new Date(actual.creada_en).toLocaleString('es-MX'));
+    document.getElementById('m-notas').value = actual.notas_admin || '';
+    document.getElementById('modal-bg').classList.add('open');
+  }
+
+  function closeModal(){
+    actual = null;
+    document.getElementById('modal-bg').classList.remove('open');
+  }
+
+  async function setEstado(nuevo){
+    if(!actual) return;
+    if(!confirm('¿Confirmar cambio de estado a "' + nuevo.replace('_',' ') + '"?')) return;
+    const notas = document.getElementById('m-notas').value.trim() || null;
+    const {error} = await sb.from('inscripciones')
+      .update({
+        estado: nuevo,
+        notas_admin: notas,
+        validada_por: user.id,
+        validada_en: new Date().toISOString()
+      })
+      .eq('id', actual.id);
+    if(error){ alert('Error: ' + error.message); return; }
+    closeModal();
+    cargarInscripciones();
+  }
+
+  function escapeHtml(s){
+    return String(s||'').replace(/[&<>"']/g, c => (
+      {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]
+    ));
+  }
+
+  return {init, logout, openModal, closeModal, setEstado};
+})();
+
+window.addEventListener('DOMContentLoaded', () => {
+  // Esperamos un tick a que el config defer cargue
+  setTimeout(() => ADMIN.init(), 50);
+});
+</script>
+
+</body>
+</html>
