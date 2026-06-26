@@ -1927,7 +1927,27 @@ const AF = (() => {
         window.AF_CONFIG.supabase.anonKey
       );
       console.info('[Supabase] cliente listo');
+      cargarEventosDesdeDB();
     } catch(e){ console.warn('[Supabase] init falló', e); }
+  }
+
+  async function cargarEventosDesdeDB(){
+    if(!sb) return;
+    const hoy = new Date().toISOString().slice(0,10);
+    const {data, error} = await sb.from('eventos')
+      .select('*').eq('publicado', true).gte('fecha', hoy)
+      .order('fecha', {ascending:true}).limit(12);
+    if(error || !data?.length){ console.info('[Eventos] usando fallback inline'); return; }
+    window.EVENTOS_OVERRIDE = data.map(e => ({
+      t:    e.titulo,
+      f:    e.fecha,
+      h:    e.hora ? e.hora.slice(0,5) : '—',
+      l:    e.lugar || 'Por confirmar',
+      cat:  e.categoria || 'Evento',
+      libre: e.entrada_libre,
+      modo: e.modo
+    }));
+    renderEventos();
   }
 
   function injectWaCtas(){
@@ -2056,7 +2076,8 @@ const AF = (() => {
   function renderEventos(){
     const c = document.getElementById('eventos-container');
     if(!c) return;
-    c.innerHTML = EVENTOS.map(ev => {
+    const lista = window.EVENTOS_OVERRIDE || EVENTOS;
+    c.innerHTML = lista.map(ev => {
       const d = new Date(ev.f);
       const dia = d.getDate();
       const mes = d.toLocaleDateString('es-MX',{month:'short'}).toUpperCase().replace('.','');

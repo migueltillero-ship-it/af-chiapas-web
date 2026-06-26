@@ -126,6 +126,22 @@ Aplica `supabase/schema_phase3.sql` sobre los esquemas anteriores.
 | `rechazada` | Muestra `notas_admin` + invita a contactar por WhatsApp. |
 | `cancelada` | "Cancelada. Escríbenos para reactivar." |
 
+## Fase 5 — Eventos editables desde admin
+
+Aplica `supabase/schema_phase5.sql`.
+
+### Lo que añade
+- Tabla `eventos` (título, fecha, hora, lugar, categoría, modo, entrada_libre, url, destacado, publicado)
+- Enum `evento_modo` (presencial / virtual / híbrido)
+- Trigger `actualizado_en` automático
+- RLS: público lee solo publicados; admin escribe todo
+
+### En el admin
+Tab **Eventos** con tabla + botón "Nuevo evento" + modal editor con todos los campos. Solo los eventos `publicado=true` y con `fecha >= hoy` aparecen en el sitio público.
+
+### En el sitio público
+El cliente Supabase carga eventos de la DB al iniciar. Si la DB tiene eventos vigentes, los muestra; si no (o si Supabase no está configurado), cae al array inline `EVENTOS` como fallback.
+
 ## Fase 4 — Notificaciones email automáticas
 
 Edge Function en Deno + Resend. Ver guía detallada en `supabase/functions/README.md`.
