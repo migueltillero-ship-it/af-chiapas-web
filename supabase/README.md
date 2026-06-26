@@ -126,6 +126,22 @@ Aplica `supabase/schema_phase3.sql` sobre los esquemas anteriores.
 | `rechazada` | Muestra `notas_admin` + invita a contactar por WhatsApp. |
 | `cancelada` | "Cancelada. Escríbenos para reactivar." |
 
+## Fase 3B — Portal del docente
+
+Aplica `supabase/schema_phase3b.sql` sobre todo lo anterior.
+
+### Lo que añade
+
+- Función `es_docente()` — helper de RLS
+- Policy: docente lee `inscripciones` aprobadas asignadas a sus propios grupos
+- Vista `v_mis_grupos` — grupos del docente + conteo de alumnos
+- Vista `v_mis_alumnos` — alumnos aprobados de mis grupos
+
+### Vista del docente
+
+`portal/docente.html` — login con email/password (debe estar dado de alta en `docentes`).
+Muestra cards de sus grupos, click → tabla de alumnos con email, teléfono y botón WhatsApp con mensaje pre-rellenado del docente al alumno.
+
 ## Costo
 
 Free tier de Supabase cubre:

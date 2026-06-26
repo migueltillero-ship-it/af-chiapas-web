@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Portal docente · AF San Cristóbal</title>
+<link rel="icon" type="image/png" href="../src/assets/brand/logo-af-sancristobal.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="../src/config/supabase.js" defer></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --void:#07111d; --deep:#0d1f33; --panel:rgba(255,255,255,0.055); --panel-hover:rgba(255,255,255,0.09);
+  --border:rgba(255,255,255,0.11); --border-gold:rgba(201,164,78,0.4);
+  --white:#f5f3ee; --muted:rgba(245,243,238,0.62); --hint:rgba(245,243,238,0.38);
+  --gold:#c9a44e; --gold-light:#e8c97a; --red:#d42b3a; --green:#22c55e; --cyan:#4fd1c5; --amber:#fbbf24;
+  --display:'Cormorant Garamond',Georgia,serif; --sans:'Syne',system-ui,sans-serif;
+  --mono:'Space Mono',monospace; --poster:'Bebas Neue','Syne',sans-serif;
+  --r:10px; --r-lg:18px;
+}
+body{background:var(--void);color:var(--white);font-family:var(--sans);font-size:15px;min-height:100vh;line-height:1.5}
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 80% 60% at 15% 10%, rgba(0,38,84,0.4) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 85% 90%, rgba(79,209,197,0.06) 0%, transparent 55%);
+}
+.shell{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:1.5rem}
+
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:2rem;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:0.65rem;font-family:var(--display);font-size:1.2rem;text-decoration:none;color:var(--white)}
+.brand-dot{width:7px;height:7px;background:var(--red);transform:rotate(45deg)}
+.brand em{color:var(--gold);font-style:italic}
+.brand-tag{font-family:var(--mono);font-size:0.55rem;letter-spacing:0.18em;color:var(--cyan);text-transform:uppercase}
+.user-pill{font-family:var(--mono);font-size:0.7rem;color:var(--muted);background:var(--panel);padding:0.5rem 0.8rem;border-radius:var(--r);border:1px solid var(--border)}
+.topbar-actions{display:flex;align-items:center;gap:0.75rem}
+
+.btn{
+  display:inline-flex;align-items:center;gap:0.5rem;padding:0.65rem 1.1rem;border-radius:var(--r);border:none;cursor:pointer;
+  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;
+  text-decoration:none;transition:transform 0.2s,background 0.2s;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--gold);color:var(--void)}
+.btn-primary:hover{background:var(--gold-light)}
+.btn-ghost{background:var(--panel);color:var(--white);border:1px solid var(--border)}
+.btn-ghost:hover{border-color:var(--gold)}
+.btn-wa{background:#25d366;color:#fff}
+
+.hero-title{font-family:var(--display);font-size:1.8rem;font-weight:300;margin-bottom:0.3rem}
+.hero-sub{color:var(--muted);font-size:0.92rem;margin-bottom:1.75rem}
+.hero-mark{
+  font-family:var(--poster);font-size:clamp(3rem,9vw,6rem);line-height:0.85;
+  color:var(--white);opacity:0.04;position:absolute;top:5rem;left:50%;transform:translateX(-50%);
+  white-space:nowrap;pointer-events:none;letter-spacing:-0.01em;z-index:0;
+}
+
+.grupos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-bottom:2rem;position:relative;z-index:1}
+.grupo-card{
+  background:var(--panel);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.5rem;
+  cursor:pointer;transition:transform 0.25s,border-color 0.25s,box-shadow 0.25s;position:relative;overflow:hidden;
+}
+.grupo-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold)}
+.grupo-card:hover{transform:translateY(-3px);border-color:var(--border-gold);box-shadow:0 16px 40px rgba(0,0,0,0.3)}
+.grupo-card.active{border-color:var(--gold);box-shadow:0 0 24px rgba(201,164,78,0.2)}
+.grupo-codigo{font-family:var(--mono);font-size:0.75rem;color:var(--gold);letter-spacing:0.15em;margin-bottom:0.4rem}
+.grupo-titulo{font-family:var(--display);font-size:1.35rem;font-weight:600;margin-bottom:0.3rem}
+.grupo-meta{font-size:0.82rem;color:var(--muted);margin-bottom:0.3rem;display:flex;align-items:center;gap:0.5rem}
+.grupo-meta i{color:var(--gold);width:14px}
+.grupo-cupo{
+  display:inline-block;font-family:var(--mono);font-size:0.6rem;letter-spacing:0.15em;
+  background:rgba(79,209,197,0.1);color:var(--cyan);padding:0.3rem 0.7rem;border-radius:99px;
+  border:1px solid rgba(79,209,197,0.3);margin-top:0.75rem;
+}
+
+.alumnos-card{
+  background:var(--panel);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.5rem;
+}
+.alumnos-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.5rem}
+.alumnos-titulo{font-family:var(--display);font-size:1.3rem;font-weight:400}
+.table-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:0.85rem}
+thead{background:rgba(0,0,0,0.3)}
+th{text-align:left;font-family:var(--mono);font-size:0.55rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);padding:0.85rem 1rem;border-bottom:1px solid var(--border)}
+td{padding:0.85rem 1rem;border-bottom:1px solid var(--border);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+.cell-meta{font-size:0.72rem;color:var(--muted)}
+.cell-nombre{font-weight:600}
+.empty{padding:3rem;text-align:center;color:var(--muted)}
+
+/* Login */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem;position:relative;z-index:1}
+.login-card{background:var(--panel);border:1px solid rgba(79,209,197,0.4);border-radius:var(--r-lg);padding:2.5rem;max-width:420px;width:100%;backdrop-filter:blur(20px)}
+.login-card h1{font-family:var(--display);font-size:1.8rem;font-weight:300;margin-bottom:0.4rem}
+.login-card .sub{color:var(--muted);font-size:0.85rem;margin-bottom:1.75rem}
+.login-card label{display:block;font-family:var(--mono);font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem}
+.login-card input{
+  width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);
+  color:var(--white);padding:0.85rem 1rem;font-family:var(--sans);font-size:0.95rem;margin-bottom:1rem;
+}
+.login-card input:focus{outline:none;border-color:var(--cyan)}
+.login-card .btn{width:100%;justify-content:center;padding:0.85rem 1.4rem;font-size:0.65rem;background:var(--cyan);color:var(--void)}
+.login-card .btn:hover{background:#7be3d5}
+.login-error{color:var(--red);font-size:0.85rem;margin-bottom:1rem;display:none}
+.login-error.show{display:block}
+
+.cfg-warn{background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.3);border-radius:var(--r-lg);padding:1.5rem;margin-bottom:1.5rem}
+.cfg-warn h3{font-family:var(--display);color:var(--amber);font-size:1.2rem;margin-bottom:0.5rem}
+.cfg-warn code{background:rgba(0,0,0,0.4);padding:0.15rem 0.4rem;border-radius:3px;font-family:var(--mono);font-size:0.8rem}
+
+@media(max-width:640px){
+  .shell{padding:1rem}
+  th,td{padding:0.65rem 0.5rem;font-size:0.78rem}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-wrap" id="view-login">
+  <div class="login-card">
+    <h1>Portal del <em style="color:var(--cyan);font-style:italic">docente</em></h1>
+    <p class="sub">Alliance Française San Cristóbal · AF Virtual</p>
+    <form id="login-form" autocomplete="on">
+      <label for="lg-email">Correo</label>
+      <input type="email" id="lg-email" required autocomplete="email">
+      <label for="lg-pass">Contraseña</label>
+      <input type="password" id="lg-pass" required autocomplete="current-password">
+      <p class="login-error" id="lg-error">Credenciales inválidas</p>
+      <button type="submit" class="btn"><i class="fa fa-sign-in-alt"></i> Iniciar sesión</button>
+    </form>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="shell" id="view-app" style="display:none">
+  <div class="topbar">
+    <a href="../index.html" class="brand">
+      <span class="brand-dot"></span>
+      AF <em>San Cristóbal</em>
+      <span class="brand-tag" style="margin-left:0.5rem">· Portal docente</span>
+    </a>
+    <div class="topbar-actions">
+      <span class="user-pill" id="user-pill">…</span>
+      <button class="btn btn-ghost" onclick="DOC.logout()"><i class="fa fa-sign-out-alt"></i> Salir</button>
+    </div>
+  </div>
+
+  <div id="cfg-warn-zone"></div>
+
+  <h2 class="hero-title">Bienvenido / bienvenida, <span id="doc-nombre" style="color:var(--gold);font-style:italic">profesor/a</span></h2>
+  <p class="hero-sub">Estos son tus grupos activos. Selecciona uno para ver la lista de alumnos.</p>
+
+  <div class="grupos-grid" id="grupos"></div>
+
+  <div class="alumnos-card" id="alumnos-card" style="display:none">
+    <div class="alumnos-head">
+      <h3 class="alumnos-titulo" id="alumnos-titulo">Alumnos del grupo</h3>
+      <span class="grupo-cupo" id="alumnos-count">—</span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Estudiante</th>
+            <th>Nivel</th>
+            <th>Contacto</th>
+            <th>WhatsApp</th>
+          </tr>
+        </thead>
+        <tbody id="alumnos-body"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+const DOC = (() => {
+  let sb = null;
+  let user = null;
+  let docente = null;
+  let grupos = [];
+  let actual = null;
+
+  function init(){
+    if(!window.AF_CONFIG?.isSupabaseConfigured?.()){
+      document.getElementById('view-login').style.display = 'none';
+      document.getElementById('view-app').style.display = 'block';
+      document.getElementById('cfg-warn-zone').innerHTML = `
+        <div class="cfg-warn">
+          <h3><i class="fa fa-triangle-exclamation"></i> Portal aún no disponible</h3>
+          <p>Configura Supabase en <code>src/config/supabase.js</code> primero. Pasos en <code>supabase/README.md</code>.</p>
+        </div>`;
+      return;
+    }
+    sb = window.supabase.createClient(
+      window.AF_CONFIG.supabase.url,
+      window.AF_CONFIG.supabase.anonKey
+    );
+    sb.auth.getSession().then(({data}) => {
+      if(data.session?.user){ user = data.session.user; startApp(); }
+      else { showLogin(); }
+    });
+    sb.auth.onAuthStateChange((_e, session) => {
+      if(session?.user){ user = session.user; startApp(); }
+      else { showLogin(); }
+    });
+    document.getElementById('login-form').addEventListener('submit', loginSubmit);
+  }
+
+  async function loginSubmit(e){
+    e.preventDefault();
+    const email = document.getElementById('lg-email').value.trim();
+    const pass  = document.getElementById('lg-pass').value;
+    const err   = document.getElementById('lg-error');
+    err.classList.remove('show');
+    const {error} = await sb.auth.signInWithPassword({email, password:pass});
+    if(error){ err.textContent = error.message || 'Credenciales inválidas'; err.classList.add('show'); }
+  }
+
+  async function logout(){ await sb.auth.signOut(); location.reload(); }
+
+  function showLogin(){
+    document.getElementById('view-login').style.display = 'flex';
+    document.getElementById('view-app').style.display = 'none';
+  }
+
+  async function startApp(){
+    document.getElementById('view-login').style.display = 'none';
+    document.getElementById('view-app').style.display = 'block';
+    document.getElementById('user-pill').textContent = user.email;
+
+    const {data: doc, error} = await sb.from('docentes').select('*').eq('id', user.id).single();
+    if(error || !doc){
+      alert('Tu cuenta no tiene perfil de docente. Pide al admin que te registre en la tabla docentes.');
+      await logout();
+      return;
+    }
+    docente = doc;
+    document.getElementById('doc-nombre').textContent = doc.nombre;
+    cargarGrupos();
+  }
+
+  async function cargarGrupos(){
+    const {data, error} = await sb.from('v_mis_grupos').select('*').order('inicio_ciclo', {ascending:false});
+    if(error){ console.error(error); return; }
+    grupos = data || [];
+    renderGrupos();
+  }
+
+  function renderGrupos(){
+    const c = document.getElementById('grupos');
+    if(!grupos.length){
+      c.innerHTML = `<div class="empty" style="grid-column:1/-1">Aún no tienes grupos asignados. El admin te asignará al crear nuevos grupos.</div>`;
+      return;
+    }
+    c.innerHTML = grupos.map(g => {
+      const horario = g.horario?.raw || '—';
+      const inicio = g.inicio_ciclo ? new Date(g.inicio_ciclo).toLocaleDateString('es-MX',{dateStyle:'long'}) : '—';
+      return `<div class="grupo-card${actual===g.id?' active':''}" onclick="DOC.verAlumnos('${g.id}')">
+        <div class="grupo-codigo">${escapeHtml(g.codigo)}</div>
+        <div class="grupo-titulo">${escapeHtml(g.curso_nombre || g.curso_id)} · ${escapeHtml(g.nivel)}</div>
+        <div class="grupo-meta"><i class="fa fa-calendar-day"></i> Inicio · ${inicio}</div>
+        <div class="grupo-meta"><i class="fa fa-clock"></i> ${escapeHtml(horario)}</div>
+        <div class="grupo-meta"><i class="fa fa-tag"></i> ${g.formato} · ${g.ritmo} · ${g.sede==='virtual'?'AF Virtual':'SCSC'}</div>
+        <span class="grupo-cupo"><i class="fa fa-users"></i> ${g.alumnos_inscritos} / ${g.cupo_max} alumnos</span>
+      </div>`;
+    }).join('');
+  }
+
+  async function verAlumnos(grupoId){
+    actual = grupoId;
+    renderGrupos();
+    const grupo = grupos.find(g => g.id === grupoId);
+    document.getElementById('alumnos-card').style.display = 'block';
+    document.getElementById('alumnos-titulo').textContent = `Alumnos · ${grupo.codigo}`;
+
+    const {data, error} = await sb.from('v_mis_alumnos').select('*').eq('grupo_id', grupoId).order('nombre');
+    if(error){ console.error(error); return; }
+
+    document.getElementById('alumnos-count').textContent = `${data?.length || 0} inscritos`;
+    const tb = document.getElementById('alumnos-body');
+    if(!data?.length){
+      tb.innerHTML = `<tr><td colspan="4" class="empty">Sin alumnos aprobados en este grupo todavía.</td></tr>`;
+      return;
+    }
+    tb.innerHTML = data.map(a => {
+      const waMsg = encodeURIComponent(`Hola ${a.nombre.split(' ')[0]}, te escribo de la Alliance Française San Cristóbal. Soy ${docente.nombre}, tu profesor/a de ${grupo.curso_nombre || grupo.curso_id}.`);
+      const tel = (a.telefono || '').replace(/\D/g,'');
+      return `<tr>
+        <td>
+          <div class="cell-nombre">${escapeHtml(a.nombre)}</div>
+          <div class="cell-meta">Folio · ${a.folio}</div>
+        </td>
+        <td class="cell-meta">${escapeHtml(a.nivel || 'por evaluar')}</td>
+        <td class="cell-meta">
+          <a href="mailto:${escapeHtml(a.email)}" style="color:var(--gold);text-decoration:none">${escapeHtml(a.email)}</a><br>
+          <span>${escapeHtml(a.telefono || '—')}</span>
+        </td>
+        <td>
+          ${tel ? `<a href="https://wa.me/${tel}?text=${waMsg}" target="_blank" rel="noopener" class="btn btn-wa" style="padding:0.5rem 0.9rem;font-size:0.55rem"><i class="fab fa-whatsapp"></i> Escribir</a>` : '—'}
+        </td>
+      </tr>`;
+    }).join('');
+
+    document.getElementById('alumnos-card').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+
+  function escapeHtml(s){
+    return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  return {init, logout, verAlumnos};
+})();
+
+window.addEventListener('DOMContentLoaded', () => setTimeout(() => DOC.init(), 50));
+</script>
+
+</body>
+</html>
