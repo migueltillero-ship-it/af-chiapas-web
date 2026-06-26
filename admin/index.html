@@ -156,6 +156,45 @@ tr:hover{background:rgba(255,255,255,0.02);cursor:pointer}
 .login-error.show{display:block}
 
 .empty{padding:3rem;text-align:center;color:var(--muted)}
+
+/* Tabs */
+.tabs{display:flex;gap:0.5rem;margin-bottom:1.25rem;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.tab{
+  background:transparent;border:none;color:var(--muted);cursor:pointer;
+  padding:0.75rem 1.1rem;font-family:var(--mono);font-size:0.6rem;letter-spacing:0.18em;
+  text-transform:uppercase;font-weight:700;border-bottom:2px solid transparent;
+  transition:color 0.2s,border-color 0.2s;
+}
+.tab:hover{color:var(--white)}
+.tab.active{color:var(--gold);border-color:var(--gold)}
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+
+/* Grupo assignment block in modal */
+.grupo-asig{
+  margin-top:1.5rem;padding:1rem 1.25rem;border-radius:var(--r);
+  background:rgba(79,209,197,0.06);border:1px solid rgba(79,209,197,0.25);
+}
+.grupo-asig label{
+  display:block;font-family:var(--mono);font-size:0.55rem;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--cyan);margin-bottom:0.5rem;
+}
+.grupo-asig select,.grupo-asig input{
+  width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);
+  border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.85rem;
+  margin-bottom:0.6rem;
+}
+.grupo-asig select option{background:var(--deep)}
+.grupo-asig .hint{font-size:0.78rem;color:var(--muted);margin-bottom:0.5rem}
+.grupo-asig .btn-small{
+  font-size:0.55rem;padding:0.5rem 0.9rem;background:var(--panel);color:var(--cyan);
+  border:1px solid rgba(79,209,197,0.4);
+}
+
+/* New grupo dialog */
+.new-grupo{margin-top:0.5rem;padding-top:0.75rem;border-top:1px dashed rgba(79,209,197,0.3)}
+.new-grupo .row{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem}
+@media(max-width:540px){.new-grupo .row{grid-template-columns:1fr}}
 .cfg-warn{
   background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.3);
   border-radius:var(--r-lg);padding:1.5rem;margin-bottom:1.5rem;
@@ -205,30 +244,88 @@ tr:hover{background:rgba(255,255,255,0.02);cursor:pointer}
 
   <div id="cfg-warn-zone"></div>
 
-  <div class="grid-stats" id="stats"></div>
+  <div class="tabs">
+    <button class="tab active" data-tab="inscripciones" onclick="ADMIN.switchTab('inscripciones')"><i class="fa fa-clipboard-list"></i> Inscripciones</button>
+    <button class="tab" data-tab="grupos" onclick="ADMIN.switchTab('grupos')"><i class="fa fa-users-rectangle"></i> Grupos</button>
+    <button class="tab" data-tab="docentes" onclick="ADMIN.switchTab('docentes')"><i class="fa fa-chalkboard-teacher"></i> Docentes</button>
+  </div>
 
-  <div class="card">
-    <div class="filters" id="filters">
-      <button class="chip active" data-f="todas">Todas</button>
-      <button class="chip" data-f="pendiente">Pendientes</button>
-      <button class="chip" data-f="en_revision">En revisión</button>
-      <button class="chip" data-f="aprobada">Aprobadas</button>
-      <button class="chip" data-f="rechazada">Rechazadas</button>
+  <!-- TAB: INSCRIPCIONES -->
+  <div class="tab-pane active" id="pane-inscripciones">
+    <div class="grid-stats" id="stats"></div>
+    <div class="card">
+      <div class="filters" id="filters">
+        <button class="chip active" data-f="todas">Todas</button>
+        <button class="chip" data-f="pendiente">Pendientes</button>
+        <button class="chip" data-f="en_revision">En revisión</button>
+        <button class="chip" data-f="aprobada">Aprobadas</button>
+        <button class="chip" data-f="rechazada">Rechazadas</button>
+      </div>
+      <div class="table-wrap">
+        <table id="tbl">
+          <thead>
+            <tr>
+              <th>Folio</th>
+              <th>Estudiante</th>
+              <th>Curso · Formato · Ritmo</th>
+              <th>Grupo</th>
+              <th>Recibida</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
     </div>
-    <div class="table-wrap">
-      <table id="tbl">
-        <thead>
-          <tr>
-            <th>Folio</th>
-            <th>Estudiante</th>
-            <th>Curso · Formato · Ritmo</th>
-            <th>Sede</th>
-            <th>Recibida</th>
-            <th>Estado</th>
-          </tr>
-        </thead>
-        <tbody id="tbody"></tbody>
-      </table>
+  </div>
+
+  <!-- TAB: GRUPOS -->
+  <div class="tab-pane" id="pane-grupos">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem">
+        <p style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase">Grupos activos</p>
+        <button class="btn btn-primary" onclick="ADMIN.openNewGrupo()"><i class="fa fa-plus"></i> Nuevo grupo</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Curso · Nivel</th>
+              <th>Formato · Ritmo</th>
+              <th>Sede</th>
+              <th>Inicio ciclo</th>
+              <th>Cupo</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-grupos"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: DOCENTES -->
+  <div class="tab-pane" id="pane-docentes">
+    <div class="card">
+      <p style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem">Docentes registrados</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Correo</th>
+              <th>Niveles</th>
+              <th>Grupos activos</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-docentes"></tbody>
+        </table>
+      </div>
+      <p style="font-size:0.78rem;color:var(--muted);margin-top:1rem">
+        El alta de docentes se hace creando primero el usuario en <strong>Authentication → Users</strong> y luego insertando una fila en <code>public.docentes</code> con el mismo <code>id</code>.
+      </p>
     </div>
   </div>
 </div>
@@ -257,11 +354,34 @@ tr:hover{background:rgba(255,255,255,0.02);cursor:pointer}
     <label class="kv-key" style="display:block;margin-bottom:0.5rem">Notas internas</label>
     <textarea id="m-notas" placeholder="Notas para la bitácora…"></textarea>
 
+    <!-- Asignación a grupo (sólo visible al aprobar) -->
+    <div class="grupo-asig" id="m-grupo-asig">
+      <label>Asignación a grupo (requerido para aprobar)</label>
+      <select id="m-grupo-sel">
+        <option value="">— Sin grupo (asignar después) —</option>
+      </select>
+      <p class="hint" id="m-grupo-hint">Compatibles: misma curso, nivel, formato, ritmo y sede, con cupo disponible.</p>
+      <button class="btn btn-small" onclick="ADMIN.toggleNewGrupo()"><i class="fa fa-plus"></i> Crear grupo nuevo con esta configuración</button>
+
+      <div class="new-grupo" id="m-new-grupo" style="display:none">
+        <label>Datos del nuevo grupo</label>
+        <div class="row">
+          <input type="text" id="ng-codigo" placeholder="Código (ej. AD-B1-INT-2026-09)">
+          <input type="date" id="ng-inicio" placeholder="Inicio del ciclo">
+        </div>
+        <div class="row">
+          <input type="number" id="ng-cupo" placeholder="Cupo máximo" value="15" min="1" max="30">
+          <input type="text" id="ng-horario" placeholder='Horario (ej. L-M-V 18:00-19:30)'>
+        </div>
+        <button class="btn btn-small" onclick="ADMIN.crearGrupo()"><i class="fa fa-check"></i> Crear y asignar</button>
+      </div>
+    </div>
+
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="ADMIN.closeModal()">Cerrar</button>
       <button class="btn btn-amber" onclick="ADMIN.setEstado('en_revision')"><i class="fa fa-eye"></i> En revisión</button>
       <button class="btn btn-red"   onclick="ADMIN.setEstado('rechazada')"><i class="fa fa-times"></i> Rechazar</button>
-      <button class="btn btn-green" onclick="ADMIN.setEstado('aprobada')"><i class="fa fa-check"></i> Aprobar</button>
+      <button class="btn btn-green" onclick="ADMIN.setEstado('aprobada')"><i class="fa fa-check"></i> Aprobar y asignar</button>
     </div>
   </div>
 </div>
@@ -272,6 +392,8 @@ const ADMIN = (() => {
   let user = null;
   let perfil = null;
   let inscripciones = [];
+  let grupos = [];
+  let docentes = [];
   let filtro = 'todas';
   let actual = null;
 
@@ -350,6 +472,8 @@ const ADMIN = (() => {
       return;
     }
     cargarInscripciones();
+    cargarGrupos();
+    cargarDocentes();
     suscribirRealtime();
   }
 
@@ -362,11 +486,35 @@ const ADMIN = (() => {
     renderTabla();
   }
 
+  async function cargarGrupos(){
+    const {data, error} = await sb.from('v_grupos_disponibles').select('*');
+    if(error){ console.warn('[grupos]', error); return; }
+    grupos = data || [];
+    renderGrupos();
+  }
+
+  async function cargarDocentes(){
+    const {data, error} = await sb.from('docentes').select('*').order('nombre');
+    if(error){ console.warn('[docentes]', error); return; }
+    docentes = data || [];
+    renderDocentes();
+  }
+
   function suscribirRealtime(){
     sb.channel('insc-rt')
       .on('postgres_changes', {event:'*', schema:'public', table:'inscripciones'},
         () => cargarInscripciones())
+      .on('postgres_changes', {event:'*', schema:'public', table:'grupos'},
+        () => cargarGrupos())
       .subscribe();
+  }
+
+  function switchTab(tab){
+    document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    document.getElementById('pane-' + tab)?.classList.add('active');
+    if(tab === 'grupos')   cargarGrupos();
+    if(tab === 'docentes') cargarDocentes();
   }
 
   function renderStats(){
@@ -393,6 +541,7 @@ const ADMIN = (() => {
     }
     tb.innerHTML = list.map(i => {
       const fecha = new Date(i.creada_en).toLocaleString('es-MX', {dateStyle:'short', timeStyle:'short'});
+      const grupo = i.grupo_id ? (grupos.find(g => g.id === i.grupo_id)?.codigo || '—') : '—';
       return `<tr onclick="ADMIN.openModal('${i.id}')">
         <td class="cell-folio">${i.folio}</td>
         <td>
@@ -403,11 +552,50 @@ const ADMIN = (() => {
           <div>${escapeHtml(i.curso_nombre || i.curso_id)} ${i.nivel ? '· '+i.nivel : ''}</div>
           <div class="cell-meta">${i.formato || '—'} · ${i.ritmo || '—'}</div>
         </td>
-        <td><span class="badge">${i.sede === 'virtual' ? 'AF Virtual' : 'SCSC'}</span></td>
+        <td class="cell-meta">${grupo}</td>
         <td class="cell-meta">${fecha}</td>
         <td><span class="badge b-${i.estado}">${i.estado.replace('_',' ')}</span></td>
       </tr>`;
     }).join('');
+  }
+
+  function renderGrupos(){
+    const tb = document.getElementById('tbody-grupos');
+    if(!tb) return;
+    if(!grupos.length){
+      tb.innerHTML = `<tr><td colspan="7" class="empty">Aún no hay grupos. Crea uno desde la aprobación de una inscripción.</td></tr>`;
+      return;
+    }
+    tb.innerHTML = grupos.map(g => {
+      const cupoColor = g.cupo_disponible <= 0 ? 'b-rechazada' : (g.cupo_disponible < 3 ? 'b-pendiente' : 'b-aprobada');
+      return `<tr>
+        <td class="cell-folio">${escapeHtml(g.codigo)}</td>
+        <td>${escapeHtml(g.curso_nombre || g.curso_id)} · ${escapeHtml(g.nivel)}</td>
+        <td class="cell-meta">${g.formato} · ${g.ritmo}</td>
+        <td><span class="badge">${g.sede === 'virtual' ? 'AF Virtual' : 'SCSC'}</span></td>
+        <td class="cell-meta">${g.inicio_ciclo || '—'}</td>
+        <td><span class="badge ${cupoColor}">${g.cupo_actual} / ${g.cupo_max}</span></td>
+        <td><span class="badge">${g.estado}</span></td>
+      </tr>`;
+    }).join('');
+  }
+
+  function renderDocentes(){
+    const tb = document.getElementById('tbody-docentes');
+    if(!tb) return;
+    if(!docentes.length){
+      tb.innerHTML = `<tr><td colspan="5" class="empty">Aún no hay docentes registrados.</td></tr>`;
+      return;
+    }
+    const gruposPorDoc = grupos.reduce((acc,g)=>{ if(g.docente_nombre){ acc[g.docente_nombre]=(acc[g.docente_nombre]||0)+1; } return acc; }, {});
+    tb.innerHTML = docentes.map(d => `
+      <tr>
+        <td class="cell-nombre">${escapeHtml(d.nombre)}</td>
+        <td class="cell-meta">${escapeHtml(d.email || '—')}</td>
+        <td class="cell-meta">${(d.niveles_que_imparte||[]).join(', ') || '—'}</td>
+        <td class="cell-meta">${gruposPorDoc[d.nombre] || 0}</td>
+        <td><span class="badge ${d.activo ? 'b-aprobada' : 'b-cancelada'}">${d.activo ? 'activo' : 'inactivo'}</span></td>
+      </tr>`).join('');
   }
 
   function openModal(id){
@@ -429,7 +617,71 @@ const ADMIN = (() => {
     set('mensaje',  actual.mensaje);
     set('creada',   new Date(actual.creada_en).toLocaleString('es-MX'));
     document.getElementById('m-notas').value = actual.notas_admin || '';
+    poblarGruposCompatibles();
     document.getElementById('modal-bg').classList.add('open');
+  }
+
+  function poblarGruposCompatibles(){
+    const sel = document.getElementById('m-grupo-sel');
+    sel.innerHTML = '<option value="">— Sin grupo (asignar después) —</option>';
+    if(!actual) return;
+    const compat = grupos.filter(g =>
+      g.curso_id === actual.curso_id &&
+      g.nivel === (actual.nivel || g.nivel) &&
+      g.formato === actual.formato &&
+      g.ritmo === actual.ritmo &&
+      g.sede === actual.sede &&
+      g.cupo_disponible > 0 &&
+      g.estado === 'abierto'
+    );
+    compat.forEach(g => {
+      const opt = document.createElement('option');
+      opt.value = g.id;
+      opt.textContent = `${g.codigo} · cupo ${g.cupo_actual}/${g.cupo_max}${g.docente_nombre ? ' · '+g.docente_nombre : ''}`;
+      sel.appendChild(opt);
+    });
+    if(actual.grupo_id) sel.value = actual.grupo_id;
+    document.getElementById('m-grupo-hint').textContent = compat.length
+      ? `${compat.length} grupo(s) compatible(s) con cupo.`
+      : 'Sin grupos compatibles abiertos — crea uno nuevo abajo.';
+  }
+
+  function toggleNewGrupo(){
+    const el = document.getElementById('m-new-grupo');
+    el.style.display = el.style.display === 'none' ? 'block' : 'none';
+  }
+
+  async function crearGrupo(){
+    if(!actual){ alert('Abre primero una inscripción.'); return; }
+    const codigo  = document.getElementById('ng-codigo').value.trim();
+    const inicio  = document.getElementById('ng-inicio').value;
+    const cupo    = parseInt(document.getElementById('ng-cupo').value, 10) || 15;
+    const horario = document.getElementById('ng-horario').value.trim();
+    if(!codigo || !inicio){ alert('Código e inicio del ciclo son requeridos.'); return; }
+    const payload = {
+      codigo,
+      curso_id:     actual.curso_id,
+      curso_nombre: actual.curso_nombre,
+      nivel:        actual.nivel || 'A1',
+      formato:      actual.formato,
+      ritmo:        actual.ritmo,
+      sede:         actual.sede,
+      cupo_max:     cupo,
+      inicio_ciclo: inicio,
+      horario:      horario ? {raw: horario} : null,
+      estado:       'abierto'
+    };
+    const {data, error} = await sb.from('grupos').insert(payload).select().single();
+    if(error){ alert('Error: ' + error.message); return; }
+    await cargarGrupos();
+    poblarGruposCompatibles();
+    document.getElementById('m-grupo-sel').value = data.id;
+    document.getElementById('m-new-grupo').style.display = 'none';
+    alert('Grupo ' + codigo + ' creado y preseleccionado.');
+  }
+
+  async function openNewGrupo(){
+    alert('Para crear un grupo desde cero, abre una inscripción compatible y usa "Crear grupo nuevo" en el modal de aprobación.\n\nO créalo directamente con SQL:\n\nINSERT INTO grupos (codigo, curso_id, nivel, formato, ritmo, sede, inicio_ciclo) VALUES (...);');
   }
 
   function closeModal(){
@@ -439,19 +691,25 @@ const ADMIN = (() => {
 
   async function setEstado(nuevo){
     if(!actual) return;
-    if(!confirm('¿Confirmar cambio de estado a "' + nuevo.replace('_',' ') + '"?')) return;
+    const grupoId = document.getElementById('m-grupo-sel').value || null;
+    if(nuevo === 'aprobada' && !grupoId){
+      if(!confirm('Vas a aprobar SIN asignar grupo. Podrás asignarlo después. ¿Continuar?')) return;
+    } else {
+      if(!confirm('¿Confirmar cambio de estado a "' + nuevo.replace('_',' ') + '"?')) return;
+    }
     const notas = document.getElementById('m-notas').value.trim() || null;
-    const {error} = await sb.from('inscripciones')
-      .update({
-        estado: nuevo,
-        notas_admin: notas,
-        validada_por: user.id,
-        validada_en: new Date().toISOString()
-      })
-      .eq('id', actual.id);
+    const update = {
+      estado: nuevo,
+      notas_admin: notas,
+      validada_por: user.id,
+      validada_en: new Date().toISOString()
+    };
+    if(nuevo === 'aprobada') update.grupo_id = grupoId;
+    const {error} = await sb.from('inscripciones').update(update).eq('id', actual.id);
     if(error){ alert('Error: ' + error.message); return; }
     closeModal();
     cargarInscripciones();
+    cargarGrupos();
   }
 
   function escapeHtml(s){
@@ -460,7 +718,7 @@ const ADMIN = (() => {
     ));
   }
 
-  return {init, logout, openModal, closeModal, setEstado};
+  return {init, logout, switchTab, openModal, closeModal, setEstado, toggleNewGrupo, crearGrupo, openNewGrupo};
 })();
 
 window.addEventListener('DOMContentLoaded', () => {

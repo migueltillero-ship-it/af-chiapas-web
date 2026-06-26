@@ -73,6 +73,36 @@ Estudiante                 Sitio público              Supabase           Panel 
 | `inscripciones_bitacora` | Historial automático de cambios de estado | admin read |
 | `v_inscripciones_stats` | Vista con conteos para dashboard | admin via tabla base |
 
+## Fase 2B — Grupos, docentes y asignación
+
+Aplica `supabase/schema_phase2b.sql` sobre el esquema base.
+
+### Lo que añade
+
+- `docentes` — perfil profesional vinculado a `auth.users`
+- `grupos` — instancias activas de cursos con cupo, fechas, docente y horario
+- `inscripciones.grupo_id` — vínculo a grupo asignado al aprobar
+- Trigger `tr_grupo_cupo` que mantiene `cupo_actual` automáticamente
+- Vista `v_grupos_disponibles` con filtros para el admin
+
+### Crear un docente
+
+```sql
+-- 1. Crea el usuario auth en Supabase Studio → Authentication → Add user
+-- 2. Inserta su perfil de docente:
+insert into public.docentes (id, nombre, email, telefono, niveles_que_imparte, activo)
+select id, 'Camille Dupont', email, '+33 ...', array['A1','A2','B1','B2'], true
+from auth.users where email = 'camille@alianzafr.edu.mx';
+```
+
+### Flujo en el panel
+
+1. Llega una inscripción → estado `pendiente`
+2. Admin abre el modal → ve datos completos
+3. Sistema muestra **grupos compatibles** (mismo curso, nivel, formato, ritmo, sede, con cupo)
+4. Admin selecciona grupo existente **o** crea uno nuevo desde el mismo modal
+5. Click **Aprobar y asignar** → `inscripcion.estado = 'aprobada'`, `grupo_id` asignado, `cupo_actual` se incrementa automáticamente
+
 ## Costo
 
 Free tier de Supabase cubre:
