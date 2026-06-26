@@ -1,3 +1,31 @@
-node_modules/
+# macOS / Windows
+.DS_Store
+Thumbs.db
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*~
+
+# Logs / temporales
+*.log
+*.tmp
+.cache/
+
+# Python
 __pycache__/
+
+# Node (por si llega un build futuro)
+node_modules/
+dist/
+build/
+
+# Variables sensibles
 .env
+.env.local
+
+# Supabase local (si usas la CLI)
+supabase/.temp/
+supabase/.branches/
+supabase/.env
