@@ -1,0 +1,58 @@
+name: Validar HTML, JSON y SQL
+
+on:
+  push:
+    branches: [main, 'claude/**']
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: JSON syntax
+        run: |
+          set -e
+          fail=0
+          for f in $(find . -name '*.json' -not -path './node_modules/*' -not -path './.git/*'); do
+            if ! python3 -m json.tool "$f" > /dev/null 2>&1; then
+              echo "::error file=$f::JSON inválido"
+              fail=1
+            fi
+          done
+          exit $fail
+
+      - name: HTML balance
+        run: |
+          python3 <<'PY'
+          import re, sys, glob
+          fail = False
+          tags = r'<(section|div|nav|header|footer|button|ul|li|p|h[1-6]|a|iframe|span|table|tr|td|th|tbody|thead|picture)\b'
+          ctags = r'</(section|div|nav|header|footer|button|ul|li|p|h[1-6]|a|iframe|span|table|tr|td|th|tbody|thead|picture)>'
+          for f in glob.glob('**/*.html', recursive=True):
+              if 'node_modules' in f: continue
+              s = open(f).read()
+              o, c = len(re.findall(tags, s)), len(re.findall(ctags, s))
+              if o != c:
+                  print(f'::error file={f}::Etiquetas desbalanceadas open={o} close={c}')
+                  fail = True
+              else:
+                  print(f'OK {f}: {o}/{c}')
+          sys.exit(1 if fail else 0)
+          PY
+
+      - name: SQL básico
+        run: |
+          set -e
+          fail=0
+          for f in supabase/*.sql; do
+            if ! grep -qE '(create|insert|alter|drop|comment)' "$f" 2>/dev/null; then
+              echo "::error file=$f::SQL sin sentencias DDL/DML detectadas"
+              fail=1
+            else
+              echo "OK $f"
+            fi
+          done
+          exit $fail
