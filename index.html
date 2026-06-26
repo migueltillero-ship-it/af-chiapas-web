@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#07111d">
 <title>Alliance Française San Cristóbal · La primera AF Virtual de México</title>
 <meta name="description" content="Aprende francés desde donde estés. Aulas virtuales en vivo, tutor IA 24/7, comunidad francófona y certificación oficial DELF/DALF. La Alliance Française más innovadora de la red.">
-<meta name="keywords" content="francés San Cristóbal, Alliance Française virtual, clases francés online, DELF DALF Chiapas, certificación francés México">
+<meta name="keywords" content="francés San Cristóbal de Las Casas, Alliance Française virtual, clases francés online, preparación DELF DALF, certificación francés México">
 <meta name="author" content="Alliance Française San Cristóbal de Las Casas">
 
 <!-- Open Graph -->
@@ -24,8 +24,8 @@
 <meta name="twitter:description" content="Clases de francés en vivo, tutor IA 24/7 y certificación oficial DELF/DALF.">
 
 <link rel="canonical" href="https://migueltillero-ship-it.github.io/af-chiapas-web/">
-<link rel="icon" type="image/png" href="src/assets/brand/logo-af-chiapas.png">
-<link rel="apple-touch-icon" href="src/assets/brand/logo-af-chiapas.png">
+<link rel="icon" type="image/png" href="src/assets/brand/logo-af-sancristobal.png">
+<link rel="apple-touch-icon" href="src/assets/brand/logo-af-sancristobal.png">
 <link rel="manifest" href="manifest.webmanifest">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,6 +33,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
+<script src="https://unpkg.com/@supabase/supabase-js@2" defer></script>
+<script src="src/config/supabase.js" defer></script>
 
 <!-- JSON-LD Organization -->
 <script type="application/ld+json">
@@ -42,7 +44,7 @@
   "name": "Alliance Française San Cristóbal de Las Casas",
   "alternateName": "AF Virtual México",
   "url": "https://migueltillero-ship-it.github.io/af-chiapas-web/",
-  "logo": "src/assets/brand/logo-af-chiapas.png",
+  "logo": "src/assets/brand/logo-af-sancristobal.png",
   "description": "Centro oficial DELF/DALF y primera Alliance Française virtual de México. Clases en vivo, tutor IA y comunidad francófona.",
   "address": {
     "@type": "PostalAddress",
@@ -1016,7 +1018,7 @@ body::after{
       </h1>
       <p class="hero-tagline">
         Clases en vivo con profesores certificados, tutor de IA disponible 24/7, comunidad francófona global
-        y certificación oficial DELF/DALF. Único centro evaluador en Chiapas, ahora abierto al mundo.
+        y certificación oficial DELF/DALF. Preparación oficial para los exámenes DELF/DALF, ahora abierta al mundo desde San Cristóbal de Las Casas.
       </p>
       <div class="hero-actions">
         <a href="#preinscripcion" class="btn btn-glow"><i class="fa fa-rocket"></i> Inscribirme ahora</a>
@@ -1405,14 +1407,14 @@ body::after{
   <div class="container">
     <div class="section-head">
       <span class="section-watermark" aria-hidden="true">DELF · DALF</span>
-      <span class="section-tag">Centre officiel évaluateur · Único en Chiapas</span>
-      <h2 class="section-title">Certifications <em>officielles</em></h2>
-      <p class="section-sub">Diplomas vitalicios expedidos por el Ministerio de Educación de Francia. Reconocidos en más de 170 países.</p>
+      <span class="section-tag">Préparation officielle · alianza federativa</span>
+      <h2 class="section-title">Preparación <em>oficial</em> DELF · DALF</h2>
+      <p class="section-sub">Te preparamos con metodología oficial para los diplomas vitalicios del Ministerio de Educación de Francia. El examen se aplica en el centro evaluador de la red federativa — nosotros te acompañamos en cada paso.</p>
     </div>
     <div id="delf-container" class="grid-6">
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
     </div>
-    <p class="nota-legal">* Tarifas 2026 orientativas — confirmar con la sede al momento de inscripción.</p>
+    <p class="nota-legal">* Las horas indicadas son estimaciones de preparación para alcanzar el nivel. El examen oficial se aplica en el centro evaluador de la red federativa — te acompañamos en la inscripción.</p>
 
     <div class="grid-3" style="margin-top:3rem">
       <div class="glass porque-card">
@@ -1695,7 +1697,7 @@ body::after{
     <div class="glass historia-panel">
       <p>La <strong>Alliance Française</strong> fue fundada en París en 1883 por Paul Cambon y Pierre Foncin, con el apoyo de figuras como Louis Pasteur, Jules Verne y Ferdinand de Lesseps. Su misión: difundir el francés como instrumento de diálogo intercultural.</p>
       <p>Hoy la red opera <strong>824 centros en 138 países</strong>, formando a más de 428,000 estudiantes al año. En México, 31 sedes oficiales coordinadas por la Federación de Alianzas Francesas.</p>
-      <p>La <strong>Alliance Française San Cristóbal de Las Casas</strong> da un paso adelante: convertirse en la primera <strong>AF 100% virtual de México</strong>, sin perder la calidad pedagógica ni la certificación oficial que la distingue como único centro evaluador DELF/DALF de Chiapas.</p>
+      <p>La <strong>Alliance Française San Cristóbal de Las Casas</strong> da un paso adelante: convertirse en la primera <strong>AF 100% virtual de México</strong>, sin perder la calidad pedagógica ni la certificación oficial que la distingue como centro de preparación oficial DELF/DALF.</p>
     </div>
   </div>
 </section>
@@ -1762,7 +1764,7 @@ body::after{
       <div>
         <p class="footer-brand-name">Alliance Française <em>San Cristóbal</em></p>
         <p class="footer-brand-sub">La primera Alliance Française virtual de México</p>
-        <p class="footer-ref">Ref. AF-CHIS-2026-001 · Fondation des Alliances Françaises · Paris</p>
+        <p class="footer-ref">Ref. AF-SCLC-2026-001 · Fondation des Alliances Françaises · Paris</p>
       </div>
       <div class="footer-col">
         <p class="footer-col-title">San Cristóbal</p>
@@ -1787,7 +1789,7 @@ body::after{
     </div>
     <div class="footer-bottom">
       <span>© 2026 Alliance Française San Cristóbal · Todos los derechos reservados</span>
-      <span>AF-CHIS-2026-001</span>
+      <span>AF-SCLC-2026-001</span>
     </div>
   </div>
 </footer>
@@ -1809,7 +1811,7 @@ const STATS = [
   {n:'138',  s:'',  l:'Países con presencia'},
   {n:'428K', s:'+', l:'Estudiantes anuales'},
   {n:'31',   s:'',  l:'Sedes en México'},
-  {n:'100',  s:'%', l:'Aprobación DELF Junior 2026'},
+  {n:'6',    s:'',  l:'Niveles MCER que preparamos'},
   {n:'24/7', s:'',  l:'Tutor IA disponible'}
 ];
 
@@ -1818,7 +1820,7 @@ const PORQUE_FALLBACK = [
   {i:'fa-graduation-cap', t:'Universidades de élite', d:'Francia es el 3er destino mundial de estudiantes. Matrícula pública desde €170/año.'},
   {i:'fa-briefcase',      t:'Ventaja profesional',    d:'Diferénciate en diplomacia, moda, gastronomía, aeronáutica y arte.'},
   {i:'fa-certificate',    t:'Diplomas vitalicios',    d:'DELF y DALF no caducan. Reconocidos en más de 170 países.'},
-  {i:'fa-map-marked-alt', t:'Único centro DELF',      d:'Somos el único centro evaluador oficial DELF/DALF en Chiapas.'},
+  {i:'fa-map-marked-alt', t:'Preparación DELF certificada',      d:'Te preparamos para DELF/DALF con metodología oficial. El examen se aplica en el centro evaluador de la red.'},
   {i:'fa-users',          t:'300M de hablantes',      d:'Comunidad global de estudiantes, profesionales y artistas francófonos.'}
 ];
 
@@ -1832,19 +1834,19 @@ const CURSOS_FALLBACK = [
 ];
 
 const DELF = [
-  {n:'A1',c:'#4caf50',f:'DELF',desc:'Débutant',       p:1445},
-  {n:'A2',c:'#8bc34a',f:'DELF',desc:'Élémentaire',    p:1575},
-  {n:'B1',c:'#ffc107',f:'DELF',desc:'Intermédiaire',  p:1800},
-  {n:'B2',c:'#ff9800',f:'DELF',desc:'Avancé',         p:2500},
-  {n:'C1',c:'#f44336',f:'DALF',desc:'Autonome',       p:3500},
-  {n:'C2',c:'#9c27b0',f:'DALF',desc:'Maîtrise',       p:4000}
+  {n:'A1',c:'#4caf50',f:'DELF',desc:'Débutant',       hrs:'~80 h prep'},
+  {n:'A2',c:'#8bc34a',f:'DELF',desc:'Élémentaire',    hrs:'~100 h prep'},
+  {n:'B1',c:'#ffc107',f:'DELF',desc:'Intermédiaire',  hrs:'~180 h prep'},
+  {n:'B2',c:'#ff9800',f:'DELF',desc:'Avancé',         hrs:'~240 h prep'},
+  {n:'C1',c:'#f44336',f:'DALF',desc:'Autonome',       hrs:'~360 h prep'},
+  {n:'C2',c:'#9c27b0',f:'DALF',desc:'Maîtrise',       hrs:'~450 h prep'}
 ];
 
 const EVENTOS = [
   {t:'Fête de la Musique 2026',     f:'2026-06-21',h:'18:00',l:'San Cristóbal · presencial', cat:'Música',       libre:true,  modo:'presencial'},
   {t:'Tour de Cine Francés 2026',   f:'2026-10-10',h:'19:00',l:'Por confirmar · SCSC',        cat:'Cine',         libre:true,  modo:'presencial'},
   {t:'Fiesta Nacional Francesa',    f:'2026-07-14',h:'19:00',l:'Alliance Française',          cat:'Diplomacia',   libre:true,  modo:'presencial'},
-  {t:'Sesión DELF/DALF Septiembre', f:'2026-09-13',h:'09:00',l:'Sede San Cristóbal',          cat:'Certificación',libre:false, modo:'presencial'},
+  {t:'Taller pre-examen DELF/DALF', f:'2026-09-06',h:'09:00',l:'Sede San Cristóbal',          cat:'Preparación',  libre:false, modo:'presencial'},
   {t:'Club de Conversation en Ligne',f:'2026-07-05',h:'19:00',l:'Plataforma AF Virtual',       cat:'Comunidad',    libre:true,  modo:'virtual'},
   {t:'Taller de Cocina Francesa',   f:'2026-07-18',h:'11:00',l:'Sede San Cristóbal',          cat:'Gastronomía',  libre:false, modo:'presencial'}
 ];
@@ -1885,7 +1887,7 @@ const FAQ = [
   {cat:'Certificaciones DELF/DALF', qs:[
     {q:'¿El diploma DELF caduca?',                        a:'No. DELF y DALF son diplomas vitalicios. Una vez aprobados, su validez es permanente.'},
     {q:'¿Puedo presentar el DELF sin tomar clases con ustedes?', a:'Sí. La inscripción está abierta a cualquier candidato.'},
-    {q:'¿Qué nivel necesito para estudiar en Francia?',   a:'B2 para Licenciatura, C1 para Maestría o Doctorado. Somos el único centro donde puedes obtener esta certificación en Chiapas.'},
+    {q:'¿Qué nivel necesito para estudiar en Francia?',   a:'B2 para Licenciatura, C1 para Maestría o Doctorado. Te preparamos para que la obtengas; el examen oficial se aplica en el centro evaluador de la red.'},
     {q:'¿Cuándo son las sesiones de examen?',             a:'Septiembre, octubre y noviembre. C1 y C2 solo en septiembre y noviembre. Confirma calendario con la sede.'}
   ]}
 ];
@@ -1897,6 +1899,7 @@ const AF = (() => {
 
   function init(){
     if(window.emailjs){ try{ emailjs.init(EMAILJS_PK); }catch(e){ console.warn('[EmailJS]',e); } }
+    initSupabase();
     renderStats();
     renderPorqueFromFallback();
     renderCursosFromFallback();
@@ -1906,6 +1909,18 @@ const AF = (() => {
     loadCatalog();
     initNavScroll();
     injectWaCtas();
+  }
+
+  let sb = null;
+  function initSupabase(){
+    if(!window.supabase || !window.AF_CONFIG?.isSupabaseConfigured?.()) return;
+    try{
+      sb = window.supabase.createClient(
+        window.AF_CONFIG.supabase.url,
+        window.AF_CONFIG.supabase.anonKey
+      );
+      console.info('[Supabase] cliente listo');
+    } catch(e){ console.warn('[Supabase] init falló', e); }
   }
 
   function injectWaCtas(){
@@ -2025,9 +2040,9 @@ const AF = (() => {
         <span class="delf-nivel" style="color:${d.c}">${d.n}</span>
         <p class="delf-desc">${d.desc}</p>
         <p class="delf-familia">${d.f} ${d.n}</p>
-        <p class="delf-precio">$${d.p.toLocaleString('es-MX')} MXN<span>*</span></p>
+        <p class="delf-precio">${d.hrs}<span> · estimado</span></p>
         <button type="button" class="btn btn-secondary" style="width:100%;justify-content:center;font-size:0.55rem"
-                onclick="AF.irA('delf_prep','${d.n}')">S'inscrire</button>
+                onclick="AF.irA('delf_prep','${d.n}')">Prepararme</button>
       </div>`).join('');
   }
 
@@ -2282,16 +2297,38 @@ const AF = (() => {
     };
 
     try{
+      // 1) Persistencia en Supabase (si está configurado)
+      if(sb){
+        const ins = {
+          folio,
+          sede: estado.sede,
+          curso_id: estado.curso,
+          curso_nombre: estado.cursoNombre,
+          nivel: estado.nivel || null,
+          formato: estado.formato || null,
+          ritmo: estado.ritmo || null,
+          inicio: payload.inicio,
+          nombre,
+          email,
+          telefono: tel,
+          fuente: payload.fuente,
+          mensaje: payload.mensaje === '(Sin mensaje)' ? null : payload.mensaje
+        };
+        const {error: dbErr} = await sb.from('inscripciones').insert(ins);
+        if(dbErr) console.warn('[Supabase] insert falló (se continúa con EmailJS):', dbErr);
+      }
+
+      // 2) Notificación por correo (siempre)
       if(!window.emailjs) throw new Error('EmailJS no cargado');
       await emailjs.send(EMAILJS_SID, EMAILJS_TID, payload);
 
-      // Confirmación visual con datos del estudiante y promesa 48h
+      // 3) Confirmación visual con datos del estudiante y promesa 48h
       document.getElementById('confirm-nombre').textContent = nombre.split(/\s+/)[0] || 'estudiante';
       document.getElementById('confirm-sede').textContent   = estado.sedeName;
       document.getElementById('confirm-folio').textContent  = folio;
       document.getElementById('confirm-fecha').textContent  = ahora;
 
-      // Botón WhatsApp con mensaje pre-rellenado de cierre por parte del estudiante
+      // 4) Botón WhatsApp con mensaje pre-rellenado de cierre por parte del estudiante
       const waMsg = `Hola, soy ${nombre}. Acabo de enviar mi solicitud de preinscripción (folio ${folio}) para ${payload.curso} · ${payload.formato} · ${payload.ritmo} en ${estado.sedeName}. Quedo atento(a) a su respuesta. ¡Gracias!`;
       const waUrl = `https://wa.me/529671721870?text=${encodeURIComponent(waMsg)}`;
       const waBtn = document.getElementById('confirm-wa-btn');
