@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal del alumno · AF San Cristóbal</title>
+<meta name="description" content="Consulta el estado de tu preinscripción a la Alliance Française San Cristóbal de Las Casas.">
+<link rel="icon" type="image/png" href="../src/assets/brand/logo-af-sancristobal.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="../src/config/supabase.js" defer></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --void:#07111d; --deep:#0d1f33; --panel:rgba(255,255,255,0.055); --panel-hover:rgba(255,255,255,0.09);
+  --border:rgba(255,255,255,0.11); --border-gold:rgba(201,164,78,0.4);
+  --white:#f5f3ee; --muted:rgba(245,243,238,0.62); --hint:rgba(245,243,238,0.38);
+  --gold:#c9a44e; --gold-light:#e8c97a; --red:#d42b3a; --green:#22c55e; --cyan:#4fd1c5; --amber:#fbbf24;
+  --display:'Cormorant Garamond',Georgia,serif; --sans:'Syne',system-ui,sans-serif;
+  --mono:'Space Mono',monospace; --poster:'Bebas Neue','Syne',sans-serif;
+  --r:12px; --r-lg:20px;
+}
+body{
+  background:var(--void);color:var(--white);font-family:var(--sans);font-size:15px;
+  min-height:100vh;line-height:1.6;
+}
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 80% 60% at 15% 10%, rgba(0,38,84,0.5) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 85% 90%, rgba(201,164,78,0.07) 0%, transparent 55%);
+}
+.shell{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:2rem 1.5rem;min-height:100vh}
+
+/* Topbar */
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:2.5rem;flex-wrap:wrap;gap:1rem}
+.brand{display:flex;align-items:center;gap:0.65rem;font-family:var(--display);font-size:1.2rem;text-decoration:none;color:var(--white)}
+.brand-dot{width:7px;height:7px;background:var(--red);transform:rotate(45deg)}
+.brand em{color:var(--gold);font-style:italic}
+.brand-tag{font-family:var(--mono);font-size:0.55rem;letter-spacing:0.18em;color:var(--cyan);text-transform:uppercase}
+
+/* Hero */
+.hero{text-align:center;margin-bottom:2.5rem;position:relative}
+.hero-mark{
+  font-family:var(--poster);font-size:clamp(3.5rem,12vw,7rem);line-height:0.85;
+  color:var(--white);opacity:0.04;position:absolute;top:-0.5rem;left:50%;transform:translateX(-50%);
+  white-space:nowrap;pointer-events:none;letter-spacing:-0.01em;
+}
+.hero h1{position:relative;z-index:1;font-family:var(--display);font-size:clamp(2.2rem,5vw,3.5rem);font-weight:300;line-height:1.1;margin-bottom:0.5rem}
+.hero h1 em{color:var(--gold);font-style:italic}
+.hero p{position:relative;z-index:1;color:var(--muted);max-width:480px;margin:0 auto;line-height:1.7}
+
+/* Card */
+.card{
+  background:var(--panel);border:1px solid var(--border);border-radius:var(--r-lg);
+  padding:2rem;backdrop-filter:blur(20px);margin-bottom:1.25rem;
+}
+.card-title{font-family:var(--display);font-size:1.4rem;font-weight:300;margin-bottom:0.4rem}
+.card-sub{color:var(--muted);font-size:0.9rem;margin-bottom:1.5rem}
+
+/* Form */
+label{display:block;font-family:var(--mono);font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;margin-top:1rem}
+.field{
+  width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);
+  color:var(--white);padding:0.9rem 1rem;font-family:var(--sans);font-size:0.95rem;
+}
+.field:focus{outline:none;border-color:var(--gold)}
+.error{color:var(--red);font-size:0.85rem;margin-top:0.5rem;display:none}
+.error.show{display:block}
+
+/* Buttons */
+.btn{
+  display:inline-flex;align-items:center;gap:0.6rem;padding:0.85rem 1.5rem;border-radius:var(--r);
+  border:none;cursor:pointer;font-family:var(--mono);font-size:0.62rem;letter-spacing:0.2em;
+  text-transform:uppercase;font-weight:700;text-decoration:none;
+  transition:transform 0.2s,background 0.2s,box-shadow 0.2s;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--gold);color:var(--void);box-shadow:0 6px 24px rgba(201,164,78,0.3)}
+.btn-primary:hover{background:var(--gold-light)}
+.btn-ghost{background:rgba(255,255,255,0.04);color:var(--white);border:1px solid var(--border)}
+.btn-ghost:hover{border-color:var(--gold)}
+.btn-wa{background:#25d366;color:#fff;box-shadow:0 6px 24px rgba(37,211,102,0.35)}
+.btn-block{width:100%;justify-content:center}
+
+/* Estado del trámite */
+.estado-pill{
+  display:inline-flex;align-items:center;gap:0.4rem;
+  padding:0.5rem 1.1rem;border-radius:99px;
+  font-family:var(--mono);font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;
+  margin-bottom:1.5rem;
+}
+.estado-pendiente   {background:rgba(251,191,36,0.15);color:var(--amber);border:1px solid rgba(251,191,36,0.4)}
+.estado-en_revision {background:rgba(79,209,197,0.15);color:var(--cyan);border:1px solid rgba(79,209,197,0.4)}
+.estado-aprobada    {background:rgba(34,197,94,0.15);color:var(--green);border:1px solid rgba(34,197,94,0.4)}
+.estado-rechazada   {background:rgba(212,43,58,0.15);color:var(--red);border:1px solid rgba(212,43,58,0.4)}
+.estado-cancelada   {background:rgba(245,243,238,0.08);color:var(--hint);border:1px solid var(--border)}
+.estado-dot{width:8px;height:8px;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+
+/* Datos */
+.kv{display:grid;grid-template-columns:140px 1fr;gap:0.6rem 1rem;margin-bottom:1.5rem}
+.kv-k{font-family:var(--mono);font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);align-self:center}
+.kv-v{color:var(--white)}
+.kv-v strong{color:var(--gold);font-weight:600}
+
+/* Mensaje según estado */
+.msg{
+  padding:1rem 1.25rem;border-radius:var(--r);margin-bottom:1.5rem;
+  border-left:3px solid;font-size:0.92rem;line-height:1.7;
+}
+.msg.pendiente   {background:rgba(251,191,36,0.07);border-color:var(--amber)}
+.msg.en_revision {background:rgba(79,209,197,0.07);border-color:var(--cyan)}
+.msg.aprobada    {background:rgba(34,197,94,0.07);border-color:var(--green)}
+.msg.rechazada   {background:rgba(212,43,58,0.07);border-color:var(--red)}
+.msg.cancelada   {background:rgba(245,243,238,0.04);border-color:var(--hint)}
+.msg strong{color:var(--white)}
+
+/* Grupo info */
+.grupo-card{
+  background:linear-gradient(135deg, rgba(201,164,78,0.07), rgba(212,43,58,0.04));
+  border:1px solid var(--border-gold);border-radius:var(--r-lg);padding:1.5rem;margin-bottom:1.5rem;
+}
+.grupo-card h3{font-family:var(--display);font-size:1.3rem;color:var(--gold);margin-bottom:0.75rem}
+.grupo-codigo{font-family:var(--mono);font-size:0.9rem;color:var(--white)}
+
+.actions{display:flex;gap:0.5rem;flex-wrap:wrap}
+.cfg-warn{
+  background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.3);
+  border-radius:var(--r-lg);padding:1.5rem;
+}
+.cfg-warn h3{font-family:var(--display);color:var(--amber);font-size:1.2rem;margin-bottom:0.5rem}
+.cfg-warn p{color:var(--muted);font-size:0.9rem}
+.cfg-warn code{background:rgba(0,0,0,0.4);padding:0.15rem 0.4rem;border-radius:3px;font-family:var(--mono);font-size:0.8rem}
+.loading{text-align:center;padding:1rem;color:var(--muted);font-family:var(--mono);font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase}
+
+@media(max-width:540px){
+  .kv{grid-template-columns:1fr;gap:0.2rem 0.5rem}
+  .kv-k{padding-top:0.5rem}
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <div class="topbar">
+    <a href="../index.html" class="brand">
+      <span class="brand-dot"></span>
+      AF <em>San Cristóbal</em>
+      <span class="brand-tag" style="margin-left:0.5rem">· Portal del alumno</span>
+    </a>
+    <a href="../index.html" class="btn btn-ghost"><i class="fa fa-arrow-left"></i> Volver al sitio</a>
+  </div>
+
+  <div class="hero">
+    <span class="hero-mark" aria-hidden="true">SUIVI</span>
+    <h1>Consulta el estado de tu <em>solicitud</em></h1>
+    <p>Ingresa el folio que recibiste al enviar tu preinscripción y el correo con el que la enviaste.</p>
+  </div>
+
+  <div id="warn-zone"></div>
+
+  <!-- Form de consulta -->
+  <div class="card" id="view-form">
+    <h2 class="card-title">Tu folio</h2>
+    <p class="card-sub">Lo recibiste al enviar tu preinscripción. Tiene formato <strong style="color:var(--gold)">AF-AAMMDD-XXXX</strong>.</p>
+    <form id="form-consulta" autocomplete="off">
+      <label for="f-folio">Folio</label>
+      <input type="text" id="f-folio" class="field" placeholder="AF-260626-AB12" required>
+      <label for="f-email">Correo registrado</label>
+      <input type="email" id="f-email" class="field" placeholder="tu@correo.com" required>
+      <p class="error" id="err-msg">No encontramos una solicitud con esos datos. Verifica que el folio y el correo coincidan exactamente con los que recibiste.</p>
+      <button type="submit" class="btn btn-primary btn-block" style="margin-top:1.5rem">
+        <i class="fa fa-search"></i> Consultar mi solicitud
+      </button>
+    </form>
+  </div>
+
+  <div class="loading" id="loading" style="display:none">Consultando…</div>
+
+  <!-- Resultado -->
+  <div id="view-resultado" style="display:none">
+    <div class="card">
+      <p class="card-sub" style="margin-bottom:0.5rem">Hola,</p>
+      <h2 class="card-title" id="r-nombre">—</h2>
+      <p class="estado-pill" id="r-estado-pill"><span class="estado-dot"></span><span id="r-estado-label">—</span></p>
+
+      <div class="msg" id="r-msg">—</div>
+
+      <div class="kv">
+        <span class="kv-k">Folio</span>     <span class="kv-v" id="r-folio">—</span>
+        <span class="kv-k">Programa</span>  <span class="kv-v" id="r-curso">—</span>
+        <span class="kv-k">Nivel</span>     <span class="kv-v" id="r-nivel">—</span>
+        <span class="kv-k">Formato</span>   <span class="kv-v" id="r-formato">—</span>
+        <span class="kv-k">Ritmo</span>     <span class="kv-v" id="r-ritmo">—</span>
+        <span class="kv-k">Modalidad</span> <span class="kv-v" id="r-sede">—</span>
+        <span class="kv-k">Recibida</span>  <span class="kv-v" id="r-creada">—</span>
+        <span class="kv-k" id="r-val-key" style="display:none">Validada</span>
+        <span class="kv-v" id="r-val" style="display:none">—</span>
+      </div>
+
+      <!-- Tarjeta de grupo (sólo visible si aprobada y con grupo) -->
+      <div class="grupo-card" id="r-grupo-card" style="display:none">
+        <h3><i class="fa fa-graduation-cap"></i> Tu grupo</h3>
+        <p class="grupo-codigo" id="r-grupo-codigo">—</p>
+        <div class="kv" style="margin-top:1rem">
+          <span class="kv-k">Inicio</span>  <span class="kv-v" id="r-grupo-inicio">—</span>
+          <span class="kv-k">Docente</span> <span class="kv-v" id="r-grupo-docente">—</span>
+          <span class="kv-k">Horario</span> <span class="kv-v" id="r-grupo-horario">—</span>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a href="#" target="_blank" rel="noopener" class="btn btn-wa" id="r-wa-btn">
+          <i class="fab fa-whatsapp"></i> Contactar coordinación
+        </a>
+        <button class="btn btn-ghost" onclick="PORTAL.reset()"><i class="fa fa-rotate"></i> Consultar otra</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const PORTAL = (() => {
+  let sb = null;
+
+  function init(){
+    if(!window.AF_CONFIG?.isSupabaseConfigured?.()){
+      document.getElementById('warn-zone').innerHTML = `
+        <div class="cfg-warn">
+          <h3><i class="fa fa-triangle-exclamation"></i> Portal aún no disponible</h3>
+          <p>Estamos terminando la configuración. Mientras tanto, escríbenos por WhatsApp al <strong>+52 967 172 1870</strong> con tu folio y te respondemos.</p>
+        </div>`;
+      document.getElementById('view-form').style.display = 'none';
+      return;
+    }
+    sb = window.supabase.createClient(
+      window.AF_CONFIG.supabase.url,
+      window.AF_CONFIG.supabase.anonKey
+    );
+    document.getElementById('form-consulta').addEventListener('submit', consultar);
+  }
+
+  async function consultar(e){
+    e.preventDefault();
+    const folio = document.getElementById('f-folio').value.trim().toUpperCase();
+    const email = document.getElementById('f-email').value.trim();
+    const err   = document.getElementById('err-msg');
+    err.classList.remove('show');
+    document.getElementById('loading').style.display = 'block';
+
+    const {data, error} = await sb.rpc('consulta_inscripcion', {p_folio: folio, p_email: email});
+
+    document.getElementById('loading').style.display = 'none';
+
+    if(error || !data || !data.length){
+      err.classList.add('show');
+      console.warn('[consulta]', error);
+      return;
+    }
+    pintar(data[0]);
+  }
+
+  function pintar(i){
+    document.getElementById('view-form').style.display = 'none';
+    document.getElementById('view-resultado').style.display = 'block';
+
+    const set = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val || '—'; };
+
+    set('r-nombre', i.nombre);
+    set('r-folio',  i.folio);
+    set('r-curso',  i.curso_nombre || i.curso_id);
+    set('r-nivel',  i.nivel || 'Por evaluar (prueba gratuita)');
+    set('r-formato',i.formato || '—');
+    set('r-ritmo',  i.ritmo || '—');
+    set('r-sede',   i.sede === 'virtual' ? 'AF Virtual' : 'San Cristóbal de Las Casas');
+    set('r-creada', new Date(i.creada_en).toLocaleString('es-MX', {dateStyle:'long', timeStyle:'short'}));
+
+    if(i.validada_en){
+      document.getElementById('r-val-key').style.display = '';
+      document.getElementById('r-val').style.display = '';
+      set('r-val', new Date(i.validada_en).toLocaleString('es-MX', {dateStyle:'long', timeStyle:'short'}));
+    }
+
+    // Estado
+    const estado = i.estado;
+    const pill   = document.getElementById('r-estado-pill');
+    pill.classList.remove('estado-pendiente','estado-en_revision','estado-aprobada','estado-rechazada','estado-cancelada');
+    pill.classList.add('estado-' + estado);
+    set('r-estado-label', estado.replace('_',' '));
+
+    const msg = document.getElementById('r-msg');
+    msg.className = 'msg ' + estado;
+    msg.innerHTML = mensajePorEstado(estado, i);
+
+    // Grupo
+    const card = document.getElementById('r-grupo-card');
+    if(estado === 'aprobada' && i.grupo_codigo){
+      card.style.display = 'block';
+      set('r-grupo-codigo', 'Código del grupo · ' + i.grupo_codigo);
+      set('r-grupo-inicio', i.grupo_inicio ? new Date(i.grupo_inicio).toLocaleDateString('es-MX', {dateStyle:'long'}) : '—');
+      set('r-grupo-docente', i.docente_nombre || 'Por asignar');
+      set('r-grupo-horario', i.grupo_horario?.raw || i.grupo_horario ? JSON.stringify(i.grupo_horario) : '—');
+    } else {
+      card.style.display = 'none';
+    }
+
+    // WhatsApp button
+    const waMsg = `Hola, soy ${i.nombre}. Consulto el estado de mi folio ${i.folio} (${i.curso_nombre || i.curso_id} · ${i.formato} · ${i.ritmo}). ¡Gracias!`;
+    document.getElementById('r-wa-btn').href = `https://wa.me/529671721870?text=${encodeURIComponent(waMsg)}`;
+  }
+
+  function mensajePorEstado(estado, i){
+    switch(estado){
+      case 'pendiente':
+        return `Tu solicitud está <strong>en cola para validación</strong>. Nuestro equipo te contactará en un plazo máximo de <strong>48 horas hábiles</strong> con la confirmación de cupo, horario y los datos de pago.`;
+      case 'en_revision':
+        return `Tu solicitud está <strong>siendo revisada</strong> en este momento por el equipo de coordinación. Te contactaremos muy pronto con los siguientes pasos.`;
+      case 'aprobada':
+        return i.grupo_codigo
+          ? `¡Felicidades! Tu solicitud fue <strong>aprobada</strong> y ya estás asignado/a a tu grupo. Revisa los datos abajo y prepárate para empezar.`
+          : `Tu solicitud fue <strong>aprobada</strong>. Estamos terminando de asignarte a un grupo y te enviaremos los detalles en breve.`;
+      case 'rechazada':
+        return `Lamentablemente esta solicitud no pudo procesarse en este momento. ${i.notas_admin ? '<br><br><em>'+escapeHtml(i.notas_admin)+'</em>' : ''} Escríbenos por WhatsApp para entender las opciones disponibles.`;
+      case 'cancelada':
+        return `Esta solicitud fue cancelada. Si quieres reactivarla, escríbenos por WhatsApp y te apoyamos.`;
+      default:
+        return 'Estado en actualización.';
+    }
+  }
+
+  function reset(){
+    document.getElementById('view-form').style.display = 'block';
+    document.getElementById('view-resultado').style.display = 'none';
+    document.getElementById('f-folio').value = '';
+    document.getElementById('f-email').value = '';
+  }
+
+  function escapeHtml(s){
+    return String(s||'').replace(/[&<>"']/g, c => (
+      {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]
+    ));
+  }
+
+  return {init, reset};
+})();
+
+window.addEventListener('DOMContentLoaded', () => setTimeout(() => PORTAL.init(), 50));
+</script>
+
+</body>
+</html>
