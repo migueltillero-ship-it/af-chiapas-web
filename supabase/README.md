@@ -103,6 +103,29 @@ from auth.users where email = 'camille@alianzafr.edu.mx';
 4. Admin selecciona grupo existente **o** crea uno nuevo desde el mismo modal
 5. Click **Aprobar y asignar** → `inscripcion.estado = 'aprobada'`, `grupo_id` asignado, `cupo_actual` se incrementa automáticamente
 
+## Fase 3 — Portal del alumno
+
+Aplica `supabase/schema_phase3.sql` sobre los esquemas anteriores.
+
+### Lo que añade
+
+- Función `consulta_inscripcion(folio, email)` con `security definer` que devuelve
+  el estado completo (incluyendo grupo, docente y horario si está aprobada) **sólo**
+  si el binomio folio + email coincide.
+- Sin necesidad de auth de alumno — el folio + email son la prueba de identidad.
+- Disponible públicamente en `/portal/` (link en la nav principal: "Mi solicitud").
+
+### Mensajes contextuales por estado
+
+| Estado | Mensaje al alumno |
+|---|---|
+| `pendiente` | "En cola para validación. Máximo 48 h hábiles." |
+| `en_revision` | "Está siendo revisada. Pronto te contactaremos." |
+| `aprobada` con grupo | "¡Felicidades! Estás asignado/a a tu grupo." |
+| `aprobada` sin grupo | "Aprobada. Estamos asignándote grupo." |
+| `rechazada` | Muestra `notas_admin` + invita a contactar por WhatsApp. |
+| `cancelada` | "Cancelada. Escríbenos para reactivar." |
+
 ## Costo
 
 Free tier de Supabase cubre:
