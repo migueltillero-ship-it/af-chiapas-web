@@ -248,6 +248,7 @@ tr:hover{background:rgba(255,255,255,0.02);cursor:pointer}
     <button class="tab active" data-tab="inscripciones" onclick="ADMIN.switchTab('inscripciones')"><i class="fa fa-clipboard-list"></i> Inscripciones</button>
     <button class="tab" data-tab="grupos" onclick="ADMIN.switchTab('grupos')"><i class="fa fa-users-rectangle"></i> Grupos</button>
     <button class="tab" data-tab="docentes" onclick="ADMIN.switchTab('docentes')"><i class="fa fa-chalkboard-teacher"></i> Docentes</button>
+    <button class="tab" data-tab="eventos" onclick="ADMIN.switchTab('eventos')"><i class="fa fa-calendar-days"></i> Eventos</button>
   </div>
 
   <!-- TAB: INSCRIPCIONES -->
@@ -305,6 +306,31 @@ tr:hover{background:rgba(255,255,255,0.02);cursor:pointer}
     </div>
   </div>
 
+  <!-- TAB: EVENTOS -->
+  <div class="tab-pane" id="pane-eventos">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem">
+        <p style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase">Agenda cultural</p>
+        <button class="btn btn-primary" onclick="ADMIN.openEventoEditor()"><i class="fa fa-plus"></i> Nuevo evento</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Título</th>
+              <th>Categoría · Modo</th>
+              <th>Lugar</th>
+              <th>Estado</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tbody-eventos"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
   <!-- TAB: DOCENTES -->
   <div class="tab-pane" id="pane-docentes">
     <div class="card">
@@ -326,6 +352,32 @@ tr:hover{background:rgba(255,255,255,0.02);cursor:pointer}
       <p style="font-size:0.78rem;color:var(--muted);margin-top:1rem">
         El alta de docentes se hace creando primero el usuario en <strong>Authentication → Users</strong> y luego insertando una fila en <code>public.docentes</code> con el mismo <code>id</code>.
       </p>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL editor de evento -->
+<div class="modal-bg" id="modal-evento-bg">
+  <div class="modal">
+    <h2 id="ev-title">Nuevo evento</h2>
+    <p class="modal-folio" id="ev-id">—</p>
+    <div class="kv">
+      <span class="kv-key">Título *</span>      <input id="ev-titulo" class="field" type="text" style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Descripción</span>   <textarea id="ev-desc" rows="3" style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem"></textarea>
+      <span class="kv-key">Fecha *</span>       <input id="ev-fecha" type="date" style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Hora</span>          <input id="ev-hora" type="time" style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Lugar</span>         <input id="ev-lugar" type="text" placeholder="Sede SC · Por confirmar..." style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Categoría</span>     <input id="ev-categoria" type="text" placeholder="Música · Cine · Diplomacia..." style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Modo</span>          <select id="ev-modo" style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem"><option value="presencial">Presencial</option><option value="virtual">Virtual</option><option value="hibrido">Híbrido</option></select>
+      <span class="kv-key">Entrada libre</span> <label style="display:flex;align-items:center;gap:0.5rem;color:var(--white)"><input id="ev-libre" type="checkbox" checked style="width:18px;height:18px"> Sí, evento abierto al público</label>
+      <span class="kv-key">URL inscripción</span><input id="ev-url" type="url" placeholder="https://..." style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Destacado</span>     <label style="display:flex;align-items:center;gap:0.5rem;color:var(--white)"><input id="ev-destacado" type="checkbox" style="width:18px;height:18px"> Destacar en agenda</label>
+      <span class="kv-key">Publicado</span>     <label style="display:flex;align-items:center;gap:0.5rem;color:var(--white)"><input id="ev-publicado" type="checkbox" checked style="width:18px;height:18px"> Visible en el sitio público</label>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="ADMIN.closeEventoEditor()">Cancelar</button>
+      <button class="btn btn-red" id="ev-btn-delete" onclick="ADMIN.deleteEvento()" style="display:none"><i class="fa fa-trash"></i> Eliminar</button>
+      <button class="btn btn-green" onclick="ADMIN.saveEvento()"><i class="fa fa-save"></i> Guardar</button>
     </div>
   </div>
 </div>
@@ -394,8 +446,10 @@ const ADMIN = (() => {
   let inscripciones = [];
   let grupos = [];
   let docentes = [];
+  let eventos = [];
   let filtro = 'todas';
   let actual = null;
+  let actualEvento = null;
 
   function init(){
     const cfgOk = window.AF_CONFIG?.isSupabaseConfigured?.();
@@ -515,6 +569,109 @@ const ADMIN = (() => {
     document.getElementById('pane-' + tab)?.classList.add('active');
     if(tab === 'grupos')   cargarGrupos();
     if(tab === 'docentes') cargarDocentes();
+    if(tab === 'eventos')  cargarEventos();
+  }
+
+  async function cargarEventos(){
+    const {data, error} = await sb.from('eventos').select('*').order('fecha', {ascending:false});
+    if(error){ console.warn('[eventos]', error); return; }
+    eventos = data || [];
+    renderEventos();
+  }
+
+  function renderEventos(){
+    const tb = document.getElementById('tbody-eventos');
+    if(!tb) return;
+    if(!eventos.length){
+      tb.innerHTML = `<tr><td colspan="6" class="empty">Sin eventos. Crea el primero con "Nuevo evento".</td></tr>`;
+      return;
+    }
+    tb.innerHTML = eventos.map(ev => {
+      const fecha = new Date(ev.fecha + 'T00:00:00').toLocaleDateString('es-MX',{dateStyle:'medium'});
+      const hora  = ev.hora ? ' · '+ev.hora.slice(0,5) : '';
+      const pubBadge = ev.publicado ? 'b-aprobada' : 'b-cancelada';
+      const destBadge = ev.destacado ? '<span class="badge" style="background:rgba(201,164,78,0.15);color:var(--gold);border:1px solid var(--border-gold);margin-left:0.4rem">Destacado</span>' : '';
+      return `<tr>
+        <td class="cell-meta">${fecha}${hora}</td>
+        <td><div class="cell-nombre">${escapeHtml(ev.titulo)}</div><div class="cell-meta">${escapeHtml((ev.descripcion||'').slice(0,80))}${ev.descripcion?.length>80?'…':''}</div></td>
+        <td class="cell-meta">${escapeHtml(ev.categoria||'—')} · <span class="badge">${ev.modo}</span></td>
+        <td class="cell-meta">${escapeHtml(ev.lugar||'—')}</td>
+        <td><span class="badge ${pubBadge}">${ev.publicado ? 'publicado' : 'borrador'}</span>${destBadge}</td>
+        <td><button class="btn btn-ghost" style="padding:0.4rem 0.7rem;font-size:0.55rem" onclick="ADMIN.openEventoEditor('${ev.id}')"><i class="fa fa-pen"></i> Editar</button></td>
+      </tr>`;
+    }).join('');
+  }
+
+  function openEventoEditor(id){
+    actualEvento = id ? eventos.find(e => e.id === id) : null;
+    const set = (k,v) => { const el = document.getElementById('ev-' + k); if(el) el.value = v ?? ''; };
+    const setChk = (k,v) => { const el = document.getElementById('ev-' + k); if(el) el.checked = !!v; };
+    if(actualEvento){
+      document.getElementById('ev-title').textContent = 'Editar evento';
+      document.getElementById('ev-id').textContent    = 'ID · ' + actualEvento.id;
+      document.getElementById('ev-btn-delete').style.display = '';
+      set('titulo',    actualEvento.titulo);
+      set('desc',      actualEvento.descripcion);
+      set('fecha',     actualEvento.fecha);
+      set('hora',      actualEvento.hora?.slice(0,5));
+      set('lugar',     actualEvento.lugar);
+      set('categoria', actualEvento.categoria);
+      set('modo',      actualEvento.modo);
+      set('url',       actualEvento.url_inscripcion);
+      setChk('libre',     actualEvento.entrada_libre);
+      setChk('destacado', actualEvento.destacado);
+      setChk('publicado', actualEvento.publicado);
+    } else {
+      document.getElementById('ev-title').textContent = 'Nuevo evento';
+      document.getElementById('ev-id').textContent    = 'Se asignará al guardar';
+      document.getElementById('ev-btn-delete').style.display = 'none';
+      ['titulo','desc','fecha','hora','lugar','categoria','url'].forEach(k => set(k,''));
+      set('modo','presencial');
+      setChk('libre', true);
+      setChk('destacado', false);
+      setChk('publicado', true);
+    }
+    document.getElementById('modal-evento-bg').classList.add('open');
+  }
+
+  function closeEventoEditor(){
+    actualEvento = null;
+    document.getElementById('modal-evento-bg').classList.remove('open');
+  }
+
+  async function saveEvento(){
+    const get  = (k) => document.getElementById('ev-' + k).value.trim();
+    const getC = (k) => document.getElementById('ev-' + k).checked;
+    const payload = {
+      titulo:          get('titulo'),
+      descripcion:     get('desc') || null,
+      fecha:           get('fecha'),
+      hora:            get('hora') || null,
+      lugar:           get('lugar') || null,
+      categoria:       get('categoria') || null,
+      modo:            get('modo'),
+      entrada_libre:   getC('libre'),
+      url_inscripcion: get('url') || null,
+      destacado:       getC('destacado'),
+      publicado:       getC('publicado'),
+    };
+    if(!payload.titulo || !payload.fecha){ alert('Título y fecha son requeridos.'); return; }
+    let q;
+    if(actualEvento) q = sb.from('eventos').update(payload).eq('id', actualEvento.id);
+    else             q = sb.from('eventos').insert(payload);
+    const {error} = await q;
+    if(error){ alert('Error: ' + error.message); return; }
+    closeEventoEditor();
+    cargarEventos();
+  }
+
+  async function deleteEvento(){
+    if(!actualEvento) return;
+    if(!confirm('¿Eliminar "' + actualEvento.titulo + '"? Esta acción no se puede deshacer.')) return;
+    const {error} = await sb.from('eventos').delete().eq('id', actualEvento.id);
+    if(error){ alert('Error: ' + error.message); return; }
+    closeEventoEditor();
+    cargarEventos();
   }
 
   function renderStats(){
@@ -718,7 +875,7 @@ const ADMIN = (() => {
     ));
   }
 
-  return {init, logout, switchTab, openModal, closeModal, setEstado, toggleNewGrupo, crearGrupo, openNewGrupo};
+  return {init, logout, switchTab, openModal, closeModal, setEstado, toggleNewGrupo, crearGrupo, openNewGrupo, openEventoEditor, closeEventoEditor, saveEvento, deleteEvento};
 })();
 
 window.addEventListener('DOMContentLoaded', () => {
