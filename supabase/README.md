@@ -126,6 +126,12 @@ Aplica `supabase/schema_phase3.sql` sobre los esquemas anteriores.
 | `rechazada` | Muestra `notas_admin` + invita a contactar por WhatsApp. |
 | `cancelada` | "Cancelada. Escríbenos para reactivar." |
 
+## Fase 4 — Notificaciones email automáticas
+
+Edge Function en Deno + Resend. Ver guía detallada en `supabase/functions/README.md`.
+
+**Flujo**: admin cambia estado → Database Webhook → Edge Function → Resend → correo al estudiante (+ CC a coordinación) con template específico por estado (en_revision / aprobada / rechazada / cancelada).
+
 ## Fase 3B — Portal del docente
 
 Aplica `supabase/schema_phase3b.sql` sobre todo lo anterior.
