@@ -1,5 +1,5 @@
 /**
- * AF CHIAPAS - Bridge Vichy2026LaSalle
+ * AF SAN CRISTÓBAL - Bridge Vichy2026LaSalle
  * Gestiona la conexión con el repositorio satélite de movilidad.
  */
 async function conectarProyectoVichy() {

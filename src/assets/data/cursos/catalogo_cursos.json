@@ -1,8 +1,8 @@
 {
   "_meta": {
-    "institucion": "Alliance Française Chiapas",
+    "institucion": "Alliance Française San Cristóbal de Las Casas",
     "ciclo": "2026",
-    "ref": "AF-CHIS-2026-004",
+    "ref": "AF-SCLC-2026-004",
     "nota": "Tarifas orientativas. Confirmar con sede al inscribirse."
   },
   "por_que_estudiar": [
@@ -28,8 +28,8 @@
     },
     {
       "icono": "fa-map-marked-alt",
-      "titulo": "Único centro en Chiapas",
-      "texto": "La Alliance Française Chiapas es el único centro evaluador oficial DELF/DALF en todo el estado. Certifícate sin salir de Chiapas."
+      "titulo": "Preparación DELF certificada",
+      "texto": "La Alliance Française San Cristóbal de Las Casas es el centro de preparación oficial DELF/DALF. Te acompañamos al examen en el centro evaluador de la red."
     },
     {
       "icono": "fa-users",
@@ -131,7 +131,7 @@
       "edad": "Prestadores de servicios turísticos",
       "icono": "fa-utensils",
       "color": "#9c27b0",
-      "descripcion": "Programa único en Chiapas. 48 horas de francés aplicado al sector turístico y hostelero. Diseñado para guías de turistas, chefs, meseros, recepcionistas y todo el personal de contacto con turistas francófonos.",
+      "descripcion": "Programa único en la región. 48 horas de francés aplicado al sector turístico y hostelero. Diseñado para guías de turistas, chefs, meseros, recepcionistas y todo el personal de contacto con turistas francófonos.",
       "niveles": [
         { "codigo": "Módulo 1", "nombre": "La Recepción",  "descripcion": "Check-in, fichas de reservación, pasaportes europeos, protocolos de bienvenida.", "modulos": 1, "horas_modulo": 12 },
         { "codigo": "Módulo 2", "nombre": "El Hotel",      "descripcion": "Servicios de habitación, quejas, solicitudes, comunicación con huéspedes.", "modulos": 1, "horas_modulo": 12 },
@@ -141,8 +141,8 @@
       "modalidades": [
         { "id": "intensivo", "nombre": "Intensivo temático", "sesiones": "4 módulos de 12h", "horas_bimestre": 48, "desc": "Puede tomarse completo o por módulos independientes." }
       ],
-      "manual": "Material especializado AF Chiapas",
-      "evaluacion": "Constancia AF Chiapas + DFP Tourisme (opcional)"
+      "manual": "Material especializado AF San Cristóbal",
+      "evaluacion": "Constancia AF San Cristóbal + DFP Tourisme (opcional)"
     },
     {
       "id": "delf_prep",
