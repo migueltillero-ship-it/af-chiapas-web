@@ -21,6 +21,11 @@ node_modules/
 dist/
 build/
 
+# Playwright
+test-results/
+playwright-report/
+playwright/.cache/
+
 # Variables sensibles
 .env
 .env.local

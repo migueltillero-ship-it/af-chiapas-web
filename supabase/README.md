@@ -126,6 +126,23 @@ Aplica `supabase/schema_phase3.sql` sobre los esquemas anteriores.
 | `rechazada` | Muestra `notas_admin` + invita a contactar por WhatsApp. |
 | `cancelada` | "Cancelada. Escríbenos para reactivar." |
 
+## Fase 9 — Pagos Stripe
+
+Aplica `supabase/schema_phase9.sql`.
+
+- Tabla `pagos` con estado enum y datos Stripe
+- RPC `consulta_pagos(folio, email)` para que el alumno vea sus cobros
+- Edge Function `crear-checkout` (admin → crea sesión Stripe → guarda `checkout_url`)
+- Edge Function `stripe-webhook` (recibe eventos y actualiza estado, verifica firma HMAC)
+
+```bash
+supabase secrets set STRIPE_SECRET_KEY=sk_test_... STRIPE_WEBHOOK_SECRET=whsec_... SITE_URL=...
+supabase functions deploy crear-checkout
+supabase functions deploy stripe-webhook --no-verify-jwt
+```
+
+Configurar webhook en dashboard.stripe.com/webhooks → `https://<REF>.supabase.co/functions/v1/stripe-webhook` con `checkout.session.completed`, `payment_intent.payment_failed`, `charge.refunded`.
+
 ## Fase 7 — Asistencias y calendario
 
 Aplica `supabase/schema_phase7.sql`.
