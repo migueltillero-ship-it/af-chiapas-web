@@ -249,6 +249,7 @@ tr:hover{background:rgba(255,255,255,0.02);cursor:pointer}
     <button class="tab" data-tab="grupos" onclick="ADMIN.switchTab('grupos')"><i class="fa fa-users-rectangle"></i> Grupos</button>
     <button class="tab" data-tab="docentes" onclick="ADMIN.switchTab('docentes')"><i class="fa fa-chalkboard-teacher"></i> Docentes</button>
     <button class="tab" data-tab="eventos" onclick="ADMIN.switchTab('eventos')"><i class="fa fa-calendar-days"></i> Eventos</button>
+    <button class="tab" data-tab="catalogo" onclick="ADMIN.switchTab('catalogo')"><i class="fa fa-book-open"></i> Catálogo</button>
   </div>
 
   <!-- TAB: INSCRIPCIONES -->
@@ -306,6 +307,35 @@ tr:hover{background:rgba(255,255,255,0.02);cursor:pointer}
     </div>
   </div>
 
+  <!-- TAB: CATÁLOGO -->
+  <div class="tab-pane" id="pane-catalogo">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem">
+        <p style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase">Catálogo de cursos</p>
+        <button class="btn btn-primary" onclick="ADMIN.openCursoEditor()"><i class="fa fa-plus"></i> Nuevo curso</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Edad</th>
+              <th>Niveles</th>
+              <th>Modalidades</th>
+              <th>Estado</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tbody-catalogo"></tbody>
+        </table>
+      </div>
+      <p style="font-size:0.78rem;color:var(--muted);margin-top:1rem">
+        Los cambios se reflejan en el sitio público al recargarlo (que lee desde la vista <code>v_catalogo</code>).
+      </p>
+    </div>
+  </div>
+
   <!-- TAB: EVENTOS -->
   <div class="tab-pane" id="pane-eventos">
     <div class="card">
@@ -352,6 +382,42 @@ tr:hover{background:rgba(255,255,255,0.02);cursor:pointer}
       <p style="font-size:0.78rem;color:var(--muted);margin-top:1rem">
         El alta de docentes se hace creando primero el usuario en <strong>Authentication → Users</strong> y luego insertando una fila en <code>public.docentes</code> con el mismo <code>id</code>.
       </p>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL editor de curso -->
+<div class="modal-bg" id="modal-curso-bg">
+  <div class="modal" style="max-width:760px">
+    <h2 id="cu-title">Nuevo curso</h2>
+    <p class="modal-folio" id="cu-id-display">—</p>
+    <div class="kv">
+      <span class="kv-key">ID *</span>            <input id="cu-id" type="text" placeholder="adultos, junior, ninos..." style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.85rem">
+      <span class="kv-key">Nombre *</span>        <input id="cu-nombre" type="text" style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Subtítulo</span>       <input id="cu-subtitulo" type="text" placeholder="Les Adultes / Junior..." style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Edad</span>            <input id="cu-edad" type="text" placeholder="15 años en adelante" style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Icono</span>           <input id="cu-icono" type="text" placeholder="fa-user-graduate" style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.85rem">
+      <span class="kv-key">Color</span>           <input id="cu-color" type="color" value="#c9a44e" style="width:80px;height:38px;background:transparent;border:1px solid var(--border);border-radius:var(--r);padding:0.2rem">
+      <span class="kv-key">Descripción</span>     <textarea id="cu-descripcion" rows="3" style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem"></textarea>
+      <span class="kv-key">Manual</span>          <input id="cu-manual" type="text" placeholder="Défi (tomos 1-4)" style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Evaluación</span>      <input id="cu-evaluacion" type="text" placeholder="Continua + simulacros DELF" style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Orden</span>           <input id="cu-orden" type="number" value="100" min="0" style="width:120px;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.85rem">
+      <span class="kv-key">Activo</span>          <label style="display:flex;align-items:center;gap:0.5rem;color:var(--white)"><input id="cu-activo" type="checkbox" checked style="width:18px;height:18px"> Visible en el sitio público</label>
+    </div>
+
+    <p class="kv-key" style="margin-top:1rem">Niveles (uno por línea, formato: <code style="background:rgba(0,0,0,0.3);padding:0.1rem 0.3rem;border-radius:3px">CÓDIGO | Nombre | Horas</code>)</p>
+    <textarea id="cu-niveles" rows="5" placeholder="A1 | Débutant | 30
+A2 | Élémentaire | 30
+B1 | Intermédiaire | 30" style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.82rem;margin-bottom:1rem"></textarea>
+
+    <p class="kv-key">Modalidades (uno por línea, formato: <code style="background:rgba(0,0,0,0.3);padding:0.1rem 0.3rem;border-radius:3px">Nombre | Sesiones | Horas</code>)</p>
+    <textarea id="cu-modalidades" rows="4" placeholder="Regular | 2 sesiones/semana | 24 h
+Intensivo | 4 sesiones/semana | 48 h" style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.82rem"></textarea>
+
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="ADMIN.closeCursoEditor()">Cancelar</button>
+      <button class="btn btn-red" id="cu-btn-delete" onclick="ADMIN.deleteCurso()" style="display:none"><i class="fa fa-trash"></i> Eliminar</button>
+      <button class="btn btn-green" onclick="ADMIN.saveCurso()"><i class="fa fa-save"></i> Guardar</button>
     </div>
   </div>
 </div>
@@ -447,9 +513,11 @@ const ADMIN = (() => {
   let grupos = [];
   let docentes = [];
   let eventos = [];
+  let cursos = [];
   let filtro = 'todas';
   let actual = null;
   let actualEvento = null;
+  let actualCurso = null;
 
   function init(){
     const cfgOk = window.AF_CONFIG?.isSupabaseConfigured?.();
@@ -570,6 +638,131 @@ const ADMIN = (() => {
     if(tab === 'grupos')   cargarGrupos();
     if(tab === 'docentes') cargarDocentes();
     if(tab === 'eventos')  cargarEventos();
+    if(tab === 'catalogo') cargarCatalogo();
+  }
+
+  async function cargarCatalogo(){
+    const {data: cs}  = await sb.from('cursos').select('*').order('orden');
+    const {data: ns}  = await sb.from('cursos_niveles').select('*').order('orden');
+    const {data: ms}  = await sb.from('cursos_modalidades').select('*').order('orden');
+    cursos = (cs || []).map(c => ({
+      ...c,
+      niveles:     (ns || []).filter(n => n.curso_id === c.id),
+      modalidades: (ms || []).filter(m => m.curso_id === c.id)
+    }));
+    renderCatalogo();
+  }
+
+  function renderCatalogo(){
+    const tb = document.getElementById('tbody-catalogo');
+    if(!tb) return;
+    if(!cursos.length){
+      tb.innerHTML = `<tr><td colspan="7" class="empty">Sin cursos. Crea el primero con "Nuevo curso" o aplica el schema_phase6.sql (incluye semilla).</td></tr>`;
+      return;
+    }
+    tb.innerHTML = cursos.map(c => `<tr>
+      <td class="cell-folio">${escapeHtml(c.id)}</td>
+      <td><div class="cell-nombre"><i class="fa ${escapeHtml(c.icono||'fa-book')}" style="color:${escapeHtml(c.color||'#c9a44e')};margin-right:0.5rem"></i>${escapeHtml(c.nombre)}</div><div class="cell-meta">${escapeHtml((c.descripcion||'').slice(0,80))}${c.descripcion?.length>80?'…':''}</div></td>
+      <td class="cell-meta">${escapeHtml(c.edad||'—')}</td>
+      <td class="cell-meta">${c.niveles.length}</td>
+      <td class="cell-meta">${c.modalidades.length}</td>
+      <td><span class="badge ${c.activo ? 'b-aprobada' : 'b-cancelada'}">${c.activo ? 'activo' : 'inactivo'}</span></td>
+      <td><button class="btn btn-ghost" style="padding:0.4rem 0.7rem;font-size:0.55rem" onclick="ADMIN.openCursoEditor('${c.id}')"><i class="fa fa-pen"></i> Editar</button></td>
+    </tr>`).join('');
+  }
+
+  function openCursoEditor(id){
+    actualCurso = id ? cursos.find(c => c.id === id) : null;
+    const set = (k,v) => { const el = document.getElementById('cu-' + k); if(el) el.value = v ?? ''; };
+    const setChk = (k,v) => { const el = document.getElementById('cu-' + k); if(el) el.checked = !!v; };
+    if(actualCurso){
+      document.getElementById('cu-title').textContent = 'Editar curso';
+      document.getElementById('cu-id-display').textContent = 'ID · ' + actualCurso.id;
+      document.getElementById('cu-id').disabled = true;
+      document.getElementById('cu-btn-delete').style.display = '';
+      set('id',          actualCurso.id);
+      set('nombre',      actualCurso.nombre);
+      set('subtitulo',   actualCurso.subtitulo);
+      set('edad',        actualCurso.edad);
+      set('icono',       actualCurso.icono);
+      set('color',       actualCurso.color);
+      set('descripcion', actualCurso.descripcion);
+      set('manual',      actualCurso.manual);
+      set('evaluacion',  actualCurso.evaluacion);
+      set('orden',       actualCurso.orden);
+      setChk('activo',   actualCurso.activo);
+      set('niveles',     actualCurso.niveles.map(n => `${n.codigo} | ${n.nombre} | ${n.horas_modulo||''}`).join('\n'));
+      set('modalidades', actualCurso.modalidades.map(m => `${m.nombre} | ${m.sesiones||''} | ${m.horas_bimestre||''}`).join('\n'));
+    } else {
+      document.getElementById('cu-title').textContent = 'Nuevo curso';
+      document.getElementById('cu-id-display').textContent = 'ID se define abajo';
+      document.getElementById('cu-id').disabled = false;
+      document.getElementById('cu-btn-delete').style.display = 'none';
+      ['id','nombre','subtitulo','edad','icono','descripcion','manual','evaluacion','niveles','modalidades'].forEach(k=>set(k,''));
+      set('color','#c9a44e');
+      set('orden','100');
+      setChk('activo', true);
+    }
+    document.getElementById('modal-curso-bg').classList.add('open');
+  }
+
+  function closeCursoEditor(){
+    actualCurso = null;
+    document.getElementById('modal-curso-bg').classList.remove('open');
+  }
+
+  async function saveCurso(){
+    const get  = (k) => document.getElementById('cu-' + k).value.trim();
+    const getC = (k) => document.getElementById('cu-' + k).checked;
+    const id = get('id').toLowerCase().replace(/[^a-z0-9_]/g, '_');
+    if(!id || !get('nombre')){ alert('ID y nombre son requeridos.'); return; }
+
+    const cursoPayload = {
+      id,
+      nombre:      get('nombre'),
+      subtitulo:   get('subtitulo') || null,
+      edad:        get('edad') || null,
+      icono:       get('icono') || 'fa-book',
+      color:       get('color') || '#c9a44e',
+      descripcion: get('descripcion') || null,
+      manual:      get('manual') || null,
+      evaluacion:  get('evaluacion') || null,
+      orden:       parseInt(get('orden'), 10) || 100,
+      activo:      getC('activo'),
+    };
+    let q;
+    if(actualCurso) q = sb.from('cursos').update(cursoPayload).eq('id', actualCurso.id);
+    else            q = sb.from('cursos').insert(cursoPayload);
+    const {error: cuErr} = await q;
+    if(cuErr){ alert('Error guardando curso: ' + cuErr.message); return; }
+
+    // Reemplazar niveles y modalidades
+    await sb.from('cursos_niveles').delete().eq('curso_id', id);
+    await sb.from('cursos_modalidades').delete().eq('curso_id', id);
+    const niveles = parseLineas(get('niveles')).map((l,i) => ({
+      curso_id: id, codigo: l[0], nombre: l[1] || l[0], horas_modulo: l[2] ? parseInt(l[2],10) : null, orden: (i+1)*10
+    })).filter(n => n.codigo);
+    const mods = parseLineas(get('modalidades')).map((l,i) => ({
+      curso_id: id, nombre: l[0], sesiones: l[1] || null, horas_bimestre: l[2] || null, orden: (i+1)*10
+    })).filter(m => m.nombre);
+    if(niveles.length) await sb.from('cursos_niveles').insert(niveles);
+    if(mods.length)    await sb.from('cursos_modalidades').insert(mods);
+
+    closeCursoEditor();
+    cargarCatalogo();
+  }
+
+  function parseLineas(txt){
+    return txt.split('\n').map(l => l.trim()).filter(Boolean).map(l => l.split('|').map(s => s.trim()));
+  }
+
+  async function deleteCurso(){
+    if(!actualCurso) return;
+    if(!confirm('¿Eliminar curso "' + actualCurso.nombre + '"? Se eliminarán también sus niveles y modalidades.')) return;
+    const {error} = await sb.from('cursos').delete().eq('id', actualCurso.id);
+    if(error){ alert('Error: ' + error.message); return; }
+    closeCursoEditor();
+    cargarCatalogo();
   }
 
   async function cargarEventos(){
@@ -875,7 +1068,7 @@ const ADMIN = (() => {
     ));
   }
 
-  return {init, logout, switchTab, openModal, closeModal, setEstado, toggleNewGrupo, crearGrupo, openNewGrupo, openEventoEditor, closeEventoEditor, saveEvento, deleteEvento};
+  return {init, logout, switchTab, openModal, closeModal, setEstado, toggleNewGrupo, crearGrupo, openNewGrupo, openEventoEditor, closeEventoEditor, saveEvento, deleteEvento, openCursoEditor, closeCursoEditor, saveCurso, deleteCurso};
 })();
 
 window.addEventListener('DOMContentLoaded', () => {

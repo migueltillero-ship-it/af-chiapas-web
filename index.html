@@ -1969,7 +1969,22 @@ const AF = (() => {
     });
   }
 
-  function loadCatalog(){
+  async function loadCatalog(){
+    // 1) Prioridad: Supabase v_catalogo (admin editable, Fase 6)
+    if(sb){
+      const {data, error} = await sb.from('v_catalogo').select('*');
+      if(!error && data?.length){
+        cat = { segmentos: data.map(c => ({
+          id: c.id, nombre: c.nombre, subtitulo: c.subtitulo, edad: c.edad,
+          icono: c.icono, color: c.color, descripcion: c.descripcion,
+          niveles: c.niveles || [], modalidades: c.modalidades || []
+        }))};
+        renderCursos(cat.segmentos);
+        populateCursoSelect();
+        return;
+      }
+    }
+    // 2) Fallback: JSON estático
     fetch('src/assets/data/cursos/catalogo_cursos.json')
       .then(r => r.ok ? r.json() : Promise.reject(r.status))
       .then(d => {
@@ -1979,7 +1994,7 @@ const AF = (() => {
         populateCursoSelect();
       })
       .catch(err => {
-        console.warn('[Catálogo] usando fallback:',err);
+        console.warn('[Catálogo] usando fallback inline:',err);
         populateCursoSelectFallback();
       });
   }
