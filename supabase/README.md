@@ -126,6 +126,15 @@ Aplica `supabase/schema_phase3.sql` sobre los esquemas anteriores.
 | `rechazada` | Muestra `notas_admin` + invita a contactar por WhatsApp. |
 | `cancelada` | "Cancelada. Escríbenos para reactivar." |
 
+## Fase 6 — Catálogo de cursos editable
+
+Aplica `supabase/schema_phase6.sql` (incluye semilla con los 6 segmentos base).
+
+- Tablas: `cursos`, `cursos_niveles`, `cursos_modalidades`
+- Vista `v_catalogo` consolida todo en una fila por curso con `niveles` y `modalidades` como JSONB
+- Admin tab **Catálogo** con CRUD: editor con campos institucionales + textareas de niveles y modalidades (un ítem por línea, formato `CÓDIGO | Nombre | Horas`)
+- Sitio público lee de `v_catalogo` con prioridad; cae al JSON estático si no hay DB
+
 ## Fase 5 — Eventos editables desde admin
 
 Aplica `supabase/schema_phase5.sql`.
