@@ -93,6 +93,53 @@ tr:last-child td{border-bottom:none}
 .cell-nombre{font-weight:600}
 .empty{padding:3rem;text-align:center;color:var(--muted)}
 
+/* Calendario semanal */
+.cal-wrap{margin-top:1.5rem}
+.cal-head{display:flex;align-items:center;justify-content:space-between;gap:0.5rem;margin-bottom:0.75rem;flex-wrap:wrap}
+.cal-title{font-family:var(--display);font-size:1.2rem;font-weight:400}
+.cal-nav{display:flex;gap:0.4rem;align-items:center}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:0.4rem;background:rgba(0,0,0,0.18);border:1px solid var(--border);border-radius:var(--r-lg);padding:0.6rem}
+.cal-day{
+  min-height:90px;padding:0.5rem;border-radius:var(--r);
+  background:var(--panel);border:1px solid var(--border);
+  display:flex;flex-direction:column;gap:0.25rem;
+}
+.cal-day.today{border-color:var(--gold);box-shadow:0 0 12px rgba(201,164,78,0.18)}
+.cal-day-name{font-family:var(--mono);font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted)}
+.cal-day-num{font-family:var(--poster);font-size:1.4rem;line-height:1;color:var(--white);margin-bottom:0.2rem}
+.cal-sesion{
+  background:linear-gradient(135deg,rgba(79,209,197,0.18),rgba(79,209,197,0.04));
+  border:1px solid rgba(79,209,197,0.35);
+  border-radius:6px;padding:0.3rem 0.4rem;font-size:0.65rem;
+  color:var(--white);cursor:pointer;line-height:1.3;
+  transition:transform 0.15s,border-color 0.15s;
+}
+.cal-sesion:hover{transform:translateY(-1px);border-color:var(--cyan)}
+.cal-sesion .h{font-family:var(--mono);font-size:0.55rem;color:var(--cyan);display:block}
+.cal-sesion .g{font-weight:600;font-size:0.7rem}
+
+/* Modal asistencias */
+.asist-modal-bg{position:fixed;inset:0;z-index:1000;background:rgba(7,17,29,0.85);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:1.5rem}
+.asist-modal-bg.open{display:flex}
+.asist-modal{background:var(--deep);border:1px solid var(--border-gold);border-radius:var(--r-lg);max-width:680px;width:100%;max-height:90vh;overflow:auto;padding:2rem}
+.asist-modal h3{font-family:var(--display);font-size:1.5rem;font-weight:300;margin-bottom:0.4rem}
+.asist-modal .meta{font-family:var(--mono);font-size:0.65rem;color:var(--gold);letter-spacing:0.15em;margin-bottom:1.25rem}
+.asist-row{display:grid;grid-template-columns:1fr auto;gap:1rem;padding:0.6rem 0;border-bottom:1px solid var(--border);align-items:center}
+.asist-row:last-child{border-bottom:none}
+.asist-name{font-weight:600}
+.asist-meta{font-size:0.72rem;color:var(--muted)}
+.asist-btns{display:flex;gap:0.3rem}
+.asist-btn{
+  font-family:var(--mono);font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;
+  padding:0.35rem 0.55rem;border-radius:6px;border:1px solid var(--border);background:var(--panel);
+  color:var(--muted);cursor:pointer;transition:all 0.15s;
+}
+.asist-btn:hover{color:var(--white)}
+.asist-btn.active.p{background:var(--green);color:#fff;border-color:var(--green)}
+.asist-btn.active.a{background:var(--red);color:#fff;border-color:var(--red)}
+.asist-btn.active.j{background:var(--amber);color:var(--void);border-color:var(--amber)}
+.asist-btn.active.r{background:var(--cyan);color:var(--void);border-color:var(--cyan)}
+
 /* Login */
 .login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem;position:relative;z-index:1}
 .login-card{background:var(--panel);border:1px solid rgba(79,209,197,0.4);border-radius:var(--r-lg);padding:2.5rem;max-width:420px;width:100%;backdrop-filter:blur(20px)}
@@ -157,6 +204,19 @@ tr:last-child td{border-bottom:none}
   <p class="hero-sub">Estos son tus grupos activos. Selecciona uno para ver la lista de alumnos.</p>
 
   <div class="grupos-grid" id="grupos"></div>
+
+  <!-- Calendario semanal -->
+  <div class="cal-wrap" id="cal-wrap" style="display:none">
+    <div class="cal-head">
+      <h3 class="cal-title" id="cal-title">Mi semana</h3>
+      <div class="cal-nav">
+        <button class="btn btn-ghost" onclick="DOC.semanaAnterior()"><i class="fa fa-chevron-left"></i></button>
+        <button class="btn btn-ghost" onclick="DOC.semanaHoy()">Hoy</button>
+        <button class="btn btn-ghost" onclick="DOC.semanaSiguiente()"><i class="fa fa-chevron-right"></i></button>
+      </div>
+    </div>
+    <div class="cal-grid" id="cal-grid"></div>
+  </div>
 
   <div class="alumnos-card" id="alumnos-card" style="display:none">
     <div class="alumnos-head">
@@ -244,6 +304,7 @@ const DOC = (() => {
     docente = doc;
     document.getElementById('doc-nombre').textContent = doc.nombre;
     cargarGrupos();
+    renderCal();
   }
 
   async function cargarGrupos(){
@@ -311,11 +372,145 @@ const DOC = (() => {
     document.getElementById('alumnos-card').scrollIntoView({behavior:'smooth',block:'start'});
   }
 
+  // ─────────────── CALENDARIO ───────────────
+  let semanaBase = new Date();
+  let sesionesCache = [];
+
+  function semanaHoy(){ semanaBase = new Date(); renderCal(); }
+  function semanaAnterior(){ semanaBase.setDate(semanaBase.getDate() - 7); renderCal(); }
+  function semanaSiguiente(){ semanaBase.setDate(semanaBase.getDate() + 7); renderCal(); }
+
+  function inicioSemana(d){
+    const r = new Date(d); const day = r.getDay(); const diff = r.getDate() - day + (day === 0 ? -6 : 1);
+    r.setDate(diff); r.setHours(0,0,0,0); return r;
+  }
+
+  async function renderCal(){
+    const ini = inicioSemana(semanaBase);
+    const fin = new Date(ini); fin.setDate(fin.getDate() + 6);
+    const fmt = d => d.toISOString().slice(0,10);
+    const {data, error} = await sb.from('sesiones')
+      .select('*, grupos(codigo, curso_nombre, nivel)')
+      .gte('fecha', fmt(ini))
+      .lte('fecha', fmt(fin))
+      .order('fecha').order('hora_inicio');
+    if(error){ console.warn('[sesiones]', error); return; }
+    sesionesCache = data || [];
+
+    document.getElementById('cal-title').textContent =
+      `Semana del ${ini.toLocaleDateString('es-MX',{day:'numeric',month:'short'})} al ${fin.toLocaleDateString('es-MX',{day:'numeric',month:'short',year:'numeric'})}`;
+
+    const dias = ['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'];
+    const hoy = new Date(); hoy.setHours(0,0,0,0);
+    let html = '';
+    for(let i=0;i<7;i++){
+      const d = new Date(ini); d.setDate(d.getDate()+i);
+      const fechaStr = fmt(d);
+      const isToday = d.getTime() === hoy.getTime();
+      const sesionesDia = sesionesCache.filter(s => s.fecha === fechaStr);
+      html += `<div class="cal-day${isToday?' today':''}">
+        <span class="cal-day-name">${dias[i]}</span>
+        <span class="cal-day-num">${d.getDate()}</span>
+        ${sesionesDia.map(s => `<div class="cal-sesion" onclick="DOC.abrirAsistencia('${s.id}')">
+          <span class="h">${(s.hora_inicio||'').slice(0,5) || '—'}</span>
+          <span class="g">${escapeHtml(s.grupos?.codigo || '?')}</span>
+          ${s.grupos ? `<span style="font-size:0.6rem;color:rgba(255,255,255,0.7)">${escapeHtml(s.grupos.curso_nombre || s.grupos.curso_id || '')}</span>` : ''}
+        </div>`).join('')}
+      </div>`;
+    }
+    document.getElementById('cal-grid').innerHTML = html;
+    document.getElementById('cal-wrap').style.display = 'block';
+  }
+
+  async function abrirAsistencia(sesionId){
+    const sesion = sesionesCache.find(s => s.id === sesionId);
+    if(!sesion) return;
+    const grupoId = sesion.grupo_id;
+    const {data: alumnos} = await sb.from('v_mis_alumnos').select('*').eq('grupo_id', grupoId);
+    const {data: asistActual} = await sb.from('asistencias').select('*').eq('sesion_id', sesionId);
+
+    const asistMap = {};
+    (asistActual||[]).forEach(a => { asistMap[a.inscripcion_id] = a.estado; });
+
+    const modal = ensureAsistModal();
+    document.getElementById('asist-title').textContent = `Asistencia · ${sesion.grupos?.codigo || ''}`;
+    document.getElementById('asist-meta').textContent  = `${sesion.fecha} · ${(sesion.hora_inicio||'').slice(0,5)}`;
+
+    const body = document.getElementById('asist-body');
+    body.innerHTML = (alumnos||[]).map(al => {
+      const cur = asistMap[al.id] || 'presente';
+      return `<div class="asist-row" data-inscripcion="${al.id}">
+        <div>
+          <div class="asist-name">${escapeHtml(al.nombre)}</div>
+          <div class="asist-meta">${escapeHtml(al.folio)} · ${escapeHtml(al.nivel || 'sin nivel')}</div>
+        </div>
+        <div class="asist-btns">
+          <button class="asist-btn p ${cur==='presente'?'active':''}" data-e="presente">Presente</button>
+          <button class="asist-btn a ${cur==='ausente'?'active':''}" data-e="ausente">Ausente</button>
+          <button class="asist-btn j ${cur==='justificado'?'active':''}" data-e="justificado">Justif.</button>
+          <button class="asist-btn r ${cur==='retardo'?'active':''}" data-e="retardo">Retardo</button>
+        </div>
+      </div>`;
+    }).join('') || `<p class="empty">Sin alumnos aprobados en este grupo todavía.</p>`;
+
+    body.querySelectorAll('.asist-row').forEach(row => {
+      row.querySelectorAll('.asist-btn').forEach(btn => {
+        btn.onclick = () => {
+          row.querySelectorAll('.asist-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        };
+      });
+    });
+
+    modal.dataset.sesion = sesionId;
+    modal.classList.add('open');
+  }
+
+  function ensureAsistModal(){
+    let m = document.getElementById('asist-modal-bg');
+    if(m) return m;
+    m = document.createElement('div');
+    m.id = 'asist-modal-bg';
+    m.className = 'asist-modal-bg';
+    m.innerHTML = `<div class="asist-modal">
+      <h3 id="asist-title">Asistencia</h3>
+      <p class="meta" id="asist-meta">—</p>
+      <div id="asist-body"></div>
+      <div style="display:flex;justify-content:flex-end;gap:0.5rem;margin-top:1.25rem">
+        <button class="btn btn-ghost" onclick="DOC.cerrarAsistencia()">Cerrar</button>
+        <button class="btn btn-primary" onclick="DOC.guardarAsistencia()"><i class="fa fa-save"></i> Guardar</button>
+      </div>
+    </div>`;
+    document.body.appendChild(m);
+    return m;
+  }
+
+  function cerrarAsistencia(){
+    document.getElementById('asist-modal-bg')?.classList.remove('open');
+  }
+
+  async function guardarAsistencia(){
+    const modal = document.getElementById('asist-modal-bg');
+    const sesionId = modal.dataset.sesion;
+    const filas = Array.from(modal.querySelectorAll('.asist-row'));
+    const rows = filas.map(row => {
+      const inscripcion = row.dataset.inscripcion;
+      const active = row.querySelector('.asist-btn.active');
+      const estado = active?.dataset.e || 'presente';
+      return { sesion_id: sesionId, inscripcion_id: inscripcion, estado, registrada_por: user.id };
+    });
+    if(!rows.length){ cerrarAsistencia(); return; }
+    const {error} = await sb.from('asistencias').upsert(rows, { onConflict: 'sesion_id,inscripcion_id' });
+    if(error){ alert('Error: ' + error.message); return; }
+    cerrarAsistencia();
+    alert('Asistencia guardada.');
+  }
+
   function escapeHtml(s){
     return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   }
 
-  return {init, logout, verAlumnos};
+  return {init, logout, verAlumnos, semanaHoy, semanaAnterior, semanaSiguiente, abrirAsistencia, cerrarAsistencia, guardarAsistencia};
 })();
 
 window.addEventListener('DOMContentLoaded', () => setTimeout(() => DOC.init(), 50));

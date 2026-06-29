@@ -126,6 +126,21 @@ Aplica `supabase/schema_phase3.sql` sobre los esquemas anteriores.
 | `rechazada` | Muestra `notas_admin` + invita a contactar por WhatsApp. |
 | `cancelada` | "Cancelada. Escríbenos para reactivar." |
 
+## Fase 7 — Asistencias y calendario
+
+Aplica `supabase/schema_phase7.sql`.
+
+- Tabla `sesiones` (grupo, fecha, hora, tema) — una fila por clase
+- Tabla `asistencias` (sesion + inscripcion → enum presente/ausente/justificado/retardo)
+- Vista `v_asistencia_alumno` con tasa por alumno y grupo
+- Función `agendar_sesiones(grupo_id, dias[], hora, semanas)` para generar sesiones automáticamente
+- RLS: docente accede solo a sus grupos; admin total
+
+### Portal del docente
+- Calendario semanal con navegación ← → Hoy
+- Cada sesión es clickeable → modal de asistencia con 4 botones por alumno
+- Upsert con `onConflict: sesion_id,inscripcion_id`
+
 ## Fase 6 — Catálogo de cursos editable
 
 Aplica `supabase/schema_phase6.sql` (incluye semilla con los 6 segmentos base).
