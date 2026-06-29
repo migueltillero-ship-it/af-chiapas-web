@@ -34,6 +34,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
+
+<!-- Plausible Analytics (privacy-friendly, sin cookies). Activa cuando exista el subdominio en tu cuenta Plausible. -->
+<script>
+  if (location.hostname && !['localhost','127.0.0.1'].includes(location.hostname)) {
+    const s = document.createElement('script');
+    s.defer = true;
+    s.dataset.domain = location.hostname;
+    s.src = 'https://plausible.io/js/script.js';
+    document.head.appendChild(s);
+  }
+</script>
 <script src="https://unpkg.com/@supabase/supabase-js@2" defer></script>
 <script src="src/config/supabase.js" defer></script>
 
@@ -192,6 +203,17 @@ body::after{
 .nav-links a:hover{color:var(--white);background:var(--panel)}
 .nav-cta{background:var(--red) !important;color:#fff !important;padding:0.45rem 1.1rem !important;font-weight:700}
 .nav-cta:hover{background:var(--red-dark) !important}
+.lang-toggle{
+  background:none;border:1px solid var(--border);color:var(--muted);
+  font-family:var(--mono);font-size:0.55rem;letter-spacing:0.18em;
+  padding:0.35rem 0.6rem;border-radius:6px;cursor:pointer;
+  display:inline-flex;align-items:center;gap:0.25rem;transition:all 0.2s;
+}
+.lang-toggle:hover{color:var(--white);border-color:var(--gold)}
+.lang-toggle .sep{color:var(--hint)}
+.lang-toggle [data-lang-es],.lang-toggle [data-lang-fr]{opacity:0.5;transition:opacity 0.2s}
+html[lang="es"] .lang-toggle [data-lang-es]{opacity:1;color:var(--gold)}
+html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
 .nav-toggle{display:none;background:none;border:none;color:var(--white);font-size:1.3rem;cursor:pointer}
 
 /* ──────────────────── HERO (estilo campaña) ──────────────────── */
@@ -990,18 +1012,23 @@ body::after{
   </a>
   <button class="nav-toggle" aria-label="Menú" onclick="AF.toggleMenu()"><i class="fa fa-bars"></i></button>
   <ul class="nav-links" id="nav-links">
-    <li><a href="#plataforma">Plataforma</a></li>
-    <li><a href="#proceso">Cómo funciona</a></li>
-    <li><a href="#cursos">Cursos</a></li>
-    <li><a href="#ciclo">Ciclo 6 sem.</a></li>
-    <li><a href="#galeria">Galería</a></li>
-    <li><a href="#mobilite">Francia</a></li>
-    <li><a href="#certifications">DELF/DALF</a></li>
-    <li><a href="#agenda">Eventos</a></li>
-    <li><a href="#contact">Contacto</a></li>
-    <li><a href="portal/" title="Consulta el estado de tu solicitud">Mi solicitud</a></li>
+    <li><a href="#plataforma"     data-i18n="nav.plataforma">Plataforma</a></li>
+    <li><a href="#proceso"        data-i18n="nav.proceso">Cómo funciona</a></li>
+    <li><a href="#cursos"         data-i18n="nav.cursos">Cursos</a></li>
+    <li><a href="#ciclo"          data-i18n="nav.ciclo">Ciclo 6 sem.</a></li>
+    <li><a href="#galeria"        data-i18n="nav.galeria">Galería</a></li>
+    <li><a href="#mobilite"       data-i18n="nav.francia">Francia</a></li>
+    <li><a href="#certifications" data-i18n="nav.delf">DELF/DALF</a></li>
+    <li><a href="#agenda"         data-i18n="nav.eventos">Eventos</a></li>
+    <li><a href="#contact"        data-i18n="nav.contacto">Contacto</a></li>
+    <li><a href="portal/" data-i18n="nav.miSolicitud" title="Consulta el estado de tu solicitud">Mi solicitud</a></li>
     <li><a href="portal/docente.html" title="Acceso para docentes" style="opacity:0.6">Docentes</a></li>
-    <li><a href="#preinscripcion" class="nav-cta">Inscribirme</a></li>
+    <li>
+      <button class="lang-toggle" id="lang-toggle" onclick="AF.toggleLang()" aria-label="Cambiar idioma" title="Cambiar idioma">
+        <span data-lang-es>ES</span><span class="sep">/</span><span data-lang-fr>FR</span>
+      </button>
+    </li>
+    <li><a href="#preinscripcion" class="nav-cta" data-i18n="nav.inscribirme">Inscribirme</a></li>
   </ul>
 </nav>
 
@@ -1013,19 +1040,18 @@ body::after{
       <span class="vrail vrail-red">Vive la expérience</span>
     </div>
     <div class="hero-inner">
-      <div class="hero-pill"><span class="dot"></span> Primera Alliance Française Virtual de México</div>
+      <div class="hero-pill"><span class="dot"></span> <span data-i18n="hero.pill">Primera Alliance Française Virtual de México</span></div>
       <h1 class="hero-title">
-        Aprende francés
-        <em>desde donde estés.</em>
-        <span class="grad">Certifícate con el mundo.</span>
+        <span data-i18n="hero.t1">Aprende francés</span>
+        <em data-i18n="hero.t2">desde donde estés.</em>
+        <span class="grad" data-i18n="hero.t3">Certifícate con el mundo.</span>
       </h1>
-      <p class="hero-tagline">
-        Clases en vivo con profesores certificados, tutor de IA disponible 24/7, comunidad francófona global
-        y certificación oficial DELF/DALF. Preparación oficial para los exámenes DELF/DALF, ahora abierta al mundo desde San Cristóbal de Las Casas.
+      <p class="hero-tagline" data-i18n="hero.tagline">
+        Clases en vivo con profesores certificados, tutor de IA disponible 24/7, comunidad francófona global y preparación oficial para los exámenes DELF/DALF, ahora abierta al mundo desde San Cristóbal de Las Casas.
       </p>
       <div class="hero-actions">
-        <a href="#preinscripcion" class="btn btn-glow"><i class="fa fa-rocket"></i> Inscribirme ahora</a>
-        <a href="#plataforma" class="btn btn-ghost"><i class="fa fa-play"></i> Conocer la plataforma</a>
+        <a href="#preinscripcion" class="btn btn-glow"><i class="fa fa-rocket"></i> <span data-i18n="hero.cta1">Inscribirme ahora</span></a>
+        <a href="#plataforma" class="btn btn-ghost"><i class="fa fa-play"></i> <span data-i18n="hero.cta2">Conocer la plataforma</span></a>
       </div>
       <div class="hero-trust">
         <span><i class="fa fa-globe"></i> 824 AF · 138 países</span>
@@ -2399,10 +2425,62 @@ const AF = (() => {
     goToStep(1);
   }
 
-  return { init, toggleMenu, selectSede, goToStep, irA, updateModalidades, setFormato, setRitmo, actualizarResumen, enviarPreinscripcion, resetForm, toggleFAQ };
+  function toggleLang(){
+    const cur = document.documentElement.lang || 'es';
+    applyI18n(cur === 'es' ? 'fr' : 'es');
+  }
+
+  return { init, toggleMenu, selectSede, goToStep, irA, updateModalidades, setFormato, setRitmo, actualizarResumen, enviarPreinscripcion, resetForm, toggleFAQ, toggleLang };
 })();
 
-document.addEventListener('DOMContentLoaded', () => AF.init());
+// ──────────────────── i18n (es/fr) ────────────────────
+const I18N = {
+  es: {
+    'nav.plataforma':'Plataforma','nav.proceso':'Cómo funciona','nav.cursos':'Cursos',
+    'nav.ciclo':'Ciclo 6 sem.','nav.galeria':'Galería','nav.francia':'Francia',
+    'nav.delf':'DELF/DALF','nav.eventos':'Eventos','nav.contacto':'Contacto',
+    'nav.miSolicitud':'Mi solicitud','nav.inscribirme':'Inscribirme',
+    'hero.pill':'Primera Alliance Française Virtual de México',
+    'hero.t1':'Aprende francés','hero.t2':'desde donde estés.',
+    'hero.t3':'Certifícate con el mundo.',
+    'hero.tagline':'Clases en vivo con profesores certificados, tutor de IA disponible 24/7, comunidad francófona global y preparación oficial para los exámenes DELF/DALF, ahora abierta al mundo desde San Cristóbal de Las Casas.',
+    'hero.cta1':'Inscribirme ahora','hero.cta2':'Conocer la plataforma',
+  },
+  fr: {
+    'nav.plataforma':'Plateforme','nav.proceso':'Comment ça marche','nav.cursos':'Cours',
+    'nav.ciclo':'Cycle 6 sem.','nav.galeria':'Galerie','nav.francia':'France',
+    'nav.delf':'DELF/DALF','nav.eventos':'Événements','nav.contacto':'Contact',
+    'nav.miSolicitud':'Ma demande','nav.inscribirme':"M'inscrire",
+    'hero.pill':"La première Alliance Française virtuelle du Mexique",
+    'hero.t1':'Apprends le français','hero.t2':"d'où que tu sois.",
+    'hero.t3':'Certifie-toi avec le monde.',
+    'hero.tagline':"Cours en direct avec des professeurs certifiés, tuteur IA disponible 24h/24, communauté francophone mondiale et préparation officielle aux examens DELF/DALF, désormais ouverte au monde depuis San Cristóbal de Las Casas.",
+    'hero.cta1':"M'inscrire maintenant",'hero.cta2':'Découvrir la plateforme',
+  }
+};
+
+function applyI18n(lang){
+  document.documentElement.lang = lang;
+  try { localStorage.setItem('af_lang', lang); } catch(e){}
+  const dict = I18N[lang] || I18N.es;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (dict[key]) el.textContent = dict[key];
+  });
+}
+
+// Service Worker registration
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/af-chiapas-web/sw.js').catch(err => console.warn('[SW]', err));
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const saved = (() => { try { return localStorage.getItem('af_lang'); } catch(e){ return null; } })();
+  applyI18n(saved || 'es');
+  AF.init();
+});
 </script>
 </body>
 </html>
