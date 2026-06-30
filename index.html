@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#07111d">
+<meta name="theme-color" content="#fdfcf8">
 <title>Alliance Française San Cristóbal · La primera AF Virtual de México</title>
 <meta name="description" content="Aprende francés desde donde estés. Aulas virtuales en vivo, tutor IA 24/7, comunidad francófona y certificación oficial DELF/DALF. La Alliance Française más innovadora de la red.">
 <meta name="keywords" content="francés San Cristóbal de Las Casas, Alliance Française virtual, clases francés online, preparación DELF DALF, certificación francés México">
@@ -76,23 +76,27 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;font-size:16px;-webkit-text-size-adjust:100%}
 :root{
-  --void:#07111d;
-  --deep:#0d1f33;
-  --panel:rgba(255,255,255,0.055);
-  --panel-hover:rgba(255,255,255,0.09);
-  --border:rgba(255,255,255,0.11);
-  --border-gold:rgba(201,164,78,0.4);
-  --white:#f5f3ee;
-  --muted:rgba(245,243,238,0.62);
-  --hint:rgba(245,243,238,0.38);
+  /* Tema claro · alta legibilidad · paleta de campaña */
+  --void:#fdfcf8;          /* fondo principal cream-blanco */
+  --deep:#ffffff;          /* fondo alterno puro */
+  --ink:#0d1f33;           /* texto principal navy */
+  --ink-soft:#1a2b4a;      /* navy intermedio (cajas tipo "EN LÍNEA") */
+  --white:#0d1f33;         /* alias para retrocompat — apunta a texto navy */
+  --panel:rgba(13,31,51,0.04);
+  --panel-hover:rgba(13,31,51,0.07);
+  --border:rgba(13,31,51,0.10);
+  --border-gold:rgba(201,164,78,0.45);
+  --muted:rgba(13,31,51,0.62);
+  --hint:rgba(13,31,51,0.40);
   --gold:#c9a44e;
   --gold-light:#e8c97a;
   --red:#d42b3a;
   --red-dark:#a81f2c;
-  --blue:#002654;
-  --cyan:#4fd1c5;
-  --violet:#8b5cf6;
-  --green:#22c55e;
+  --blue:#3559b1;          /* azul cobalto del "FRANCÉS" gigante de los carteles */
+  --blue-dark:#1a2b4a;
+  --cyan:#0e9aa7;
+  --violet:#6d3fc7;
+  --green:#16a34a;
   --display:'Cormorant Garamond',Georgia,serif;
   --sans:'Syne',system-ui,sans-serif;
   --mono:'Space Mono',monospace;
@@ -101,15 +105,16 @@ html{scroll-behavior:smooth;font-size:16px;-webkit-text-size-adjust:100%}
   --camp-orange:#e85d2d;
   --camp-orange-light:#ff7d52;
   --camp-yellow:#fcc419;
+  --camp-yellow-bright:#ffd633;
   --camp-mustard:#c8a93d;
-  --camp-cream:#f0ede6;
+  --camp-cream:#f5f1e6;
   --camp-pink:#e8a8c5;
   --camp-rose:#d96a82;
   --r:12px;
   --r-lg:20px;
   --r-xl:28px;
-  --shadow:0 24px 64px rgba(0,0,0,0.5);
-  --shadow-glow:0 0 64px rgba(79,209,197,0.25);
+  --shadow:0 16px 40px rgba(13,31,51,0.12);
+  --shadow-glow:0 0 48px rgba(53,89,177,0.18);
 }
 body{
   background:var(--void);
@@ -156,19 +161,18 @@ a{color:inherit}
   font-family:var(--poster);font-size:1.4rem;color:var(--red);line-height:1;
 }
 
-/* ──────────────────── FONDO ATMOSFÉRICO ──────────────────── */
+/* ──────────────────── FONDO ATMOSFÉRICO (tema claro) ──────────────────── */
 body::before{
   content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
   background:
-    radial-gradient(ellipse 80% 60% at 15% 10%, rgba(0,38,84,0.55) 0%, transparent 60%),
-    radial-gradient(ellipse 70% 60% at 90% 20%, rgba(139,92,246,0.10) 0%, transparent 55%),
-    radial-gradient(ellipse 60% 50% at 85% 90%, rgba(201,164,78,0.08) 0%, transparent 55%);
+    radial-gradient(ellipse 80% 60% at 15% 10%, rgba(53,89,177,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 90% 90%, rgba(252,196,25,0.05) 0%, transparent 55%);
 }
 body::after{
   content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
   background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255,255,255,0.012) 3px, rgba(255,255,255,0.012) 4px),
-    repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(255,255,255,0.012) 3px, rgba(255,255,255,0.012) 4px);
+    repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(13,31,51,0.012) 3px, rgba(13,31,51,0.012) 4px),
+    repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(13,31,51,0.012) 3px, rgba(13,31,51,0.012) 4px);
 }
 .container{max-width:1180px;margin:0 auto;padding:0 1.5rem;position:relative;z-index:1}
 
@@ -176,7 +180,7 @@ body::after{
 .nav{
   position:fixed;top:0;left:0;right:0;z-index:900;
   padding:0 1.5rem;
-  background:rgba(7,17,29,0.82);
+  background:rgba(253,252,248,0.88);
   backdrop-filter:blur(28px) saturate(160%);
   -webkit-backdrop-filter:blur(28px) saturate(160%);
   border-bottom:1px solid var(--border);
@@ -215,6 +219,30 @@ body::after{
 html[lang="es"] .lang-toggle [data-lang-es]{opacity:1;color:var(--gold)}
 html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
 .nav-toggle{display:none;background:none;border:none;color:var(--white);font-size:1.3rem;cursor:pointer}
+
+/* ──────────────────── BANNERS DE CAMPAÑA ──────────────────── */
+.banners-strip{
+  position:relative;z-index:1;padding:5rem 1.5rem 0;max-width:1280px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:1.25rem;
+}
+.banner-card{
+  position:relative;border-radius:var(--r-lg);overflow:hidden;display:block;
+  aspect-ratio:16/9;border:1px solid var(--border);text-decoration:none;
+  box-shadow:0 12px 36px rgba(13,31,51,0.10);
+  transition:transform 0.3s,box-shadow 0.3s;
+  background:linear-gradient(135deg,#fff8e1,#ffffff);
+}
+.banner-card:hover{transform:translateY(-4px);box-shadow:0 20px 48px rgba(13,31,51,0.16)}
+.banner-card picture{display:block;width:100%;height:100%}
+.banner-card img{width:100%;height:100%;object-fit:cover;display:block}
+.banner-card .ph{
+  width:100%;height:100%;display:none;align-items:center;justify-content:center;
+  flex-direction:column;gap:0.5rem;color:var(--ink);text-align:center;padding:2rem;
+  background:linear-gradient(135deg,#fff8e1,#ffffff);
+}
+.banner-card .ph .big{font-family:var(--poster);font-size:clamp(2rem,5vw,3.5rem);color:var(--blue);line-height:0.9;letter-spacing:-0.01em}
+.banner-card .ph .sub{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase}
+@media(max-width:780px){.banners-strip{padding-top:4.5rem;grid-template-columns:1fr}}
 
 /* ──────────────────── HERO (estilo campaña) ──────────────────── */
 .hero{
@@ -301,12 +329,12 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
   color:#fff;box-shadow:0 6px 28px rgba(139,92,246,0.4);
 }
 .btn-glow:hover{box-shadow:0 14px 44px rgba(79,209,197,0.5)}
-.btn-ghost{background:rgba(255,255,255,0.04);color:var(--white);border:1px solid var(--border)}
-.btn-ghost:hover{background:rgba(255,255,255,0.08);border-color:var(--white)}
+.btn-ghost{background:rgba(13,31,51,0.04);color:var(--white);border:1px solid var(--border)}
+.btn-ghost:hover{background:rgba(13,31,51,0.07);border-color:var(--white)}
 
 /* ──────────────────── SECCIONES ──────────────────── */
 .section{padding:6rem 0;position:relative;z-index:1}
-.section-dark{background:rgba(0,0,0,0.25)}
+.section-dark{background:linear-gradient(180deg,#f5f1e6 0%,#ffffff 100%);position:relative;z-index:1}
 .section-head{text-align:center;margin-bottom:3.5rem;max-width:760px;margin-left:auto;margin-right:auto}
 .section-tag{
   font-family:var(--mono);font-size:0.58rem;letter-spacing:0.38em;text-transform:uppercase;
@@ -373,22 +401,22 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
 }
 .plat-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:3rem;align-items:center}
 .plat-mockup{
-  background:rgba(0,0,0,0.4);border:1px solid var(--border);border-radius:var(--r);
+  background:rgba(13,31,51,0.06);border:1px solid var(--border);border-radius:var(--r);
   overflow:hidden;font-family:var(--mono);font-size:0.7rem;
   box-shadow:0 20px 60px rgba(0,0,0,0.5);
 }
 .plat-mockup-bar{
-  background:rgba(255,255,255,0.05);padding:0.6rem 1rem;
+  background:rgba(13,31,51,0.04);padding:0.6rem 1rem;
   display:flex;align-items:center;gap:0.5rem;border-bottom:1px solid var(--border);
 }
 .plat-mockup-dot{width:10px;height:10px;border-radius:50%}
 .plat-mockup-dot.r{background:#ff5f57}.plat-mockup-dot.y{background:#ffbd2e}.plat-mockup-dot.g{background:#28c840}
 .plat-mockup-url{
   margin-left:auto;font-size:0.6rem;color:var(--hint);
-  background:rgba(0,0,0,0.3);padding:0.2rem 0.6rem;border-radius:4px;
+  background:rgba(13,31,51,0.05);padding:0.2rem 0.6rem;border-radius:4px;
 }
 .plat-mockup-body{padding:1.25rem;display:flex;flex-direction:column;gap:0.7rem;min-height:280px}
-.plat-row{display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.8rem;background:rgba(255,255,255,0.04);border-radius:6px;font-size:0.72rem}
+.plat-row{display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.8rem;background:rgba(13,31,51,0.04);border-radius:6px;font-size:0.72rem}
 .plat-row i{color:var(--cyan);width:14px}
 .plat-row.live i{color:var(--green)}
 .plat-row.live::after{content:'EN VIVO';margin-left:auto;font-size:0.55rem;color:var(--green);letter-spacing:0.15em}
@@ -415,8 +443,8 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
 .proceso-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;position:relative;z-index:1}
 .proceso-step{
   padding:2rem 1.5rem;text-align:center;
-  background:rgba(7,17,29,0.7);border:1px solid var(--border);border-radius:var(--r-lg);
-  backdrop-filter:blur(10px);
+  background:#ffffff;border:1px solid var(--border);border-radius:var(--r-lg);
+  box-shadow:0 4px 16px rgba(13,31,51,0.05);
   transition:transform 0.3s,border-color 0.3s;
 }
 .proceso-step:hover{transform:translateY(-6px);border-color:var(--border-gold)}
@@ -603,13 +631,13 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
 .form-group{display:flex;flex-direction:column;gap:0.4rem}
 .form-label{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted)}
 .af-input,.af-select{
-  background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:var(--r);
+  background:rgba(13,31,51,0.04);border:1px solid var(--border);border-radius:var(--r);
   padding:0.85rem 1rem;color:var(--white);font-family:var(--sans);font-size:0.9rem;
   transition:border-color 0.25s;width:100%;
 }
 .af-input:focus,.af-select:focus{outline:none;border-color:var(--gold)}
 .af-input.error,.af-select.error{border-color:var(--red)}
-.af-select option{background:#0d1f33;color:var(--white)}
+.af-select option{background:#ffffff;color:var(--ink)}
 .af-textarea{resize:vertical;min-height:90px}
 .form-error{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.1em;color:var(--red);margin-top:0.25rem;display:none}
 .form-error.show{display:block}
@@ -702,7 +730,7 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
 .promo-banner::after{
   content:'GRATIS';position:absolute;top:50%;right:-1rem;transform:translateY(-50%);
   font-family:var(--poster);font-size:clamp(5rem,12vw,11rem);line-height:0.85;
-  letter-spacing:-0.01em;color:rgba(255,255,255,0.08);pointer-events:none;
+  letter-spacing:-0.01em;color:rgba(13,31,51,0.07);pointer-events:none;
   white-space:nowrap;z-index:0;
 }
 .promo-banner-text{flex:1;min-width:240px;position:relative;z-index:1}
@@ -738,7 +766,7 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
 .poster img{width:100%;height:100%;object-fit:cover;display:block}
 .poster-overlay{
   position:absolute;inset:auto 0 0 0;
-  background:linear-gradient(to top,rgba(7,17,29,0.95),transparent);
+  background:linear-gradient(to top,rgba(13,31,51,0.92),transparent);
   padding:2rem 1.25rem 1.25rem;
 }
 .poster .vrail-tag{
@@ -832,7 +860,7 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
 }
 .fab-label{
   position:absolute;right:70px;top:50%;transform:translateY(-50%);
-  background:rgba(7,17,29,0.92);color:#fff;
+  background:rgba(13,31,51,0.92);color:#fff;
   font-family:var(--mono);font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;
   padding:0.5rem 0.9rem;border-radius:var(--r);
   border:1px solid rgba(37,211,102,0.35);white-space:nowrap;
@@ -971,7 +999,7 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
   .plat-grid{grid-template-columns:1fr;gap:2rem}
   .footer-grid{grid-template-columns:1fr 1fr}
   .nav-links{
-    position:fixed;top:62px;left:0;right:0;background:rgba(7,17,29,0.96);
+    position:fixed;top:62px;left:0;right:0;background:rgba(253,252,248,0.98);
     flex-direction:column;align-items:stretch;padding:1rem 1.5rem;gap:0;
     border-bottom:1px solid var(--border);transform:translateY(-100%);
     transition:transform 0.3s;backdrop-filter:blur(20px);
@@ -1032,6 +1060,30 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
     <li><a href="#preinscripcion" class="nav-cta" data-i18n="nav.inscribirme">Inscribirme</a></li>
   </ul>
 </nav>
+
+<!-- BANNERS DE CAMPAÑA (arriba del hero) -->
+<aside class="banners-strip" aria-label="Campañas activas">
+  <a href="#preinscripcion" class="banner-card" onclick="AF.selectSede('virtual','AF Virtual')" aria-label="Clases de francés en línea">
+    <picture>
+      <source srcset="src/assets/img/banners/clases-en-linea.webp" type="image/webp">
+      <img src="src/assets/img/banners/clases-en-linea.png" alt="Clases de francés en línea — Alliance Française San Cristóbal" loading="eager" decoding="async" onerror="this.style.display='none';this.parentElement.nextElementSibling.style.display='flex'">
+    </picture>
+    <div class="ph">
+      <span class="big">FRANCÉS</span>
+      <span class="sub">Clases de francés en línea</span>
+    </div>
+  </a>
+  <a href="#ciclo" class="banner-card" aria-label="Nuevo ciclo en línea">
+    <picture>
+      <source srcset="src/assets/img/banners/nuevo-ciclo-en-linea.webp" type="image/webp">
+      <img src="src/assets/img/banners/nuevo-ciclo-en-linea.png" alt="Nuevo ciclo en línea — Alliance Française San Cristóbal" loading="eager" decoding="async" onerror="this.style.display='none';this.parentElement.nextElementSibling.style.display='flex'">
+    </picture>
+    <div class="ph">
+      <span class="big">NUEVO CICLO</span>
+      <span class="sub">EN LÍNEA · ¡Inscríbete ahora!</span>
+    </div>
+  </a>
+</aside>
 
 <!-- HERO (estilo campaña editorial) -->
 <header id="accueil" class="hero">
