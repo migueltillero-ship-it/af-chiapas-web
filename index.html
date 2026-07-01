@@ -234,12 +234,22 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
 .banner-card picture{display:block;width:100%;height:100%}
 .banner-card img{width:100%;height:100%;object-fit:cover;display:block}
 .banner-card .ph{
-  width:100%;height:100%;display:none;align-items:center;justify-content:center;
-  flex-direction:column;gap:0.5rem;color:var(--ink);text-align:center;padding:2rem;
+  width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:0.75rem;color:var(--ink);text-align:center;padding:1.5rem;
   background:linear-gradient(135deg,#fff8e1,#ffffff);
 }
+.banner-card:has(img[src]:not([src=""])) .ph{display:none}
 .banner-card .ph .big{font-family:var(--poster);font-size:clamp(2rem,5vw,3.5rem);color:var(--blue);line-height:0.9;letter-spacing:-0.01em}
-.banner-card .ph .sub{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase}
+.banner-card .ph .sub{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.2em;color:var(--ink);text-transform:uppercase;font-weight:700}
+.banner-card .ph .wa-mini{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  background:#25d366;color:#fff;padding:0.65rem 1.2rem;border-radius:99px;
+  font-family:var(--mono);font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;
+  text-decoration:none;transition:transform 0.2s,box-shadow 0.25s;
+  box-shadow:0 6px 16px rgba(37,211,102,0.35);margin-top:0.5rem;
+}
+.banner-card .ph .wa-mini:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(37,211,102,0.5)}
+.banner-card .ph .wa-mini i{font-size:1.1rem}
 @media(max-width:780px){.banners-strip{padding-top:4.5rem;grid-template-columns:1fr}}
 
 /* ──────────────────── HERO (estilo campaña) ──────────────────── */
@@ -972,10 +982,10 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
   pointer-events:none;
 }
 .wa-cta-text{
-  font-size:1rem;color:rgba(245,243,238,0.9);line-height:1.5;
-  position:relative;z-index:1;
+  font-size:1rem;color:var(--ink);line-height:1.5;
+  position:relative;z-index:1;font-weight:500;
 }
-.wa-cta-text strong{color:#25d366;font-weight:600}
+.wa-cta-text strong{color:#128c47;font-weight:700}
 .wa-cta-btn{
   display:inline-flex;align-items:center;gap:0.6rem;position:relative;z-index:1;
   background:#25d366;color:#fff;padding:0.85rem 1.4rem;border-radius:var(--r);
@@ -987,9 +997,11 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
 .wa-cta-btn i{font-size:1rem}
 
 @media(max-width:640px){
-  .wa-cta{padding:1rem 1.25rem;margin-top:2rem}
-  .wa-cta-btn{font-size:0.55rem;padding:0.7rem 1rem;width:100%;justify-content:center}
-  .wa-cta-text{width:100%}
+  .wa-cta{padding:1rem 1.25rem;margin-top:2rem;flex-direction:column;align-items:stretch}
+  .wa-cta-btn{font-size:0.55rem;padding:0.85rem 1rem;width:100%;justify-content:center}
+  .wa-cta-text{width:100%;text-align:center;font-size:0.92rem}
+  .banner-card{aspect-ratio:auto;min-height:220px}
+  .banner-card .ph .wa-mini{font-size:0.55rem;padding:0.6rem 1rem}
 }
 
 /* ──────────────────── RESPONSIVE ──────────────────── */
@@ -1038,7 +1050,6 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
   </a>
   <button class="nav-toggle" aria-label="Menú" onclick="AF.toggleMenu()"><i class="fa fa-bars"></i></button>
   <ul class="nav-links" id="nav-links">
-    <li><a href="#plataforma"     data-i18n="nav.plataforma">Plataforma</a></li>
     <li><a href="#proceso"        data-i18n="nav.proceso">Cómo funciona</a></li>
     <li><a href="#cursos"         data-i18n="nav.cursos">Cursos</a></li>
     <li><a href="#ciclo"          data-i18n="nav.ciclo">Ritmos · Tarifas</a></li>
@@ -1064,21 +1075,27 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
   <a href="#preinscripcion" class="banner-card" onclick="AF.selectSede('virtual','AF Virtual')" aria-label="Clases de francés en línea">
     <picture>
       <source srcset="src/assets/img/banners/clases-en-linea.webp" type="image/webp">
-      <img src="src/assets/img/banners/clases-en-linea.png" alt="Clases de francés en línea — Alliance Française San Cristóbal" loading="eager" decoding="async" onerror="this.style.display='none';this.parentElement.nextElementSibling.style.display='flex'">
+      <img src="src/assets/img/banners/clases-en-linea.png" alt="Clases de francés en línea — Alliance Française San Cristóbal" loading="eager" decoding="async" onload="this.parentElement.nextElementSibling.style.display='none'" onerror="this.style.display='none'">
     </picture>
     <div class="ph">
       <span class="big">FRANCÉS</span>
-      <span class="sub">Clases de francés en línea</span>
+      <span class="sub">Clases 100% en línea · Clase muestra gratis</span>
+      <a href="https://wa.me/529671721870?text=Hola%2C%20quiero%20una%20clase%20muestra%20gratis%20de%20franc%C3%A9s%20en%20l%C3%ADnea." target="_blank" rel="noopener" class="wa-mini" onclick="event.stopPropagation()">
+        <i class="fab fa-whatsapp"></i> WhatsApp +52 967 172 1870
+      </a>
     </div>
   </a>
   <a href="#ciclo" class="banner-card" aria-label="Nuevo ciclo en línea">
     <picture>
       <source srcset="src/assets/img/banners/nuevo-ciclo-en-linea.webp" type="image/webp">
-      <img src="src/assets/img/banners/nuevo-ciclo-en-linea.png" alt="Nuevo ciclo en línea — Alliance Française San Cristóbal" loading="eager" decoding="async" onerror="this.style.display='none';this.parentElement.nextElementSibling.style.display='flex'">
+      <img src="src/assets/img/banners/nuevo-ciclo-en-linea.png" alt="Nuevo ciclo en línea — Alliance Française San Cristóbal" loading="eager" decoding="async" onload="this.parentElement.nextElementSibling.style.display='none'" onerror="this.style.display='none'">
     </picture>
     <div class="ph">
       <span class="big">NUEVO CICLO</span>
       <span class="sub">EN LÍNEA · ¡Inscríbete ahora!</span>
+      <a href="https://wa.me/529671721870?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20el%20nuevo%20ciclo%20en%20l%C3%ADnea." target="_blank" rel="noopener" class="wa-mini" onclick="event.stopPropagation()">
+        <i class="fab fa-whatsapp"></i> Info por WhatsApp
+      </a>
     </div>
   </a>
 </aside>
@@ -1102,7 +1119,7 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
       </p>
       <div class="hero-actions">
         <a href="#preinscripcion" class="btn btn-glow"><i class="fa fa-rocket"></i> <span data-i18n="hero.cta1">Inscribirme ahora</span></a>
-        <a href="#plataforma" class="btn btn-ghost"><i class="fa fa-play"></i> <span data-i18n="hero.cta2">Conocer la plataforma</span></a>
+        <a href="#preinscripcion" class="btn btn-ghost" onclick="AF.selectSede('virtual','AF Virtual')"><i class="fa fa-check"></i> <span data-i18n="hero.cta2">Empezar preinscripción</span></a>
       </div>
       <div class="hero-trust">
         <span><i class="fa fa-laptop"></i> 100% en línea · sin presencial</span>
@@ -1140,72 +1157,6 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
 </section>
 
 <!-- PLATAFORMA VIRTUAL -->
-<section id="plataforma" class="section section-dark" data-wa-section="la Plataforma Virtual">
-  <div class="container">
-    <div class="section-head">
-      <span class="section-watermark" aria-hidden="true">PLATEFORME</span>
-      <span class="section-tag">Notre plateforme</span>
-      <h2 class="section-title">La <span class="grad">plataforma virtual</span> más moderna de la red AF</h2>
-      <p class="section-sub">
-        Construida para que aprendas francés con la misma calidad pedagógica de una sede física,
-        pero con la flexibilidad y la innovación del aprendizaje digital.
-      </p>
-    </div>
-    <div class="plat-hero glass-glow">
-      <div class="plat-grid">
-        <div>
-          <div class="plat-mockup" aria-hidden="true">
-            <div class="plat-mockup-bar">
-              <span class="plat-mockup-dot r"></span>
-              <span class="plat-mockup-dot y"></span>
-              <span class="plat-mockup-dot g"></span>
-              <span class="plat-mockup-url">aula.alianzafrancesa-sc.mx</span>
-            </div>
-            <div class="plat-mockup-body">
-              <div class="plat-row live"><i class="fa fa-circle"></i> Aula virtual · B1 Adultos · Prof. Camille</div>
-              <div class="plat-row"><i class="fa fa-robot"></i> Tutor IA: practica conjugación del subjuntivo</div>
-              <div class="plat-row next"><i class="fa fa-calendar"></i> Próxima clase: jue 20:00</div>
-              <div class="plat-row"><i class="fa fa-users"></i> Club de conversación abierto (12 en línea)</div>
-              <div class="plat-row"><i class="fa fa-medal"></i> Insignia desbloqueada: 30 días seguidos</div>
-              <div class="plat-row"><i class="fa fa-book-open"></i> Tarea: comprensión oral · Le Petit Journal</div>
-              <div class="plat-row"><i class="fa fa-graduation-cap"></i> Simulacro DELF B1: agendar fecha</div>
-            </div>
-          </div>
-        </div>
-        <div class="plat-features">
-          <div class="plat-feat">
-            <div class="plat-feat-icon"><i class="fa fa-video"></i></div>
-            <div>
-              <h3 class="plat-feat-title">Aulas virtuales en vivo</h3>
-              <p class="plat-feat-desc">Videoconferencia HD, pizarra interactiva, breakout rooms y grabaciones disponibles 30 días.</p>
-            </div>
-          </div>
-          <div class="plat-feat">
-            <div class="plat-feat-icon"><i class="fa fa-robot"></i></div>
-            <div>
-              <h3 class="plat-feat-title">Tutor IA 24/7</h3>
-              <p class="plat-feat-desc">Practica conversación, recibe corrección instantánea y ejercicios adaptados a tu nivel — entre clase y clase.</p>
-            </div>
-          </div>
-          <div class="plat-feat">
-            <div class="plat-feat-icon"><i class="fa fa-route"></i></div>
-            <div>
-              <h3 class="plat-feat-title">Ruta de aprendizaje adaptativa</h3>
-              <p class="plat-feat-desc">Tu progreso se mide en tiempo real. La plataforma te recomienda contenido según tus debilidades.</p>
-            </div>
-          </div>
-          <div class="plat-feat">
-            <div class="plat-feat-icon"><i class="fa fa-trophy"></i></div>
-            <div>
-              <h3 class="plat-feat-title">Comunidad y gamificación</h3>
-              <p class="plat-feat-desc">Insignias, rachas, clubes de conversación y eventos virtuales con francófonos de todo el mundo.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- PROCESO AUTOMATIZADO -->
 <section id="proceso" class="section" data-wa-section="el proceso de inscripción">
@@ -1337,7 +1288,7 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
           <p class="poster-sub">Sin compromiso</p>
         </div>
       </a>
-      <a href="#plataforma" class="poster" style="grid-column:span 1">
+      <a href="#preinscripcion" class="poster" style="grid-column:span 1" onclick="AF.selectSede('virtual','AF Virtual')">
         <span class="vrail-tag">Refuerza tu conocimiento</span>
         <img src="src/assets/img/posters/club-conversacion.png" alt="Club de conversación AF San Cristóbal" loading="lazy" decoding="async">
         <div class="poster-overlay">
@@ -2595,7 +2546,7 @@ const I18N = {
     'hero.t1':'Aprende francés','hero.t2':'100% en línea.',
     'hero.t3':'Desde donde estés, hacia donde sueñes.',
     'hero.tagline':'Damos un vuelco innovador: la Alliance Française San Cristóbal ahora es 100% virtual. Clases en vivo con profesores certificados, tutor de IA 24/7, comunidad francófona global y preparación oficial DELF/DALF. Sin presencial. Sin desplazamientos. Abierta al mundo entero.',
-    'hero.cta1':'Inscribirme ahora','hero.cta2':'Conocer la plataforma',
+    'hero.cta1':'Inscribirme ahora','hero.cta2':'Empezar preinscripción',
   },
   fr: {
     'nav.plataforma':'Plateforme','nav.proceso':'Comment ça marche','nav.cursos':'Cours',
@@ -2606,7 +2557,7 @@ const I18N = {
     'hero.t1':'Apprends le français','hero.t2':'100% en ligne.',
     'hero.t3':"D'où que tu sois, vers où tu rêves.",
     'hero.tagline':"Nous prenons un virage innovant : l'Alliance Française San Cristóbal est désormais 100% virtuelle. Cours en direct, tuteur IA 24h/24, communauté francophone mondiale, préparation officielle DELF/DALF. Sans présentiel. Sans déplacements. Ouverte au monde entier.",
-    'hero.cta1':"M'inscrire maintenant",'hero.cta2':'Découvrir la plateforme',
+    'hero.cta1':"M'inscrire maintenant",'hero.cta2':'Commencer ma préinscription',
   }
 };
 
