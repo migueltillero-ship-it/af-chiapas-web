@@ -6,7 +6,7 @@ test.describe('Landing pública', () => {
     await expect(page).toHaveTitle(/Alliance Française San Cristóbal/);
     await expect(page.locator('.hero-title')).toBeVisible();
     await expect(page.getByRole('link', { name: /Inscribirme ahora/i }).first()).toBeVisible();
-    await expect(page.getByRole('link', { name: /Conocer la plataforma/i }).first()).toBeVisible();
+    await expect(page.getByRole('link', { name: /Empezar preinscripción/i }).first()).toBeVisible();
   });
 
   test('promo banner clase gratis visible', async ({ page }) => {

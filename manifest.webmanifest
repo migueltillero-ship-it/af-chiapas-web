@@ -6,8 +6,8 @@
   "scope": "/af-chiapas-web/",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#07111d",
-  "theme_color": "#07111d",
+  "background_color": "#fdfcf8",
+  "theme_color": "#fdfcf8",
   "lang": "es-MX",
   "categories": ["education", "languages"],
   "icons": [
