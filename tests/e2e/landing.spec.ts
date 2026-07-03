@@ -20,10 +20,10 @@ test.describe('Landing pública', () => {
     await expect(page.locator('#certifications .section-title')).toContainText(/Preparación/i);
   });
 
-  test('galería de carteles carga las 5 imágenes', async ({ page }) => {
+  test('galería de carteles carga los 6 carteles', async ({ page }) => {
     await page.goto('/');
     const posters = page.locator('#galeria .poster');
-    await expect(posters).toHaveCount(5);
+    await expect(posters).toHaveCount(6);
   });
 
   test('toggle de idioma cambia el hero a francés', async ({ page }) => {
