@@ -15,9 +15,9 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --void:#07111d; --deep:#0d1f33; --panel:rgba(255,255,255,0.055); --panel-hover:rgba(255,255,255,0.09);
-  --border:rgba(255,255,255,0.11); --border-gold:rgba(201,164,78,0.4);
-  --white:#f5f3ee; --muted:rgba(245,243,238,0.62); --hint:rgba(245,243,238,0.38);
+  --void:#fdfcf8; --deep:#ffffff; --panel:rgba(13,31,51,0.04); --panel-hover:rgba(13,31,51,0.07);
+  --border:rgba(13,31,51,0.12); --border-gold:rgba(201,164,78,0.4);
+  --white:#0d1f33; --muted:rgba(13,31,51,0.62); --hint:rgba(13,31,51,0.40);
   --gold:#c9a44e; --gold-light:#e8c97a; --red:#d42b3a; --green:#22c55e; --cyan:#4fd1c5; --amber:#fbbf24;
   --display:'Cormorant Garamond',Georgia,serif; --sans:'Syne',system-ui,sans-serif;
   --mono:'Space Mono',monospace; --poster:'Bebas Neue','Syne',sans-serif;
@@ -30,8 +30,8 @@ body{
 body::before{
   content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
   background:
-    radial-gradient(ellipse 80% 60% at 15% 10%, rgba(0,38,84,0.5) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 85% 90%, rgba(201,164,78,0.07) 0%, transparent 55%);
+    radial-gradient(ellipse 80% 60% at 15% 10%, rgba(53,89,177,0.05) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 85% 90%, rgba(252,196,25,0.05) 0%, transparent 55%);
 }
 .shell{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:2rem 1.5rem;min-height:100vh}
 
@@ -64,7 +64,7 @@ body::before{
 /* Form */
 label{display:block;font-family:var(--mono);font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;margin-top:1rem}
 .field{
-  width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);
+  width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);
   color:var(--white);padding:0.9rem 1rem;font-family:var(--sans);font-size:0.95rem;
 }
 .field:focus{outline:none;border-color:var(--gold)}
@@ -81,7 +81,7 @@ label{display:block;font-family:var(--mono);font-size:0.55rem;letter-spacing:0.2
 .btn:hover{transform:translateY(-2px)}
 .btn-primary{background:var(--gold);color:var(--void);box-shadow:0 6px 24px rgba(201,164,78,0.3)}
 .btn-primary:hover{background:var(--gold-light)}
-.btn-ghost{background:rgba(255,255,255,0.04);color:var(--white);border:1px solid var(--border)}
+.btn-ghost{background:rgba(13,31,51,0.04);color:var(--white);border:1px solid var(--border)}
 .btn-ghost:hover{border-color:var(--gold)}
 .btn-wa{background:#25d366;color:#fff;box-shadow:0 6px 24px rgba(37,211,102,0.35)}
 .btn-block{width:100%;justify-content:center}
@@ -97,7 +97,7 @@ label{display:block;font-family:var(--mono);font-size:0.55rem;letter-spacing:0.2
 .estado-en_revision {background:rgba(79,209,197,0.15);color:var(--cyan);border:1px solid rgba(79,209,197,0.4)}
 .estado-aprobada    {background:rgba(34,197,94,0.15);color:var(--green);border:1px solid rgba(34,197,94,0.4)}
 .estado-rechazada   {background:rgba(212,43,58,0.15);color:var(--red);border:1px solid rgba(212,43,58,0.4)}
-.estado-cancelada   {background:rgba(245,243,238,0.08);color:var(--hint);border:1px solid var(--border)}
+.estado-cancelada   {background:rgba(13,31,51,0.06);color:var(--hint);border:1px solid var(--border)}
 .estado-dot{width:8px;height:8px;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
 
@@ -116,7 +116,7 @@ label{display:block;font-family:var(--mono);font-size:0.55rem;letter-spacing:0.2
 .msg.en_revision {background:rgba(79,209,197,0.07);border-color:var(--cyan)}
 .msg.aprobada    {background:rgba(34,197,94,0.07);border-color:var(--green)}
 .msg.rechazada   {background:rgba(212,43,58,0.07);border-color:var(--red)}
-.msg.cancelada   {background:rgba(245,243,238,0.04);border-color:var(--hint)}
+.msg.cancelada   {background:rgba(13,31,51,0.04);border-color:var(--hint)}
 .msg strong{color:var(--white)}
 
 /* Grupo info */
@@ -134,7 +134,7 @@ label{display:block;font-family:var(--mono);font-size:0.55rem;letter-spacing:0.2
 }
 .cfg-warn h3{font-family:var(--display);color:var(--amber);font-size:1.2rem;margin-bottom:0.5rem}
 .cfg-warn p{color:var(--muted);font-size:0.9rem}
-.cfg-warn code{background:rgba(0,0,0,0.4);padding:0.15rem 0.4rem;border-radius:3px;font-family:var(--mono);font-size:0.8rem}
+.cfg-warn code{background:rgba(13,31,51,0.06);padding:0.15rem 0.4rem;border-radius:3px;font-family:var(--mono);font-size:0.8rem}
 .loading{text-align:center;padding:1rem;color:var(--muted);font-family:var(--mono);font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase}
 
 @media(max-width:540px){

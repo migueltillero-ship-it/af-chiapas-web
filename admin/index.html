@@ -15,9 +15,9 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --void:#07111d; --deep:#0d1f33; --panel:rgba(255,255,255,0.055); --panel-hover:rgba(255,255,255,0.09);
-  --border:rgba(255,255,255,0.11); --border-gold:rgba(201,164,78,0.4);
-  --white:#f5f3ee; --muted:rgba(245,243,238,0.62); --hint:rgba(245,243,238,0.38);
+  --void:#fdfcf8; --deep:#ffffff; --panel:rgba(13,31,51,0.04); --panel-hover:rgba(13,31,51,0.07);
+  --border:rgba(13,31,51,0.12); --border-gold:rgba(201,164,78,0.4);
+  --white:#0d1f33; --muted:rgba(13,31,51,0.62); --hint:rgba(13,31,51,0.40);
   --gold:#c9a44e; --gold-light:#e8c97a; --red:#d42b3a; --green:#22c55e; --cyan:#4fd1c5; --amber:#fbbf24;
   --display:'Cormorant Garamond',Georgia,serif; --sans:'Syne',system-ui,sans-serif; --mono:'Space Mono',monospace;
   --r:10px; --r-lg:18px;
@@ -29,8 +29,8 @@ body{
 body::before{
   content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
   background:
-    radial-gradient(ellipse 80% 60% at 15% 10%, rgba(0,38,84,0.4) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 85% 90%, rgba(201,164,78,0.06) 0%, transparent 55%);
+    radial-gradient(ellipse 80% 60% at 15% 10%, rgba(53,89,177,0.05) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 85% 90%, rgba(252,196,25,0.05) 0%, transparent 55%);
 }
 .shell{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:1.5rem}
 
@@ -88,15 +88,15 @@ body::before{
 .chip.active{background:var(--gold);color:var(--void);border-color:var(--gold)}
 
 /* Tabla */
-.table-wrap{overflow-x:auto;border-radius:var(--r-lg);border:1px solid var(--border);background:rgba(0,0,0,0.18)}
+.table-wrap{overflow-x:auto;border-radius:var(--r-lg);border:1px solid var(--border);background:rgba(13,31,51,0.04)}
 table{width:100%;border-collapse:collapse;font-size:0.85rem}
-thead{background:rgba(0,0,0,0.3)}
+thead{background:rgba(13,31,51,0.05)}
 th{
   text-align:left;font-family:var(--mono);font-size:0.55rem;letter-spacing:0.18em;
   text-transform:uppercase;color:var(--gold);padding:0.85rem 1rem;border-bottom:1px solid var(--border);
 }
 td{padding:0.85rem 1rem;border-bottom:1px solid var(--border);vertical-align:middle}
-tr:hover{background:rgba(255,255,255,0.02);cursor:pointer}
+tr:hover{background:rgba(13,31,51,0.03);cursor:pointer}
 .cell-folio{font-family:var(--mono);font-size:0.78rem;color:var(--gold)}
 .cell-nombre{font-weight:600}
 .cell-meta{font-size:0.72rem;color:var(--muted)}
@@ -108,11 +108,11 @@ tr:hover{background:rgba(255,255,255,0.02);cursor:pointer}
 .b-en_revision {background:rgba(79,209,197,0.12);color:var(--cyan);border:1px solid rgba(79,209,197,0.3)}
 .b-aprobada    {background:rgba(34,197,94,0.12);color:var(--green);border:1px solid rgba(34,197,94,0.3)}
 .b-rechazada   {background:rgba(212,43,58,0.12);color:var(--red);border:1px solid rgba(212,43,58,0.3)}
-.b-cancelada   {background:rgba(245,243,238,0.08);color:var(--hint);border:1px solid var(--border)}
+.b-cancelada   {background:rgba(13,31,51,0.06);color:var(--hint);border:1px solid var(--border)}
 
 /* Modal */
 .modal-bg{
-  position:fixed;inset:0;z-index:1000;background:rgba(7,17,29,0.85);backdrop-filter:blur(8px);
+  position:fixed;inset:0;z-index:1000;background:rgba(13,31,51,0.45);backdrop-filter:blur(8px);
   display:none;align-items:center;justify-content:center;padding:1.5rem;
 }
 .modal-bg.open{display:flex}
@@ -126,7 +126,7 @@ tr:hover{background:rgba(255,255,255,0.02);cursor:pointer}
 .kv-key{font-family:var(--mono);font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);align-self:center}
 .kv-val{color:var(--white)}
 .modal textarea{
-  width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);
+  width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);
   color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.85rem;min-height:80px;resize:vertical;
 }
 .modal-actions{display:flex;gap:0.5rem;justify-content:flex-end;flex-wrap:wrap;margin-top:1.5rem}
@@ -147,7 +147,7 @@ tr:hover{background:rgba(255,255,255,0.02);cursor:pointer}
   text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;
 }
 .login-card input{
-  width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);
+  width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);
   color:var(--white);padding:0.85rem 1rem;font-family:var(--sans);font-size:0.95rem;margin-bottom:1rem;
 }
 .login-card input:focus{outline:none;border-color:var(--gold)}
@@ -180,11 +180,11 @@ tr:hover{background:rgba(255,255,255,0.02);cursor:pointer}
   text-transform:uppercase;color:var(--cyan);margin-bottom:0.5rem;
 }
 .grupo-asig select,.grupo-asig input{
-  width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);
+  width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);
   border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.85rem;
   margin-bottom:0.6rem;
 }
-.grupo-asig select option{background:var(--deep)}
+.grupo-asig select option{background:#ffffff;color:var(--white)}
 .grupo-asig .hint{font-size:0.78rem;color:var(--muted);margin-bottom:0.5rem}
 .grupo-asig .btn-small{
   font-size:0.55rem;padding:0.5rem 0.9rem;background:var(--panel);color:var(--cyan);
@@ -201,7 +201,7 @@ tr:hover{background:rgba(255,255,255,0.02);cursor:pointer}
 }
 .cfg-warn h3{font-family:var(--display);color:var(--amber);font-size:1.25rem;margin-bottom:0.5rem}
 .cfg-warn p{color:var(--muted);font-size:0.9rem}
-.cfg-warn code{background:rgba(0,0,0,0.4);padding:0.15rem 0.4rem;border-radius:3px;font-family:var(--mono);font-size:0.8rem}
+.cfg-warn code{background:rgba(13,31,51,0.06);padding:0.15rem 0.4rem;border-radius:3px;font-family:var(--mono);font-size:0.8rem}
 
 @media(max-width:640px){
   .shell{padding:1rem}
@@ -392,27 +392,27 @@ tr:hover{background:rgba(255,255,255,0.02);cursor:pointer}
     <h2 id="cu-title">Nuevo curso</h2>
     <p class="modal-folio" id="cu-id-display">—</p>
     <div class="kv">
-      <span class="kv-key">ID *</span>            <input id="cu-id" type="text" placeholder="adultos, junior, ninos..." style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.85rem">
-      <span class="kv-key">Nombre *</span>        <input id="cu-nombre" type="text" style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
-      <span class="kv-key">Subtítulo</span>       <input id="cu-subtitulo" type="text" placeholder="Les Adultes / Junior..." style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
-      <span class="kv-key">Edad</span>            <input id="cu-edad" type="text" placeholder="15 años en adelante" style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
-      <span class="kv-key">Icono</span>           <input id="cu-icono" type="text" placeholder="fa-user-graduate" style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.85rem">
+      <span class="kv-key">ID *</span>            <input id="cu-id" type="text" placeholder="adultos, junior, ninos..." style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.85rem">
+      <span class="kv-key">Nombre *</span>        <input id="cu-nombre" type="text" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Subtítulo</span>       <input id="cu-subtitulo" type="text" placeholder="Les Adultes / Junior..." style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Edad</span>            <input id="cu-edad" type="text" placeholder="15 años en adelante" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Icono</span>           <input id="cu-icono" type="text" placeholder="fa-user-graduate" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.85rem">
       <span class="kv-key">Color</span>           <input id="cu-color" type="color" value="#c9a44e" style="width:80px;height:38px;background:transparent;border:1px solid var(--border);border-radius:var(--r);padding:0.2rem">
-      <span class="kv-key">Descripción</span>     <textarea id="cu-descripcion" rows="3" style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem"></textarea>
-      <span class="kv-key">Manual</span>          <input id="cu-manual" type="text" placeholder="Défi (tomos 1-4)" style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
-      <span class="kv-key">Evaluación</span>      <input id="cu-evaluacion" type="text" placeholder="Continua + simulacros DELF" style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
-      <span class="kv-key">Orden</span>           <input id="cu-orden" type="number" value="100" min="0" style="width:120px;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.85rem">
+      <span class="kv-key">Descripción</span>     <textarea id="cu-descripcion" rows="3" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem"></textarea>
+      <span class="kv-key">Manual</span>          <input id="cu-manual" type="text" placeholder="Défi (tomos 1-4)" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Evaluación</span>      <input id="cu-evaluacion" type="text" placeholder="Continua + simulacros DELF" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Orden</span>           <input id="cu-orden" type="number" value="100" min="0" style="width:120px;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.85rem">
       <span class="kv-key">Activo</span>          <label style="display:flex;align-items:center;gap:0.5rem;color:var(--white)"><input id="cu-activo" type="checkbox" checked style="width:18px;height:18px"> Visible en el sitio público</label>
     </div>
 
-    <p class="kv-key" style="margin-top:1rem">Niveles (uno por línea, formato: <code style="background:rgba(0,0,0,0.3);padding:0.1rem 0.3rem;border-radius:3px">CÓDIGO | Nombre | Horas</code>)</p>
+    <p class="kv-key" style="margin-top:1rem">Niveles (uno por línea, formato: <code style="background:rgba(13,31,51,0.05);padding:0.1rem 0.3rem;border-radius:3px">CÓDIGO | Nombre | Horas</code>)</p>
     <textarea id="cu-niveles" rows="5" placeholder="A1 | Débutant | 30
 A2 | Élémentaire | 30
-B1 | Intermédiaire | 30" style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.82rem;margin-bottom:1rem"></textarea>
+B1 | Intermédiaire | 30" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.82rem;margin-bottom:1rem"></textarea>
 
-    <p class="kv-key">Modalidades (uno por línea, formato: <code style="background:rgba(0,0,0,0.3);padding:0.1rem 0.3rem;border-radius:3px">Nombre | Sesiones | Horas</code>)</p>
+    <p class="kv-key">Modalidades (uno por línea, formato: <code style="background:rgba(13,31,51,0.05);padding:0.1rem 0.3rem;border-radius:3px">Nombre | Sesiones | Horas</code>)</p>
     <textarea id="cu-modalidades" rows="4" placeholder="Regular | 2 sesiones/semana | 24 h
-Intensivo | 4 sesiones/semana | 48 h" style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.82rem"></textarea>
+Intensivo | 4 sesiones/semana | 48 h" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.82rem"></textarea>
 
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="ADMIN.closeCursoEditor()">Cancelar</button>
@@ -428,15 +428,15 @@ Intensivo | 4 sesiones/semana | 48 h" style="width:100%;background:rgba(0,0,0,0.
     <h2 id="ev-title">Nuevo evento</h2>
     <p class="modal-folio" id="ev-id">—</p>
     <div class="kv">
-      <span class="kv-key">Título *</span>      <input id="ev-titulo" class="field" type="text" style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
-      <span class="kv-key">Descripción</span>   <textarea id="ev-desc" rows="3" style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem"></textarea>
-      <span class="kv-key">Fecha *</span>       <input id="ev-fecha" type="date" style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
-      <span class="kv-key">Hora</span>          <input id="ev-hora" type="time" style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
-      <span class="kv-key">Lugar</span>         <input id="ev-lugar" type="text" placeholder="Sede SC · Por confirmar..." style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
-      <span class="kv-key">Categoría</span>     <input id="ev-categoria" type="text" placeholder="Música · Cine · Diplomacia..." style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
-      <span class="kv-key">Modo</span>          <select id="ev-modo" style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem"><option value="presencial">Presencial</option><option value="virtual">Virtual</option><option value="hibrido">Híbrido</option></select>
+      <span class="kv-key">Título *</span>      <input id="ev-titulo" class="field" type="text" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Descripción</span>   <textarea id="ev-desc" rows="3" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem"></textarea>
+      <span class="kv-key">Fecha *</span>       <input id="ev-fecha" type="date" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Hora</span>          <input id="ev-hora" type="time" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Lugar</span>         <input id="ev-lugar" type="text" placeholder="Sede SC · Por confirmar..." style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Categoría</span>     <input id="ev-categoria" type="text" placeholder="Música · Cine · Diplomacia..." style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Modo</span>          <select id="ev-modo" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem"><option value="presencial">Presencial</option><option value="virtual">Virtual</option><option value="hibrido">Híbrido</option></select>
       <span class="kv-key">Entrada libre</span> <label style="display:flex;align-items:center;gap:0.5rem;color:var(--white)"><input id="ev-libre" type="checkbox" checked style="width:18px;height:18px"> Sí, evento abierto al público</label>
-      <span class="kv-key">URL inscripción</span><input id="ev-url" type="url" placeholder="https://..." style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">URL inscripción</span><input id="ev-url" type="url" placeholder="https://..." style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
       <span class="kv-key">Destacado</span>     <label style="display:flex;align-items:center;gap:0.5rem;color:var(--white)"><input id="ev-destacado" type="checkbox" style="width:18px;height:18px"> Destacar en agenda</label>
       <span class="kv-key">Publicado</span>     <label style="display:flex;align-items:center;gap:0.5rem;color:var(--white)"><input id="ev-publicado" type="checkbox" checked style="width:18px;height:18px"> Visible en el sitio público</label>
     </div>
