@@ -196,13 +196,41 @@ body::after{
   color:var(--cyan);padding:0.18rem 0.5rem;border:1px solid rgba(79,209,197,0.4);
   border-radius:4px;margin-left:0.4rem;
 }
-.nav-links{display:flex;align-items:center;gap:0.25rem;list-style:none}
+.nav-links{display:flex;align-items:center;gap:0.15rem;list-style:none}
 .nav-links a{
   font-family:var(--mono);font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;
-  color:var(--muted);text-decoration:none;padding:0.5rem 0.75rem;border-radius:6px;
+  color:var(--muted);text-decoration:none;padding:0.5rem 0.7rem;border-radius:6px;
   transition:color 0.25s,background 0.25s;
 }
 .nav-links a:hover{color:var(--white);background:var(--panel)}
+
+/* Dropdowns */
+.nav-item{position:relative}
+.nav-drop-btn{
+  font-family:var(--mono);font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--muted);background:none;border:none;cursor:pointer;
+  padding:0.5rem 0.7rem;border-radius:6px;display:inline-flex;align-items:center;gap:0.35rem;
+  transition:color 0.25s,background 0.25s;
+}
+.nav-drop-btn i{font-size:0.5rem;transition:transform 0.25s}
+.nav-item:hover .nav-drop-btn,.nav-item:focus-within .nav-drop-btn{color:var(--white);background:var(--panel)}
+.nav-item:hover .nav-drop-btn i,.nav-item:focus-within .nav-drop-btn i{transform:rotate(180deg)}
+.nav-drop{
+  position:absolute;top:100%;left:0;min-width:220px;z-index:950;
+  background:#ffffff;border:1px solid var(--border);border-radius:12px;
+  box-shadow:0 16px 40px rgba(13,31,51,0.14);
+  padding:0.5rem;list-style:none;
+  opacity:0;visibility:hidden;transform:translateY(6px);
+  transition:opacity 0.2s,transform 0.2s,visibility 0.2s;
+}
+.nav-item:hover .nav-drop,.nav-item:focus-within .nav-drop{opacity:1;visibility:visible;transform:translateY(0)}
+.nav-drop a{
+  display:flex;align-items:center;gap:0.6rem;width:100%;
+  font-size:0.6rem;padding:0.6rem 0.75rem;color:var(--ink);
+}
+.nav-drop a i{color:var(--gold);width:14px;font-size:0.7rem;text-align:center}
+.nav-drop a:hover{background:rgba(201,164,78,0.08);color:var(--ink)}
+.nav-drop .drop-sep{height:1px;background:var(--border);margin:0.3rem 0.5rem}
 .nav-cta{background:var(--red) !important;color:#fff !important;padding:0.45rem 1.1rem !important;font-weight:700}
 .nav-cta:hover{background:var(--red-dark) !important}
 .lang-toggle{
@@ -1017,6 +1045,20 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
   .nav-links.open{transform:translateY(0)}
   .nav-links a{padding:0.85rem 1rem;font-size:0.7rem;letter-spacing:0.15em}
   .nav-toggle{display:block}
+  /* Dropdowns → acordeón siempre visible en móvil */
+  .nav-links{max-height:calc(100vh - 62px);overflow-y:auto}
+  .nav-item{position:static}
+  .nav-drop-btn{
+    width:100%;justify-content:space-between;padding:0.85rem 1rem;
+    font-size:0.7rem;letter-spacing:0.15em;color:var(--gold);font-weight:700;
+  }
+  .nav-drop-btn i{display:none}
+  .nav-drop{
+    position:static;opacity:1;visibility:visible;transform:none;
+    box-shadow:none;border:none;background:transparent;
+    padding:0 0 0.5rem 0.75rem;min-width:0;
+  }
+  .nav-drop a{font-size:0.65rem;padding:0.6rem 1rem}
 }
 @media(max-width:960px){
   .hero-grid{grid-template-columns:1fr;gap:0}
@@ -1050,17 +1092,53 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
   </a>
   <button class="nav-toggle" aria-label="Menú" onclick="AF.toggleMenu()"><i class="fa fa-bars"></i></button>
   <ul class="nav-links" id="nav-links">
-    <li><a href="#proceso"        data-i18n="nav.proceso">Cómo funciona</a></li>
-    <li><a href="#cursos"         data-i18n="nav.cursos">Cursos</a></li>
-    <li><a href="#ciclo"          data-i18n="nav.ciclo">Ritmos · Tarifas</a></li>
-    <li><a href="#talleres">Talleres</a></li>
-    <li><a href="#galeria"        data-i18n="nav.galeria">Galería</a></li>
-    <li><a href="#mobilite"       data-i18n="nav.francia">Francia</a></li>
-    <li><a href="#certifications" data-i18n="nav.delf">DELF/DALF</a></li>
-    <li><a href="#agenda"         data-i18n="nav.eventos">Eventos</a></li>
-    <li><a href="#contact"        data-i18n="nav.contacto">Contacto</a></li>
-    <li><a href="portal/" data-i18n="nav.miSolicitud" title="Consulta el estado de tu solicitud">Mi solicitud</a></li>
-    <li><a href="portal/docente.html" title="Acceso para docentes" style="opacity:0.6">Docentes</a></li>
+    <li class="nav-item">
+      <button class="nav-drop-btn" aria-haspopup="true" data-i18n="nav.nosotros">Nosotros <i class="fa fa-chevron-down"></i></button>
+      <ul class="nav-drop">
+        <li><a href="#histoire"><i class="fa fa-landmark"></i> Historia y misión</a></li>
+        <li><a href="#proceso"><i class="fa fa-route"></i> Cómo funciona</a></li>
+        <li><a href="#presentacion"><i class="fa fa-file-powerpoint"></i> Presentación institucional</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <button class="nav-drop-btn" aria-haspopup="true" data-i18n="nav.cursos">Cursos <i class="fa fa-chevron-down"></i></button>
+      <ul class="nav-drop">
+        <li><a href="#cursos"><i class="fa fa-graduation-cap"></i> Oferta académica</a></li>
+        <li><a href="#ciclo"><i class="fa fa-clock"></i> Ritmos y tarifas</a></li>
+        <li><a href="#talleres"><i class="fa fa-pen-nib"></i> Talleres y clubes</a></li>
+        <li class="drop-sep" role="separator"></li>
+        <li><a href="#preinscripcion" onclick="AF.selectSede('virtual','AF Virtual')"><i class="fa fa-rocket"></i> Preinscribirme</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <button class="nav-drop-btn" aria-haspopup="true" data-i18n="nav.certificaciones">Certificaciones <i class="fa fa-chevron-down"></i></button>
+      <ul class="nav-drop">
+        <li><a href="#certifications"><i class="fa fa-certificate"></i> Preparación DELF/DALF</a></li>
+        <li><a href="#certifications"><i class="fa fa-passport"></i> TCF · TEF Canadá · DFP</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <button class="nav-drop-btn" aria-haspopup="true" data-i18n="nav.cultura">Cultura <i class="fa fa-chevron-down"></i></button>
+      <ul class="nav-drop">
+        <li><a href="#agenda"><i class="fa fa-calendar-days"></i> Eventos</a></li>
+        <li><a href="#galeria"><i class="fa fa-images"></i> Galería</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <button class="nav-drop-btn" aria-haspopup="true" data-i18n="nav.francia">Francia <i class="fa fa-chevron-down"></i></button>
+      <ul class="nav-drop">
+        <li><a href="#mobilite"><i class="fa fa-plane"></i> CAVILAM Vichy 2026</a></li>
+        <li><a href="#mobilite"><i class="fa fa-university"></i> Campus France</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <button class="nav-drop-btn" aria-haspopup="true" data-i18n="nav.miEspacio">Mi espacio <i class="fa fa-chevron-down"></i></button>
+      <ul class="nav-drop">
+        <li><a href="portal/"><i class="fa fa-magnifying-glass"></i> Mi solicitud</a></li>
+        <li><a href="portal/docente.html"><i class="fa fa-chalkboard-teacher"></i> Portal docente</a></li>
+      </ul>
+    </li>
+    <li><a href="#contact" data-i18n="nav.contacto">Contacto</a></li>
     <li>
       <button class="lang-toggle" id="lang-toggle" onclick="AF.toggleLang()" aria-label="Cambiar idioma" title="Cambiar idioma">
         <span data-lang-es>ES</span><span class="sep">/</span><span data-lang-fr>FR</span>
@@ -2538,10 +2616,9 @@ const AF = (() => {
 // ──────────────────── i18n (es/fr) ────────────────────
 const I18N = {
   es: {
-    'nav.plataforma':'Plataforma','nav.proceso':'Cómo funciona','nav.cursos':'Cursos',
-    'nav.ciclo':'Ciclo 6 sem.','nav.galeria':'Galería','nav.francia':'Francia',
-    'nav.delf':'DELF/DALF','nav.eventos':'Eventos','nav.contacto':'Contacto',
-    'nav.miSolicitud':'Mi solicitud','nav.inscribirme':'Inscribirme',
+    'nav.nosotros':'Nosotros','nav.cursos':'Cursos','nav.certificaciones':'Certificaciones',
+    'nav.cultura':'Cultura','nav.francia':'Francia','nav.miEspacio':'Mi espacio',
+    'nav.contacto':'Contacto','nav.inscribirme':'Inscribirme',
     'hero.pill':'Alliance Française 100% en línea · ¡Damos el vuelco!',
     'hero.t1':'Aprende francés','hero.t2':'100% en línea.',
     'hero.t3':'Desde donde estés, hacia donde sueñes.',
@@ -2549,10 +2626,9 @@ const I18N = {
     'hero.cta1':'Inscribirme ahora','hero.cta2':'Empezar preinscripción',
   },
   fr: {
-    'nav.plataforma':'Plateforme','nav.proceso':'Comment ça marche','nav.cursos':'Cours',
-    'nav.ciclo':'Cycle 6 sem.','nav.galeria':'Galerie','nav.francia':'France',
-    'nav.delf':'DELF/DALF','nav.eventos':'Événements','nav.contacto':'Contact',
-    'nav.miSolicitud':'Ma demande','nav.inscribirme':"M'inscrire",
+    'nav.nosotros':'À propos','nav.cursos':'Cours','nav.certificaciones':'Certifications',
+    'nav.cultura':'Culture','nav.francia':'France','nav.miEspacio':'Mon espace',
+    'nav.contacto':'Contact','nav.inscribirme':"M'inscrire",
     'hero.pill':"Alliance Française 100% en ligne · Nous prenons le virage !",
     'hero.t1':'Apprends le français','hero.t2':'100% en ligne.',
     'hero.t3':"D'où que tu sois, vers où tu rêves.",
@@ -2567,7 +2643,10 @@ function applyI18n(lang){
   const dict = I18N[lang] || I18N.es;
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.dataset.i18n;
-    if (dict[key]) el.textContent = dict[key];
+    if (!dict[key]) return;
+    const icon = el.querySelector('i');
+    if (icon) { el.childNodes[0].textContent = dict[key] + ' '; }
+    else { el.textContent = dict[key]; }
   });
 }
 
