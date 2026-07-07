@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
 <title>Panel de coordinación · AF San Cristóbal</title>
-<link rel="icon" type="image/png" href="../src/assets/brand/logo-af-sancristobal.png">
+<link rel="icon" type="image/png" href="../src/assets/brand/af-glyph-160.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -37,7 +37,16 @@ body::before{
 /* Topbar */
 .topbar{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:2rem;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:0.65rem;font-family:var(--display);font-size:1.2rem;text-decoration:none;color:var(--white)}
-.brand-dot{width:7px;height:7px;background:var(--red);transform:rotate(45deg)}
+.brand-dot{display:none}
+/* Lockup oficial AF */
+.af-lockup{display:flex;align-items:center;gap:0.55rem}
+.af-lockup img{height:34px;width:auto;display:block}
+.af-lockup-text{display:flex;flex-direction:column;line-height:1.05}
+.af-wordmark{font-family:var(--display);font-size:1.05rem;font-weight:600}
+.af-wordmark .w1{color:#1a1a1a}
+.af-wordmark .w2{color:#8a8a8a}
+.af-sublocal{font-family:var(--display);font-style:italic;font-weight:500;font-size:0.68rem;color:#3a3a3a;margin-top:0.1rem}
+
 .brand em{color:var(--gold);font-style:italic}
 .topbar-tag{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold)}
 .topbar-actions{display:flex;align-items:center;gap:0.75rem}
@@ -232,8 +241,13 @@ tr:hover{background:rgba(13,31,51,0.03);cursor:pointer}
 <div class="shell" id="view-app" style="display:none">
   <div class="topbar">
     <a href="../index.html" class="brand">
-      <span class="brand-dot"></span>
-      AF <em>San Cristóbal</em>
+      <span class="af-lockup">
+        <img src="../src/assets/brand/af-glyph-160.png" alt="af — Alliance Française" width="29" height="34">
+        <span class="af-lockup-text">
+          <span class="af-wordmark"><span class="w1">Alliance</span><span class="w2">Française</span></span>
+          <span class="af-sublocal">San Cristóbal de Las Casas</span>
+        </span>
+      </span>
       <span class="topbar-tag" style="margin-left:0.5rem">· Panel</span>
     </a>
     <div class="topbar-actions">
