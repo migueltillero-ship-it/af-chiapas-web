@@ -1,6 +1,6 @@
 // Alliance Française San Cristóbal · Service Worker
 // Cache app shell + assets para experiencia offline.
-const CACHE = 'af-sclc-v1';
+const CACHE = 'af-sclc-v2';
 const SHELL = [
   '/af-chiapas-web/',
   '/af-chiapas-web/index.html',
@@ -39,6 +39,11 @@ self.addEventListener('fetch', (e) => {
 
   // No cachear endpoints dinámicos
   if (url.pathname.includes('/rest/v1/') || url.pathname.includes('/auth/v1/')) return;
+
+  // El video del intro y la música se sirven por rangos (206) y Cache API no
+  // admite respuestas parciales: los dejamos al navegador.
+  if (req.destination === 'video' || req.destination === 'audio' ||
+      /\.(mp4|webm|mp3|ogg)$/i.test(url.pathname)) return;
 
   // HTML: network-first
   if (req.mode === 'navigate' || req.destination === 'document') {

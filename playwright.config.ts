@@ -10,6 +10,9 @@ export default defineConfig({
   use: {
     baseURL: 'http://localhost:8080',
     trace: 'on-first-retry',
+    // El intro de marca se salta con prefers-reduced-motion, igual que para
+    // un visitante que pide menos movimiento. Los tests del intro lo activan.
+    reducedMotion: 'reduce',
   },
   webServer: {
     command: 'python3 -m http.server 8080',
