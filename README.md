@@ -49,6 +49,11 @@ Sitio oficial y plataforma de gestión académica de la Alliance Française San 
 
 ### Sitio público
 - Hero editorial estilo campaña (Bebas Neue + acentos verticales)
+- **Campaña de relanzamiento** — cuenta regresiva en vivo al arranque del ciclo,
+  onboarding en 4 pasos, argumentario de virtualidad, calendario de los 6 ciclos
+  y promociones de rentrée
+- **Aviso de preparación** — la AF SCLC prepara para DELF/DALF; la aplicación del
+  examen y la emisión del diploma corresponden al centro evaluador acreditado
 - Sección Plataforma Virtual (aulas en vivo, tutor IA, gamificación)
 - Proceso automatizado en 4 pasos
 - Catálogo de cursos con color por segmento + badge "Ciclo · 6 sem · X h"
@@ -136,6 +141,16 @@ Sigue `supabase/README.md`:
 
 ### 3. EmailJS (notificaciones)
 Las credenciales ya están en `index.html` apuntando a `service_9wtrch3 / template_dtddfpk`. El template debe usar `{{to_email}} = afsancris@gmail.com` y los demás campos del payload.
+
+### 4. Cambiar la fecha de arranque del ciclo
+La fecha vive en una sola constante dentro de `index.html`:
+
+```js
+const AF_INICIO_CICLO = new Date('2026-09-15T09:00:00-06:00');
+```
+
+Editarla actualiza la cuenta regresiva. Recuerda ajustar también la tabla de
+`#calendario` y el `startDate` del JSON-LD si la fecha cambia.
 
 ## Desarrollo local
 
