@@ -1,7 +1,8 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, soloLocal } from './fixtures';
 
 // Estos tests sí quieren ver el intro, así que piden movimiento normal.
 test.use({ reducedMotion: 'no-preference' });
+
 
 test.describe('Intro de marca', () => {
   test('el intro aparece al entrar y bloquea el scroll', async ({ page }) => {
@@ -34,6 +35,7 @@ test.describe('Intro de marca', () => {
   test('con prefers-reduced-motion no hay intro', async ({ browser }) => {
     const ctx = await browser.newContext({ reducedMotion: 'reduce' });
     const page = await ctx.newPage();
+    await soloLocal(page);
     await page.goto('/');
     await expect(page.locator('#af-intro')).toHaveCount(0);
     await expect(page.locator('body')).not.toHaveClass(/af-intro-lock/);

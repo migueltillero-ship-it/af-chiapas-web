@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
 
 test.describe('Portales', () => {
   test('portal del alumno carga formulario o aviso de configuración', async ({ page }) => {

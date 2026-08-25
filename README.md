@@ -187,7 +187,7 @@ GitHub Actions corre en cada push a `main` y en cada PR:
 
 - 📍 Av. La Almolonga 80, Barrio Santa Lucía, San Cristóbal de Las Casas
 - 📧 direccionsancristobal@alianzafr.edu.mx · afsancris@gmail.com
-- 📱 +52 967 342 44 56 · WhatsApp +52 967 172 1870
+- 📱 +52 967 342 44 56 · WhatsApp +52 1 967 172 1870
 
 ---
 

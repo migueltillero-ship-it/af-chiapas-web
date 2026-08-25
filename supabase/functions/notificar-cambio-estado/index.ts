@@ -193,7 +193,7 @@ function layout(inner: string): string {
       <hr style="border:none;border-top:1px solid #eee;margin:2rem 0">
       <p style="font-size:12px;color:#888;margin:0">
         Alliance Française San Cristóbal de Las Casas · Av. La Almolonga 80, Barrio Santa Lucía<br>
-        WhatsApp +52 967 172 1870 · <a href="mailto:afsancris@gmail.com" style="color:#c9a44e">afsancris@gmail.com</a>
+        WhatsApp +52 1 967 172 1870 · <a href="mailto:afsancris@gmail.com" style="color:#c9a44e">afsancris@gmail.com</a>
       </p>
     </div>
   </div>
