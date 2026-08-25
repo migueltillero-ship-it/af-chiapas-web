@@ -1302,6 +1302,22 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
 .af-intro-sound:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 body.af-intro-lock{overflow:hidden}
 
+/* Aviso de inicio de atención — se retira solo el 5 de septiembre */
+.aviso-atencion{
+  max-width:640px;margin:1.5rem auto 0;
+  display:flex;align-items:flex-start;gap:.7rem;
+  padding:.9rem 1.2rem;border-radius:12px;
+  background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.22);
+  color:rgba(255,255,255,.88);
+  font-size:.88rem;line-height:1.6;text-align:left;
+}
+.aviso-atencion i{color:var(--camp-yellow);margin-top:.2rem;flex-shrink:0}
+.aviso-atencion strong{color:#fff}
+@media (max-width:640px){
+  .aviso-atencion{font-size:.82rem;padding:.8rem 1rem;margin-top:1.25rem}
+}
+
 /* ===== MÚSICA DE FONDO ===== */
 #af-bgm-toggle{
   position:fixed;left:1.5rem;bottom:1.5rem;z-index:900;
@@ -1685,16 +1701,22 @@ window.AFMusic = (function(){
       <div class="cd-box"><span class="cd-num" id="cd-s">–</span><span class="cd-lab">Seg</span></div>
     </div>
 
+    <p class="aviso-atencion" id="aviso-atencion">
+      <i class="fa fa-circle-info" aria-hidden="true"></i>
+      Puedes dejar tu preinscripción desde ahora — la registramos y no pierdes tu lugar.
+      <strong>Empezamos a responder el 5 de septiembre</strong>, cuando abre la atención al público.
+    </p>
+
     <div class="relanz-facts">
+      <div class="rf">
+        <span class="rf-k">Atención al público</span>
+        <span class="rf-v">5 de septiembre</span>
+        <span class="rf-s">Lanzamiento · resolvemos dudas e inscripciones</span>
+      </div>
       <div class="rf">
         <span class="rf-k">Inicio de clases</span>
         <span class="rf-v">15 de septiembre</span>
-        <span class="rf-s">Ciclo 1 · 2026</span>
-      </div>
-      <div class="rf">
-        <span class="rf-k">Duración</span>
-        <span class="rf-v">6 semanas</span>
-        <span class="rf-s">Cierre: 23 de octubre</span>
+        <span class="rf-s">Ciclo 1 · 2026 · cierre el 23 de octubre</span>
       </div>
       <div class="rf">
         <span class="rf-k">Modalidad</span>
@@ -2654,7 +2676,7 @@ window.AFMusic = (function(){
           <li><i class="fab fa-whatsapp"></i><a href="https://wa.me/529671721870" target="_blank" rel="noopener">WhatsApp directo · +52 1 967 172 1870</a></li>
           <li><i class="fab fa-instagram"></i><a href="https://www.instagram.com/afsancristobal/" target="_blank" rel="noopener">@afsancristobal</a></li>
           <li><i class="fab fa-facebook"></i><a href="https://www.facebook.com/alianzafrancesasancristobal/" target="_blank" rel="noopener">Alianza Francesa San Cristóbal</a></li>
-          <li><i class="fa fa-clock"></i> Atención L–V 9:00–19:00 (GMT-6)</li>
+          <li><i class="fa fa-clock"></i> Atención L–V 9:00–19:00 (GMT-6) · desde el 5 de septiembre</li>
         </ul>
         <a href="#preinscripcion" class="btn btn-glow" style="margin-top:1.5rem;width:100%;justify-content:center" onclick="AF.selectSede('virtual','AF Virtual')">
           <i class="fa fa-rocket"></i> Inscribirme en línea
@@ -3377,8 +3399,17 @@ if ('serviceWorker' in navigator) {
 
 
 // ──────────────────── COUNTDOWN AL NUEVO CICLO ────────────────────
-// ⚙️ FECHA DE ARRANQUE — editar aquí si el Consejo cambia la fecha
-const AF_INICIO_CICLO = new Date('2026-09-15T09:00:00-06:00');
+// ⚙️ FECHAS OFICIALES — editar aquí si el Consejo las cambia
+const AF_INICIO_ATENCION = new Date('2026-09-05T09:00:00-06:00'); // lanzamiento y atención al público
+const AF_INICIO_CICLO    = new Date('2026-09-15T09:00:00-06:00'); // primer día de clases
+
+// Antes del lanzamiento avisamos de cuándo respondemos, para que nadie
+// escriba por WhatsApp y se quede esperando. El aviso se retira solo.
+function tickAvisoAtencion(){
+  const av = document.getElementById('aviso-atencion');
+  if(!av) return;
+  if(new Date() >= AF_INICIO_ATENCION) av.remove();
+}
 
 function tickCountdown(){
   const el = document.getElementById('cd-d');
@@ -3404,7 +3435,9 @@ function tickCountdown(){
 
 document.addEventListener('DOMContentLoaded', () => {
   tickCountdown();
+  tickAvisoAtencion();
   setInterval(tickCountdown, 1000);
+  setInterval(tickAvisoAtencion, 60000);
 });
 
 document.addEventListener('DOMContentLoaded', () => {
