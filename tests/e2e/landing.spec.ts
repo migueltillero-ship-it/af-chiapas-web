@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
 
 test.describe('Landing pública', () => {
   test('carga el hero con título y CTAs', async ({ page }) => {

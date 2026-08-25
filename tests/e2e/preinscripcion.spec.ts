@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
 
 test.describe('Flujo de preinscripción', () => {
   test('avanza paso 1 → 2 → 3 con selección virtual', async ({ page }) => {

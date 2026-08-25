@@ -13,7 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_MX">
 <meta property="og:title" content="Nuevo ciclo 15 de septiembre · Alliance Française San Cristóbal en línea">
-<meta property="og:description" content="Volvemos a clases, ahora 100% en línea. Clases en vivo con profesores certificados, ciclos de 6 semanas y preparación DELF/DALF. Primera clase gratis · 967 172 1870.">
+<meta property="og:description" content="Volvemos a clases, ahora 100% en línea. Clases en vivo con profesores certificados, ciclos de 6 semanas y preparación DELF/DALF. Primera clase gratis · +52 1 967 172 1870.">
 <meta property="og:site_name" content="Alliance Française San Cristóbal">
 <meta property="og:url" content="https://migueltillero-ship-it.github.io/af-chiapas-web/">
 <meta property="og:image" content="https://migueltillero-ship-it.github.io/af-chiapas-web/src/assets/img/posters/curso-en-linea.webp">
@@ -65,6 +65,10 @@
     "addressCountry": "MX"
   },
   "telephone": "+52-967-172-1870",
+  "sameAs": [
+    "https://www.facebook.com/alianzafrancesasancristobal/",
+    "https://www.instagram.com/afsancristobal/"
+  ],
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
     "name": "Cursos de francés en línea · Ciclo 1 2026",
@@ -284,14 +288,16 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
   background:linear-gradient(135deg,#fff8e1,#ffffff);
 }
 .banner-card:hover{transform:translateY(-4px);box-shadow:0 20px 48px rgba(13,31,51,0.16)}
+.banner-link{display:block;width:100%;height:100%;text-decoration:none}
 .banner-card picture{display:block;width:100%;height:100%}
 .banner-card img{width:100%;height:100%;object-fit:cover;display:block}
+/* Sólo se ve si la imagen no carga; lo gobierna JS, no CSS. */
 .banner-card .ph{
-  width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
   flex-direction:column;gap:0.75rem;color:var(--ink);text-align:center;padding:1.5rem;
   background:linear-gradient(135deg,#fff8e1,#ffffff);
 }
-.banner-card:has(img[src]:not([src=""])) .ph{display:none}
 .banner-card .ph .big{font-family:var(--poster);font-size:clamp(2rem,5vw,3.5rem);color:var(--blue);line-height:0.9;letter-spacing:-0.01em}
 .banner-card .ph .sub{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.2em;color:var(--ink);text-transform:uppercase;font-weight:700}
 .banner-card .ph .wa-mini{
@@ -1260,9 +1266,234 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
   .plat-hero{padding:2rem 1.5rem}
   .section{padding:4.5rem 0}
 }
+
+/* ===== INTRO DE MARCA (splash de entrada) ===== */
+#af-intro{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--void);
+  display:flex;align-items:center;justify-content:center;
+  opacity:1;transition:opacity .6s ease;
+}
+#af-intro.af-intro-out{opacity:0;pointer-events:none}
+#af-intro video{
+  width:100%;height:100%;object-fit:cover;
+  background:var(--void);
+}
+.af-intro-skip{
+  position:absolute;bottom:2rem;right:2rem;
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.6rem 1.15rem;border-radius:999px;
+  background:rgba(13,31,51,.72);color:#fff;
+  border:1px solid rgba(255,255,255,.25);
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;
+  text-transform:uppercase;cursor:pointer;
+  transition:background .2s ease,transform .2s ease;
+}
+.af-intro-skip:hover{background:rgba(13,31,51,.92);transform:translateY(-1px)}
+.af-intro-skip:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.af-intro-sound{
+  position:absolute;bottom:2rem;left:2rem;
+  width:2.6rem;height:2.6rem;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
+  background:rgba(13,31,51,.72);color:#fff;
+  border:1px solid rgba(255,255,255,.25);
+  font-size:.9rem;cursor:pointer;transition:background .2s ease}
+.af-intro-sound:hover{background:rgba(13,31,51,.92)}
+.af-intro-sound:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+body.af-intro-lock{overflow:hidden}
+
+/* ===== MÚSICA DE FONDO ===== */
+#af-bgm-toggle{
+  position:fixed;left:1.5rem;bottom:1.5rem;z-index:900;
+  width:3rem;height:3rem;border-radius:50%;
+  display:none;align-items:center;justify-content:center;
+  background:var(--deep);color:var(--ink);
+  border:1px solid var(--border);
+  box-shadow:0 8px 24px rgba(13,31,51,.14);
+  cursor:pointer;transition:transform .2s ease,box-shadow .2s ease;
+}
+#af-bgm-toggle.on{display:inline-flex}
+#af-bgm-toggle:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(13,31,51,.2)}
+#af-bgm-toggle:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+#af-bgm-toggle .fa-volume-high{color:var(--blue)}
+@media (max-width:640px){
+  #af-bgm-toggle{left:1rem;bottom:1rem;width:2.6rem;height:2.6rem;font-size:.85rem}
+}
+@media (max-width:640px){
+  .af-intro-skip{bottom:1.25rem;right:1.25rem;padding:.55rem 1rem;font-size:.66rem}
+  .af-intro-sound{bottom:1.25rem;left:1.25rem;width:2.3rem;height:2.3rem}
+}
+/* Quien pide menos movimiento no ve el intro */
+@media (prefers-reduced-motion:reduce){
+  #af-intro{display:none}
+}
 </style>
 </head>
 <body>
+
+<!-- INTRO DE MARCA · se cierra solo al terminar el video -->
+<div id="af-intro" role="dialog" aria-label="Presentación Alliance Française San Cristóbal">
+  <video id="af-intro-video" muted playsinline preload="auto"
+         poster="src/assets/video/intro-af-poster.jpg" aria-hidden="true">
+    <source src="src/assets/video/intro-af.webm" type="video/webm">
+    <source src="src/assets/video/intro-af.mp4" type="video/mp4">
+  </video>
+  <button type="button" class="af-intro-sound" id="af-intro-sound" aria-label="Activar sonido">
+    <i class="fa fa-volume-xmark" aria-hidden="true"></i>
+  </button>
+  <button type="button" class="af-intro-skip" id="af-intro-skip">
+    Saltar <i class="fa fa-forward" aria-hidden="true"></i>
+  </button>
+</div>
+
+<!-- MÚSICA DE FONDO · arranca al terminar el intro.
+     Si el archivo no existe todavía, todo esto se desactiva solo. -->
+<audio id="af-bgm" loop preload="auto">
+  <source src="src/assets/audio/af-ambiente.ogg" type="audio/ogg">
+  <source src="src/assets/audio/af-ambiente.mp3" type="audio/mpeg">
+</audio>
+<button type="button" id="af-bgm-toggle" aria-label="Silenciar música">
+  <i class="fa fa-volume-high" aria-hidden="true"></i>
+</button>
+
+<script>
+/* Música de fondo. Arranca cuando el intro termina.
+   Los navegadores bloquean el audio automático sin interacción previa: si eso
+   pasa, esperamos al primer gesto del visitante y arrancamos ahí. */
+window.AFMusic = (function(){
+  var audio  = document.getElementById('af-bgm');
+  var toggle = document.getElementById('af-bgm-toggle');
+  if(!audio || !toggle) return { start:function(){} };
+
+  var VOL = 0.32;                       // ambiente, nunca protagonista
+  var KEY = 'af_musica';                // preferencia del visitante
+  var armed = false, dead = false;
+
+  audio.volume = 0;
+  audio.addEventListener('error', function(){ dead = true; toggle.classList.remove('on'); });
+
+  function fadeIn(){
+    var v = 0;
+    var t = setInterval(function(){
+      v += 0.02;
+      if(v >= VOL){ v = VOL; clearInterval(t); }
+      try { audio.volume = v; } catch(e){ clearInterval(t); }
+    }, 60);
+  }
+
+  function paint(playing){
+    toggle.innerHTML = playing
+      ? '<i class="fa fa-volume-high" aria-hidden="true"></i>'
+      : '<i class="fa fa-volume-xmark" aria-hidden="true"></i>';
+    toggle.setAttribute('aria-label', playing ? 'Silenciar música' : 'Activar música');
+  }
+
+  function play(){
+    if(dead) return;
+    var p = audio.play();
+    if(p && typeof p.then === 'function'){
+      p.then(function(){ toggle.classList.add('on'); paint(true); fadeIn(); })
+       .catch(function(){ armGesture(); });
+    }
+  }
+
+  // Si el autoplay se bloquea, el primer clic/tecla/scroll enciende la música.
+  function armGesture(){
+    if(armed) return;
+    armed = true;
+    toggle.classList.add('on');
+    paint(false);
+    var go = function(){
+      ['click','keydown','touchstart','wheel'].forEach(function(ev){
+        document.removeEventListener(ev, go);
+      });
+      play();
+    };
+    ['click','keydown','touchstart','wheel'].forEach(function(ev){
+      document.addEventListener(ev, go, { once:false, passive:true });
+    });
+  }
+
+  toggle.addEventListener('click', function(e){
+    e.stopPropagation();
+    if(audio.paused){
+      try { localStorage.setItem(KEY,'on'); } catch(err){}
+      play();
+    } else {
+      audio.pause();
+      paint(false);
+      try { localStorage.setItem(KEY,'off'); } catch(err){}
+    }
+  });
+
+  return {
+    start: function(){
+      var pref = null;
+      try { pref = localStorage.getItem(KEY); } catch(e){}
+      // Quien ya la silenció una vez no la vuelve a oír sin pedirlo.
+      if(pref === 'off'){ toggle.classList.add('on'); paint(false); return; }
+      if(window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+        toggle.classList.add('on'); paint(false); return;
+      }
+      play();
+    }
+  };
+})();
+
+/* Intro de marca. Se ejecuta antes que el resto para que no haya parpadeo.
+   Nunca debe dejar la página bloqueada: cualquier fallo cierra el intro. */
+(function(){
+  var box = document.getElementById('af-intro');
+  if(!box) return;
+  var vid   = document.getElementById('af-intro-video');
+  var skip  = document.getElementById('af-intro-skip');
+  var sound = document.getElementById('af-intro-sound');
+  var done  = false, failsafe;
+
+  document.body.classList.add('af-intro-lock');
+
+  function close(){
+    if(done) return;
+    done = true;
+    clearTimeout(failsafe);
+    box.classList.add('af-intro-out');
+    document.body.classList.remove('af-intro-lock');
+    setTimeout(function(){ if(box.parentNode) box.parentNode.removeChild(box); }, 700);
+    // Al cerrarse el intro entra la música.
+    if(window.AFMusic) window.AFMusic.start();
+  }
+
+  // Si el visitante pidió menos movimiento, no hay intro que mostrar.
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+    close();
+    return;
+  }
+
+  vid.addEventListener('ended', close);
+  vid.addEventListener('error', close);
+  skip.addEventListener('click', close);
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') close();
+  });
+
+  sound.addEventListener('click', function(){
+    vid.muted = !vid.muted;
+    sound.innerHTML = vid.muted
+      ? '<i class="fa fa-volume-xmark" aria-hidden="true"></i>'
+      : '<i class="fa fa-volume-high" aria-hidden="true"></i>';
+    sound.setAttribute('aria-label', vid.muted ? 'Activar sonido' : 'Silenciar');
+  });
+
+  // Red de seguridad: pase lo que pase, a los 12 s la página queda libre.
+  failsafe = setTimeout(close, 12000);
+
+  var p = vid.play();
+  if(p && typeof p.catch === 'function'){
+    // Si el navegador bloquea el autoplay, entramos directo al sitio.
+    p.catch(close);
+  }
+})();
+</script>
 
 <!-- NAV -->
 <nav class="nav">
@@ -1340,24 +1571,28 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
 
 <!-- BANNERS DE CAMPAÑA (arriba del hero) -->
 <aside class="banners-strip" aria-label="Campañas activas">
-  <a href="#preinscripcion" class="banner-card" onclick="AF.selectSede('virtual','AF Virtual')" aria-label="Clases de francés en línea">
-    <picture>
-      <source srcset="src/assets/img/banners/clases-en-linea.webp" type="image/webp">
-      <img src="src/assets/img/banners/clases-en-linea.png" alt="Clases de francés en línea — Alliance Française San Cristóbal" loading="eager" decoding="async" onload="this.parentElement.nextElementSibling.style.display='none'" onerror="this.style.display='none'">
-    </picture>
+  <div class="banner-card">
+    <a href="#preinscripcion" class="banner-link" onclick="AF.selectSede('virtual','AF Virtual')" aria-label="Clases de francés en línea">
+      <picture>
+        <source srcset="src/assets/img/banners/clases-en-linea.webp" type="image/webp">
+        <img src="src/assets/img/banners/clases-en-linea.png" alt="Clases de francés en línea — Alliance Française San Cristóbal" loading="eager" decoding="async">
+      </picture>
+    </a>
     <div class="ph">
       <span class="big">FRANCÉS</span>
       <span class="sub">Clases 100% en línea · Clase muestra gratis</span>
       <a href="https://wa.me/529671721870?text=Hola%2C%20quiero%20una%20clase%20muestra%20gratis%20de%20franc%C3%A9s%20en%20l%C3%ADnea." target="_blank" rel="noopener" class="wa-mini" onclick="event.stopPropagation()">
-        <i class="fab fa-whatsapp"></i> WhatsApp +52 967 172 1870
+        <i class="fab fa-whatsapp"></i> WhatsApp +52 1 967 172 1870
       </a>
     </div>
-  </a>
-  <a href="#ciclo" class="banner-card" aria-label="Nuevo ciclo en línea">
-    <picture>
-      <source srcset="src/assets/img/banners/nuevo-ciclo-en-linea.webp" type="image/webp">
-      <img src="src/assets/img/banners/nuevo-ciclo-en-linea.png" alt="Nuevo ciclo en línea — Alliance Française San Cristóbal" loading="eager" decoding="async" onload="this.parentElement.nextElementSibling.style.display='none'" onerror="this.style.display='none'">
-    </picture>
+  </div>
+  <div class="banner-card">
+    <a href="#ciclo" class="banner-link" aria-label="Nuevo ciclo en línea">
+      <picture>
+        <source srcset="src/assets/img/banners/nuevo-ciclo-en-linea.webp" type="image/webp">
+        <img src="src/assets/img/banners/nuevo-ciclo-en-linea.png" alt="Nuevo ciclo en línea — Alliance Française San Cristóbal" loading="eager" decoding="async">
+      </picture>
+    </a>
     <div class="ph">
       <span class="big">NUEVO CICLO</span>
       <span class="sub">EN LÍNEA · ¡Inscríbete ahora!</span>
@@ -1365,8 +1600,22 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
         <i class="fab fa-whatsapp"></i> Info por WhatsApp
       </a>
     </div>
-  </a>
+  </div>
 </aside>
+<script>
+/* El placeholder de cada banner sólo se muestra si la imagen no llegó. */
+(function(){
+  document.querySelectorAll('.banner-card').forEach(function(card){
+    var img = card.querySelector('img');
+    var ph  = card.querySelector('.ph');
+    if(!img || !ph) return;
+    function ok(){ ph.style.display = 'none'; }
+    function fail(){ img.style.display = 'none'; ph.style.display = 'flex'; }
+    if(img.complete) { img.naturalWidth > 0 ? ok() : fail(); }
+    else { img.addEventListener('load', ok); img.addEventListener('error', fail); }
+  });
+})();
+</script>
 
 <!-- HERO (estilo campaña editorial) -->
 <header id="accueil" class="hero">
@@ -1392,7 +1641,7 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
       <div class="hero-trust">
         <span><i class="fa fa-laptop"></i> 100% en línea · sin presencial</span>
         <span><i class="fa fa-globe"></i> 824 AF · 138 países</span>
-        <span><i class="fa fa-bolt"></i> 967 172 1870 · Clase muestra gratis</span>
+        <span><i class="fa fa-bolt"></i> +52 1 967 172 1870 · Clase muestra gratis</span>
       </div>
     </div>
     <div class="hero-vrail">
@@ -1408,7 +1657,7 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
       <div class="promo-banner-text">
         <span class="promo-banner-eyebrow">Promoción permanente</span>
         <h2 class="promo-banner-title">1 clase de francés <em>gratis</em></h2>
-        <p class="promo-banner-sub">Vive la experiencia AF San Cristóbal sin compromiso. <strong>100% en línea</strong>. Tel: 967 172 1870.</p>
+        <p class="promo-banner-sub">Vive la experiencia AF San Cristóbal sin compromiso. <strong>100% en línea</strong>. Tel: +52 1 967 172 1870.</p>
       </div>
       <a href="#preinscripcion" class="promo-banner-cta">
         <i class="fa fa-gift"></i> Reservar clase muestra
@@ -2361,7 +2610,7 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
           <p style="font-size:0.82rem;color:var(--muted);max-width:480px">
             Contacto directo:
             <a href="mailto:afsancris@gmail.com" class="af-link">afsancris@gmail.com</a> ·
-            <a href="https://wa.me/529671721870" target="_blank" rel="noopener" class="af-link">+52 967 172 1870</a>
+            <a href="https://wa.me/529671721870" target="_blank" rel="noopener" class="af-link">+52 1 967 172 1870</a>
           </p>
           <button type="button" class="btn btn-secondary" onclick="AF.resetForm()">Nueva preinscripción</button>
         </div>
@@ -2402,8 +2651,9 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
         <ul class="contacto-list" style="display:inline-block;text-align:left">
           <li><i class="fa fa-globe"></i> Cobertura nacional e internacional</li>
           <li><i class="fa fa-envelope"></i><a href="mailto:afsancris@gmail.com">afsancris@gmail.com</a></li>
-          <li><i class="fab fa-whatsapp"></i><a href="https://wa.me/529671721870" target="_blank" rel="noopener">WhatsApp directo · +52 967 172 1870</a></li>
-          <li><i class="fab fa-instagram"></i><a href="https://www.instagram.com/afsancris" target="_blank" rel="noopener">@afsancris</a></li>
+          <li><i class="fab fa-whatsapp"></i><a href="https://wa.me/529671721870" target="_blank" rel="noopener">WhatsApp directo · +52 1 967 172 1870</a></li>
+          <li><i class="fab fa-instagram"></i><a href="https://www.instagram.com/afsancristobal/" target="_blank" rel="noopener">@afsancristobal</a></li>
+          <li><i class="fab fa-facebook"></i><a href="https://www.facebook.com/alianzafrancesasancristobal/" target="_blank" rel="noopener">Alianza Francesa San Cristóbal</a></li>
           <li><i class="fa fa-clock"></i> Atención L–V 9:00–19:00 (GMT-6)</li>
         </ul>
         <a href="#preinscripcion" class="btn btn-glow" style="margin-top:1.5rem;width:100%;justify-content:center" onclick="AF.selectSede('virtual','AF Virtual')">
@@ -2439,8 +2689,11 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
         <p class="footer-brand-sub">La primera Alliance Française virtual de México</p>
         <p class="footer-ref">Ref. AF-SCLC-2026-001 · Fondation des Alliances Françaises · Paris</p>
         <p style="margin-top:1rem;font-size:0.85rem">
-          <a href="https://www.instagram.com/afsancris" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem">
-            <i class="fab fa-instagram" style="color:#e4405f"></i> @afsancris
+          <a href="https://www.instagram.com/afsancristobal/" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem">
+            <i class="fab fa-instagram" style="color:#e4405f"></i> @afsancristobal
+          </a>
+          <a href="https://www.facebook.com/alianzafrancesasancristobal/" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;margin-top:0.5rem">
+            <i class="fab fa-facebook" style="color:#1877f2"></i> Alianza Francesa San Cristóbal
           </a>
         </p>
       </div>
@@ -2448,8 +2701,9 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
         <p class="footer-col-title">AF 100% en línea</p>
         <p>Online · cobertura global</p>
         <a href="mailto:afsancris@gmail.com">afsancris@gmail.com</a>
-        <a href="https://wa.me/529671721870" target="_blank" rel="noopener">WhatsApp · 967 172 1870</a>
-        <a href="https://www.instagram.com/afsancris" target="_blank" rel="noopener">@afsancris</a>
+        <a href="https://wa.me/529671721870" target="_blank" rel="noopener">WhatsApp · +52 1 967 172 1870</a>
+        <a href="https://www.instagram.com/afsancristobal/" target="_blank" rel="noopener">@afsancristobal</a>
+        <a href="https://www.facebook.com/alianzafrancesasancristobal/" target="_blank" rel="noopener">Facebook</a>
       </div>
       <div class="footer-col">
         <p class="footer-col-title">Portales</p>
@@ -2474,7 +2728,7 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
 <!-- FAB WhatsApp -->
 <a href="https://wa.me/529671721870?text=Hola%2C%20deseo%20m%C3%A1s%20informaci%C3%B3n%20sobre%20la%20Alliance%20Fran%C3%A7aise%20San%20Crist%C3%B3bal." target="_blank" rel="noopener" class="fab" aria-label="Contactar por WhatsApp">
   <i class="fab fa-whatsapp"></i>
-  <span class="fab-label">+52 967 172 1870</span>
+  <span class="fab-label">+52 1 967 172 1870</span>
 </a>
 
 <script>
@@ -3050,7 +3304,7 @@ const AF = (() => {
       goToStep(99);
     } catch(err){
       console.error('[EmailJS]',err);
-      alert('Hubo un problema al enviar tu solicitud. Por favor escríbenos directamente a afsancris@gmail.com o por WhatsApp al +52 967 172 1870.');
+      alert('Hubo un problema al enviar tu solicitud. Por favor escríbenos directamente a afsancris@gmail.com o por WhatsApp al +52 1 967 172 1870.');
       btn.disabled = false;
       btn.innerHTML = '<i class="fa fa-paper-plane"></i> Enviar solicitud';
     }

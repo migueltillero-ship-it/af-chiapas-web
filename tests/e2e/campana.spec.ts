@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
 
 test.describe('Campaña de relanzamiento', () => {
   test('el hero de relanzamiento anuncia el nuevo ciclo', async ({ page }) => {

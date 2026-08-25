@@ -48,6 +48,12 @@ Sitio oficial y plataforma de gestión académica de la Alliance Française San 
 ## Funcionalidades implementadas
 
 ### Sitio público
+- **Intro de marca** — el video institucional se reproduce al entrar y se cierra
+  solo al terminar; botón «Saltar», tecla Escape y red de seguridad a los 12 s.
+  Se omite con `prefers-reduced-motion`
+- **Música de fondo** — arranca al cerrarse el intro, con control para silenciar
+  que recuerda la preferencia. Si el navegador bloquea el autoplay, espera al
+  primer gesto del visitante
 - Hero editorial estilo campaña (Bebas Neue + acentos verticales)
 - **Campaña de relanzamiento** — cuenta regresiva en vivo al arranque del ciclo,
   onboarding en 4 pasos, argumentario de virtualidad, calendario de los 6 ciclos
@@ -181,7 +187,7 @@ GitHub Actions corre en cada push a `main` y en cada PR:
 
 - 📍 Av. La Almolonga 80, Barrio Santa Lucía, San Cristóbal de Las Casas
 - 📧 direccionsancristobal@alianzafr.edu.mx · afsancris@gmail.com
-- 📱 +52 967 342 44 56 · WhatsApp +52 967 172 1870
+- 📱 +52 967 342 44 56 · WhatsApp +52 1 967 172 1870
 
 ---
 
