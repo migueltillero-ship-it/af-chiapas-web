@@ -1319,6 +1319,137 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
   .af-music-eq i{animation:none}
   #af-intro{transition:none}
 }
+
+/* ═══════════════ Le parcours · banda editorial MCER ═══════════════ */
+#parcours{
+  position:relative;z-index:1;overflow:hidden;
+  background:var(--ink);color:#f7f4ec;
+  padding:clamp(4rem,9vw,7.5rem) 0;
+  scroll-margin-top:70px;   /* compensa el menú fijo, como .relanz */
+}
+#parcours::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(60% 50% at 12% 0%, rgba(53,89,177,.30), transparent 70%),
+    radial-gradient(45% 45% at 92% 100%, rgba(201,164,78,.20), transparent 70%);
+}
+#parcours > .container{position:relative;z-index:1}
+.parcours-grid{
+  display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
+  gap:clamp(2rem,5vw,5rem);align-items:start;
+}
+/* ── Columna editorial ── */
+.parcours-lede{position:sticky;top:96px}
+.parcours-num{
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.4em;text-transform:uppercase;
+  color:var(--gold-light);display:flex;align-items:center;gap:.9rem;margin-bottom:1.4rem;
+}
+.parcours-num::after{content:'';flex:1;height:1px;background:rgba(232,201,122,.35)}
+.parcours-title{
+  font-family:var(--display);font-weight:300;line-height:1.02;
+  font-size:clamp(2.4rem,5.4vw,4.2rem);color:#fff;margin-bottom:1.1rem;
+}
+.parcours-title em{font-style:italic;color:var(--gold-light)}
+.parcours-sub{
+  font-family:var(--sans);font-size:.95rem;line-height:1.75;
+  color:rgba(247,244,236,.72);max-width:44ch;margin-bottom:2rem;
+}
+.parcours-legend{
+  display:flex;gap:1.6rem;flex-wrap:wrap;
+  padding-top:1.4rem;border-top:1px solid rgba(247,244,236,.14);
+}
+.parcours-legend div{display:flex;flex-direction:column;gap:.2rem}
+.parcours-legend b{font-family:var(--poster);font-size:1.7rem;letter-spacing:.02em;color:var(--gold-light);line-height:1}
+.parcours-legend span{font-family:var(--mono);font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(247,244,236,.55)}
+
+/* ── Escalera de niveles ── */
+.parcours-ladder{list-style:none;margin:0;padding:0}
+.niv{position:relative;border-top:1px solid rgba(247,244,236,.13)}
+.niv:last-child{border-bottom:1px solid rgba(247,244,236,.13)}
+.niv-btn{
+  width:100%;background:none;border:0;cursor:pointer;text-align:left;color:inherit;
+  display:grid;grid-template-columns:auto 1fr auto;align-items:center;
+  gap:clamp(.9rem,2.4vw,1.8rem);padding:clamp(1.1rem,2.4vw,1.7rem) 0;
+  transition:opacity .2s ease;
+}
+.niv-btn:hover{opacity:.82}
+.niv-btn:focus-visible{outline:2px solid var(--gold-light);outline-offset:4px}
+.niv-code{
+  font-family:var(--poster);font-size:clamp(1.9rem,4.6vw,2.9rem);line-height:.9;
+  letter-spacing:.02em;color:#fff;min-width:2.4ch;
+}
+.niv-main{min-width:0}
+.niv-name{
+  font-family:var(--display);font-style:italic;font-size:clamp(1.05rem,2.2vw,1.35rem);
+  color:var(--gold-light);line-height:1.2;display:block;
+}
+.niv-desc{
+  font-family:var(--sans);font-size:.83rem;line-height:1.6;
+  color:rgba(247,244,236,.62);margin-top:.3rem;
+}
+.niv-hrs{
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(247,244,236,.5);white-space:nowrap;display:flex;align-items:center;gap:.7rem;
+}
+.niv-hrs i{transition:transform .25s ease;font-size:.7rem;color:var(--gold-light)}
+.niv-btn[aria-expanded="true"] .niv-hrs i{transform:rotate(180deg)}
+/* barra de posición en la escalera */
+.niv-rail{height:2px;background:rgba(247,244,236,.12);position:relative;margin-bottom:0}
+.niv-rail span{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,var(--gold),var(--gold-light))}
+.niv-panel{
+  display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease;
+}
+.niv-panel > div{overflow:hidden}
+.niv[data-open="1"] .niv-panel{grid-template-rows:1fr}
+.niv-panel-in{padding:0 0 1.6rem;display:flex;flex-wrap:wrap;gap:.6rem 2rem}
+.niv-chip{
+  font-family:var(--mono);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(247,244,236,.78);border:1px solid rgba(232,201,122,.4);border-radius:999px;
+  padding:.4rem .85rem;display:inline-flex;align-items:center;gap:.5rem;
+}
+.niv-chip b{color:var(--gold-light);font-weight:700}
+
+/* ── Evidencias de calidad ── */
+.evid{
+  margin-top:clamp(2.5rem,6vw,4.5rem);padding-top:clamp(2rem,4vw,3rem);
+  border-top:1px solid rgba(247,244,236,.14);
+}
+.evid-head{
+  font-family:var(--mono);font-size:.58rem;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--gold-light);margin-bottom:1.6rem;
+}
+.evid-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:clamp(1.2rem,3vw,2.5rem)}
+.evid-card b{
+  display:block;font-family:var(--poster);font-size:clamp(2.6rem,6vw,3.8rem);
+  line-height:.92;color:#fff;letter-spacing:.01em;
+}
+.evid-card b sup{font-size:.42em;color:var(--gold-light);vertical-align:super;margin-left:.1em}
+.evid-card span{
+  display:block;margin-top:.5rem;font-family:var(--sans);font-size:.8rem;line-height:1.5;
+  color:rgba(247,244,236,.66);
+}
+.evid-note{
+  margin-top:1.8rem;font-family:var(--sans);font-size:.75rem;line-height:1.6;
+  color:rgba(247,244,236,.5);max-width:70ch;
+}
+.evid-note i{color:var(--gold-light);margin-right:.45rem}
+
+/* El CTA de WhatsApp se inyecta con estilos de tema claro; sobre la banda
+   navy hay que recuperar el contraste del texto. */
+#parcours .wa-cta-text{color:rgba(247,244,236,.85)}
+#parcours .wa-cta-text strong{color:var(--gold-light)}
+
+@media (max-width:900px){
+  .parcours-grid{grid-template-columns:1fr}
+  .parcours-lede{position:static}
+}
+@media (max-width:560px){
+  .niv-btn{grid-template-columns:auto 1fr;row-gap:.5rem}
+  .niv-hrs{grid-column:1 / -1}
+}
+@media (prefers-reduced-motion: reduce){
+  .niv-panel,.niv-hrs i{transition:none}
+}
 </style>
 </head>
 <body>
@@ -1380,6 +1511,7 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
       <ul class="nav-drop">
         <li><a href="#bienvenida"><i class="fa fa-door-open"></i> Empiezo desde cero</a></li>
         <li><a href="#cursos"><i class="fa fa-graduation-cap"></i> Oferta académica</a></li>
+        <li><a href="#parcours"><i class="fa fa-stairs"></i> El recorrido A1 → C2</a></li>
         <li><a href="#ciclo"><i class="fa fa-clock"></i> Ritmos y tarifas</a></li>
         <li><a href="#calendario"><i class="fa fa-calendar-days"></i> Calendario de ciclos</a></li>
         <li><a href="#talleres"><i class="fa fa-pen-nib"></i> Talleres y clubes</a></li>
@@ -1737,6 +1869,38 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
     </div>
     <div id="cursos-container" class="grid-3">
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+    </div>
+  </div>
+</section>
+
+<!-- LE PARCOURS · escalera MCER + evidencias -->
+<section id="parcours" data-wa-section="el recorrido A1 a C2">
+  <div class="container">
+    <div class="parcours-grid">
+
+      <div class="parcours-lede">
+        <p class="parcours-num">Le parcours</p>
+        <h2 class="parcours-title">De <em>A1</em> a <em>C2</em>.<br>Un solo camino.</h2>
+        <p class="parcours-sub">
+          Seis niveles del Marco Común Europeo de Referencia, cada uno con su diploma
+          oficial correspondiente. No son cursos sueltos: son etapas de un recorrido
+          que termina en un diploma vitalicio del Ministerio de Educación de Francia.
+        </p>
+        <div class="parcours-legend">
+          <div><b>6</b><span>Niveles MCER</span></div>
+          <div><b>30 h</b><span>Por módulo</span></div>
+          <div><b>DELF/DALF</b><span>Diploma vitalicio</span></div>
+        </div>
+      </div>
+
+      <ol class="parcours-ladder" id="parcours-ladder"></ol>
+
+    </div>
+
+    <div class="evid" id="evidencias" hidden>
+      <p class="evid-head">Evidencias de calidad</p>
+      <div class="evid-grid" id="evid-grid"></div>
+      <p class="evid-note" id="evid-note"></p>
     </div>
   </div>
 </section>
@@ -2674,6 +2838,8 @@ const AF = (() => {
     loadCatalog();
     initNavScroll();
     injectWaCtas();
+    renderParcours();
+    loadEvidencias();
     initIntro();
     initMusica();
   }
@@ -3288,7 +3454,95 @@ const AF = (() => {
     }
   }
 
-  return { init, toggleMenu, selectSede, goToStep, irA, updateModalidades, setFormato, setRitmo, actualizarResumen, enviarPreinscripcion, resetForm, toggleFAQ, toggleLang, initIntro, initMusica };
+
+  // ──────────────── Le parcours · escalera MCER ────────────────
+  // Datos tomados del catálogo real (segmento adultos) y de delf_dalf.json.
+  const PARCOURS = [
+    {c:'A1', n:'Débutant',      h:'120 h',   dip:'DELF A1', ex:'1h 20min', d:'Primeros pasos. Presentaciones, saludos, familia, números. Base del idioma.'},
+    {c:'A2', n:'Élémentaire',   h:'120 h',   dip:'DELF A2', ex:'1h 45min', d:'Comunicación básica. Compras, transporte, trabajo, gustos y preferencias.'},
+    {c:'B1', n:'Intermédiaire', h:'270 h',   dip:'DELF B1', ex:'2h 50min', d:'Independencia lingüística. Viajes, medios, opiniones, narraciones.'},
+    {c:'B2', n:'Avancé',        h:'270 h',   dip:'DELF B2', ex:'3h 30min', d:'Fluidez funcional. Textos complejos, debates, argumentación formal.'},
+    {c:'C1', n:'Autonome',      h:'Variable', dip:'DALF C1', ex:'4h',       d:'Dominio avanzado. Textos académicos, uso flexible en entornos profesionales.'},
+    {c:'C2', n:'Maîtrise',      h:'Variable', dip:'DALF C2', ex:'5h',       d:'Nivel bilingüe. Comprensión plena y expresión con total naturalidad.'}
+  ];
+
+  function renderParcours(){
+    const c = document.getElementById('parcours-ladder');
+    if(!c) return;
+    c.innerHTML = PARCOURS.map((n, i) => {
+      const pct = Math.round((i + 1) / PARCOURS.length * 100);
+      return `
+      <li class="niv" data-nivel="${n.c}" data-open="0">
+        <button type="button" class="niv-btn" aria-expanded="false" aria-controls="niv-p-${n.c}">
+          <span class="niv-code">${n.c}</span>
+          <span class="niv-main">
+            <span class="niv-name">${n.n}</span>
+            <span class="niv-desc">${n.d}</span>
+          </span>
+          <span class="niv-hrs">${n.h} <i class="fa fa-chevron-down" aria-hidden="true"></i></span>
+        </button>
+        <div class="niv-rail" aria-hidden="true"><span style="width:${pct}%"></span></div>
+        <div class="niv-panel" id="niv-p-${n.c}">
+          <div><div class="niv-panel-in">
+            <span class="niv-chip">Diploma <b>${n.dip}</b></span>
+            <span class="niv-chip">Examen <b>${n.ex}</b></span>
+            <span class="niv-chip">Carga <b>${n.h}</b></span>
+          </div></div>
+        </div>
+      </li>`;
+    }).join('');
+
+    c.querySelectorAll('.niv-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const li = btn.closest('.niv');
+        const abierto = li.getAttribute('data-open') === '1';
+        li.setAttribute('data-open', abierto ? '0' : '1');
+        btn.setAttribute('aria-expanded', abierto ? 'false' : 'true');
+      });
+    });
+  }
+
+  // ──────────────── Evidencias de calidad ────────────────
+  // Solo se pinta si hay datos reales. Sin datos, la sección queda oculta:
+  // preferimos no mostrar nada antes que mostrar una cifra inventada.
+  function renderEvidencias(res){
+    const box  = document.getElementById('evidencias');
+    const grid = document.getElementById('evid-grid');
+    const nota = document.getElementById('evid-note');
+    if(!box || !grid || !res) return;
+
+    const partir = v => {
+      const m = String(v || '').match(/^([\d.,]+)\s*(%|\+)?/);
+      return m ? { n: m[1], s: m[2] || '' } : null;
+    };
+
+    const tarjetas = [];
+    const aprob = partir(res.tasa_aprobacion);
+    if(aprob) tarjetas.push({ n: aprob.n, s: aprob.s, l: 'de aprobación en ' + (res.sesion || 'la última sesión DELF') });
+    if(Array.isArray(res.niveles_aplicados) && res.niveles_aplicados.length){
+      tarjetas.push({ n: String(res.niveles_aplicados.length), s: '',
+                      l: 'niveles presentados · ' + res.niveles_aplicados.join(' · ') });
+    }
+    const crec = partir(res.crecimiento_participacion);
+    if(crec) tarjetas.push({ n: crec.n, s: crec.s, l: 'de crecimiento en participación' });
+
+    if(!tarjetas.length) return;
+
+    grid.innerHTML = tarjetas.map(t =>
+      `<div class="evid-card"><b>${t.n}${t.s ? `<sup>${t.s}</sup>` : ''}</b><span>${t.l}</span></div>`
+    ).join('');
+    nota.innerHTML = res.nota ? `<i class="fa fa-circle-check"></i>${res.nota}` : '';
+    box.hidden = false;
+  }
+
+  function loadEvidencias(){
+    fetch('src/assets/data/cursos/delf_dalf.json')
+      .then(r => r.ok ? r.json() : Promise.reject(r.status))
+      .then(d => renderEvidencias(d && d.resultados_historicos))
+      .catch(e => console.info('[Evidencias] sin datos publicables', e));
+  }
+
+  return { init, toggleMenu, selectSede, goToStep, irA, updateModalidades, setFormato, setRitmo, actualizarResumen, enviarPreinscripcion, resetForm, toggleFAQ, toggleLang, initIntro, initMusica, renderParcours, renderEvidencias };
 })();
 
 // ──────────────────── i18n (es/fr) ────────────────────
