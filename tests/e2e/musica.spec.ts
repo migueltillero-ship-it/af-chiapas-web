@@ -43,3 +43,37 @@ test.describe('Música de fondo', () => {
     if (fab && music) expect(music.x + music.width).toBeLessThan(fab.x);
   });
 });
+
+test.describe('Música tras el intro', () => {
+  test('arranca sola al saltar el intro', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('#af-intro-skip').click();
+    await expect(page.locator('#af-intro')).toHaveCount(0);
+    await expect(page.locator('#af-music')).toHaveJSProperty('paused', false);
+    await expect(page.locator('#af-music-toggle')).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  test('arranca sola al cerrar el intro con Escape', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('#af-intro-skip').focus();
+    await page.keyboard.press('Escape');
+    await expect(page.locator('#af-intro')).toHaveCount(0);
+    await expect(page.locator('#af-music')).toHaveJSProperty('paused', false);
+  });
+
+  test('respeta que el visitante la haya apagado antes', async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('af_musica', '0'));
+    await page.goto('/');
+    await page.locator('#af-intro-skip').click();
+    await expect(page.locator('#af-intro')).toHaveCount(0);
+    await expect(page.locator('#af-music')).toHaveJSProperty('paused', true);
+    await expect(page.locator('#af-music-toggle')).toHaveAttribute('aria-pressed', 'false');
+  });
+
+  test('sin intro el botón sigue mandando y no suena sola', async ({ page }) => {
+    await page.goto('/?nointro=1');
+    await expect(page.locator('#af-music')).toHaveJSProperty('paused', true);
+    await page.locator('#af-music-toggle').click();
+    await expect(page.locator('#af-music')).toHaveJSProperty('paused', false);
+  });
+});

@@ -1434,6 +1434,20 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
 }
 .evid-note i{color:var(--gold-light);margin-right:.45rem}
 
+/* Si el navegador bloquea el arranque automático de la música, el botón
+   queda marcado para invitar al visitante a pulsarlo. */
+.af-music-btn[data-espera="1"]{
+  border-color:var(--gold);
+  animation:af-espera 2s ease-in-out infinite;
+}
+@keyframes af-espera{
+  0%,100%{box-shadow:0 4px 16px rgba(13,31,51,.14)}
+  50%{box-shadow:0 4px 16px rgba(13,31,51,.14),0 0 0 6px rgba(201,164,78,.18)}
+}
+@media (prefers-reduced-motion: reduce){
+  .af-music-btn[data-espera="1"]{animation:none}
+}
+
 /* El CTA de WhatsApp se inyecta con estilos de tema claro; sobre la banda
    navy hay que recuperar el contraste del texto. */
 #parcours .wa-cta-text{color:rgba(247,244,236,.85)}
@@ -2840,8 +2854,8 @@ const AF = (() => {
     injectWaCtas();
     renderParcours();
     loadEvidencias();
-    initIntro();
     initMusica();
+    initIntro();
   }
 
   let sb = null;
@@ -3373,6 +3387,7 @@ const AF = (() => {
       } catch(e){}
       box.classList.add('is-closing');
       setTimeout(() => box.remove(), 600);
+      if(arrancarMusicaTrasIntro) arrancarMusicaTrasIntro();
     }
 
     if(skip) skip.addEventListener('click', cerrar);
@@ -3405,6 +3420,9 @@ const AF = (() => {
   // ──────────────── Música de fondo ────────────────
   const MUSICA_KEY = 'af_musica';
 
+  // Puente entre el intro y la música: initIntro lo invoca al cerrarse.
+  let arrancarMusicaTrasIntro = null;
+
   function initMusica(){
     const btn   = document.getElementById('af-music-toggle');
     const audio = document.getElementById('af-music');
@@ -3415,6 +3433,7 @@ const AF = (() => {
     function pintar(on){
       btn.setAttribute('aria-pressed', on ? 'true' : 'false');
       btn.setAttribute('aria-label', on ? 'Silenciar música de fondo' : 'Activar música de fondo');
+      if(on) btn.removeAttribute('data-espera');
     }
 
     function encender(){
@@ -3452,6 +3471,25 @@ const AF = (() => {
       document.addEventListener('pointerdown', arrancar);
       document.addEventListener('keydown', arrancar);
     }
+
+    // Arranque automático al terminar el intro. Los navegadores solo dejan sonar
+    // audio si hubo un gesto previo del visitante; saltar el intro o tocar el
+    // botón de sonido cuentan como tal. Si aun así lo bloquean, dejamos el botón
+    // marcado en espera en vez de fallar en silencio.
+    arrancarMusicaTrasIntro = () => {
+      let apagadaAdrede = false;
+      try { apagadaAdrede = localStorage.getItem(MUSICA_KEY) === '0'; } catch(e){}
+      if(apagadaAdrede) return;            // respetamos que la haya apagado
+      if(!audio.paused) return;            // ya suena
+
+      const pl = audio.play();
+      if(pl && typeof pl.then === 'function'){
+        pl.then(() => pintar(true))
+          .catch(() => { btn.setAttribute('data-espera', '1'); pintar(false); });
+      } else {
+        pintar(true);
+      }
+    };
   }
 
 
