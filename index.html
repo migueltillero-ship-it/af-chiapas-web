@@ -1260,9 +1260,97 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
   .plat-hero{padding:2rem 1.5rem}
   .section{padding:4.5rem 0}
 }
+
+/* ═══════════════ Intro de bienvenida ═══════════════ */
+#af-intro{
+  position:fixed;inset:0;z-index:10000;background:var(--ink);
+  display:flex;align-items:center;justify-content:center;
+  opacity:1;transition:opacity .55s ease;
+}
+#af-intro[hidden]{display:none}
+#af-intro.is-closing{opacity:0;pointer-events:none}
+#af-intro video{width:100%;height:100%;object-fit:cover;background:var(--ink)}
+.af-intro-controls{
+  position:absolute;bottom:clamp(1rem,4vw,2.4rem);right:clamp(1rem,4vw,2.4rem);
+  display:flex;gap:.6rem;align-items:center;
+}
+.af-intro-btn{
+  font-family:var(--sans);font-size:.82rem;font-weight:600;letter-spacing:.04em;
+  color:#fdfcf8;background:rgba(13,31,51,.55);
+  border:1px solid rgba(232,201,122,.5);border-radius:999px;
+  padding:.6rem 1.1rem;cursor:pointer;
+  display:inline-flex;align-items:center;gap:.5rem;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  transition:background .2s ease,border-color .2s ease,transform .2s ease;
+}
+.af-intro-btn:hover{background:rgba(13,31,51,.8);border-color:var(--gold-light);transform:translateY(-1px)}
+.af-intro-btn:focus-visible{outline:2px solid var(--gold-light);outline-offset:3px}
+.af-intro-btn.icon-only{padding:.6rem .78rem}
+.af-intro-bar{
+  position:absolute;left:0;bottom:0;height:3px;width:0;
+  background:linear-gradient(90deg,var(--gold),var(--gold-light));
+  transition:width .2s linear;
+}
+
+/* ═══════════════ Música de fondo (opt-in) ═══════════════ */
+.af-music-btn{
+  position:fixed;left:clamp(.8rem,3vw,1.5rem);bottom:clamp(.8rem,3vw,1.5rem);z-index:800;
+  width:48px;height:48px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
+  background:var(--void);color:var(--ink);
+  border:1px solid var(--border-gold);
+  box-shadow:0 4px 16px rgba(13,31,51,.14);
+  cursor:pointer;
+  transition:transform .2s ease,box-shadow .2s ease,background .2s ease,color .2s ease;
+}
+.af-music-btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(13,31,51,.2)}
+.af-music-btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.af-music-btn[aria-pressed="true"]{background:var(--ink);color:var(--gold-light);border-color:var(--gold)}
+.af-music-btn > i.fa-music{font-size:1rem}
+.af-music-btn[aria-pressed="true"] > i.fa-music{display:none}
+.af-music-eq{display:none;gap:2px;align-items:flex-end;height:14px}
+.af-music-btn[aria-pressed="true"] .af-music-eq{display:inline-flex}
+.af-music-eq i{display:block;width:3px;background:currentColor;border-radius:1px;transform-origin:bottom;animation:af-eq .9s ease-in-out infinite}
+.af-music-eq i:nth-child(1){height:7px;animation-delay:0s}
+.af-music-eq i:nth-child(2){height:14px;animation-delay:.15s}
+.af-music-eq i:nth-child(3){height:10px;animation-delay:.3s}
+@keyframes af-eq{0%,100%{transform:scaleY(.45)}50%{transform:scaleY(1)}}
+@media (prefers-reduced-motion: reduce){
+  .af-music-eq i{animation:none}
+  #af-intro{transition:none}
+}
 </style>
 </head>
 <body>
+
+<!-- ─────────── Intro de bienvenida · una vez por sesión ─────────── -->
+<div id="af-intro" hidden role="dialog" aria-modal="true" aria-label="Video de bienvenida">
+  <video id="af-intro-video" playsinline muted preload="none"
+         poster="src/assets/media/ui/intro-af-poster.webp">
+    <source src="src/assets/media/ui/intro-af.webm" type="video/webm">
+    <source src="src/assets/media/ui/intro-af.mp4" type="video/mp4">
+  </video>
+  <div class="af-intro-controls">
+    <button type="button" class="af-intro-btn icon-only" id="af-intro-sound"
+            aria-label="Activar sonido del video"><i class="fa fa-volume-xmark"></i></button>
+    <button type="button" class="af-intro-btn" id="af-intro-skip">
+      Saltar intro <i class="fa fa-forward"></i>
+    </button>
+  </div>
+  <div class="af-intro-bar" id="af-intro-bar"></div>
+</div>
+
+<!-- ─────────── Música de fondo · opt-in, nunca autoplay ─────────── -->
+<button type="button" id="af-music-toggle" class="af-music-btn" aria-pressed="false"
+        aria-label="Activar música de fondo" title="Música de fondo">
+  <i class="fa fa-music"></i>
+  <span class="af-music-eq" aria-hidden="true"><i></i><i></i><i></i></span>
+</button>
+<audio id="af-music" loop preload="none">
+  <source src="src/assets/media/ui/ton-espace.ogg" type="audio/ogg; codecs=opus">
+  <source src="src/assets/media/ui/ton-espace.mp3" type="audio/mpeg">
+</audio>
+
 
 <!-- NAV -->
 <nav class="nav">
@@ -2586,6 +2674,8 @@ const AF = (() => {
     loadCatalog();
     initNavScroll();
     injectWaCtas();
+    initIntro();
+    initMusica();
   }
 
   let sb = null;
@@ -3074,7 +3164,131 @@ const AF = (() => {
     applyI18n(cur === 'es' ? 'fr' : 'es');
   }
 
-  return { init, toggleMenu, selectSede, goToStep, irA, updateModalidades, setFormato, setRitmo, actualizarResumen, enviarPreinscripcion, resetForm, toggleFAQ, toggleLang };
+
+  // ──────────────── Intro de bienvenida ────────────────
+  const INTRO_KEY = 'af_intro_visto';
+
+  function initIntro(){
+    const box = document.getElementById('af-intro');
+    if(!box) return;
+
+    const params = new URLSearchParams(location.search);
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let visto = false;
+    try { visto = sessionStorage.getItem(INTRO_KEY) === '1'; } catch(e){}
+
+    // Se salta si ya se vio, si el usuario pide menos movimiento o si llega ?nointro=1
+    if(params.get('nointro') === '1' || reduce || visto){ box.remove(); return; }
+
+    const vid  = document.getElementById('af-intro-video');
+    const bar  = document.getElementById('af-intro-bar');
+    const skip = document.getElementById('af-intro-skip');
+    const snd  = document.getElementById('af-intro-sound');
+
+    box.hidden = false;
+    document.body.style.overflow = 'hidden';
+    if(skip) skip.focus();
+
+    let cerrado = false;
+    function cerrar(){
+      if(cerrado) return;
+      cerrado = true;
+      try { sessionStorage.setItem(INTRO_KEY, '1'); } catch(e){}
+      document.body.style.overflow = '';
+      // Cortamos la descarga del video: si no, sigue buffereando en segundo plano
+      // después de saltarlo y deja la conexión abierta.
+      try {
+        if(vid){
+          vid.pause();
+          vid.removeAttribute('src');
+          vid.querySelectorAll('source').forEach(n => n.remove());
+          vid.load();
+        }
+      } catch(e){}
+      box.classList.add('is-closing');
+      setTimeout(() => box.remove(), 600);
+    }
+
+    if(skip) skip.addEventListener('click', cerrar);
+    if(vid){
+      vid.addEventListener('ended', cerrar);
+      vid.addEventListener('error', cerrar);
+      vid.addEventListener('timeupdate', () => {
+        if(bar && vid.duration) bar.style.width = (vid.currentTime / vid.duration * 100) + '%';
+      });
+    }
+    document.addEventListener('keydown', e => { if(e.key === 'Escape') cerrar(); });
+
+    if(snd) snd.addEventListener('click', () => {
+      if(!vid) return;
+      vid.muted = !vid.muted;
+      snd.innerHTML = vid.muted
+        ? '<i class="fa fa-volume-xmark"></i>'
+        : '<i class="fa fa-volume-high"></i>';
+      snd.setAttribute('aria-label', vid.muted ? 'Activar sonido del video' : 'Silenciar video');
+    });
+
+    // Autoplay silenciado. Si el navegador lo bloquea, no dejamos la portada tapada.
+    const pl = vid && vid.play();
+    if(pl && typeof pl.catch === 'function') pl.catch(() => cerrar());
+
+    // Red de seguridad: el intro dura 10 s; nunca debe bloquear la página más allá de esto.
+    setTimeout(cerrar, 14000);
+  }
+
+  // ──────────────── Música de fondo ────────────────
+  const MUSICA_KEY = 'af_musica';
+
+  function initMusica(){
+    const btn   = document.getElementById('af-music-toggle');
+    const audio = document.getElementById('af-music');
+    if(!btn || !audio) return;
+
+    audio.volume = 0.35;
+
+    function pintar(on){
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      btn.setAttribute('aria-label', on ? 'Silenciar música de fondo' : 'Activar música de fondo');
+    }
+
+    function encender(){
+      const pl = audio.play();
+      if(pl && typeof pl.then === 'function'){
+        return pl.then(() => {
+          pintar(true);
+          try { localStorage.setItem(MUSICA_KEY, '1'); } catch(e){}
+        }).catch(() => pintar(false));
+      }
+      pintar(true);
+      return Promise.resolve();
+    }
+
+    function apagar(){
+      audio.pause();
+      pintar(false);
+      try { localStorage.setItem(MUSICA_KEY, '0'); } catch(e){}
+    }
+
+    btn.addEventListener('click', () => {
+      if(btn.getAttribute('aria-pressed') === 'true') apagar(); else encender();
+    });
+
+    // Si el visitante ya la había activado, la retomamos en su primer gesto:
+    // los navegadores bloquean el audio automático sin interacción previa.
+    let preferida = false;
+    try { preferida = localStorage.getItem(MUSICA_KEY) === '1'; } catch(e){}
+    if(preferida){
+      const arrancar = () => {
+        audio.play().then(() => pintar(true)).catch(() => {});
+        document.removeEventListener('pointerdown', arrancar);
+        document.removeEventListener('keydown', arrancar);
+      };
+      document.addEventListener('pointerdown', arrancar);
+      document.addEventListener('keydown', arrancar);
+    }
+  }
+
+  return { init, toggleMenu, selectSede, goToStep, irA, updateModalidades, setFormato, setRitmo, actualizarResumen, enviarPreinscripcion, resetForm, toggleFAQ, toggleLang, initIntro, initMusica };
 })();
 
 // ──────────────────── i18n (es/fr) ────────────────────
