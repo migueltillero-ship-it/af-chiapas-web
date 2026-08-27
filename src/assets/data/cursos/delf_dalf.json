@@ -2,7 +2,8 @@
   "_meta": {
     "fuente": "France Education International / AF Mexico",
     "estado": "Tarifas 2026 — confirmar con sede",
-    "centro": "Centro de preparacion oficial DELF/DALF"
+    "centro": "Centro de preparacion oficial DELF/DALF",
+    "resultados_historicos": "Retirados por indicación de dirección (27-08-2026): no autorizados para publicación. El sitio oculta la sección 'Evidencias de calidad' mientras esta clave no exista. Para restaurarlos, volver a añadir el objeto resultados_historicos en la raíz."
   },
   "que_es_delf_dalf": "El DELF (Diplôme d'Études en Langue Française) y el DALF (Diplôme Approfondi de Langue Française) son diplomas oficiales del Ministerio de Educación de Francia, expedidos por France Éducation International. Son vitalicios, reconocidos mundialmente y requeridos para estudios, trabajo y migración en países francófonos.",
   "ventajas": [
@@ -32,12 +33,25 @@
       "descripcion": "Capacidad de comprender y usar expresiones cotidianas familiares y frases muy sencillas. Puede presentarse, saludar y dar información personal básica.",
       "tarifa_2026": 1445,
       "moneda": "MXN",
-      "sesiones": ["Septiembre", "Octubre", "Noviembre"],
+      "sesiones": [
+        "Septiembre",
+        "Octubre",
+        "Noviembre"
+      ],
       "duracion_examen": "1h 20min",
-      "competencias": ["Comprensión oral", "Comprensión escrita", "Producción oral", "Producción escrita"],
+      "competencias": [
+        "Comprensión oral",
+        "Comprensión escrita",
+        "Producción oral",
+        "Producción escrita"
+      ],
       "puntaje_aprobacion": "50/100 (mínimo 5/25 por competencia)",
       "color": "#4caf50",
-      "versiones": ["Tous publics", "Junior", "Prim"]
+      "versiones": [
+        "Tous publics",
+        "Junior",
+        "Prim"
+      ]
     },
     {
       "codigo": "DELF_A2",
@@ -48,12 +62,25 @@
       "descripcion": "Comprensión de frases y expresiones frecuentes sobre temas cotidianos. Comunicación en situaciones simples y rutinarias.",
       "tarifa_2026": 1575,
       "moneda": "MXN",
-      "sesiones": ["Septiembre", "Octubre", "Noviembre"],
+      "sesiones": [
+        "Septiembre",
+        "Octubre",
+        "Noviembre"
+      ],
       "duracion_examen": "1h 45min",
-      "competencias": ["Comprensión oral", "Comprensión escrita", "Producción oral", "Producción escrita"],
+      "competencias": [
+        "Comprensión oral",
+        "Comprensión escrita",
+        "Producción oral",
+        "Producción escrita"
+      ],
       "puntaje_aprobacion": "50/100 (mínimo 5/25 por competencia)",
       "color": "#8bc34a",
-      "versiones": ["Tous publics", "Junior", "Prim"]
+      "versiones": [
+        "Tous publics",
+        "Junior",
+        "Prim"
+      ]
     },
     {
       "codigo": "DELF_B1",
@@ -64,12 +91,25 @@
       "descripcion": "Independencia en viajes, trabajo y estudio. Puede expresar opiniones, narrar experiencias y justificar puntos de vista.",
       "tarifa_2026": 1800,
       "moneda": "MXN",
-      "sesiones": ["Septiembre", "Octubre", "Noviembre"],
+      "sesiones": [
+        "Septiembre",
+        "Octubre",
+        "Noviembre"
+      ],
       "duracion_examen": "2h 50min",
-      "competencias": ["Comprensión oral", "Comprensión escrita", "Producción oral", "Producción escrita"],
+      "competencias": [
+        "Comprensión oral",
+        "Comprensión escrita",
+        "Producción oral",
+        "Producción escrita"
+      ],
       "puntaje_aprobacion": "50/100 (mínimo 5/25 por competencia)",
       "color": "#ffc107",
-      "versiones": ["Tous publics", "Junior", "Pro"]
+      "versiones": [
+        "Tous publics",
+        "Junior",
+        "Pro"
+      ]
     },
     {
       "codigo": "DELF_B2",
@@ -80,12 +120,25 @@
       "descripcion": "Comprensión de textos complejos y técnicos. Interacción fluida con nativos. Requerido para Licenciatura en universidades francesas.",
       "tarifa_2026": 2500,
       "moneda": "MXN",
-      "sesiones": ["Septiembre", "Octubre", "Noviembre"],
+      "sesiones": [
+        "Septiembre",
+        "Octubre",
+        "Noviembre"
+      ],
       "duracion_examen": "3h 30min",
-      "competencias": ["Comprensión oral", "Comprensión escrita", "Producción oral", "Producción escrita"],
+      "competencias": [
+        "Comprensión oral",
+        "Comprensión escrita",
+        "Producción oral",
+        "Producción escrita"
+      ],
       "puntaje_aprobacion": "50/100 (mínimo 5/25 por competencia)",
       "color": "#ff9800",
-      "versiones": ["Tous publics", "Junior", "Pro"]
+      "versiones": [
+        "Tous publics",
+        "Junior",
+        "Pro"
+      ]
     },
     {
       "codigo": "DALF_C1",
@@ -96,12 +149,21 @@
       "descripcion": "Uso flexible y eficaz del francés en contextos sociales, académicos y profesionales. Requerido para Maestría en universidades francesas.",
       "tarifa_2026": 3500,
       "moneda": "MXN",
-      "sesiones": ["Septiembre", "Noviembre"],
+      "sesiones": [
+        "Septiembre",
+        "Noviembre"
+      ],
       "duracion_examen": "4h",
-      "competencias": ["Comprensión oral/escrita integrada", "Producción oral", "Producción escrita"],
+      "competencias": [
+        "Comprensión oral/escrita integrada",
+        "Producción oral",
+        "Producción escrita"
+      ],
       "puntaje_aprobacion": "50/100 (mínimo 5/25 por competencia)",
       "color": "#f44336",
-      "versiones": ["Tous publics"]
+      "versiones": [
+        "Tous publics"
+      ]
     },
     {
       "codigo": "DALF_C2",
@@ -112,12 +174,21 @@
       "descripcion": "Dominio bilingüe. Comprensión y expresión sin esfuerzo en cualquier situación. El nivel más alto reconocido internacionalmente.",
       "tarifa_2026": 4000,
       "moneda": "MXN",
-      "sesiones": ["Septiembre", "Noviembre"],
+      "sesiones": [
+        "Septiembre",
+        "Noviembre"
+      ],
       "duracion_examen": "5h",
-      "competencias": ["Comprensión oral/escrita integrada", "Producción oral", "Producción escrita"],
+      "competencias": [
+        "Comprensión oral/escrita integrada",
+        "Producción oral",
+        "Producción escrita"
+      ],
       "puntaje_aprobacion": "50/100 (mínimo 5/25 por competencia)",
       "color": "#9c27b0",
-      "versiones": ["Tous publics"]
+      "versiones": [
+        "Tous publics"
+      ]
     }
   ],
   "otros_examenes": [
@@ -139,12 +210,5 @@
       "descripcion": "Certificación sectorial para turismo, negocios y hostelería. Ideal para profesionales con necesidades específicas.",
       "disponible": "Consultar sede"
     }
-  ],
-  "resultados_historicos": {
-    "sesion": "DELF Junior 2025-2026",
-    "tasa_aprobacion": "100%",
-    "niveles_aplicados": ["A1", "A2", "B1"],
-    "crecimiento_participacion": "70% vs 2024",
-    "nota": "La Alliance Française San Cristóbal de Las Casas logró aprobación absoluta en su sesión DELF Junior más reciente."
-  }
+  ]
 }
