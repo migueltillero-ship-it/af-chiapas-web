@@ -55,25 +55,48 @@ test.describe('Le parcours · escalera MCER', () => {
 });
 
 test.describe('Evidencias de calidad', () => {
-  test('publica los resultados reales del JSON de DELF', async ({ page }) => {
+  // Dirección retiró los resultados DELF el 27-08-2026: no están autorizados
+  // para publicarse. Estas pruebas fijan que NO se publiquen mientras no
+  // vuelva el objeto resultados_historicos al JSON.
+  test('no publica cifras de resultados sin autorización', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.locator('#evidencias')).toBeHidden();
+    await expect(page.locator('#evid-grid .evid-card')).toHaveCount(0);
+  });
+
+  test('las cifras retiradas no quedan servidas en el JSON público', async ({ request }) => {
+    const res = await request.get('/src/assets/data/cursos/delf_dalf.json');
+    expect(res.ok()).toBeTruthy();
+    const data = await res.json();
+    expect(data.resultados_historicos).toBeUndefined();
+    // Y no reaparecen escondidas en otra parte del archivo.
+    expect(JSON.stringify(data)).not.toContain('tasa_aprobacion');
+  });
+
+  test('la escalera MCER sigue intacta sin las evidencias', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.locator('#parcours-ladder .niv')).toHaveCount(6);
+  });
+
+  test('vuelve a publicarse en cuanto dirección autorice los datos', async ({ page }) => {
+    // Contrato de restauración: devolver el objeto al JSON basta para que
+    // la sección se pinte otra vez, sin tocar código.
+    await page.route('**/delf_dalf.json', r => r.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({
+        resultados_historicos: {
+          sesion: 'DELF Junior 2025-2026',
+          tasa_aprobacion: '100%',
+          niveles_aplicados: ['A1', 'A2', 'B1'],
+          crecimiento_participacion: '70% vs 2024',
+          nota: 'Nota de prueba.',
+        },
+      }),
+    }));
     await page.goto('/');
     const evid = page.locator('#evidencias');
     await expect(evid).toBeVisible();
-    await expect(evid).toContainText('100');
-    await expect(evid).toContainText(/DELF Junior/i);
     await expect(page.locator('#evid-grid .evid-card')).toHaveCount(3);
-  });
-
-  test('la nota cita la fuente institucional', async ({ page }) => {
-    await page.goto('/');
-    await expect(page.locator('#evid-note')).toContainText(/Alliance Française San Cristóbal/i);
-  });
-
-  test('queda oculta si no hay datos publicables', async ({ page }) => {
-    // Sin resultados_historicos la sección no debe inventar nada.
-    await page.route('**/delf_dalf.json', r => r.fulfill({ status: 200, body: '{}' }));
-    await page.goto('/');
-    await expect(page.locator('#parcours-ladder .niv')).toHaveCount(6);
-    await expect(page.locator('#evidencias')).toBeHidden();
   });
 });
