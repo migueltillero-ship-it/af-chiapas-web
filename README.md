@@ -93,7 +93,7 @@ Sitio oficial y plataforma de gestión académica de la Alliance Française San 
 ### Panel administrativo (`/admin/`)
 - Login Supabase Auth (sólo rol `coordinacion` o `admin`)
 - Dashboard con stat cards por estado (realtime)
-- Tabs: Inscripciones · Grupos · Docentes
+- Tabs: Inscripciones · Grupos · **Cursos del ciclo** · Docentes · **Finanzas** · Eventos · Catálogo
 - Modal de aprobación con:
   - Datos completos del estudiante
   - Notas internas
@@ -102,6 +102,13 @@ Sitio oficial y plataforma de gestión académica de la Alliance Française San 
   - Aprobar → asigna grupo → cupo se incrementa por trigger
 - Bitácora automática de cambios de estado
 - Realtime: cualquier nueva inscripción aparece sin recargar
+- **Cursos del ciclo** — tarjeta por grupo activo con número de alumnos y cobros
+  pendientes; clic abre el detalle: lista de alumnos con % de asistencia y estado
+  de pago, registro de sesiones y marcado de asistencia por sesión (mismo
+  mecanismo que el portal del docente, disponible también para coordinación)
+- **Finanzas** — ingresos cobrados, pendiente de cobro, egresos y balance neto;
+  registro manual de pagos y egresos (ej. nómina docente); reportes de ingresos
+  por curso y balance por docente, exportables a CSV
 
 ## Estructura
 
@@ -181,10 +188,13 @@ GitHub Actions corre en cada push a `main` y en cada PR:
 - [x] Fase 2B: Grupos + docentes + asignación automática
 - [x] Fase 3: Portal del alumno
 - [x] Fase 3B: Portal del docente
-- [ ] Fase 4: Notificaciones email automáticas al cambiar estado (Supabase Edge Functions)
-- [ ] Fase 5: Eventos editables desde admin (CMS-like)
-- [ ] Fase 6: Pagos en línea (Stripe / MercadoPago)
-- [ ] Fase 7: App móvil nativa (Capacitor o PWA installable mejorada)
+- [x] Fase 4: Notificaciones email automáticas al cambiar estado (Supabase Edge Functions)
+- [x] Fase 5: Eventos editables desde admin (CMS-like)
+- [x] Fase 6: Catálogo de cursos editable desde admin
+- [x] Fase 7: Sesiones y asistencias (portal del docente)
+- [x] Fase 9: Pagos en línea (Stripe)
+- [x] Fase 10: Cursos del ciclo (roster + asistencia desde admin) y Finanzas (egresos + reportes)
+- [ ] Fase 11: App móvil nativa (Capacitor o PWA installable mejorada)
 
 ## Contacto
 
