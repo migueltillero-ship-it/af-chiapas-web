@@ -148,19 +148,18 @@ Sigue `supabase/README.md`:
 ### 3. EmailJS (notificaciones)
 Las credenciales ya están en `index.html` apuntando a `service_9wtrch3 / template_dtddfpk`. El template debe usar `{{to_email}} = afsancris@gmail.com` y los demás campos del payload.
 
-### 4. Cambiar las fechas oficiales
-Las dos fechas viven juntas en `index.html`:
+### 4. Cambiar la fecha oficial
+La fecha vive en `index.html`:
 
 ```js
-const AF_INICIO_ATENCION = new Date('2026-09-05T09:00:00-06:00'); // lanzamiento
-const AF_INICIO_CICLO    = new Date('2026-09-15T09:00:00-06:00'); // primer día de clases
+const AF_INICIO_CICLO = new Date('2026-09-21T09:00:00-06:00'); // primer día de clases
 ```
 
 - `AF_INICIO_CICLO` alimenta la cuenta regresiva. Si cambia, ajusta también la
-  tabla de `#calendario` y el `startDate` del JSON-LD.
-- `AF_INICIO_ATENCION` gobierna el aviso «empezamos a responder el 5 de
-  septiembre», que **se retira solo** al llegar la fecha. Antes del lanzamiento
-  evita que alguien escriba por WhatsApp y se quede esperando respuesta.
+  tabla de `#calendario` y el `startDate`/`endDate` del JSON-LD.
+- También gobierna el aviso «Inscripciones abiertas ahora», que **se retira
+  solo** al arrancar el ciclo (ya no tiene sentido invitar a preinscribirse
+  una vez que las clases empezaron).
 
 ## Desarrollo local
 
