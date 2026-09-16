@@ -126,6 +126,16 @@ Aplica `supabase/schema_phase3.sql` sobre los esquemas anteriores.
 | `rechazada` | Muestra `notas_admin` + invita a contactar por WhatsApp. |
 | `cancelada` | "Cancelada. Escríbenos para reactivar." |
 
+## Fase 11 — Parámetros completos de grupo + feriados
+
+Aplica `supabase/schema_phase11.sql`.
+
+- Nuevas columnas en `grupos`: `fecha_cierre`, `dias_semana` (array 0=domingo…6=sábado), `hora_inicio`, `hora_fin`, `horas_totales`, `horas_presencial`, `horas_virtual`, `costo`, `moneda`, `plataforma`, `metodo` (Défi 1-5 / L'Atelier 1-5 / Otro).
+- Tabla `feriados` (fecha, nombre, país) — sembrada con los feriados oficiales de México 2026. RLS: solo coordinación/admin.
+- Admin: el botón **"Nuevo grupo"** (en Grupos y en Cursos del ciclo) abre un formulario completo con todos estos campos, en vez del aviso de "créalo por SQL" que había antes. Al crear el grupo puedes elegir de inmediato qué alumnos aprobados-sin-grupo asignarle.
+- Al agendar una sesión sobre una fecha feriada, el admin avisa antes de confirmar.
+- El roster de cada grupo (tab Cursos del ciclo → detalle) marca en rojo a los alumnos con más de 3 inasistencias en el ciclo.
+
 ## Fase 10 — Cursos del ciclo y finanzas (egresos)
 
 Aplica `supabase/schema_phase10.sql`.
