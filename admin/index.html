@@ -318,6 +318,7 @@ tr:hover{background:rgba(13,31,51,0.03);cursor:pointer}
     <button class="tab" data-tab="finanzas" onclick="ADMIN.switchTab('finanzas')"><i class="fa fa-sack-dollar"></i> Finanzas</button>
     <button class="tab" data-tab="eventos" onclick="ADMIN.switchTab('eventos')"><i class="fa fa-calendar-days"></i> Eventos</button>
     <button class="tab" data-tab="catalogo" onclick="ADMIN.switchTab('catalogo')"><i class="fa fa-book-open"></i> Catálogo</button>
+    <button class="tab" data-tab="constancias" onclick="ADMIN.switchTab('constancias')"><i class="fa fa-certificate"></i> Constancias</button>
   </div>
 
   <!-- TAB: INSCRIPCIONES -->
@@ -551,6 +552,35 @@ tr:hover{background:rgba(13,31,51,0.03);cursor:pointer}
       <p style="font-size:0.78rem;color:var(--muted);margin-top:1rem">
         El alta de docentes se hace creando primero el usuario en <strong>Authentication → Users</strong> y luego insertando una fila en <code>public.docentes</code> con el mismo <code>id</code>.
       </p>
+    </div>
+  </div>
+
+  <!-- TAB: CONSTANCIAS -->
+  <div class="tab-pane" id="pane-constancias">
+    <div class="card" style="margin-bottom:1.25rem">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem">
+        <p style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase">Tipos de constancia · catálogo con costos</p>
+        <button class="btn btn-primary" onclick="ADMIN.openTipoConstanciaEditor()"><i class="fa fa-plus"></i> Nuevo tipo</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Nombre</th><th>Costo</th><th>Estado</th><th></th></tr></thead>
+          <tbody id="tbody-tipos-constancia"></tbody>
+        </table>
+      </div>
+      <p style="font-size:0.78rem;color:var(--muted);margin-top:1rem">
+        Es un servicio de la Alliance Française, facturado aparte de la colegiatura. Solo los tipos "activos" son visibles para los alumnos en su portal.
+      </p>
+    </div>
+
+    <div class="card">
+      <p style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem">Solicitudes de alumnos</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Alumno</th><th>Constancia</th><th>Estado</th><th>Fecha</th><th></th></tr></thead>
+          <tbody id="tbody-solicitudes-constancia"></tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
@@ -890,6 +920,25 @@ Intensivo | 4 sesiones/semana | 48 h" style="width:100%;background:rgba(13,31,51
   </div>
 </div>
 
+<!-- MODAL tipo de constancia -->
+<div class="modal-bg" id="modal-tipo-constancia-bg">
+  <div class="modal">
+    <h2 id="tc-title">Nuevo tipo de constancia</h2>
+    <div class="kv">
+      <span class="kv-key">Nombre *</span>      <input id="tc-nombre" type="text" placeholder="Constancia de validación de nivel" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Descripción</span>   <textarea id="tc-descripcion" rows="2" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem"></textarea>
+      <span class="kv-key">Costo *</span>       <input id="tc-costo" type="number" min="0" step="0.01" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.9rem">
+      <span class="kv-key">Moneda</span>        <input id="tc-moneda" type="text" value="MXN" style="width:100px;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.85rem">
+      <span class="kv-key">Activo</span>        <label style="display:flex;align-items:center;gap:0.5rem;color:var(--white)"><input id="tc-activo" type="checkbox" checked style="width:18px;height:18px"> Visible para los alumnos en su portal</label>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="ADMIN.closeTipoConstanciaEditor()">Cancelar</button>
+      <button class="btn btn-red" id="tc-btn-delete" onclick="ADMIN.deleteTipoConstancia()" style="display:none"><i class="fa fa-trash"></i> Eliminar</button>
+      <button class="btn btn-green" onclick="ADMIN.saveTipoConstancia()"><i class="fa fa-save"></i> Guardar</button>
+    </div>
+  </div>
+</div>
+
 <script>
 const ADMIN = (() => {
   let sb = null;
@@ -919,6 +968,9 @@ const ADMIN = (() => {
   let egresoActual = null;
   let feriados = [];
   let candidatosGrupo = [];
+  let tiposConstancia = [];
+  let solicitudesConstancia = [];
+  let tipoConstanciaActual = null;
 
   function init(){
     const cfgOk = window.AF_CONFIG?.isSupabaseConfigured?.();
@@ -1044,6 +1096,7 @@ const ADMIN = (() => {
     if(tab === 'catalogo') cargarCatalogo();
     if(tab === 'cursos'){ cargarCursosDashboard(); cargarFeriados(); }
     if(tab === 'finanzas') cargarFinanzas();
+    if(tab === 'constancias') cargarConstancias();
     if(!opts.fromHash) setHash('#' + tab);
   }
 
@@ -1405,6 +1458,117 @@ const ADMIN = (() => {
     const {error} = await sb.from('feriados').delete().eq('id', id);
     if(error){ alert('Error: ' + error.message); return; }
     cargarFeriados();
+  }
+
+  // ──────────────────── CONSTANCIAS ────────────────────
+
+  async function cargarConstancias(){
+    const [{data: tipos, error: tiposErr}, {data: solic, error: solicErr}] = await Promise.all([
+      sb.from('tipos_constancia').select('*').order('nombre'),
+      sb.from('solicitudes_constancia').select('*, inscripciones(nombre,folio), tipos_constancia(nombre)').order('creado_en', {ascending:false})
+    ]);
+    if(tiposErr) console.warn('[tipos_constancia]', tiposErr);
+    if(solicErr) console.warn('[solicitudes]', solicErr);
+    tiposConstancia = tipos || [];
+    solicitudesConstancia = solic || [];
+    renderTiposConstancia();
+    renderSolicitudesConstancia();
+  }
+
+  function renderTiposConstancia(){
+    const tb = document.getElementById('tbody-tipos-constancia');
+    if(!tb) return;
+    if(!tiposConstancia.length){
+      tb.innerHTML = `<tr><td colspan="4" class="empty">Sin tipos de constancia. Crea el primero con "Nuevo tipo".</td></tr>`;
+      return;
+    }
+    tb.innerHTML = tiposConstancia.map(t => `
+      <tr>
+        <td><div class="cell-nombre">${escapeHtml(t.nombre)}</div>${t.descripcion ? `<div class="cell-meta">${escapeHtml(t.descripcion)}</div>` : ''}</td>
+        <td class="cell-folio">$${Number(t.costo).toFixed(2)} ${escapeHtml(t.moneda)}</td>
+        <td><span class="badge ${t.activo ? 'b-aprobada' : 'b-cancelada'}">${t.activo ? 'activo' : 'inactivo'}</span></td>
+        <td><button class="btn btn-ghost" style="padding:0.4rem 0.7rem;font-size:0.55rem" onclick="ADMIN.openTipoConstanciaEditor('${t.id}')"><i class="fa fa-pen"></i> Editar</button></td>
+      </tr>`).join('');
+  }
+
+  function openTipoConstanciaEditor(id){
+    tipoConstanciaActual = id ? tiposConstancia.find(t => t.id === id) : null;
+    const set = (k,v) => { const el = document.getElementById('tc-' + k); if(el) el.value = v ?? ''; };
+    if(tipoConstanciaActual){
+      document.getElementById('tc-title').textContent = 'Editar tipo de constancia';
+      document.getElementById('tc-btn-delete').style.display = '';
+      set('nombre', tipoConstanciaActual.nombre);
+      set('descripcion', tipoConstanciaActual.descripcion);
+      set('costo', tipoConstanciaActual.costo);
+      set('moneda', tipoConstanciaActual.moneda);
+      document.getElementById('tc-activo').checked = tipoConstanciaActual.activo;
+    } else {
+      document.getElementById('tc-title').textContent = 'Nuevo tipo de constancia';
+      document.getElementById('tc-btn-delete').style.display = 'none';
+      set('nombre',''); set('descripcion',''); set('costo','');
+      set('moneda','MXN');
+      document.getElementById('tc-activo').checked = true;
+    }
+    document.getElementById('modal-tipo-constancia-bg').classList.add('open');
+  }
+
+  function closeTipoConstanciaEditor(){
+    tipoConstanciaActual = null;
+    document.getElementById('modal-tipo-constancia-bg').classList.remove('open');
+  }
+
+  async function saveTipoConstancia(){
+    const nombre = document.getElementById('tc-nombre').value.trim();
+    const costo = parseFloat(document.getElementById('tc-costo').value);
+    if(!nombre || isNaN(costo) || costo < 0){ alert('Nombre y costo (0 o mayor) son requeridos.'); return; }
+    const payload = {
+      nombre,
+      descripcion: document.getElementById('tc-descripcion').value.trim() || null,
+      costo,
+      moneda: document.getElementById('tc-moneda').value.trim() || 'MXN',
+      activo: document.getElementById('tc-activo').checked,
+    };
+    let q;
+    if(tipoConstanciaActual) q = sb.from('tipos_constancia').update(payload).eq('id', tipoConstanciaActual.id);
+    else                     q = sb.from('tipos_constancia').insert(payload);
+    const {error} = await q;
+    if(error){ alert('Error: ' + error.message); return; }
+    closeTipoConstanciaEditor();
+    cargarConstancias();
+  }
+
+  async function deleteTipoConstancia(){
+    if(!tipoConstanciaActual) return;
+    if(!confirm('¿Eliminar "' + tipoConstanciaActual.nombre + '"? Las solicitudes ya hechas para este tipo se conservan.')) return;
+    const {error} = await sb.from('tipos_constancia').delete().eq('id', tipoConstanciaActual.id);
+    if(error){ alert('Error: ' + error.message); return; }
+    closeTipoConstanciaEditor();
+    cargarConstancias();
+  }
+
+  function renderSolicitudesConstancia(){
+    const tb = document.getElementById('tbody-solicitudes-constancia');
+    if(!tb) return;
+    if(!solicitudesConstancia.length){
+      tb.innerHTML = `<tr><td colspan="5" class="empty">Sin solicitudes todavía.</td></tr>`;
+      return;
+    }
+    const opciones = ['solicitada','en_proceso','pagada','emitida','cancelada'];
+    tb.innerHTML = solicitudesConstancia.map(s => `
+      <tr>
+        <td><div class="cell-nombre">${escapeHtml(s.inscripciones?.nombre || '—')}</div><div class="cell-meta">${escapeHtml(s.inscripciones?.folio || '')}</div></td>
+        <td class="cell-meta">${escapeHtml(s.tipos_constancia?.nombre || '—')}</td>
+        <td><select onchange="ADMIN.cambiarEstadoSolicitud('${s.id}', this.value)" style="background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.4rem 0.6rem;font-family:var(--sans);font-size:0.8rem">${opciones.map(o => `<option value="${o}" ${s.estado===o?'selected':''}>${o.replace('_',' ')}</option>`).join('')}</select></td>
+        <td class="cell-meta">${new Date(s.creado_en).toLocaleDateString('es-MX')}</td>
+        <td class="cell-meta">${escapeHtml(s.notas || '—')}</td>
+      </tr>`).join('');
+  }
+
+  async function cambiarEstadoSolicitud(id, estado){
+    const {error} = await sb.from('solicitudes_constancia').update({estado}).eq('id', id);
+    if(error){ alert('Error: ' + error.message); cargarConstancias(); return; }
+    const s = solicitudesConstancia.find(x => x.id === id);
+    if(s) s.estado = estado;
   }
 
   // ──────────────────── FINANZAS ────────────────────
@@ -2362,6 +2526,7 @@ const ADMIN = (() => {
     agregarAlumnosSeleccionados,
     openNuevoGrupoForm, closeNuevoGrupoForm, suggestCodigo, crearGrupoCompleto,
     openFeriadoForm, closeFeriadoForm, saveFeriado, deleteFeriado,
+    openTipoConstanciaEditor, closeTipoConstanciaEditor, saveTipoConstancia, deleteTipoConstancia, cambiarEstadoSolicitud,
   };
 })();
 

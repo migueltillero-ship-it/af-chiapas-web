@@ -126,6 +126,43 @@ Aplica `supabase/schema_phase3.sql` sobre los esquemas anteriores.
 | `rechazada` | Muestra `notas_admin` + invita a contactar por WhatsApp. |
 | `cancelada` | "Cancelada. Escríbenos para reactivar." |
 
+## Fase 12 — Portal del alumno con cuenta propia
+
+Aplica `supabase/schema_phase12.sql`.
+
+- El alumno crea su propia cuenta (correo + contraseña) desde `portal/mi-espacio.html`,
+  verificando primero folio + email contra `consulta_inscripcion` (igual que el portal
+  de solo-consulta). Tras el `signUp`, inserta su propio `perfiles` con `rol='alumno'` —
+  la policy de inserción solo permite ese rol, nunca `admin`/`coordinacion`/`docente`.
+- Nuevas policies de RLS (adicionales a las existentes, se combinan por OR): el alumno
+  lee sus propias `inscripciones`, su `grupo`, sus `sesiones`, su `asistencias` y sus
+  `pagos` — por coincidencia de correo vía la función `mi_email()`.
+- ⚠️ **Ciclo de RLS evitado a propósito**: la policy de alumno sobre `grupos` no hace un
+  subquery directo a `inscripciones` (esa combinación causa "infinite recursion detected
+  in policy" porque la policy de docente en `inscripciones`, de la Fase 3B, ya consulta
+  `grupos`). Se rompe con `es_mi_grupo()`, una función `security definer` que lee
+  `inscripciones` sin pasar por su RLS. Si agregas una policy nueva que cruce estas dos
+  tablas, usa el mismo patrón.
+- `evaluaciones` — registro flexible (tipo continua/final, título, calificación, comentario)
+  hasta tener la rúbrica exacta por método/nivel. Docente escribe las de sus grupos, alumno
+  lee las suyas.
+- `validaciones_nivel` — una fila por inscripción: el docente marca si el alumno demostró
+  las competencias del nivel, con comentario. Habilita la descarga de la constancia
+  informal (sin valor legal) desde el portal del alumno.
+- `tipos_constancia` — catálogo de constancias/certificados oficiales, con costo. Se crea
+  vacío a propósito: coordinación define nombre y costo reales desde el panel antes de que
+  los alumnos puedan solicitarlos (es un servicio de la AF facturado aparte de la colegiatura).
+- `solicitudes_constancia` — el alumno solicita una constancia/certificado desde su portal;
+  coordinación la procesa desde el admin (tab **Constancias**).
+
+### En el admin
+Nuevo tab **Constancias**: CRUD de `tipos_constancia` (nombre + costo) y bandeja de
+`solicitudes_constancia` con cambio de estado (solicitada → en proceso → pagada → emitida).
+
+### En el portal del docente
+Por cada alumno de un grupo: botones **Registrar evaluación** y **Validar nivel**
+(con comentario).
+
 ## Fase 11 — Parámetros completos de grupo + feriados
 
 Aplica `supabase/schema_phase11.sql`.
