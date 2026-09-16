@@ -200,6 +200,40 @@ tr:hover{background:rgba(13,31,51,0.03);cursor:pointer}
   border:1px solid rgba(79,209,197,0.4);
 }
 
+/* Cursos del ciclo — grid de tarjetas */
+.cursos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem}
+.curso-card{
+  background:var(--deep);border:1px solid var(--border);border-radius:var(--r-lg);
+  padding:1.1rem 1.2rem;cursor:pointer;transition:transform 0.15s,border-color 0.15s;
+  position:relative;overflow:hidden;
+}
+.curso-card:hover{transform:translateY(-2px);border-color:var(--gold)}
+.curso-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--c,var(--gold))}
+.curso-card[data-estado="finalizado"]{opacity:0.6}
+.cc-codigo{font-family:var(--mono);font-size:0.6rem;color:var(--gold);letter-spacing:0.1em}
+.cc-nombre{font-family:var(--display);font-size:1.3rem;font-weight:500;margin:0.2rem 0 0.6rem}
+.cc-meta{font-size:0.75rem;color:var(--muted);margin-bottom:0.15rem}
+.cc-stats{display:flex;gap:1rem;margin-top:0.9rem}
+.cc-stat-num{font-family:'Bebas Neue',var(--sans);font-size:1.8rem;line-height:1}
+.cc-stat-lab{font-size:0.6rem;color:var(--hint);text-transform:uppercase;letter-spacing:0.1em}
+.cc-pend{color:var(--amber)}
+
+/* Detalle de grupo / sesiones / alumnos */
+.gd-head{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.6rem 1rem;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.gd-section-title{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase;margin:1.25rem 0 0.6rem}
+.mini-form{display:flex;gap:0.5rem;flex-wrap:wrap;align-items:flex-end;margin-bottom:0.75rem}
+.mini-form label{display:flex;flex-direction:column;gap:0.25rem;font-size:0.65rem;color:var(--muted);font-family:var(--mono)}
+.mini-form input,.mini-form select{
+  background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);
+  color:var(--white);padding:0.5rem 0.6rem;font-family:var(--sans);font-size:0.82rem;
+}
+.asist-row{display:flex;justify-content:space-between;align-items:center;gap:0.75rem;padding:0.55rem 0;border-bottom:1px solid var(--border)}
+.asist-row:last-child{border-bottom:none}
+.asist-row select{
+  background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);
+  color:var(--white);padding:0.4rem 0.6rem;font-family:var(--sans);font-size:0.8rem;
+}
+
 /* New grupo dialog */
 .new-grupo{margin-top:0.5rem;padding-top:0.75rem;border-top:1px dashed rgba(79,209,197,0.3)}
 .new-grupo .row{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem}
@@ -261,7 +295,9 @@ tr:hover{background:rgba(13,31,51,0.03);cursor:pointer}
   <div class="tabs">
     <button class="tab active" data-tab="inscripciones" onclick="ADMIN.switchTab('inscripciones')"><i class="fa fa-clipboard-list"></i> Inscripciones</button>
     <button class="tab" data-tab="grupos" onclick="ADMIN.switchTab('grupos')"><i class="fa fa-users-rectangle"></i> Grupos</button>
+    <button class="tab" data-tab="cursos" onclick="ADMIN.switchTab('cursos')"><i class="fa fa-graduation-cap"></i> Cursos del ciclo</button>
     <button class="tab" data-tab="docentes" onclick="ADMIN.switchTab('docentes')"><i class="fa fa-chalkboard-teacher"></i> Docentes</button>
+    <button class="tab" data-tab="finanzas" onclick="ADMIN.switchTab('finanzas')"><i class="fa fa-sack-dollar"></i> Finanzas</button>
     <button class="tab" data-tab="eventos" onclick="ADMIN.switchTab('eventos')"><i class="fa fa-calendar-days"></i> Eventos</button>
     <button class="tab" data-tab="catalogo" onclick="ADMIN.switchTab('catalogo')"><i class="fa fa-book-open"></i> Catálogo</button>
   </div>
@@ -318,6 +354,88 @@ tr:hover{background:rgba(13,31,51,0.03);cursor:pointer}
           <tbody id="tbody-grupos"></tbody>
         </table>
       </div>
+    </div>
+  </div>
+
+  <!-- TAB: CURSOS DEL CICLO -->
+  <div class="tab-pane" id="pane-cursos">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem">
+        <p style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase">Grupos del ciclo · clic para abrir</p>
+        <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:var(--muted)">
+          <input type="checkbox" id="chk-finalizados" onchange="ADMIN.toggleFinalizados()" style="width:16px;height:16px">
+          Mostrar finalizados
+        </label>
+      </div>
+      <div class="cursos-grid" id="cursos-grid"></div>
+    </div>
+  </div>
+
+  <!-- TAB: FINANZAS -->
+  <div class="tab-pane" id="pane-finanzas">
+    <div class="grid-stats" id="fin-stats"></div>
+
+    <div class="card" style="margin-bottom:1.25rem">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem">
+        <p style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase">Pagos pendientes de cobro</p>
+        <button class="btn btn-primary" onclick="ADMIN.openPagoModal(null,'finanzas')"><i class="fa fa-plus"></i> Registrar pago</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Alumno</th><th>Curso</th><th>Concepto</th><th>Monto</th><th>Estado</th><th>Fecha</th><th></th></tr>
+          </thead>
+          <tbody id="tbody-pagos-pendientes"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:1.25rem">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem">
+        <p style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase">Egresos</p>
+        <button class="btn btn-primary" onclick="ADMIN.openEgresoModal()"><i class="fa fa-plus"></i> Registrar egreso</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Fecha</th><th>Concepto</th><th>Categoría</th><th>Docente</th><th>Monto</th><th></th></tr>
+          </thead>
+          <tbody id="tbody-egresos"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:1.25rem">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem">
+        <p style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase">Ingresos por curso</p>
+        <button class="btn btn-ghost" onclick="ADMIN.exportReporteCurso()"><i class="fa fa-file-csv"></i> Exportar CSV</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Curso</th><th>Alumnos</th><th>Cobrado</th><th>Pendiente</th></tr>
+          </thead>
+          <tbody id="tbody-reporte-curso"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem">
+        <p style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase">Balance por docente</p>
+        <button class="btn btn-ghost" onclick="ADMIN.exportReporteDocente()"><i class="fa fa-file-csv"></i> Exportar CSV</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Docente</th><th>Alumnos</th><th>Ingresos generados</th><th>Egresos pagados</th><th>Balance</th></tr>
+          </thead>
+          <tbody id="tbody-reporte-docente"></tbody>
+        </table>
+      </div>
+      <p style="font-size:0.78rem;color:var(--muted);margin-top:1rem">
+        "Ingresos generados" suma los pagos cobrados de alumnos en grupos de ese docente · "Balance" resta los egresos que le fueron registrados (ej. nómina).
+      </p>
     </div>
   </div>
 
@@ -518,6 +636,120 @@ Intensivo | 4 sesiones/semana | 48 h" style="width:100%;background:rgba(13,31,51
   </div>
 </div>
 
+<!-- MODAL detalle de grupo (roster + asistencia) -->
+<div class="modal-bg" id="modal-grupo-bg">
+  <div class="modal" style="max-width:900px">
+    <h2 id="gd-title">—</h2>
+    <p class="modal-folio" id="gd-codigo">—</p>
+
+    <div class="gd-head" id="gd-head"></div>
+
+    <div class="mini-form">
+      <label>Estado del grupo
+        <select id="gd-estado">
+          <option value="abierto">Abierto</option>
+          <option value="en_curso">En curso</option>
+          <option value="cerrado">Cerrado</option>
+          <option value="finalizado">Finalizado</option>
+        </select>
+      </label>
+      <button class="btn btn-ghost" style="padding:0.5rem 0.9rem;font-size:0.55rem" onclick="ADMIN.guardarEstadoGrupo()"><i class="fa fa-save"></i> Actualizar estado</button>
+    </div>
+
+    <p class="gd-section-title">Alumnos (<span id="gd-alumnos-count">0</span>)</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Alumno</th><th>Contacto</th><th>Estado</th><th>Asistencia</th><th>Pagos</th><th></th></tr>
+        </thead>
+        <tbody id="tbody-grupo-alumnos"></tbody>
+      </table>
+    </div>
+
+    <p class="gd-section-title">Sesiones y asistencia</p>
+    <div class="mini-form">
+      <label>Fecha <input type="date" id="gs-fecha"></label>
+      <label>Hora inicio <input type="time" id="gs-hora-inicio"></label>
+      <label>Hora fin <input type="time" id="gs-hora-fin"></label>
+      <label>Tema <input type="text" id="gs-tema" placeholder="Unité 3 · Le passé composé" style="min-width:220px"></label>
+      <button class="btn btn-primary" style="padding:0.5rem 0.9rem;font-size:0.55rem" onclick="ADMIN.crearSesion()"><i class="fa fa-plus"></i> Agregar sesión</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Fecha</th><th>Hora</th><th>Tema</th><th></th></tr></thead>
+        <tbody id="tbody-grupo-sesiones"></tbody>
+      </table>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="ADMIN.closeGrupoDetail()">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL asistencia de una sesión -->
+<div class="modal-bg" id="modal-asistencia-bg">
+  <div class="modal">
+    <h2>Asistencia</h2>
+    <p class="modal-folio" id="as-meta">—</p>
+    <div id="as-lista"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="ADMIN.closeAsistencia()">Cancelar</button>
+      <button class="btn btn-green" onclick="ADMIN.guardarAsistencia()"><i class="fa fa-save"></i> Guardar asistencia</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL registrar/editar pago -->
+<div class="modal-bg" id="modal-pago-bg">
+  <div class="modal">
+    <h2 id="pg-title">Registrar pago</h2>
+    <p class="modal-folio" id="pg-alumno-display">—</p>
+    <div class="kv">
+      <span class="kv-key" id="pg-alumno-key">Alumno</span>
+      <select id="pg-alumno-sel" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.85rem"></select>
+      <span class="kv-key">Concepto</span>   <input id="pg-concepto" type="text" placeholder="Colegiatura ciclo 1 · A1 grupal" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Monto</span>      <input id="pg-monto" type="number" min="0" step="0.01" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.9rem">
+      <span class="kv-key">Moneda</span>     <input id="pg-moneda" type="text" value="MXN" style="width:100px;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.85rem">
+      <span class="kv-key">Estado</span>
+      <select id="pg-estado" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+        <option value="pendiente">Pendiente</option>
+        <option value="procesando">Procesando</option>
+        <option value="pagado">Pagado</option>
+        <option value="rechazado">Rechazado</option>
+        <option value="reembolsado">Reembolsado</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="ADMIN.closePagoModal()">Cancelar</button>
+      <button class="btn btn-green" onclick="ADMIN.savePago()"><i class="fa fa-save"></i> Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL registrar egreso -->
+<div class="modal-bg" id="modal-egreso-bg">
+  <div class="modal">
+    <h2>Registrar egreso</h2>
+    <div class="kv">
+      <span class="kv-key">Concepto *</span>  <input id="eg-concepto" type="text" placeholder="Nómina docente · septiembre" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Categoría</span>   <input id="eg-categoria" type="text" placeholder="Nómina · Plataforma · Marketing..." style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Monto *</span>     <input id="eg-monto" type="number" min="0" step="0.01" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.9rem">
+      <span class="kv-key">Fecha</span>       <input id="eg-fecha" type="date" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Docente</span>
+      <select id="eg-docente" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+        <option value="">— Sin docente asociado —</option>
+      </select>
+      <span class="kv-key">Notas</span>       <textarea id="eg-notas" rows="2" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem"></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="ADMIN.closeEgresoModal()">Cancelar</button>
+      <button class="btn btn-red" id="eg-btn-delete" onclick="ADMIN.deleteEgreso()" style="display:none"><i class="fa fa-trash"></i> Eliminar</button>
+      <button class="btn btn-green" onclick="ADMIN.saveEgreso()"><i class="fa fa-save"></i> Guardar</button>
+    </div>
+  </div>
+</div>
+
 <script>
 const ADMIN = (() => {
   let sb = null;
@@ -532,6 +764,19 @@ const ADMIN = (() => {
   let actual = null;
   let actualEvento = null;
   let actualCurso = null;
+
+  // Cursos del ciclo / finanzas
+  let gruposTodos = [];
+  let mostrarFinalizados = false;
+  let grupoActual = null;
+  let grupoAlumnos = [];
+  let grupoSesiones = [];
+  let sesionActual = null;
+  let pagos = [];
+  let egresos = [];
+  let pagoActual = null;
+  let pagoContexto = 'finanzas'; // 'finanzas' | 'grupo'
+  let egresoActual = null;
 
   function init(){
     const cfgOk = window.AF_CONFIG?.isSupabaseConfigured?.();
@@ -653,6 +898,519 @@ const ADMIN = (() => {
     if(tab === 'docentes') cargarDocentes();
     if(tab === 'eventos')  cargarEventos();
     if(tab === 'catalogo') cargarCatalogo();
+    if(tab === 'cursos')   cargarCursosDashboard();
+    if(tab === 'finanzas') cargarFinanzas();
+  }
+
+  // ──────────────────── CURSOS DEL CICLO ────────────────────
+
+  async function cargarGruposTodosSiFaltan(){
+    if(gruposTodos.length) return;
+    await cargarGruposTodos();
+  }
+
+  async function cargarGruposTodos(){
+    if(!docentes.length) await cargarDocentes();
+    const {data, error} = await sb.from('grupos').select('*').order('inicio_ciclo', {ascending:false});
+    if(error){ console.warn('[grupos-todos]', error); return; }
+    gruposTodos = (data || []).map(g => ({
+      ...g,
+      docente_nombre: docentes.find(d => d.id === g.docente_id)?.nombre || null
+    }));
+  }
+
+  function toggleFinalizados(){
+    mostrarFinalizados = document.getElementById('chk-finalizados').checked;
+    renderCursosDashboard();
+  }
+
+  async function cargarCursosDashboard(){
+    await cargarGruposTodos();
+    // Pagos pendientes por grupo, para el badge de cobranza en cada tarjeta.
+    const {data: pg, error} = await sb.from('pagos')
+      .select('estado, inscripciones(grupo_id)')
+      .in('estado', ['pendiente','procesando']);
+    if(error) console.warn('[pagos-cursos]', error);
+    const pendientesPorGrupo = {};
+    (pg || []).forEach(p => {
+      const gid = p.inscripciones?.grupo_id;
+      if(!gid) return;
+      pendientesPorGrupo[gid] = (pendientesPorGrupo[gid] || 0) + 1;
+    });
+    gruposTodos.forEach(g => { g._pendientes = pendientesPorGrupo[g.id] || 0; });
+    renderCursosDashboard();
+  }
+
+  function renderCursosDashboard(){
+    const grid = document.getElementById('cursos-grid');
+    if(!grid) return;
+    const lista = gruposTodos.filter(g => mostrarFinalizados || g.estado !== 'finalizado');
+    if(!lista.length){
+      grid.innerHTML = `<p class="empty">Aún no hay grupos creados. Se crean desde "Aprobar y asignar" en Inscripciones.</p>`;
+      return;
+    }
+    grid.innerHTML = lista.map(g => `
+      <div class="curso-card" data-estado="${g.estado}" onclick="ADMIN.openGrupoDetail('${g.id}')">
+        <span class="cc-codigo">${escapeHtml(g.codigo)}</span>
+        <div class="cc-nombre">${escapeHtml(g.curso_nombre || g.curso_id)} · ${escapeHtml(g.nivel)}</div>
+        <div class="cc-meta"><i class="fa fa-chalkboard-teacher"></i> ${escapeHtml(g.docente_nombre || 'sin docente asignado')}</div>
+        <div class="cc-meta"><i class="fa fa-calendar"></i> Ciclo desde ${g.inicio_ciclo || '—'} · ${g.sede === 'virtual' ? 'AF Virtual' : 'SCSC'}</div>
+        <div class="cc-stats">
+          <div><div class="cc-stat-num">${g.cupo_actual}/${g.cupo_max}</div><div class="cc-stat-lab">Alumnos</div></div>
+          <div><div class="cc-stat-num ${g._pendientes ? 'cc-pend' : ''}">${g._pendientes}</div><div class="cc-stat-lab">Cobros pend.</div></div>
+        </div>
+      </div>`).join('');
+  }
+
+  async function openGrupoDetail(grupoId){
+    grupoActual = gruposTodos.find(g => g.id === grupoId);
+    if(!grupoActual) return;
+    document.getElementById('gd-title').textContent = `${grupoActual.curso_nombre || grupoActual.curso_id} · ${grupoActual.nivel}`;
+    document.getElementById('gd-codigo').textContent = 'Grupo · ' + grupoActual.codigo;
+    document.getElementById('gd-head').innerHTML = `
+      <div><span class="kv-key">Docente</span><br>${escapeHtml(grupoActual.docente_nombre || '—')}</div>
+      <div><span class="kv-key">Formato · ritmo</span><br>${grupoActual.formato} · ${grupoActual.ritmo}</div>
+      <div><span class="kv-key">Sede</span><br>${grupoActual.sede === 'virtual' ? 'AF Virtual' : 'SCSC'}</div>
+      <div><span class="kv-key">Horario</span><br>${escapeHtml(grupoActual.horario?.raw || '—')}</div>
+      <div><span class="kv-key">Inicio de ciclo</span><br>${grupoActual.inicio_ciclo || '—'}</div>
+      <div><span class="kv-key">Cupo</span><br>${grupoActual.cupo_actual} / ${grupoActual.cupo_max}</div>`;
+    document.getElementById('gd-estado').value = grupoActual.estado;
+    document.getElementById('gs-fecha').value = '';
+    document.getElementById('gs-hora-inicio').value = '';
+    document.getElementById('gs-hora-fin').value = '';
+    document.getElementById('gs-tema').value = '';
+    await Promise.all([cargarGrupoAlumnos(), cargarGrupoSesiones()]);
+    document.getElementById('modal-grupo-bg').classList.add('open');
+  }
+
+  function closeGrupoDetail(){
+    grupoActual = null;
+    document.getElementById('modal-grupo-bg').classList.remove('open');
+  }
+
+  async function guardarEstadoGrupo(){
+    if(!grupoActual) return;
+    const nuevo = document.getElementById('gd-estado').value;
+    const {error} = await sb.from('grupos').update({estado: nuevo}).eq('id', grupoActual.id);
+    if(error){ alert('Error: ' + error.message); return; }
+    grupoActual.estado = nuevo;
+    const g = gruposTodos.find(x => x.id === grupoActual.id);
+    if(g) g.estado = nuevo;
+    renderCursosDashboard();
+  }
+
+  async function cargarGrupoAlumnos(){
+    const {data: roster, error} = await sb.from('inscripciones').select('*').eq('grupo_id', grupoActual.id).order('nombre');
+    if(error){ console.warn('[grupo-alumnos]', error); return; }
+    const ids = (roster || []).map(a => a.id);
+    let asistMap = {};
+    let pagosMap = {};
+    if(ids.length){
+      const [{data: asist}, {data: pagosAlumnos}] = await Promise.all([
+        sb.from('v_asistencia_alumno').select('*').eq('grupo_id', grupoActual.id),
+        sb.from('pagos').select('*').in('inscripcion_id', ids)
+      ]);
+      (asist || []).forEach(a => { asistMap[a.inscripcion_id] = a; });
+      (pagosAlumnos || []).forEach(p => {
+        const m = pagosMap[p.inscripcion_id] || {pagado:0, pendiente:0};
+        if(p.estado === 'pagado') m.pagado += Number(p.monto);
+        else if(p.estado === 'pendiente' || p.estado === 'procesando') m.pendiente += Number(p.monto);
+        pagosMap[p.inscripcion_id] = m;
+      });
+    }
+    grupoAlumnos = (roster || []).map(a => ({
+      ...a,
+      _asistencia: asistMap[a.id]?.tasa ?? null,
+      _pagado: pagosMap[a.id]?.pagado || 0,
+      _pendiente: pagosMap[a.id]?.pendiente || 0,
+    }));
+    renderGrupoAlumnos();
+  }
+
+  function renderGrupoAlumnos(){
+    document.getElementById('gd-alumnos-count').textContent = grupoAlumnos.length;
+    const tb = document.getElementById('tbody-grupo-alumnos');
+    if(!tb) return;
+    if(!grupoAlumnos.length){
+      tb.innerHTML = `<tr><td colspan="6" class="empty">Sin alumnos asignados a este grupo todavía.</td></tr>`;
+      return;
+    }
+    tb.innerHTML = grupoAlumnos.map(a => {
+      const asistBadge = a._asistencia === null ? '<span class="badge">sin datos</span>'
+        : `<span class="badge ${a._asistencia >= 80 ? 'b-aprobada' : a._asistencia >= 60 ? 'b-pendiente' : 'b-rechazada'}">${a._asistencia}%</span>`;
+      const pagoBadge = a._pendiente > 0
+        ? `<span class="badge b-pendiente">$${a._pendiente.toFixed(2)} pendiente</span>`
+        : (a._pagado > 0 ? `<span class="badge b-aprobada">$${a._pagado.toFixed(2)} cobrado</span>` : `<span class="badge b-cancelada">sin registro</span>`);
+      return `<tr>
+        <td class="cell-nombre">${escapeHtml(a.nombre)}</td>
+        <td class="cell-meta">${escapeHtml(a.email)}<br>${escapeHtml(a.telefono)}</td>
+        <td><span class="badge b-${a.estado}">${a.estado.replace('_',' ')}</span></td>
+        <td>${asistBadge}</td>
+        <td>${pagoBadge}</td>
+        <td><button class="btn btn-ghost" style="padding:0.4rem 0.7rem;font-size:0.55rem" onclick="ADMIN.openPagoModal('${a.id}','grupo')"><i class="fa fa-dollar-sign"></i> Pago</button></td>
+      </tr>`;
+    }).join('');
+  }
+
+  async function cargarGrupoSesiones(){
+    const {data, error} = await sb.from('sesiones').select('*').eq('grupo_id', grupoActual.id).order('fecha');
+    if(error){ console.warn('[sesiones]', error); return; }
+    grupoSesiones = data || [];
+    renderGrupoSesiones();
+  }
+
+  function renderGrupoSesiones(){
+    const tb = document.getElementById('tbody-grupo-sesiones');
+    if(!tb) return;
+    if(!grupoSesiones.length){
+      tb.innerHTML = `<tr><td colspan="4" class="empty">Sin sesiones agendadas. Agrega la primera arriba.</td></tr>`;
+      return;
+    }
+    tb.innerHTML = grupoSesiones.map(s => `
+      <tr onclick="ADMIN.openAsistencia('${s.id}')">
+        <td class="cell-meta">${s.fecha}</td>
+        <td class="cell-meta">${(s.hora_inicio||'').slice(0,5)}${s.hora_fin ? ' – '+s.hora_fin.slice(0,5) : ''}</td>
+        <td>${escapeHtml(s.tema || '—')}</td>
+        <td><button class="btn btn-ghost" style="padding:0.4rem 0.7rem;font-size:0.55rem" onclick="event.stopPropagation();ADMIN.openAsistencia('${s.id}')"><i class="fa fa-clipboard-check"></i> Asistencia</button></td>
+      </tr>`).join('');
+  }
+
+  async function crearSesion(){
+    if(!grupoActual) return;
+    const fecha = document.getElementById('gs-fecha').value;
+    const hora_inicio = document.getElementById('gs-hora-inicio').value || null;
+    const hora_fin = document.getElementById('gs-hora-fin').value || null;
+    const tema = document.getElementById('gs-tema').value.trim() || null;
+    if(!fecha){ alert('La fecha es requerida.'); return; }
+    const {error} = await sb.from('sesiones').insert({grupo_id: grupoActual.id, fecha, hora_inicio, hora_fin, tema});
+    if(error){ alert('Error: ' + error.message); return; }
+    document.getElementById('gs-fecha').value = '';
+    document.getElementById('gs-hora-inicio').value = '';
+    document.getElementById('gs-hora-fin').value = '';
+    document.getElementById('gs-tema').value = '';
+    cargarGrupoSesiones();
+  }
+
+  async function openAsistencia(sesionId){
+    sesionActual = grupoSesiones.find(s => s.id === sesionId);
+    if(!sesionActual) return;
+    const {data: asistActual} = await sb.from('asistencias').select('*').eq('sesion_id', sesionId);
+    const asistMap = {};
+    (asistActual || []).forEach(a => { asistMap[a.inscripcion_id] = a.estado; });
+    document.getElementById('as-meta').textContent = `${grupoActual.codigo} · ${sesionActual.fecha} ${(sesionActual.hora_inicio||'').slice(0,5)}`;
+    const opciones = ['presente','ausente','justificado','retardo'];
+    document.getElementById('as-lista').innerHTML = grupoAlumnos.map(a => `
+      <div class="asist-row" data-inscripcion="${a.id}">
+        <div>
+          <div class="cell-nombre">${escapeHtml(a.nombre)}</div>
+          <div class="cell-meta">${escapeHtml(a.folio)}</div>
+        </div>
+        <select>${opciones.map(o => `<option value="${o}" ${asistMap[a.id]===o?'selected':''}>${o}</option>`).join('')}</select>
+      </div>`).join('') || `<p class="empty">Sin alumnos en este grupo.</p>`;
+    document.getElementById('modal-asistencia-bg').classList.add('open');
+  }
+
+  function closeAsistencia(){
+    sesionActual = null;
+    document.getElementById('modal-asistencia-bg').classList.remove('open');
+  }
+
+  async function guardarAsistencia(){
+    if(!sesionActual) return;
+    const filas = Array.from(document.querySelectorAll('#as-lista .asist-row'));
+    const rows = filas.map(row => ({
+      sesion_id: sesionActual.id,
+      inscripcion_id: row.dataset.inscripcion,
+      estado: row.querySelector('select').value,
+      registrada_por: user.id
+    }));
+    if(!rows.length){ closeAsistencia(); return; }
+    const {error} = await sb.from('asistencias').upsert(rows, {onConflict: 'sesion_id,inscripcion_id'});
+    if(error){ alert('Error: ' + error.message); return; }
+    closeAsistencia();
+    cargarGrupoAlumnos();
+  }
+
+  // ──────────────────── FINANZAS ────────────────────
+
+  async function cargarFinanzas(){
+    await cargarGruposTodosSiFaltan();
+    const [{data: pg, error: pgErr}, {data: eg, error: egErr}] = await Promise.all([
+      sb.from('pagos').select('*, inscripciones(folio,nombre,curso_id,curso_nombre,grupo_id)').order('creado_en', {ascending:false}),
+      sb.from('egresos').select('*, docentes(nombre)').order('fecha', {ascending:false})
+    ]);
+    if(pgErr) console.warn('[pagos]', pgErr);
+    if(egErr) console.warn('[egresos]', egErr);
+    pagos = pg || [];
+    egresos = eg || [];
+    renderFinanzasStats();
+    renderPagosPendientes();
+    renderEgresosTabla();
+    renderReportePorCurso();
+    renderReportePorDocente();
+  }
+
+  function renderFinanzasStats(){
+    const ingresos = pagos.filter(p => p.estado === 'pagado').reduce((s,p) => s + Number(p.monto), 0);
+    const pendiente = pagos.filter(p => p.estado === 'pendiente' || p.estado === 'procesando').reduce((s,p) => s + Number(p.monto), 0);
+    const egresosTotal = egresos.reduce((s,e) => s + Number(e.monto), 0);
+    const balance = ingresos - egresosTotal;
+    const fmt = n => '$' + n.toLocaleString('es-MX', {minimumFractionDigits:2, maximumFractionDigits:2});
+    document.getElementById('fin-stats').innerHTML = `
+      <div class="stat-card" data-k="aprobada"><div class="stat-key">Ingresos cobrados</div><div class="stat-num" style="font-size:1.9rem">${fmt(ingresos)}</div><div class="stat-sub">Pagos con estado "pagado"</div></div>
+      <div class="stat-card" data-k="pendiente"><div class="stat-key">Pendiente de cobro</div><div class="stat-num" style="font-size:1.9rem">${fmt(pendiente)}</div><div class="stat-sub">Pendiente + procesando</div></div>
+      <div class="stat-card" data-k="rechazada"><div class="stat-key">Egresos</div><div class="stat-num" style="font-size:1.9rem">${fmt(egresosTotal)}</div><div class="stat-sub">Nómina, plataforma, etc.</div></div>
+      <div class="stat-card" data-k="total"><div class="stat-key">Balance neto</div><div class="stat-num" style="font-size:1.9rem">${fmt(balance)}</div><div class="stat-sub">Ingresos − egresos</div></div>`;
+  }
+
+  function renderPagosPendientes(){
+    const tb = document.getElementById('tbody-pagos-pendientes');
+    if(!tb) return;
+    const lista = pagos.filter(p => p.estado === 'pendiente' || p.estado === 'procesando');
+    if(!lista.length){
+      tb.innerHTML = `<tr><td colspan="7" class="empty">Sin cobros pendientes.</td></tr>`;
+      return;
+    }
+    tb.innerHTML = lista.map(p => `
+      <tr>
+        <td class="cell-nombre">${escapeHtml(p.inscripciones?.nombre || '—')}<div class="cell-meta">${escapeHtml(p.inscripciones?.folio || '')}</div></td>
+        <td class="cell-meta">${escapeHtml(p.inscripciones?.curso_nombre || p.inscripciones?.curso_id || '—')}</td>
+        <td class="cell-meta">${escapeHtml(p.concepto || '—')}</td>
+        <td class="cell-folio">$${Number(p.monto).toFixed(2)} ${escapeHtml(p.moneda)}</td>
+        <td><span class="badge b-pendiente">${p.estado}</span></td>
+        <td class="cell-meta">${new Date(p.creado_en).toLocaleDateString('es-MX')}</td>
+        <td><button class="btn btn-green" style="padding:0.4rem 0.7rem;font-size:0.55rem" onclick="ADMIN.marcarPagado('${p.id}')"><i class="fa fa-check"></i> Marcar pagado</button></td>
+      </tr>`).join('');
+  }
+
+  async function marcarPagado(pagoId){
+    if(!confirm('¿Marcar este pago como cobrado?')) return;
+    const {error} = await sb.from('pagos').update({estado:'pagado', pagado_en: new Date().toISOString()}).eq('id', pagoId);
+    if(error){ alert('Error: ' + error.message); return; }
+    cargarFinanzas();
+  }
+
+  function renderEgresosTabla(){
+    const tb = document.getElementById('tbody-egresos');
+    if(!tb) return;
+    if(!egresos.length){
+      tb.innerHTML = `<tr><td colspan="6" class="empty">Sin egresos registrados.</td></tr>`;
+      return;
+    }
+    tb.innerHTML = egresos.map(e => `
+      <tr>
+        <td class="cell-meta">${e.fecha}</td>
+        <td class="cell-nombre">${escapeHtml(e.concepto)}</td>
+        <td class="cell-meta">${escapeHtml(e.categoria || '—')}</td>
+        <td class="cell-meta">${escapeHtml(e.docentes?.nombre || '—')}</td>
+        <td class="cell-folio">$${Number(e.monto).toFixed(2)}</td>
+        <td><button class="btn btn-ghost" style="padding:0.4rem 0.7rem;font-size:0.55rem" onclick="ADMIN.openEgresoModal('${e.id}')"><i class="fa fa-pen"></i></button></td>
+      </tr>`).join('');
+  }
+
+  function reporteCursoData(){
+    const porCurso = {};
+    pagos.forEach(p => {
+      const id = p.inscripciones?.curso_id || 'sin_curso';
+      const nombre = p.inscripciones?.curso_nombre || id;
+      const r = porCurso[id] || {nombre, cobrado:0, pendiente:0};
+      if(p.estado === 'pagado') r.cobrado += Number(p.monto);
+      else if(p.estado === 'pendiente' || p.estado === 'procesando') r.pendiente += Number(p.monto);
+      porCurso[id] = r;
+    });
+    const alumnosPorCurso = {};
+    gruposTodos.forEach(g => { alumnosPorCurso[g.curso_id] = (alumnosPorCurso[g.curso_id] || 0) + g.cupo_actual; });
+    return Object.entries(porCurso).map(([id, r]) => ({
+      curso: r.nombre, alumnos: alumnosPorCurso[id] || 0, cobrado: r.cobrado, pendiente: r.pendiente
+    }));
+  }
+
+  function renderReportePorCurso(){
+    const tb = document.getElementById('tbody-reporte-curso');
+    if(!tb) return;
+    const filas = reporteCursoData();
+    if(!filas.length){
+      tb.innerHTML = `<tr><td colspan="4" class="empty">Sin pagos registrados todavía.</td></tr>`;
+      return;
+    }
+    tb.innerHTML = filas.map(f => `
+      <tr>
+        <td class="cell-nombre">${escapeHtml(f.curso)}</td>
+        <td class="cell-meta">${f.alumnos}</td>
+        <td class="cell-folio">$${f.cobrado.toFixed(2)}</td>
+        <td class="cell-meta">$${f.pendiente.toFixed(2)}</td>
+      </tr>`).join('');
+  }
+
+  function reporteDocenteData(){
+    return docentes.map(d => {
+      const misGrupos = gruposTodos.filter(g => g.docente_id === d.id);
+      const grupoIds = new Set(misGrupos.map(g => g.id));
+      const alumnos = misGrupos.reduce((s,g) => s + g.cupo_actual, 0);
+      const ingresos = pagos
+        .filter(p => p.estado === 'pagado' && grupoIds.has(p.inscripciones?.grupo_id))
+        .reduce((s,p) => s + Number(p.monto), 0);
+      const egresosDocente = egresos.filter(e => e.docente_id === d.id).reduce((s,e) => s + Number(e.monto), 0);
+      return {docente: d.nombre, alumnos, ingresos, egresos: egresosDocente, balance: ingresos - egresosDocente};
+    }).filter(r => r.alumnos > 0 || r.ingresos > 0 || r.egresos > 0);
+  }
+
+  function renderReportePorDocente(){
+    const tb = document.getElementById('tbody-reporte-docente');
+    if(!tb) return;
+    const filas = reporteDocenteData();
+    if(!filas.length){
+      tb.innerHTML = `<tr><td colspan="5" class="empty">Sin actividad financiera por docente todavía.</td></tr>`;
+      return;
+    }
+    tb.innerHTML = filas.map(f => `
+      <tr>
+        <td class="cell-nombre">${escapeHtml(f.docente)}</td>
+        <td class="cell-meta">${f.alumnos}</td>
+        <td class="cell-folio">$${f.ingresos.toFixed(2)}</td>
+        <td class="cell-meta">$${f.egresos.toFixed(2)}</td>
+        <td class="cell-folio">$${f.balance.toFixed(2)}</td>
+      </tr>`).join('');
+  }
+
+  function exportCSV(filename, headers, rows){
+    const esc = v => `"${String(v ?? '').replace(/"/g,'""')}"`;
+    const csv = [headers.map(esc).join(',')].concat(
+      rows.map(r => r.map(esc).join(','))
+    ).join('\r\n');
+    const blob = new Blob(['﻿' + csv], {type:'text/csv;charset=utf-8;'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  function exportReporteCurso(){
+    const filas = reporteCursoData();
+    exportCSV('ingresos_por_curso.csv', ['Curso','Alumnos','Cobrado','Pendiente'],
+      filas.map(f => [f.curso, f.alumnos, f.cobrado.toFixed(2), f.pendiente.toFixed(2)]));
+  }
+
+  function exportReporteDocente(){
+    const filas = reporteDocenteData();
+    exportCSV('balance_por_docente.csv', ['Docente','Alumnos','Ingresos','Egresos','Balance'],
+      filas.map(f => [f.docente, f.alumnos, f.ingresos.toFixed(2), f.egresos.toFixed(2), f.balance.toFixed(2)]));
+  }
+
+  // Pago modal (compartido entre Cursos→roster y Finanzas)
+  function openPagoModal(inscripcionId, contexto){
+    pagoActual = null;
+    pagoContexto = contexto || 'finanzas';
+    document.getElementById('pg-title').textContent = 'Registrar pago';
+    document.getElementById('pg-concepto').value = '';
+    document.getElementById('pg-monto').value = '';
+    document.getElementById('pg-moneda').value = 'MXN';
+    document.getElementById('pg-estado').value = 'pendiente';
+    const sel = document.getElementById('pg-alumno-sel');
+    const key = document.getElementById('pg-alumno-key');
+    const display = document.getElementById('pg-alumno-display');
+    if(inscripcionId){
+      // Viene desde el roster de un grupo: alumno fijo, ya lo conocemos.
+      const alumno = grupoAlumnos.find(a => a.id === inscripcionId);
+      key.style.display = 'none';
+      sel.style.display = 'none';
+      sel.innerHTML = `<option value="${inscripcionId}" selected>${inscripcionId}</option>`;
+      sel.value = inscripcionId;
+      display.textContent = alumno ? `${alumno.nombre} · ${alumno.folio}` : 'Alumno del grupo';
+    } else {
+      // Desde Finanzas: hay que elegir al alumno de la lista de inscripciones.
+      key.style.display = '';
+      sel.style.display = '';
+      display.textContent = 'Elige el alumno';
+      sel.innerHTML = inscripciones.map(i => `<option value="${i.id}">${escapeHtml(i.folio)} · ${escapeHtml(i.nombre)}</option>`).join('');
+    }
+    document.getElementById('modal-pago-bg').classList.add('open');
+  }
+
+  function closePagoModal(){
+    pagoActual = null;
+    document.getElementById('modal-pago-bg').classList.remove('open');
+  }
+
+  async function savePago(){
+    const inscripcion_id = document.getElementById('pg-alumno-sel').value;
+    const concepto = document.getElementById('pg-concepto').value.trim() || null;
+    const monto = parseFloat(document.getElementById('pg-monto').value);
+    const moneda = document.getElementById('pg-moneda').value.trim() || 'MXN';
+    const estado = document.getElementById('pg-estado').value;
+    if(!inscripcion_id){ alert('Selecciona el alumno.'); return; }
+    if(!monto || monto <= 0){ alert('El monto debe ser mayor a cero.'); return; }
+    const payload = {
+      inscripcion_id, concepto, monto, moneda, estado, proveedor: 'manual',
+      pagado_en: estado === 'pagado' ? new Date().toISOString() : null
+    };
+    const {error} = await sb.from('pagos').insert(payload);
+    if(error){ alert('Error: ' + error.message); return; }
+    closePagoModal();
+    if(pagoContexto === 'grupo') cargarGrupoAlumnos();
+    else cargarFinanzas();
+  }
+
+  // Egreso modal
+  function openEgresoModal(id){
+    egresoActual = id ? egresos.find(e => e.id === id) : null;
+    document.getElementById('eg-docente').innerHTML = '<option value="">— Sin docente asociado —</option>' +
+      docentes.map(d => `<option value="${d.id}">${escapeHtml(d.nombre)}</option>`).join('');
+    if(egresoActual){
+      document.getElementById('eg-concepto').value = egresoActual.concepto || '';
+      document.getElementById('eg-categoria').value = egresoActual.categoria || '';
+      document.getElementById('eg-monto').value = egresoActual.monto;
+      document.getElementById('eg-fecha').value = egresoActual.fecha;
+      document.getElementById('eg-docente').value = egresoActual.docente_id || '';
+      document.getElementById('eg-notas').value = egresoActual.notas || '';
+      document.getElementById('eg-btn-delete').style.display = '';
+    } else {
+      document.getElementById('eg-concepto').value = '';
+      document.getElementById('eg-categoria').value = '';
+      document.getElementById('eg-monto').value = '';
+      document.getElementById('eg-fecha').value = new Date().toISOString().slice(0,10);
+      document.getElementById('eg-docente').value = '';
+      document.getElementById('eg-notas').value = '';
+      document.getElementById('eg-btn-delete').style.display = 'none';
+    }
+    document.getElementById('modal-egreso-bg').classList.add('open');
+  }
+
+  function closeEgresoModal(){
+    egresoActual = null;
+    document.getElementById('modal-egreso-bg').classList.remove('open');
+  }
+
+  async function saveEgreso(){
+    const concepto = document.getElementById('eg-concepto').value.trim();
+    const monto = parseFloat(document.getElementById('eg-monto').value);
+    if(!concepto || !monto || monto <= 0){ alert('Concepto y monto (mayor a cero) son requeridos.'); return; }
+    const payload = {
+      concepto,
+      categoria: document.getElementById('eg-categoria').value.trim() || null,
+      monto,
+      fecha: document.getElementById('eg-fecha').value || new Date().toISOString().slice(0,10),
+      docente_id: document.getElementById('eg-docente').value || null,
+      notas: document.getElementById('eg-notas').value.trim() || null,
+      registrado_por: user.id
+    };
+    let q;
+    if(egresoActual) q = sb.from('egresos').update(payload).eq('id', egresoActual.id);
+    else             q = sb.from('egresos').insert(payload);
+    const {error} = await q;
+    if(error){ alert('Error: ' + error.message); return; }
+    closeEgresoModal();
+    cargarFinanzas();
+  }
+
+  async function deleteEgreso(){
+    if(!egresoActual) return;
+    if(!confirm('¿Eliminar este egreso?')) return;
+    const {error} = await sb.from('egresos').delete().eq('id', egresoActual.id);
+    if(error){ alert('Error: ' + error.message); return; }
+    closeEgresoModal();
+    cargarFinanzas();
   }
 
   async function cargarCatalogo(){
@@ -1082,7 +1840,15 @@ const ADMIN = (() => {
     ));
   }
 
-  return {init, logout, switchTab, openModal, closeModal, setEstado, toggleNewGrupo, crearGrupo, openNewGrupo, openEventoEditor, closeEventoEditor, saveEvento, deleteEvento, openCursoEditor, closeCursoEditor, saveCurso, deleteCurso};
+  return {
+    init, logout, switchTab, openModal, closeModal, setEstado, toggleNewGrupo, crearGrupo, openNewGrupo,
+    openEventoEditor, closeEventoEditor, saveEvento, deleteEvento, openCursoEditor, closeCursoEditor, saveCurso, deleteCurso,
+    toggleFinalizados, openGrupoDetail, closeGrupoDetail, guardarEstadoGrupo, crearSesion,
+    openAsistencia, closeAsistencia, guardarAsistencia,
+    openPagoModal, closePagoModal, savePago, marcarPagado,
+    openEgresoModal, closeEgresoModal, saveEgreso, deleteEgreso,
+    exportReporteCurso, exportReporteDocente,
+  };
 })();
 
 window.addEventListener('DOMContentLoaded', () => {

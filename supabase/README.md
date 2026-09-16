@@ -126,6 +126,16 @@ Aplica `supabase/schema_phase3.sql` sobre los esquemas anteriores.
 | `rechazada` | Muestra `notas_admin` + invita a contactar por WhatsApp. |
 | `cancelada` | "Cancelada. Escríbenos para reactivar." |
 
+## Fase 10 — Cursos del ciclo y finanzas (egresos)
+
+Aplica `supabase/schema_phase10.sql`.
+
+- Tabla `egresos` (concepto, categoría, monto, fecha, docente asociado opcional, notas) — RLS: solo coordinación/admin.
+- Junto con `pagos` (Fase 9), `grupos`, `inscripciones`, `sesiones` y `asistencias` ya existentes, alimenta:
+  - Tab admin **Cursos**: cada grupo del ciclo como tarjeta con número de alumnos, % de asistencia y cobros pendientes. Click → detalle con lista de alumnos, registro de pagos y marcado de asistencia por sesión (mismo mecanismo que el portal del docente, pero accesible también desde coordinación).
+  - Tab admin **Finanzas**: ingresos (pagos `pagado`), pendientes de cobro, egresos y balance neto, con reportes por curso y por docente exportables a CSV.
+- No requiere Edge Functions nuevas — todo se calcula en el cliente a partir de las tablas ya sincronizadas por Realtime.
+
 ## Fase 9 — Pagos Stripe
 
 Aplica `supabase/schema_phase9.sql`.
