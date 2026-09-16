@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi espacio · AF San Cristóbal</title>
+<meta name="description" content="Tu curso, horario, asistencia, pagos, evaluaciones y validación de nivel — Alliance Française San Cristóbal de Las Casas.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../src/assets/brand/af-glyph-160.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="../src/config/supabase.js" defer></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --void:#fdfcf8; --deep:#ffffff; --panel:rgba(13,31,51,0.04); --panel-hover:rgba(13,31,51,0.07);
+  --border:rgba(13,31,51,0.12); --border-gold:rgba(201,164,78,0.4);
+  --white:#0d1f33; --muted:rgba(13,31,51,0.62); --hint:rgba(13,31,51,0.40);
+  --gold:#c9a44e; --gold-light:#e8c97a; --red:#d42b3a; --green:#22c55e; --cyan:#4fd1c5; --amber:#fbbf24;
+  --display:'Cormorant Garamond',Georgia,serif; --sans:'Syne',system-ui,sans-serif;
+  --mono:'Space Mono',monospace; --poster:'Bebas Neue','Syne',sans-serif;
+  --r:12px; --r-lg:20px;
+}
+body{background:var(--void);color:var(--white);font-family:var(--sans);font-size:15px;min-height:100vh;line-height:1.6}
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 80% 60% at 15% 10%, rgba(53,89,177,0.05) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 85% 90%, rgba(252,196,25,0.05) 0%, transparent 55%);
+}
+.shell{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:2rem 1.5rem;min-height:100vh}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:1rem}
+.brand{display:flex;align-items:center;gap:0.65rem;font-family:var(--display);font-size:1.2rem;text-decoration:none;color:var(--white)}
+.af-lockup{display:flex;align-items:center;gap:0.55rem}
+.af-lockup img{height:34px;width:auto;display:block}
+.af-lockup-text{display:flex;flex-direction:column;line-height:1.05}
+.af-wordmark{font-family:var(--display);font-size:1.05rem;font-weight:600}
+.af-wordmark .w1{color:#1a1a1a}
+.af-wordmark .w2{color:#8a8a8a}
+.af-sublocal{font-family:var(--display);font-style:italic;font-weight:500;font-size:0.68rem;color:#3a3a3a;margin-top:0.1rem}
+.brand-tag{font-family:var(--mono);font-size:0.55rem;letter-spacing:0.18em;color:var(--cyan);text-transform:uppercase;margin-left:0.5rem}
+.topbar-actions{display:flex;align-items:center;gap:0.75rem}
+.user-pill{font-family:var(--mono);font-size:0.7rem;color:var(--muted);background:var(--panel);padding:0.5rem 0.8rem;border-radius:var(--r);border:1px solid var(--border)}
+
+.hero{text-align:center;margin-bottom:2rem}
+.hero h1{font-family:var(--display);font-size:clamp(2rem,5vw,2.8rem);font-weight:300;line-height:1.1;margin-bottom:0.5rem}
+.hero h1 em{color:var(--gold);font-style:italic}
+.hero p{color:var(--muted);max-width:480px;margin:0 auto}
+
+.card{background:var(--panel);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.75rem;backdrop-filter:blur(20px);margin-bottom:1.25rem}
+.card-title{font-family:var(--display);font-size:1.3rem;font-weight:300;margin-bottom:0.4rem;display:flex;align-items:center;gap:0.6rem}
+.card-title i{color:var(--gold);font-size:1rem}
+.card-sub{color:var(--muted);font-size:0.85rem;margin-bottom:1.25rem}
+
+label{display:block;font-family:var(--mono);font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;margin-top:1rem}
+.field{width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.85rem 1rem;font-family:var(--sans);font-size:0.95rem}
+.field:focus{outline:none;border-color:var(--gold)}
+.error{color:var(--red);font-size:0.85rem;margin-top:0.5rem;display:none}
+.error.show{display:block}
+.hint{color:var(--muted);font-size:0.8rem;margin-top:0.5rem}
+
+.btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.8rem 1.4rem;border-radius:var(--r);border:none;cursor:pointer;font-family:var(--mono);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;text-decoration:none;transition:transform 0.2s,background 0.2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--gold);color:var(--void)}
+.btn-primary:hover{background:var(--gold-light)}
+.btn-ghost{background:rgba(13,31,51,0.04);color:var(--white);border:1px solid var(--border)}
+.btn-ghost:hover{border-color:var(--gold)}
+.btn-block{width:100%;justify-content:center}
+.btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+
+.tabs-auth{display:flex;gap:0.5rem;margin-bottom:1.5rem;border-bottom:1px solid var(--border)}
+.tab-auth{background:transparent;border:none;color:var(--muted);cursor:pointer;padding:0.7rem 0.2rem;margin-right:1.5rem;font-family:var(--mono);font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;border-bottom:2px solid transparent}
+.tab-auth.active{color:var(--gold);border-color:var(--gold)}
+
+.kv{display:grid;grid-template-columns:150px 1fr;gap:0.6rem 1rem;margin-bottom:0.5rem}
+.kv-k{font-family:var(--mono);font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);align-self:center}
+.kv-v{color:var(--white)}
+.kv-v strong{color:var(--gold);font-weight:600}
+@media(max-width:540px){.kv{grid-template-columns:1fr;gap:0.2rem 0.5rem}}
+
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;margin-bottom:0.5rem}
+.stat-box{background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);padding:1rem}
+.stat-num{font-family:'Bebas Neue',var(--sans);font-size:2rem;line-height:1;color:var(--gold)}
+.stat-lab{font-family:var(--mono);font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-top:0.3rem}
+
+.table-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:0.85rem}
+thead{background:rgba(13,31,51,0.05)}
+th{text-align:left;font-family:var(--mono);font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);padding:0.75rem 0.9rem;border-bottom:1px solid var(--border)}
+td{padding:0.75rem 0.9rem;border-bottom:1px solid var(--border);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+.empty{padding:1.5rem;text-align:center;color:var(--muted);font-size:0.85rem}
+
+.badge{display:inline-block;font-family:var(--mono);font-size:0.55rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.22rem 0.55rem;border-radius:4px}
+.b-pendiente{background:rgba(251,191,36,0.12);color:var(--amber);border:1px solid rgba(251,191,36,0.3)}
+.b-pagado,.b-aprobada,.b-emitida{background:rgba(34,197,94,0.12);color:var(--green);border:1px solid rgba(34,197,94,0.3)}
+.b-rechazado{background:rgba(212,43,58,0.12);color:var(--red);border:1px solid rgba(212,43,58,0.3)}
+.b-neutro{background:rgba(13,31,51,0.06);color:var(--hint);border:1px solid var(--border)}
+
+.validacion-box{padding:1.25rem;border-radius:var(--r);border-left:3px solid}
+.validacion-box.si{background:rgba(34,197,94,0.07);border-color:var(--green)}
+.validacion-box.no{background:rgba(251,191,36,0.07);border-color:var(--amber)}
+.validacion-box.sin{background:rgba(13,31,51,0.04);border-color:var(--hint)}
+
+.constancia-item{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:0.9rem 0;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.constancia-item:last-child{border-bottom:none}
+.constancia-nombre{font-weight:600}
+.constancia-costo{color:var(--muted);font-size:0.82rem}
+
+.cfg-warn{background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.3);border-radius:var(--r-lg);padding:1.5rem}
+.cfg-warn h3{font-family:var(--display);color:var(--amber);font-size:1.2rem;margin-bottom:0.5rem}
+.cfg-warn p{color:var(--muted);font-size:0.9rem}
+.cfg-warn code{background:rgba(13,31,51,0.06);padding:0.15rem 0.4rem;border-radius:3px;font-family:var(--mono);font-size:0.8rem}
+.loading{text-align:center;padding:1rem;color:var(--muted);font-family:var(--mono);font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase}
+
+/* Constancia imprimible */
+#constancia-print{display:none}
+@media print{
+  body *{visibility:hidden}
+  #constancia-print, #constancia-print *{visibility:visible}
+  #constancia-print{display:block;position:absolute;top:0;left:0;width:100%;padding:3rem;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <div class="topbar">
+    <a href="../index.html" class="brand">
+      <span class="af-lockup">
+        <img src="../src/assets/brand/af-glyph-160.png" alt="af — Alliance Française" width="29" height="34">
+        <span class="af-lockup-text">
+          <span class="af-wordmark"><span class="w1">Alliance</span><span class="w2">Française</span></span>
+          <span class="af-sublocal">San Cristóbal de Las Casas</span>
+        </span>
+      </span>
+      <span class="brand-tag">· Mi espacio</span>
+    </a>
+    <a href="index.html" class="btn btn-ghost" id="btn-solo-consulta"><i class="fa fa-magnifying-glass"></i> Solo consultar mi folio</a>
+    <div class="topbar-actions" id="topbar-actions" style="display:none">
+      <span class="user-pill" id="user-pill">—</span>
+      <button class="btn btn-ghost" onclick="MI.logout()"><i class="fa fa-sign-out-alt"></i> Salir</button>
+    </div>
+  </div>
+
+  <div id="warn-zone"></div>
+
+  <!-- LOGIN / REGISTRO -->
+  <div id="view-auth">
+    <div class="hero">
+      <h1>Tu espacio <em>personal</em></h1>
+      <p>Curso, horario, asistencia, pagos, evaluaciones y validación de nivel — todo en un solo lugar.</p>
+    </div>
+
+    <div class="card" style="max-width:460px;margin:0 auto">
+      <div class="tabs-auth">
+        <button class="tab-auth active" id="tab-login" onclick="MI.showAuthTab('login')">Iniciar sesión</button>
+        <button class="tab-auth" id="tab-signup" onclick="MI.showAuthTab('signup')">Crear mi cuenta</button>
+      </div>
+
+      <form id="form-login">
+        <label for="li-email">Correo</label>
+        <input type="email" id="li-email" class="field" required autocomplete="email">
+        <label for="li-pass">Contraseña</label>
+        <input type="password" id="li-pass" class="field" required autocomplete="current-password">
+        <p class="error" id="li-error">Correo o contraseña incorrectos.</p>
+        <button type="submit" class="btn btn-primary btn-block" style="margin-top:1.5rem"><i class="fa fa-right-to-bracket"></i> Entrar</button>
+      </form>
+
+      <form id="form-signup" style="display:none">
+        <p class="hint" style="margin-top:0">Verificamos tu identidad con el folio y el correo de tu preinscripción, y creas una contraseña para entrar de ahora en adelante.</p>
+        <label for="su-folio">Folio</label>
+        <input type="text" id="su-folio" class="field" placeholder="AF-260921-AB12" required>
+        <label for="su-email">Correo registrado</label>
+        <input type="email" id="su-email" class="field" required autocomplete="email">
+        <label for="su-pass">Crea una contraseña</label>
+        <input type="password" id="su-pass" class="field" minlength="6" required autocomplete="new-password">
+        <p class="error" id="su-error">No encontramos una inscripción con ese folio y correo.</p>
+        <button type="submit" class="btn btn-primary btn-block" style="margin-top:1.5rem"><i class="fa fa-user-plus"></i> Crear mi cuenta</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="loading" id="loading" style="display:none">Cargando…</div>
+
+  <!-- ESPACIO DEL ALUMNO -->
+  <div id="view-app" style="display:none">
+    <div class="hero">
+      <h1>Hola, <em id="mi-nombre">—</em></h1>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title"><i class="fa fa-graduation-cap"></i> Mi inscripción</h2>
+      <div class="kv">
+        <span class="kv-k">Folio</span>     <span class="kv-v" id="mi-folio">—</span>
+        <span class="kv-k">Programa</span>  <span class="kv-v" id="mi-curso">—</span>
+        <span class="kv-k">Nivel</span>     <span class="kv-v" id="mi-nivel">—</span>
+        <span class="kv-k">Formato</span>   <span class="kv-v" id="mi-formato">—</span>
+        <span class="kv-k">Grupo</span>     <span class="kv-v" id="mi-grupo">—</span>
+        <span class="kv-k">Docente</span>   <span class="kv-v" id="mi-docente">—</span>
+      </div>
+    </div>
+
+    <div class="card" id="card-horario" style="display:none">
+      <h2 class="card-title"><i class="fa fa-calendar-days"></i> Horario y progresión</h2>
+      <div class="kv">
+        <span class="kv-k">Días</span>    <span class="kv-v" id="mi-dias">—</span>
+        <span class="kv-k">Hora</span>    <span class="kv-v" id="mi-hora">—</span>
+        <span class="kv-k">Plataforma</span> <span class="kv-v" id="mi-plataforma">—</span>
+        <span class="kv-k">Método</span>  <span class="kv-v" id="mi-metodo">—</span>
+      </div>
+      <div class="stat-row" style="margin-top:1rem">
+        <div class="stat-box"><div class="stat-num" id="mi-progreso">—</div><div class="stat-lab">Sesión actual</div></div>
+        <div class="stat-box"><div class="stat-num" id="mi-asistencia">—</div><div class="stat-lab">Asistencia</div></div>
+      </div>
+      <p class="hint" id="mi-proxima">—</p>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title"><i class="fa fa-sack-dollar"></i> Pagos</h2>
+      <div class="stat-row">
+        <div class="stat-box"><div class="stat-num" id="mi-pagado" style="font-size:1.5rem">—</div><div class="stat-lab">Pagado</div></div>
+        <div class="stat-box"><div class="stat-num" id="mi-pendiente" style="font-size:1.5rem">—</div><div class="stat-lab">Pendiente</div></div>
+      </div>
+      <div class="table-wrap" style="margin-top:1rem">
+        <table><thead><tr><th>Concepto</th><th>Monto</th><th>Estado</th><th>Fecha</th></tr></thead><tbody id="tbody-pagos"></tbody></table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title"><i class="fa fa-clipboard-check"></i> Evaluaciones</h2>
+      <div class="table-wrap">
+        <table><thead><tr><th>Tipo</th><th>Título</th><th>Calificación</th><th>Fecha</th><th>Comentario</th></tr></thead><tbody id="tbody-evaluaciones"></tbody></table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title"><i class="fa fa-award"></i> Validación de nivel</h2>
+      <div id="validacion-box" class="validacion-box sin">Tu docente aún no ha validado tu nivel.</div>
+      <button class="btn btn-primary" id="btn-constancia" style="margin-top:1rem;display:none" onclick="MI.descargarConstancia()">
+        <i class="fa fa-download"></i> Descargar constancia (sin valor legal)
+      </button>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title"><i class="fa fa-certificate"></i> Constancias y certificados oficiales</h2>
+      <p class="card-sub">Servicio de la Alliance Française, facturado aparte de tu colegiatura.</p>
+      <div id="tipos-constancia-list"></div>
+      <p class="hint" id="sin-tipos" style="display:none">Coordinación todavía no publica constancias disponibles para solicitar.</p>
+
+      <h3 style="font-family:var(--display);font-size:1.05rem;font-weight:400;margin:1.5rem 0 0.75rem">Mis solicitudes</h3>
+      <div class="table-wrap">
+        <table><thead><tr><th>Constancia</th><th>Estado</th><th>Fecha</th></tr></thead><tbody id="tbody-solicitudes"></tbody></table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Plantilla imprimible de la constancia -->
+<div id="constancia-print">
+  <h1 style="font-family:Georgia,serif">Alliance Française San Cristóbal de Las Casas</h1>
+  <p>Notificación de validación de nivel</p>
+  <p style="margin-top:2rem">Se hace constar que</p>
+  <h2 id="cp-nombre" style="margin:0.5rem 0">—</h2>
+  <p>demostró las competencias lingüísticas correspondientes al nivel <strong id="cp-nivel">—</strong>
+     del programa <strong id="cp-curso">—</strong>.</p>
+  <p style="margin-top:1rem" id="cp-comentario"></p>
+  <p style="margin-top:2rem">Fecha de validación: <strong id="cp-fecha">—</strong></p>
+  <p style="margin-top:3rem;font-size:0.85rem;color:#666">
+    Este documento no tiene valor legal — es una notificación interna de validación de nivel.
+    La expedición de constancias, certificados y acreditaciones oficiales es un servicio
+    aparte de la Alliance Française San Cristóbal de Las Casas.
+  </p>
+</div>
+
+<script>
+const MI = (() => {
+  let sb = null;
+  let user = null;
+  let inscripcion = null;
+  let grupo = null;
+  let docenteNombre = '—';
+  let sesiones = [];
+
+  function init(){
+    if(!window.AF_CONFIG?.isSupabaseConfigured?.()){
+      document.getElementById('warn-zone').innerHTML = `
+        <div class="cfg-warn">
+          <h3><i class="fa fa-triangle-exclamation"></i> Espacio aún no disponible</h3>
+          <p>Estamos terminando la configuración. Mientras tanto, escríbenos por WhatsApp al <strong>+52 1 967 172 1870</strong>.</p>
+        </div>`;
+      document.getElementById('view-auth').style.display = 'none';
+      return;
+    }
+    sb = window.supabase.createClient(window.AF_CONFIG.supabase.url, window.AF_CONFIG.supabase.anonKey);
+    sb.auth.getSession().then(({data}) => {
+      if(data.session?.user){ user = data.session.user; startApp(); }
+    });
+    sb.auth.onAuthStateChange((_e, session) => {
+      if(session?.user){ user = session.user; startApp(); }
+    });
+    document.getElementById('form-login').addEventListener('submit', login);
+    document.getElementById('form-signup').addEventListener('submit', signup);
+  }
+
+  function showAuthTab(tab){
+    document.getElementById('tab-login').classList.toggle('active', tab === 'login');
+    document.getElementById('tab-signup').classList.toggle('active', tab === 'signup');
+    document.getElementById('form-login').style.display  = tab === 'login'  ? 'block' : 'none';
+    document.getElementById('form-signup').style.display = tab === 'signup' ? 'block' : 'none';
+  }
+
+  async function login(e){
+    e.preventDefault();
+    const email = document.getElementById('li-email').value.trim();
+    const pass  = document.getElementById('li-pass').value;
+    const err   = document.getElementById('li-error');
+    err.classList.remove('show');
+    const {error} = await sb.auth.signInWithPassword({email, password: pass});
+    if(error){ err.textContent = error.message || 'Correo o contraseña incorrectos.'; err.classList.add('show'); }
+  }
+
+  async function signup(e){
+    e.preventDefault();
+    const folio = document.getElementById('su-folio').value.trim().toUpperCase();
+    const email = document.getElementById('su-email').value.trim();
+    const pass  = document.getElementById('su-pass').value;
+    const err   = document.getElementById('su-error');
+    err.classList.remove('show');
+
+    const {data: rows, error: rpcErr} = await sb.rpc('consulta_inscripcion', {p_folio: folio, p_email: email});
+    if(rpcErr || !rows?.length){
+      err.textContent = 'No encontramos una inscripción con ese folio y correo.';
+      err.classList.add('show');
+      return;
+    }
+
+    const {data: signData, error: signErr} = await sb.auth.signUp({email, password: pass});
+    if(signErr){
+      err.textContent = signErr.message || 'No se pudo crear tu cuenta.';
+      err.classList.add('show');
+      return;
+    }
+
+    if(!signData.session){
+      alert('Cuenta creada. Revisa tu correo para confirmarla y luego inicia sesión.');
+      showAuthTab('login');
+      return;
+    }
+
+    const {error: perfilErr} = await sb.from('perfiles').insert({
+      id: signData.user.id, nombre: rows[0].nombre, rol: 'alumno'
+    });
+    if(perfilErr) console.warn('[perfil]', perfilErr);
+    user = signData.user;
+    startApp();
+  }
+
+  async function logout(){ await sb.auth.signOut(); location.reload(); }
+
+  async function startApp(){
+    document.getElementById('view-auth').style.display = 'none';
+    document.getElementById('loading').style.display = 'block';
+    document.getElementById('topbar-actions').style.display = 'flex';
+    document.getElementById('user-pill').textContent = user.email;
+    document.getElementById('btn-solo-consulta').style.display = 'none';
+
+    const {data: inscs, error} = await sb.from('inscripciones')
+      .select('*').eq('email', user.email).order('creada_en', {ascending:false}).limit(1);
+
+    document.getElementById('loading').style.display = 'none';
+
+    if(error || !inscs?.length){
+      document.getElementById('warn-zone').innerHTML = `
+        <div class="cfg-warn">
+          <h3><i class="fa fa-circle-info"></i> Sin inscripción vinculada</h3>
+          <p>Tu cuenta no tiene ninguna preinscripción con el correo <strong>${escapeHtml(user.email)}</strong>. Si ya la enviaste con otro correo, escríbenos por WhatsApp.</p>
+        </div>`;
+      return;
+    }
+    inscripcion = inscs[0];
+    document.getElementById('view-app').style.display = 'block';
+    pintarInscripcion();
+    await Promise.all([cargarGrupo(), cargarPagos(), cargarEvaluaciones(), cargarValidacion(), cargarConstancias()]);
+  }
+
+  function pintarInscripcion(){
+    const set = (id,v) => { const el = document.getElementById(id); if(el) el.textContent = v || '—'; };
+    set('mi-nombre',  inscripcion.nombre?.split(/\s+/)[0]);
+    set('mi-folio',   inscripcion.folio);
+    set('mi-curso',   inscripcion.curso_nombre || inscripcion.curso_id);
+    set('mi-nivel',   inscripcion.nivel || 'Por evaluar');
+    set('mi-formato', `${inscripcion.formato || '—'} · ${inscripcion.ritmo || '—'}`);
+  }
+
+  async function cargarGrupo(){
+    if(!inscripcion.grupo_id) return;
+    const {data: g} = await sb.from('grupos').select('*').eq('id', inscripcion.grupo_id).single();
+    if(!g) return;
+    grupo = g;
+    document.getElementById('mi-grupo').textContent = g.codigo;
+
+    if(g.docente_id){
+      const {data: d} = await sb.from('docentes').select('nombre').eq('id', g.docente_id).single();
+      docenteNombre = d?.nombre || 'Por asignar';
+    } else {
+      docenteNombre = 'Por asignar';
+    }
+    document.getElementById('mi-docente').textContent = docenteNombre;
+
+    const dias = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+    const diasTxt = (g.dias_semana || []).slice().sort().map(d => dias[d]).join(' · ') || (g.horario?.raw || '—');
+    const horaTxt = g.hora_inicio ? `${g.hora_inicio.slice(0,5)}${g.hora_fin ? '–'+g.hora_fin.slice(0,5) : ''}` : '—';
+    document.getElementById('mi-dias').textContent = diasTxt;
+    document.getElementById('mi-hora').textContent = horaTxt;
+    document.getElementById('mi-plataforma').textContent = g.plataforma || 'Por confirmar';
+    document.getElementById('mi-metodo').textContent = g.metodo || 'Por confirmar';
+    document.getElementById('card-horario').style.display = 'block';
+
+    const {data: ses} = await sb.from('sesiones').select('*').eq('grupo_id', g.id).order('fecha');
+    sesiones = ses || [];
+    const hoy = new Date().toISOString().slice(0,10);
+    const pasadas = sesiones.filter(s => s.fecha <= hoy).length;
+    document.getElementById('mi-progreso').textContent = sesiones.length ? `${pasadas} / ${sesiones.length}` : '—';
+    const proxima = sesiones.find(s => s.fecha >= hoy);
+    document.getElementById('mi-proxima').textContent = proxima
+      ? `Tu próxima sesión: ${new Date(proxima.fecha+'T00:00:00').toLocaleDateString('es-MX',{dateStyle:'long'})}${proxima.tema ? ' · '+proxima.tema : ''}`
+      : (sesiones.length ? 'No hay más sesiones agendadas por ahora.' : 'Tu docente todavía no agenda sesiones.');
+
+    const {data: asist} = await sb.from('v_asistencia_alumno').select('*').eq('inscripcion_id', inscripcion.id).eq('grupo_id', g.id).maybeSingle();
+    document.getElementById('mi-asistencia').textContent = asist ? `${asist.tasa}%` : 'Sin datos';
+  }
+
+  async function cargarPagos(){
+    const {data} = await sb.from('pagos').select('*').eq('inscripcion_id', inscripcion.id).order('creado_en', {ascending:false});
+    const pagos = data || [];
+    const pagado = pagos.filter(p => p.estado === 'pagado').reduce((s,p) => s + Number(p.monto), 0);
+    const pendiente = pagos.filter(p => p.estado === 'pendiente' || p.estado === 'procesando').reduce((s,p) => s + Number(p.monto), 0);
+    document.getElementById('mi-pagado').textContent = '$' + pagado.toFixed(2);
+    document.getElementById('mi-pendiente').textContent = '$' + pendiente.toFixed(2);
+    const tb = document.getElementById('tbody-pagos');
+    tb.innerHTML = pagos.length ? pagos.map(p => `
+      <tr>
+        <td>${escapeHtml(p.concepto || 'Colegiatura')}</td>
+        <td>$${Number(p.monto).toFixed(2)} ${escapeHtml(p.moneda)}</td>
+        <td><span class="badge b-${p.estado === 'pagado' ? 'pagado' : p.estado === 'rechazado' ? 'rechazado' : 'pendiente'}">${p.estado}</span></td>
+        <td>${new Date(p.creado_en).toLocaleDateString('es-MX')}</td>
+      </tr>`).join('') : `<tr><td colspan="4" class="empty">Sin pagos registrados todavía.</td></tr>`;
+  }
+
+  async function cargarEvaluaciones(){
+    const {data} = await sb.from('evaluaciones').select('*').eq('inscripcion_id', inscripcion.id).order('fecha', {ascending:false});
+    const evals = data || [];
+    const tb = document.getElementById('tbody-evaluaciones');
+    tb.innerHTML = evals.length ? evals.map(e => `
+      <tr>
+        <td><span class="badge b-neutro">${e.tipo}</span></td>
+        <td>${escapeHtml(e.titulo)}</td>
+        <td>${e.calificacion != null ? e.calificacion : '—'}</td>
+        <td>${new Date(e.fecha+'T00:00:00').toLocaleDateString('es-MX')}</td>
+        <td class="hint" style="margin:0">${escapeHtml(e.comentario || '—')}</td>
+      </tr>`).join('') : `<tr><td colspan="5" class="empty">Sin evaluaciones registradas todavía.</td></tr>`;
+  }
+
+  let validacionActual = null;
+  async function cargarValidacion(){
+    const {data} = await sb.from('validaciones_nivel').select('*').eq('inscripcion_id', inscripcion.id).maybeSingle();
+    validacionActual = data;
+    const box = document.getElementById('validacion-box');
+    const btn = document.getElementById('btn-constancia');
+    if(!data){
+      box.className = 'validacion-box sin';
+      box.textContent = 'Tu docente aún no ha validado tu nivel.';
+      btn.style.display = 'none';
+    } else if(data.validado){
+      box.className = 'validacion-box si';
+      box.innerHTML = `<strong>¡Nivel validado!</strong>${data.comentario_docente ? '<br>'+escapeHtml(data.comentario_docente) : ''}`;
+      btn.style.display = 'inline-flex';
+    } else {
+      box.className = 'validacion-box no';
+      box.innerHTML = `Tu docente evaluó tu nivel y determinó que <strong>aún no se valida</strong>.${data.comentario_docente ? '<br>'+escapeHtml(data.comentario_docente) : ''}`;
+      btn.style.display = 'none';
+    }
+  }
+
+  function descargarConstancia(){
+    if(!validacionActual?.validado) return;
+    document.getElementById('cp-nombre').textContent = inscripcion.nombre;
+    document.getElementById('cp-nivel').textContent = inscripcion.nivel || grupo?.nivel || '—';
+    document.getElementById('cp-curso').textContent = inscripcion.curso_nombre || inscripcion.curso_id;
+    document.getElementById('cp-comentario').textContent = validacionActual.comentario_docente || '';
+    document.getElementById('cp-fecha').textContent = validacionActual.validado_en
+      ? new Date(validacionActual.validado_en).toLocaleDateString('es-MX', {dateStyle:'long'}) : '—';
+    window.print();
+  }
+
+  async function cargarConstancias(){
+    const [{data: tipos}, {data: solicitudes}] = await Promise.all([
+      sb.from('tipos_constancia').select('*').eq('activo', true).order('nombre'),
+      sb.from('solicitudes_constancia').select('*, tipos_constancia(nombre)').eq('inscripcion_id', inscripcion.id).order('creado_en', {ascending:false})
+    ]);
+    const list = document.getElementById('tipos-constancia-list');
+    const sinTipos = document.getElementById('sin-tipos');
+    if(!tipos?.length){
+      list.innerHTML = '';
+      sinTipos.style.display = 'block';
+    } else {
+      sinTipos.style.display = 'none';
+      list.innerHTML = tipos.map(t => `
+        <div class="constancia-item">
+          <div>
+            <div class="constancia-nombre">${escapeHtml(t.nombre)}</div>
+            ${t.descripcion ? `<div class="constancia-costo">${escapeHtml(t.descripcion)}</div>` : ''}
+            <div class="constancia-costo">$${Number(t.costo).toFixed(2)} ${escapeHtml(t.moneda)}</div>
+          </div>
+          <button class="btn btn-ghost" onclick="MI.solicitarConstancia('${t.id}')"><i class="fa fa-paper-plane"></i> Solicitar</button>
+        </div>`).join('');
+    }
+    const tb = document.getElementById('tbody-solicitudes');
+    tb.innerHTML = solicitudes?.length ? solicitudes.map(s => `
+      <tr>
+        <td>${escapeHtml(s.tipos_constancia?.nombre || '—')}</td>
+        <td><span class="badge ${s.estado === 'emitida' ? 'b-emitida' : s.estado === 'cancelada' ? 'b-rechazado' : 'b-pendiente'}">${s.estado.replace('_',' ')}</span></td>
+        <td>${new Date(s.creado_en).toLocaleDateString('es-MX')}</td>
+      </tr>`).join('') : `<tr><td colspan="3" class="empty">Sin solicitudes todavía.</td></tr>`;
+  }
+
+  async function solicitarConstancia(tipoId){
+    if(!confirm('¿Confirmas que quieres solicitar esta constancia? Coordinación te contactará para el pago y la entrega.')) return;
+    const {error} = await sb.from('solicitudes_constancia').insert({inscripcion_id: inscripcion.id, tipo_id: tipoId});
+    if(error){ alert('Error: ' + error.message); return; }
+    cargarConstancias();
+  }
+
+  function escapeHtml(s){
+    return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  return {init, showAuthTab, logout, descargarConstancia, solicitarConstancia};
+})();
+
+window.addEventListener('DOMContentLoaded', () => setTimeout(() => MI.init(), 50));
+</script>
+
+</body>
+</html>
