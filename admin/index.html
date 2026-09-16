@@ -853,13 +853,13 @@ Intensivo | 4 sesiones/semana | 48 h" style="width:100%;background:rgba(13,31,51
 
     <label class="kv-key" style="display:block;margin-bottom:0.5rem">Días de la semana</label>
     <div class="dias-semana" id="ng2-dias" style="margin-bottom:1rem">
-      <label><input type="checkbox" value="1"> Lun</label>
-      <label><input type="checkbox" value="2"> Mar</label>
-      <label><input type="checkbox" value="3"> Mié</label>
-      <label><input type="checkbox" value="4"> Jue</label>
-      <label><input type="checkbox" value="5"> Vie</label>
-      <label><input type="checkbox" value="6"> Sáb</label>
-      <label><input type="checkbox" value="0"> Dom</label>
+      <label><input type="checkbox" name="ng2-dia" value="1"> Lun</label>
+      <label><input type="checkbox" name="ng2-dia" value="2"> Mar</label>
+      <label><input type="checkbox" name="ng2-dia" value="3"> Mié</label>
+      <label><input type="checkbox" name="ng2-dia" value="4"> Jue</label>
+      <label><input type="checkbox" name="ng2-dia" value="5"> Vie</label>
+      <label><input type="checkbox" name="ng2-dia" value="6"> Sáb</label>
+      <label><input type="checkbox" name="ng2-dia" value="0"> Dom</label>
     </div>
 
     <label class="kv-key" style="display:block;margin-bottom:0.5rem">Notas</label>
@@ -947,6 +947,7 @@ const ADMIN = (() => {
         renderTabla();
       });
     });
+    window.addEventListener('popstate', applyHash);
   }
 
   function showCfgWarn(){
@@ -998,6 +999,7 @@ const ADMIN = (() => {
     cargarGrupos();
     cargarDocentes();
     suscribirRealtime();
+    applyHash();
   }
 
   async function cargarInscripciones(){
@@ -1032,7 +1034,7 @@ const ADMIN = (() => {
       .subscribe();
   }
 
-  function switchTab(tab){
+  function switchTab(tab, opts={}){
     document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
     document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
     document.getElementById('pane-' + tab)?.classList.add('active');
@@ -1042,6 +1044,7 @@ const ADMIN = (() => {
     if(tab === 'catalogo') cargarCatalogo();
     if(tab === 'cursos'){ cargarCursosDashboard(); cargarFeriados(); }
     if(tab === 'finanzas') cargarFinanzas();
+    if(!opts.fromHash) setHash('#' + tab);
   }
 
   // ──────────────────── CURSOS DEL CICLO ────────────────────
@@ -1113,9 +1116,10 @@ const ADMIN = (() => {
     return g.horario?.raw || '—';
   }
 
-  async function openGrupoDetail(grupoId){
+  async function openGrupoDetail(grupoId, opts={}){
     grupoActual = gruposTodos.find(g => g.id === grupoId);
     if(!grupoActual) return;
+    if(!opts.fromHash) setHash('#cursos/grupo/' + grupoId);
     document.getElementById('gd-title').textContent = `${grupoActual.curso_nombre || grupoActual.curso_id} · ${grupoActual.nivel}`;
     document.getElementById('gd-codigo').textContent = 'Grupo · ' + grupoActual.codigo;
     const costoTxt = grupoActual.costo != null ? `$${Number(grupoActual.costo).toFixed(2)} ${grupoActual.moneda||'MXN'}` : '—';
@@ -1146,6 +1150,7 @@ const ADMIN = (() => {
   function closeGrupoDetail(){
     grupoActual = null;
     document.getElementById('modal-grupo-bg').classList.remove('open');
+    if(location.hash.startsWith('#cursos/grupo/')) setHash('#cursos');
   }
 
   async function guardarEstadoGrupo(){
@@ -1375,6 +1380,8 @@ const ADMIN = (() => {
     document.getElementById('fr-nombre').value = '';
     document.getElementById('fr-pais').value = 'MX';
     document.getElementById('modal-feriado-bg').classList.add('open');
+    attachAutosave('modal-feriado-bg', 'feriado-nuevo');
+    restoreDraftIfAny('modal-feriado-bg', 'feriado-nuevo');
   }
 
   function closeFeriadoForm(){
@@ -1388,6 +1395,7 @@ const ADMIN = (() => {
     if(!fecha || !nombre){ alert('Fecha y nombre son requeridos.'); return; }
     const {error} = await sb.from('feriados').insert({fecha, nombre, pais});
     if(error){ alert('Error: ' + error.message); return; }
+    clearDraft('feriado-nuevo');
     closeFeriadoForm();
     cargarFeriados();
   }
@@ -1641,7 +1649,9 @@ const ADMIN = (() => {
       document.getElementById('eg-docente').value = '';
       document.getElementById('eg-notas').value = '';
       document.getElementById('eg-btn-delete').style.display = 'none';
+      restoreDraftIfAny('modal-egreso-bg', 'egreso-nuevo');
     }
+    attachAutosave('modal-egreso-bg', () => egresoActual ? null : 'egreso-nuevo');
     document.getElementById('modal-egreso-bg').classList.add('open');
   }
 
@@ -1668,6 +1678,7 @@ const ADMIN = (() => {
     else             q = sb.from('egresos').insert(payload);
     const {error} = await q;
     if(error){ alert('Error: ' + error.message); return; }
+    if(!egresoActual) clearDraft('egreso-nuevo');
     closeEgresoModal();
     cargarFinanzas();
   }
@@ -1742,7 +1753,9 @@ const ADMIN = (() => {
       set('color','#c9a44e');
       set('orden','100');
       setChk('activo', true);
+      restoreDraftIfAny('modal-curso-bg', 'curso-nuevo');
     }
+    attachAutosave('modal-curso-bg', () => actualCurso ? null : 'curso-nuevo');
     document.getElementById('modal-curso-bg').classList.add('open');
   }
 
@@ -1775,6 +1788,7 @@ const ADMIN = (() => {
     else            q = sb.from('cursos').insert(cursoPayload);
     const {error: cuErr} = await q;
     if(cuErr){ alert('Error guardando curso: ' + cuErr.message); return; }
+    if(!actualCurso) clearDraft('curso-nuevo');
 
     // Reemplazar niveles y modalidades
     await sb.from('cursos_niveles').delete().eq('curso_id', id);
@@ -1863,7 +1877,9 @@ const ADMIN = (() => {
       setChk('libre', true);
       setChk('destacado', false);
       setChk('publicado', true);
+      restoreDraftIfAny('modal-evento-bg', 'evento-nuevo');
     }
+    attachAutosave('modal-evento-bg', () => actualEvento ? null : 'evento-nuevo');
     document.getElementById('modal-evento-bg').classList.add('open');
   }
 
@@ -1894,6 +1910,7 @@ const ADMIN = (() => {
     else             q = sb.from('eventos').insert(payload);
     const {error} = await q;
     if(error){ alert('Error: ' + error.message); return; }
+    if(!actualEvento) clearDraft('evento-nuevo');
     closeEventoEditor();
     cargarEventos();
   }
@@ -2007,8 +2024,27 @@ const ADMIN = (() => {
     set('mensaje',  actual.mensaje);
     set('creada',   new Date(actual.creada_en).toLocaleString('es-MX'));
     document.getElementById('m-notas').value = actual.notas_admin || '';
+    let notaGuardada;
+    try{ notaGuardada = localStorage.getItem(draftKey('notas-' + actual.id)); }catch(e){ notaGuardada = null; }
+    if(notaGuardada && notaGuardada !== (actual.notas_admin || '')){
+      if(confirm('Tienes una nota sin guardar para esta inscripción, de una sesión anterior. ¿Quieres recuperarla?')){
+        document.getElementById('m-notas').value = notaGuardada;
+      } else {
+        try{ localStorage.removeItem(draftKey('notas-' + actual.id)); }catch(e){}
+      }
+    }
+    attachNotasAutosave();
     poblarGruposCompatibles();
     document.getElementById('modal-bg').classList.add('open');
+  }
+
+  let notasListenerAttached = false;
+  function attachNotasAutosave(){
+    if(notasListenerAttached) return;
+    notasListenerAttached = true;
+    const el = document.getElementById('m-notas');
+    const save = () => { if(actual){ try{ localStorage.setItem(draftKey('notas-' + actual.id), el.value); }catch(e){} } };
+    el.addEventListener('input', debounce(save, 400));
   }
 
   function poblarGruposCompatibles(){
@@ -2094,6 +2130,8 @@ const ADMIN = (() => {
     document.getElementById('ng2-metodo').value = '';
     document.querySelectorAll('#ng2-dias input').forEach(cb => cb.checked = false);
     document.getElementById('modal-nuevo-grupo-bg').classList.add('open');
+    attachAutosave('modal-nuevo-grupo-bg', 'nuevo-grupo');
+    restoreDraftIfAny('modal-nuevo-grupo-bg', 'nuevo-grupo');
   }
 
   function closeNuevoGrupoForm(){
@@ -2152,6 +2190,7 @@ const ADMIN = (() => {
     };
     const {data, error} = await sb.from('grupos').insert(payload).select().single();
     if(error){ alert('Error: ' + error.message); return; }
+    clearDraft('nuevo-grupo');
     closeNuevoGrupoForm();
     await cargarGruposTodos();
     renderCursosDashboard();
@@ -2182,6 +2221,7 @@ const ADMIN = (() => {
     if(nuevo === 'aprobada') update.grupo_id = grupoId;
     const {error} = await sb.from('inscripciones').update(update).eq('id', actual.id);
     if(error){ alert('Error: ' + error.message); return; }
+    try{ localStorage.removeItem(draftKey('notas-' + actual.id)); }catch(e){}
     closeModal();
     cargarInscripciones();
     cargarGrupos();
@@ -2191,6 +2231,124 @@ const ADMIN = (() => {
     return String(s||'').replace(/[&<>"']/g, c => (
       {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]
     ));
+  }
+
+  // ──────────────────── BORRADORES (localStorage) ────────────────────
+  // Ningún formulario largo debería perderse por un refresh, un cierre
+  // accidental o una sesión que expira a medias. Se usa en los formularios
+  // de creación (grupo, curso, evento, egreso, feriado); no en edición,
+  // para no pisar datos reales ya guardados con un borrador viejo.
+
+  function debounce(fn, ms){
+    let t;
+    return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };
+  }
+
+  function draftKey(id){ return 'af_admin_draft_' + id; }
+
+  function serializeForm(container){
+    const data = {};
+    container.querySelectorAll('input,select,textarea').forEach(el => {
+      const key = el.id || el.name;
+      if(!key) return;
+      if(el.type === 'checkbox'){
+        if(el.name){
+          if(!Array.isArray(data[el.name])) data[el.name] = [];
+          if(el.checked) data[el.name].push(el.value);
+        } else {
+          data[key] = el.checked;
+        }
+      } else {
+        data[key] = el.value;
+      }
+    });
+    return data;
+  }
+
+  function applyFormData(container, data){
+    if(!data) return;
+    container.querySelectorAll('input,select,textarea').forEach(el => {
+      const key = el.id || el.name;
+      if(!key) return;
+      if(el.type === 'checkbox'){
+        if(el.name && Array.isArray(data[el.name])) el.checked = data[el.name].includes(el.value);
+        else if(!el.name && key in data) el.checked = !!data[key];
+      } else if(key in data){
+        el.value = data[key] ?? '';
+      }
+    });
+  }
+
+  function isFormDataEmpty(data){
+    return Object.values(data).every(v => v === '' || v === false || v == null || (Array.isArray(v) && v.length === 0));
+  }
+
+  // draftId puede ser un string fijo, o una función que se evalúa en cada
+  // guardado — así un modal reusado para crear/editar (curso, evento,
+  // egreso) puede desactivar el autoguardado mientras edita un registro
+  // real, sin importar en qué modo estaba cuando se enlazaron los eventos.
+  function attachAutosave(containerId, draftId){
+    const container = document.getElementById(containerId);
+    if(!container || container.dataset.autosaveAttached) return;
+    container.dataset.autosaveAttached = 'true';
+    const save = () => {
+      const id = typeof draftId === 'function' ? draftId() : draftId;
+      if(!id) return;
+      try{ localStorage.setItem(draftKey(id), JSON.stringify(serializeForm(container))); }catch(e){}
+    };
+    const debounced = debounce(save, 400);
+    container.querySelectorAll('input,select,textarea').forEach(el => {
+      el.addEventListener('input', debounced);
+      el.addEventListener('change', save);
+    });
+  }
+
+  function restoreDraftIfAny(containerId, draftId){
+    const container = document.getElementById(containerId);
+    if(!container) return;
+    let data;
+    try{ data = JSON.parse(localStorage.getItem(draftKey(draftId))); }catch(e){ data = null; }
+    if(!data || isFormDataEmpty(data)) return;
+    if(!confirm('Encontramos un borrador sin guardar de este formulario (de una sesión anterior). ¿Quieres recuperarlo?')){
+      clearDraft(draftId);
+      return;
+    }
+    applyFormData(container, data);
+  }
+
+  function clearDraft(draftId){
+    try{ localStorage.removeItem(draftKey(draftId)); }catch(e){}
+  }
+
+  // ──────────────────── NAVEGACIÓN (recordar dónde te quedaste) ────────────────────
+  // El tab activo (y, si aplica, el grupo abierto) vive en el hash de la URL:
+  // recargar la página, cerrar y volver, o usar "atrás" del navegador te
+  // regresa exactamente a donde estabas.
+
+  function hashParts(){
+    return (location.hash || '').replace(/^#/, '').split('/').filter(Boolean);
+  }
+
+  function setHash(hash){
+    if(location.hash !== hash) history.pushState(null, '', hash);
+  }
+
+  function applyHash(){
+    const parts = hashParts();
+    const tab = parts[0] || 'inscripciones';
+    if(!document.getElementById('pane-' + tab)) return;
+    switchTab(tab, {fromHash:true});
+    if(tab === 'cursos' && parts[1] === 'grupo' && parts[2]){
+      const grupoId = parts[2];
+      let intentos = 0;
+      const tryOpen = () => {
+        if(gruposTodos.some(g => g.id === grupoId)) openGrupoDetail(grupoId, {fromHash:true});
+        else if(intentos++ < 20) setTimeout(tryOpen, 200);
+      };
+      tryOpen();
+    } else if(document.getElementById('modal-grupo-bg')?.classList.contains('open')){
+      closeGrupoDetail();
+    }
   }
 
   return {

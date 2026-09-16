@@ -715,6 +715,18 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
 }
 .resumen-label{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.3rem}
 .resumen-texto{font-family:var(--display);font-size:1.1rem;color:var(--gold)}
+.draft-banner{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  background:rgba(79,209,197,0.08);border:1px solid rgba(79,209,197,0.3);
+  border-radius:var(--r);padding:0.85rem 1.1rem;margin-bottom:1.5rem;
+  font-size:0.85rem;color:var(--ink);
+}
+.draft-banner button{
+  background:transparent;border:1px solid var(--border-gold);border-radius:99px;
+  padding:0.4rem 0.9rem;font-family:var(--mono);font-size:0.6rem;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--gold);cursor:pointer;white-space:nowrap;
+}
+.draft-banner button:hover{background:rgba(201,164,78,0.1)}
 .form-actions{display:flex;justify-content:space-between;align-items:center;margin-top:2rem;gap:1rem;flex-wrap:wrap}
 .confirm-box{text-align:center;padding:2rem;display:flex;flex-direction:column;align-items:center;gap:1rem}
 .confirm-icon{
@@ -3085,6 +3097,7 @@ const AF = (() => {
     injectWaCtas();
     renderParcours();
     loadEvidencias();
+    initAutosavePreinsc();
   }
 
   let sb = null;
@@ -3150,6 +3163,7 @@ const AF = (() => {
         }))};
         renderCursos(cat.segmentos);
         populateCursoSelect();
+        restaurarBorrador();
         return;
       }
     }
@@ -3161,10 +3175,12 @@ const AF = (() => {
         if(d.por_que_estudiar) renderPorque(d.por_que_estudiar);
         if(d.segmentos) renderCursos(d.segmentos);
         populateCursoSelect();
+        restaurarBorrador();
       })
       .catch(err => {
         console.warn('[Catálogo] usando fallback inline:',err);
         populateCursoSelectFallback();
+        restaurarBorrador();
       });
   }
 
@@ -3339,6 +3355,7 @@ const AF = (() => {
     estado.curso = cid;
     estado.cursoNombre = seg?.nombre || CURSOS_FALLBACK.find(c=>c.id===cid)?.n || cid;
     actualizarResumen();
+    guardarBorrador();
   }
 
   function setFormato(id, nombre){
@@ -3346,6 +3363,7 @@ const AF = (() => {
     estado.formatoNombre = nombre;
     document.querySelectorAll('[data-formato]').forEach(b => b.classList.toggle('active', b.dataset.formato === id));
     actualizarResumen();
+    guardarBorrador();
   }
 
   function setRitmo(id, nombre, detalle){
@@ -3354,6 +3372,7 @@ const AF = (() => {
     estado.ritmoDetalle = detalle || '';
     document.querySelectorAll('[data-ritmo]').forEach(b => b.classList.toggle('active', b.dataset.ritmo === id));
     actualizarResumen();
+    guardarBorrador();
   }
 
   function actualizarResumen(){
@@ -3397,6 +3416,85 @@ const AF = (() => {
     }
   }
 
+  /* ─── Borrador de preinscripción (localStorage) ───
+     Si alguien cierra la pestaña o recarga a medias del formulario, no
+     pierde lo que ya llenó — lo recuperamos automáticamente al volver. */
+  const DRAFT_KEY = 'af_preinsc_draft';
+  const DRAFT_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000; // 7 días
+
+  function guardarBorrador(){
+    if(estado.step > 3) return; // ya enviado, no hay nada que guardar
+    try{
+      localStorage.setItem(DRAFT_KEY, JSON.stringify({
+        estado,
+        campos: {
+          nombre:  document.getElementById('f-nombre')?.value  || '',
+          email:   document.getElementById('f-email')?.value   || '',
+          tel:     document.getElementById('f-tel')?.value     || '',
+          fuente:  document.getElementById('f-fuente')?.value  || '',
+          inicio:  document.getElementById('f-inicio')?.value  || '',
+          mensaje: document.getElementById('f-mensaje')?.value || '',
+        },
+        guardadoEn: Date.now()
+      }));
+    } catch(e){}
+  }
+
+  function borrarBorrador(){
+    try{ localStorage.removeItem(DRAFT_KEY); } catch(e){}
+  }
+
+  function restaurarBorrador(){
+    let data;
+    try{ data = JSON.parse(localStorage.getItem(DRAFT_KEY)); } catch(e){ return; }
+    if(!data?.estado) return;
+    if(Date.now() - (data.guardadoEn || 0) > DRAFT_MAX_AGE_MS){ borrarBorrador(); return; }
+    if(!data.estado.sede && !data.campos?.nombre && !data.campos?.email && !data.campos?.tel) return;
+    if(data.estado.step > 3) return; // estado inconsistente, mejor no restaurar
+
+    Object.assign(estado, data.estado);
+    const setVal = (id,v) => { const el = document.getElementById(id); if(el && v) el.value = v; };
+    setVal('f-nombre',  data.campos.nombre);
+    setVal('f-email',   data.campos.email);
+    setVal('f-tel',     data.campos.tel);
+    setVal('f-fuente',  data.campos.fuente);
+    setVal('f-inicio',  data.campos.inicio);
+    setVal('f-mensaje', data.campos.mensaje);
+    document.querySelectorAll('.sede-btn').forEach(b => b.classList.toggle('active', b.dataset.sede === estado.sede));
+    if(estado.curso){ setVal('f-curso', estado.curso); updateModalidades(); }
+    if(estado.nivel){ setVal('f-nivel', estado.nivel); }
+    document.querySelectorAll('[data-formato]').forEach(b => b.classList.toggle('active', b.dataset.formato === estado.formato));
+    document.querySelectorAll('[data-ritmo]').forEach(b => b.classList.toggle('active', b.dataset.ritmo === estado.ritmo));
+    actualizarResumen();
+    if(estado.step > 1){
+      const destino = estado.step;
+      estado.step = 1;
+      goToStep(destino);
+    }
+    mostrarAvisoBorrador();
+  }
+
+  function mostrarAvisoBorrador(){
+    const shell = document.querySelector('.form-shell');
+    if(!shell || shell.querySelector('.draft-banner')) return;
+    const div = document.createElement('div');
+    div.className = 'draft-banner';
+    div.innerHTML = `<i class="fa fa-clock-rotate-left"></i> Recuperamos tu preinscripción en progreso.
+      <button type="button">Empezar de nuevo</button>`;
+    div.querySelector('button').onclick = () => { resetForm(); div.remove(); };
+    shell.prepend(div);
+  }
+
+  function initAutosavePreinsc(){
+    ['f-nombre','f-email','f-tel','f-fuente','f-inicio','f-mensaje','f-nivel'].forEach(id => {
+      const el = document.getElementById(id);
+      if(!el) return;
+      let t;
+      el.addEventListener('input', () => { clearTimeout(t); t = setTimeout(guardarBorrador, 400); });
+      el.addEventListener('change', guardarBorrador);
+    });
+  }
+
   /* ─── Stepper ─── */
   function updateStepper(){
     const lis = document.querySelectorAll('#form-stepper li');
@@ -3416,6 +3514,7 @@ const AF = (() => {
     estado.sedeName = sedeNombre;
     document.querySelectorAll('.sede-btn').forEach(b => b.classList.toggle('active', b.dataset.sede === sedeId));
     goToStep(2);
+    guardarBorrador();
   }
 
   function goToStep(n){
@@ -3436,6 +3535,7 @@ const AF = (() => {
     document.getElementById('step-' + (n === 99 ? 'ok' : n))?.classList.add('active');
     updateStepper();
     document.getElementById('preinscripcion')?.scrollIntoView({behavior:'smooth',block:'start'});
+    if(n !== 99) guardarBorrador();
   }
 
   function irA(cursoId, nivelId){
@@ -3547,6 +3647,7 @@ const AF = (() => {
       if(waBtn) waBtn.href = waUrl;
 
       goToStep(99);
+      borrarBorrador();
     } catch(err){
       console.error('[EmailJS]',err);
       alert('Hubo un problema al enviar tu solicitud. Por favor escríbenos directamente a afsancris@gmail.com o por WhatsApp al +52 1 967 172 1870.');
@@ -3556,6 +3657,7 @@ const AF = (() => {
   }
 
   function resetForm(){
+    borrarBorrador();
     estado = {sede:'',sedeName:'',curso:'',cursoNombre:'',nivel:'',formato:'',formatoNombre:'',ritmo:'',ritmoNombre:'',ritmoDetalle:'',step:1};
     ['f-nombre','f-email','f-tel','f-mensaje'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
     ['f-curso','f-nivel','f-fuente','f-inicio'].forEach(id => { const el=document.getElementById(id); if(el) el.selectedIndex=0; });
