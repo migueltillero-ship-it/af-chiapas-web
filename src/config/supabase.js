@@ -3,7 +3,9 @@
 //
 // Rellena con tus credenciales (Settings → API en Supabase Studio):
 //   - SUPABASE_URL  → "Project URL"
-//   - SUPABASE_ANON → "anon public" key (NUNCA la service_role)
+//   - SUPABASE_ANON → "anon public" key, o "Publishable key" en proyectos
+//                      con el sistema de llaves nuevo (NUNCA la
+//                      service_role / secret key)
 //
 // Estas dos son PÚBLICAS y seguras de exponer en el frontend
 // porque la base está protegida por Row Level Security (ver schema.sql).
@@ -15,8 +17,8 @@
 
 window.AF_CONFIG = window.AF_CONFIG || {};
 window.AF_CONFIG.supabase = {
-  url:      'REEMPLAZA_SUPABASE_URL',
-  anonKey:  'REEMPLAZA_SUPABASE_ANON_KEY'
+  url:      'https://ysiivlshpdddalrmwnpv.supabase.co',
+  anonKey:  'sb_publishable_fR33TCwi5bp_TAp_xqOLag_DoiiT2dy'
 };
 
 window.AF_CONFIG.isSupabaseConfigured = function(){
