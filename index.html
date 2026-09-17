@@ -1158,6 +1158,13 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
 .ciclo-num small{font-family:var(--mono);font-size:0.9rem;letter-spacing:0.08em;color:var(--muted);margin-left:0.4rem}
 .ciclo-detalle{font-size:0.86rem;color:var(--muted);line-height:1.6}
 .ciclo-detalle strong{color:var(--white)}
+.ciclo-card.ciclo-clic{cursor:pointer;transition:transform 0.2s ease,border-color 0.2s ease}
+.ciclo-card.ciclo-clic:hover{transform:translateY(-4px);border-color:var(--c)}
+.ciclo-clic-hint{
+  margin-top:auto;padding-top:0.75rem;font-family:var(--mono);font-size:0.6rem;
+  letter-spacing:0.12em;text-transform:uppercase;color:var(--c);
+  display:flex;align-items:center;gap:0.4rem;
+}
 
 .curso-ciclo-badge{
   display:inline-flex;align-items:center;gap:0.4rem;
@@ -2313,48 +2320,54 @@ window.AFMusic = (function(){
     </div>
 
     <div class="ciclo-grid">
-      <div class="ciclo-card" data-r="regular">
+      <div class="ciclo-card ciclo-clic" data-r="regular" onclick="AF.irAConfig('adultos','grupal','Grupal','regular','Ritmo Básico','12h/bimestre · $1,900')">
         <span class="ciclo-tag">Adultos · Ritmo Básico</span>
         <div class="ciclo-num">12<small>h / bimestre</small></div>
         <p class="ciclo-detalle"><strong>2 clases / semana</strong> · 1 h/día</p>
         <p class="ciclo-detalle">Para un <strong>aprendizaje gradual y estable</strong>.</p>
         <p class="ciclo-detalle" style="color:var(--gold);font-family:var(--mono);font-size:0.95rem;margin-top:0.5rem"><strong>$1,900</strong> / bimestre</p>
+        <p class="ciclo-clic-hint"><i class="fa fa-arrow-right"></i> Elegir este ritmo</p>
       </div>
-      <div class="ciclo-card" data-r="regular">
+      <div class="ciclo-card ciclo-clic" data-r="regular" onclick="AF.irAConfig('adultos','grupal','Grupal','regular','Regular','18h/bimestre · $2,300')">
         <span class="ciclo-tag">Adultos · Ritmo Regular</span>
         <div class="ciclo-num">18<small>h / bimestre</small></div>
         <p class="ciclo-detalle"><strong>3 h / semana</strong> · 1h30 por sesión · 2 sesiones</p>
         <p class="ciclo-detalle">Aprendizaje <strong>equilibrado y adaptado a tu ritmo personal</strong>.</p>
         <p class="ciclo-detalle" style="color:var(--gold);font-family:var(--mono);font-size:0.95rem;margin-top:0.5rem"><strong>$2,300</strong> / bimestre</p>
+        <p class="ciclo-clic-hint"><i class="fa fa-arrow-right"></i> Elegir este ritmo</p>
       </div>
-      <div class="ciclo-card" data-r="intensivo">
+      <div class="ciclo-card ciclo-clic" data-r="intensivo" onclick="AF.irAConfig('adultos','grupal','Grupal','intensivo','Regular Plus','24h/bimestre · $3,200')">
         <span class="ciclo-tag">Adultos · Regular Plus</span>
         <div class="ciclo-num">24<small>h / bimestre</small></div>
         <p class="ciclo-detalle"><strong>4 h / semana</strong> · 2 h por sesión · 2 sesiones</p>
         <p class="ciclo-detalle">Ideal para <strong>avanzar rápido</strong> con carga horaria accesible.</p>
         <p class="ciclo-detalle" style="color:var(--gold);font-family:var(--mono);font-size:0.95rem;margin-top:0.5rem"><strong>$3,200</strong> / bimestre</p>
+        <p class="ciclo-clic-hint"><i class="fa fa-arrow-right"></i> Elegir este ritmo</p>
       </div>
-      <div class="ciclo-card" data-r="intensivo">
+      <div class="ciclo-card ciclo-clic" data-r="intensivo" onclick="AF.irAConfig('adultos','grupal','Grupal','intensivo','Intensivo','36h/bimestre · $4,700')">
         <span class="ciclo-tag">Adultos · Intensivo</span>
         <div class="ciclo-num">36<small>h / bimestre</small></div>
         <p class="ciclo-detalle"><strong>6 h / semana</strong> · horario a preferencia</p>
         <p class="ciclo-detalle">Para llevar tus habilidades al <strong>siguiente nivel</strong>.</p>
         <p class="ciclo-detalle" style="color:var(--gold);font-family:var(--mono);font-size:0.95rem;margin-top:0.5rem"><strong>$4,700</strong> / bimestre</p>
+        <p class="ciclo-clic-hint"><i class="fa fa-arrow-right"></i> Elegir este ritmo</p>
       </div>
-      <div class="ciclo-card" data-r="superintensivo">
+      <div class="ciclo-card ciclo-clic" data-r="superintensivo" onclick="AF.irAConfig('adultos','grupal','Grupal','superintensivo','Intensivo Plus','48h/bimestre · $6,500')">
         <span class="ciclo-tag">Adultos · Intensivo Plus</span>
         <div class="ciclo-num">48<small>h / bimestre</small></div>
         <p class="ciclo-detalle"><strong>8 h / semana</strong> · horario a preferencia</p>
         <p class="ciclo-detalle">El <strong>camino más rápido hacia la fluidez</strong>. Aprende francés intensivamente.</p>
         <p class="ciclo-detalle" style="color:var(--gold);font-family:var(--mono);font-size:0.95rem;margin-top:0.5rem"><strong>$6,500</strong> / bimestre</p>
+        <p class="ciclo-clic-hint"><i class="fa fa-arrow-right"></i> Elegir este ritmo</p>
       </div>
-      <div class="ciclo-card" data-r="ninos">
+      <div class="ciclo-card ciclo-clic" data-r="ninos" onclick="AF.irA('ninos')">
         <span class="ciclo-tag">Niños y adolescentes · 6–15 años</span>
         <div class="ciclo-num">desde<small>$1,600</small></div>
         <p class="ciclo-detalle"><strong>Básico</strong> 45 min/sem · $1,600 · primeros contactos con el francés</p>
         <p class="ciclo-detalle"><strong>Regular</strong> 1h30/sem · $2,300 · sin sobrecarga</p>
         <p class="ciclo-detalle"><strong>Regular Plus</strong> 3 h/sem · $3,200 · progresión sólida</p>
         <p class="ciclo-detalle"><strong>Intensivo</strong> 5 h/sem · $4,700 · avance rápido</p>
+        <p class="ciclo-clic-hint"><i class="fa fa-arrow-right"></i> Empezar preinscripción</p>
       </div>
     </div>
 
@@ -3021,6 +3034,24 @@ const CURSOS_FALLBACK = [
   {id:'delf_prep',   i:'fa-certificate',   n:'Preparación DELF/DALF',e:'Candidatos a examen',   d:'Talleres intensivos. Simulacros cronometrados con corrección por docente especializado.',tags:['Taller','Particular','Virtual']}
 ];
 
+// Opciones de diploma previo: siempre disponibles en el select de nivel,
+// tenga o no el curso niveles definidos en el catálogo (tab Catálogo del admin).
+const NIVELES_DIPLOMA = [
+  {codigo:'delf_diploma', nombre:'Ya tengo un diploma DELF (haremos prueba de posicionamiento)'},
+  {codigo:'dalf_diploma', nombre:'Ya tengo un diploma DALF (haremos prueba de posicionamiento)'},
+];
+
+// Niveles estándar MCER, usados cuando coordinación no ha definido niveles
+// específicos para un curso en el catálogo (tab Catálogo del admin).
+const NIVELES_ESTANDAR = [
+  {codigo:'A1', nombre:'A1 · Débutant'},
+  {codigo:'A2', nombre:'A2 · Élémentaire'},
+  {codigo:'B1', nombre:'B1 · Intermédiaire'},
+  {codigo:'B2', nombre:'B2 · Avancé'},
+  {codigo:'C1', nombre:'C1 · Autonome'},
+  {codigo:'C2', nombre:'C2 · Maîtrise'},
+];
+
 const DELF = [
   {n:'A1',c:'#4caf50',f:'DELF',desc:'Débutant',       hrs:'~80 h prep'},
   {n:'A2',c:'#8bc34a',f:'DELF',desc:'Élémentaire',    hrs:'~100 h prep'},
@@ -3348,12 +3379,12 @@ const AF = (() => {
       return;
     }
     const seg = cat?.segmentos?.find(s => s.id === cid);
-    if(seg?.niveles){
-      sn.innerHTML = '<option value="">Sin definir (haremos prueba)</option>' +
-        seg.niveles.map(n => `<option value="${n.codigo}">${n.codigo} · ${n.nombre}</option>`).join('');
-    } else {
-      sn.innerHTML = '<option value="">Consultar con coordinación</option>';
-    }
+    const nivelesAdmin = (seg?.niveles || []).filter(Boolean);
+    const opcionesNivel = nivelesAdmin.length
+      ? nivelesAdmin.map(n => `<option value="${n.codigo}">${n.codigo} · ${n.nombre}</option>`).join('')
+      : NIVELES_ESTANDAR.map(n => `<option value="${n.codigo}">${n.nombre}</option>`).join('');
+    const opcionesDiploma = NIVELES_DIPLOMA.map(n => `<option value="${n.codigo}">${n.nombre}</option>`).join('');
+    sn.innerHTML = '<option value="">Sin definir (haremos prueba)</option>' + opcionesDiploma + opcionesNivel;
     estado.curso = cid;
     estado.cursoNombre = seg?.nombre || CURSOS_FALLBACK.find(c=>c.id===cid)?.n || cid;
     actualizarResumen();
@@ -3556,6 +3587,22 @@ const AF = (() => {
         }
       },400);
     }
+  }
+
+  // Clic en una tarjeta de "Ciclo estándar de 6 semanas" → recorrido fluido:
+  // salta directo al formulario de preinscripción (paso 3) con programa,
+  // formato y ritmo ya elegidos.
+  function irAConfig(cursoId, formato, formatoNombre, ritmo, ritmoNombre, ritmoDetalle){
+    const sec = document.getElementById('preinscripcion');
+    sec?.scrollIntoView({behavior:'smooth'});
+    if(!estado.sede) selectSede('virtual','AF Virtual');
+    setTimeout(() => {
+      const sel = document.getElementById('f-curso');
+      if(sel){ sel.value = cursoId; updateModalidades(); }
+      setFormato(formato, formatoNombre);
+      setRitmo(ritmo, ritmoNombre, ritmoDetalle || '');
+      goToStep(3);
+    }, 400);
   }
 
   /* ─── Validación y envío ─── */
@@ -3764,7 +3811,7 @@ const AF = (() => {
       .catch(e => console.info('[Evidencias] sin datos publicables', e));
   }
 
-  return { init, toggleMenu, selectSede, goToStep, irA, updateModalidades, setFormato, setRitmo, actualizarResumen, enviarPreinscripcion, resetForm, toggleFAQ, toggleLang, renderParcours, renderEvidencias };
+  return { init, toggleMenu, selectSede, goToStep, irA, irAConfig, updateModalidades, setFormato, setRitmo, actualizarResumen, enviarPreinscripcion, resetForm, toggleFAQ, toggleLang, renderParcours, renderEvidencias };
 })();
 
 // ──────────────────── i18n (es/fr) ────────────────────
