@@ -1100,35 +1100,58 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
   .relanz-facts{text-align:center}
 }
 
-/* ──────────────────── FAB WHATSAPP ──────────────────── */
-.fab{
+/* ──────────────────── FAB WHATSAPP ────────────────────
+   Nota: la clase se llama .wa-fab (no .fab) a propósito — Font Awesome usa
+   la clase "fab" para sus iconos de marca, y si el botón también se llamara
+   .fab, el icono heredaba el position:fixed y el círculo del botón,
+   duplicándolo y desalineándolo. */
+.wa-fab{
   position:fixed;bottom:1.5rem;right:1.5rem;z-index:800;
-  width:56px;height:56px;border-radius:50%;
-  background:#25d366;color:#fff;display:flex;align-items:center;justify-content:center;
-  font-size:1.5rem;text-decoration:none;
-  box-shadow:0 8px 28px rgba(37,211,102,0.4);
-  transition:transform 0.25s;
+  width:60px;height:60px;border-radius:50%;
+  background:linear-gradient(135deg,#2fe677,#1fa855);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  text-decoration:none;
+  box-shadow:0 10px 30px rgba(31,168,85,0.45),0 2px 10px rgba(0,0,0,0.18);
+  transition:transform 0.25s ease,box-shadow 0.25s ease;
 }
-.fab:hover{transform:scale(1.1)}
-.fab::before,.fab::after{
+.wa-fab i{font-size:1.7rem;position:relative;z-index:2}
+.wa-fab:hover{transform:scale(1.08) translateY(-2px);box-shadow:0 16px 38px rgba(31,168,85,0.55),0 4px 12px rgba(0,0,0,0.22)}
+.wa-fab::before,.wa-fab::after{
   content:'';position:absolute;inset:0;border-radius:50%;
   border:2px solid #25d366;pointer-events:none;
 }
-.fab::before{animation:wa-pulse 2.4s infinite}
-.fab::after{animation:wa-pulse 2.4s infinite 1.2s}
+.wa-fab::before{animation:wa-pulse 2.4s infinite}
+.wa-fab::after{animation:wa-pulse 2.4s infinite 1.2s}
+.wa-fab-dot{
+  position:absolute;top:1px;right:1px;width:14px;height:14px;border-radius:50%;
+  background:#4ade80;border:2.5px solid var(--void);z-index:3;
+}
 @keyframes wa-pulse{
   0%{transform:scale(1);opacity:0.9}
-  100%{transform:scale(1.8);opacity:0}
+  100%{transform:scale(1.85);opacity:0}
 }
-.fab-label{
-  position:absolute;right:70px;top:50%;transform:translateY(-50%);
-  background:rgba(13,31,51,0.92);color:#fff;
-  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;
-  padding:0.5rem 0.9rem;border-radius:var(--r);
-  border:1px solid rgba(37,211,102,0.35);white-space:nowrap;
+.wa-fab-label{
+  position:absolute;right:76px;top:50%;transform:translateY(-50%);
+  background:rgba(13,31,51,0.94);color:#fff;
+  font-family:var(--mono);font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;
+  padding:0.55rem 0.95rem;border-radius:var(--r);
+  border:1px solid rgba(37,211,102,0.4);white-space:nowrap;
   opacity:0;pointer-events:none;transition:opacity 0.25s,transform 0.25s;
+  box-shadow:0 8px 22px rgba(0,0,0,0.28);
 }
-.fab:hover .fab-label{opacity:1;transform:translateY(-50%) translateX(-4px)}
+.wa-fab-label::after{
+  content:'';position:absolute;right:-5px;top:50%;
+  transform:translateY(-50%) rotate(45deg);
+  width:9px;height:9px;background:rgba(13,31,51,0.94);
+  border-right:1px solid rgba(37,211,102,0.4);border-bottom:1px solid rgba(37,211,102,0.4);
+}
+.wa-fab:hover .wa-fab-label{opacity:1;transform:translateY(-50%) translateX(-4px)}
+
+@media(max-width:640px){
+  .wa-fab{width:52px;height:52px;bottom:1.1rem;right:1.1rem}
+  .wa-fab i{font-size:1.4rem}
+  .wa-fab-label{display:none}
+}
 
 /* ──────────────────── ANATOMÍA DEL CICLO ──────────────────── */
 .ciclo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.25rem;margin-bottom:2rem}
@@ -2996,9 +3019,10 @@ window.AFMusic = (function(){
 </footer>
 
 <!-- FAB WhatsApp -->
-<a href="https://wa.me/529671721870?text=Hola%2C%20deseo%20m%C3%A1s%20informaci%C3%B3n%20sobre%20la%20Alliance%20Fran%C3%A7aise%20San%20Crist%C3%B3bal." target="_blank" rel="noopener" class="fab" aria-label="Contactar por WhatsApp">
+<a href="https://wa.me/529671721870?text=Hola%2C%20deseo%20m%C3%A1s%20informaci%C3%B3n%20sobre%20la%20Alliance%20Fran%C3%A7aise%20San%20Crist%C3%B3bal." target="_blank" rel="noopener" class="wa-fab" aria-label="Contactar por WhatsApp">
   <i class="fab fa-whatsapp"></i>
-  <span class="fab-label">+52 1 967 172 1870</span>
+  <span class="wa-fab-dot"></span>
+  <span class="wa-fab-label">+52 1 967 172 1870</span>
 </a>
 
 <script>
