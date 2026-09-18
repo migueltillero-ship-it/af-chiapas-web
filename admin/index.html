@@ -662,6 +662,7 @@ Intensivo | 4 sesiones/semana | 48 h" style="width:100%;background:rgba(13,31,51
       <span class="kv-key">Nivel</span>              <span class="kv-val" id="m-nivel">—</span>
       <span class="kv-key">Formato</span>            <span class="kv-val" id="m-formato">—</span>
       <span class="kv-key">Ritmo</span>              <span class="kv-val" id="m-ritmo">—</span>
+      <span class="kv-key" id="m-docente-key" style="display:none">Profesor solicitado</span> <span class="kv-val" id="m-docente" style="display:none">—</span>
       <span class="kv-key">¿Cuándo?</span>           <span class="kv-val" id="m-inicio">—</span>
       <span class="kv-key">Fuente</span>             <span class="kv-val" id="m-fuente">—</span>
       <span class="kv-key">Mensaje</span>            <span class="kv-val" id="m-mensaje">—</span>
@@ -2122,6 +2123,7 @@ const ADMIN = (() => {
         <td>
           <div>${escapeHtml(i.curso_nombre || i.curso_id)} ${i.nivel ? '· '+i.nivel : ''}</div>
           <div class="cell-meta">${i.formato || '—'} · ${i.ritmo || '—'}</div>
+          ${i.docente_solicitado ? `<div class="cell-meta">👤 ${escapeHtml(i.docente_solicitado)}${i.docente_modalidad ? ' · '+(i.docente_modalidad === 'particular' ? 'Particular' : 'Grupo') : ''}</div>` : ''}
         </td>
         <td class="cell-meta">${grupo}</td>
         <td class="cell-meta">${fecha}</td>
@@ -2183,6 +2185,16 @@ const ADMIN = (() => {
     set('nivel',    actual.nivel || 'por evaluar');
     set('formato',  actual.formato);
     set('ritmo',    actual.ritmo);
+    const docenteKey = document.getElementById('m-docente-key');
+    const docenteVal = document.getElementById('m-docente');
+    if(actual.docente_solicitado){
+      set('docente', actual.docente_solicitado + (actual.docente_modalidad ? ' · ' + (actual.docente_modalidad === 'particular' ? 'Clase particular' : 'Clase en grupo') : ''));
+      if(docenteKey) docenteKey.style.display = '';
+      if(docenteVal) docenteVal.style.display = '';
+    } else {
+      if(docenteKey) docenteKey.style.display = 'none';
+      if(docenteVal) docenteVal.style.display = 'none';
+    }
     set('inicio',   actual.inicio);
     set('fuente',   actual.fuente);
     set('mensaje',  actual.mensaje);

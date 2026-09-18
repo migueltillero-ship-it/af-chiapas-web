@@ -1045,6 +1045,54 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
 .doc-stat-l{font-size:0.76rem;color:var(--muted);margin-top:0.35rem;display:block;line-height:1.4}
 @media(max-width:860px){.doc-hero{grid-template-columns:1fr;padding:1.75rem}}
 
+/* ──────────────────── EQUIPO DOCENTE ──────────────────── */
+.equipo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem}
+.docente-card{
+  background:#fff;border:1px solid var(--border);border-radius:var(--r-xl);
+  padding:2rem 1.75rem;display:flex;flex-direction:column;align-items:center;text-align:center;
+  box-shadow:0 4px 14px rgba(13,31,51,0.05);transition:transform 0.25s,box-shadow 0.25s;
+  --dc:var(--blue);
+}
+.docente-card:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(13,31,51,0.10)}
+.docente-avatar{
+  width:88px;height:88px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,var(--dc),rgba(255,255,255,0.35));
+  color:#fff;font-family:var(--poster);font-size:1.8rem;letter-spacing:0.02em;
+  margin-bottom:1.1rem;border:3px solid rgba(255,255,255,0.6);
+  box-shadow:0 6px 18px rgba(13,31,51,0.18);
+}
+.docente-nombre{font-family:var(--display);font-size:1.3rem;font-weight:600;margin-bottom:0.15rem}
+.docente-tag{
+  font-family:var(--mono);font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--dc);margin-bottom:0.9rem;
+}
+.docente-bio{font-size:0.85rem;color:var(--muted);line-height:1.65;margin-bottom:1.1rem}
+.docente-chips{display:flex;flex-wrap:wrap;gap:0.4rem;justify-content:center;margin-bottom:1.4rem}
+.docente-chip{
+  font-family:var(--mono);font-size:0.55rem;letter-spacing:0.08em;text-transform:uppercase;
+  background:rgba(13,31,51,0.05);border:1px solid var(--border);color:var(--ink-soft);
+  padding:0.3rem 0.65rem;border-radius:99px;
+}
+.docente-cta{
+  display:inline-flex;align-items:center;gap:0.5rem;width:100%;justify-content:center;
+  background:var(--dc);color:#fff;padding:0.8rem 1.2rem;border-radius:var(--r);
+  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;
+  border:none;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;
+}
+.docente-cta:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(13,31,51,0.25)}
+.docente-choice{
+  display:none;width:100%;gap:0.6rem;margin-top:0.6rem;
+}
+.docente-choice.show{display:flex}
+.docente-choice button{
+  flex:1;background:transparent;border:1.5px solid var(--dc);color:var(--dc);
+  padding:0.65rem 0.5rem;border-radius:var(--r);cursor:pointer;
+  font-family:var(--mono);font-size:0.54rem;letter-spacing:0.06em;text-transform:uppercase;font-weight:700;
+  transition:background 0.2s,color 0.2s;
+}
+.docente-choice button:hover{background:var(--dc);color:#fff}
+
 /* ──────────────────── CALENDARIO DE CICLOS ──────────────────── */
 .cal-tabla{overflow-x:auto;border:1px solid var(--border);border-radius:var(--r-lg);background:#fff}
 .cal-tabla table{width:100%;border-collapse:collapse;font-size:0.9rem;min-width:560px}
@@ -1729,6 +1777,7 @@ window.AFMusic = (function(){
       <ul class="nav-drop">
         <li><a href="#histoire"><i class="fa fa-landmark"></i> Historia y misión</a></li>
         <li><a href="#docentes-online"><i class="fa fa-chalkboard-user"></i> Profesores en línea</a></li>
+        <li><a href="#equipo-docente"><i class="fa fa-user-group"></i> Conoce a nuestro equipo</a></li>
         <li><a href="#proceso"><i class="fa fa-route"></i> Cómo funciona</a></li>
         <li><a href="#delf-lasalle"><i class="fa fa-handshake"></i> DELF Junior · Colegio La Salle</a></li>
       </ul>
@@ -2091,6 +2140,105 @@ window.AFMusic = (function(){
         <div class="doc-stat"><span class="doc-stat-n">A1–C2</span><span class="doc-stat-l">Todos los niveles MCER</span></div>
         <div class="doc-stat"><span class="doc-stat-n">6</span><span class="doc-stat-l">Semanas por ciclo</span></div>
         <div class="doc-stat"><span class="doc-stat-n">4–12</span><span class="doc-stat-l">Alumnos por grupo</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EQUIPO DOCENTE -->
+<section id="equipo-docente" class="section" data-wa-section="conoce a nuestro equipo docente">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-watermark" aria-hidden="true">PROFESSEURS</span>
+      <span class="section-tag">Notre équipe</span>
+      <h2 class="section-title">Conoce a <em>nuestro equipo</em></h2>
+      <p class="section-sub">Elige con quién quieres aprender. Cada profesor tiene su propio estilo — encuentra el que mejor conecta contigo.</p>
+    </div>
+
+    <div class="equipo-grid">
+      <div class="docente-card" style="--dc:var(--blue)">
+        <div class="docente-avatar">AA</div>
+        <p class="docente-nombre">Alejandro Avendaño</p>
+        <p class="docente-tag">Conversación y fonética</p>
+        <p class="docente-bio">Alejandro cree que el francés se aprende hablando, no memorizando reglas. Sus clases están llenas de diálogos reales y ejercicios de pronunciación que te quitan el miedo a hablar desde la primera semana.</p>
+        <div class="docente-chips">
+          <span class="docente-chip">Fonética y acento</span>
+          <span class="docente-chip">Clases dinámicas</span>
+          <span class="docente-chip">Nivel A1–B2</span>
+        </div>
+        <button type="button" class="docente-cta" onclick="AF.toggleDocenteChoice('choice-alejandro-a')"><i class="fa fa-rocket"></i> Inscríbete conmigo</button>
+        <div class="docente-choice" id="choice-alejandro-a">
+          <button type="button" onclick="AF.irADocente('Alejandro Avendaño','particular')">Clase particular</button>
+          <button type="button" onclick="AF.irADocente('Alejandro Avendaño','grupo')">Clase en grupo</button>
+        </div>
+      </div>
+
+      <div class="docente-card" style="--dc:var(--violet)">
+        <div class="docente-avatar">AE</div>
+        <p class="docente-nombre">Alejandra Estrada</p>
+        <p class="docente-tag">Metodología comunicativa</p>
+        <p class="docente-bio">Alejandra estructura cada sesión como una conversación con propósito: aprendes gramática resolviendo situaciones de la vida real. Su paciencia y seguimiento cercano la hacen ideal para quienes empiezan desde cero.</p>
+        <div class="docente-chips">
+          <span class="docente-chip">Principiantes</span>
+          <span class="docente-chip">Seguimiento cercano</span>
+          <span class="docente-chip">Nivel A1–A2</span>
+        </div>
+        <button type="button" class="docente-cta" onclick="AF.toggleDocenteChoice('choice-alejandra-e')"><i class="fa fa-rocket"></i> Inscríbete conmigo</button>
+        <div class="docente-choice" id="choice-alejandra-e">
+          <button type="button" onclick="AF.irADocente('Alejandra Estrada','particular')">Clase particular</button>
+          <button type="button" onclick="AF.irADocente('Alejandra Estrada','grupo')">Clase en grupo</button>
+        </div>
+      </div>
+
+      <div class="docente-card" style="--dc:var(--cyan)">
+        <div class="docente-avatar">FF</div>
+        <p class="docente-nombre">Fanny Franco</p>
+        <p class="docente-tag">Preparación DELF/DALF</p>
+        <p class="docente-bio">Fanny acompaña a sus estudiantes hacia la certificación oficial DELF/DALF con simulacros de examen y retroalimentación honesta y detallada. Si tu meta es un diploma o una fecha límite, ella te lleva ahí con estrategia.</p>
+        <div class="docente-chips">
+          <span class="docente-chip">Exámenes oficiales</span>
+          <span class="docente-chip">Simulacros reales</span>
+          <span class="docente-chip">Nivel B1–C1</span>
+        </div>
+        <button type="button" class="docente-cta" onclick="AF.toggleDocenteChoice('choice-fanny-f')"><i class="fa fa-rocket"></i> Inscríbete conmigo</button>
+        <div class="docente-choice" id="choice-fanny-f">
+          <button type="button" onclick="AF.irADocente('Fanny Franco','particular')">Clase particular</button>
+          <button type="button" onclick="AF.irADocente('Fanny Franco','grupo')">Clase en grupo</button>
+        </div>
+      </div>
+
+      <div class="docente-card" style="--dc:var(--gold)">
+        <div class="docente-avatar">MT</div>
+        <p class="docente-nombre">Miguel Tillero</p>
+        <p class="docente-tag">Fundador · dirección académica</p>
+        <p class="docente-bio">Miguel fundó la Alliance Française San Cristóbal con la convicción de que aprender francés en línea puede sentirse tan cercano como en un salón físico. Combina la visión del programa con clases directas para quienes quieren aprender con el equipo fundador.</p>
+        <div class="docente-chips">
+          <span class="docente-chip">Todos los niveles</span>
+          <span class="docente-chip">Visión del programa</span>
+          <span class="docente-chip">Clases directas</span>
+        </div>
+        <button type="button" class="docente-cta" onclick="AF.toggleDocenteChoice('choice-miguel-t')"><i class="fa fa-rocket"></i> Inscríbete conmigo</button>
+        <div class="docente-choice" id="choice-miguel-t">
+          <button type="button" onclick="AF.irADocente('Miguel Tillero','particular')">Clase particular</button>
+          <button type="button" onclick="AF.irADocente('Miguel Tillero','grupo')">Clase en grupo</button>
+        </div>
+      </div>
+
+      <div class="docente-card" style="--dc:var(--camp-orange)">
+        <div class="docente-avatar">LR</div>
+        <p class="docente-nombre">Lucía Rangel</p>
+        <p class="docente-tag">Francés para niños y adolescentes</p>
+        <p class="docente-bio">Lucía diseña cada clase como un juego con intención pedagógica: canciones, historias y actividades que mantienen a los más pequeños enganchados mientras absorben el idioma de forma natural.</p>
+        <div class="docente-chips">
+          <span class="docente-chip">Niños y adolescentes</span>
+          <span class="docente-chip">Aprendizaje lúdico</span>
+          <span class="docente-chip">6–15 años</span>
+        </div>
+        <button type="button" class="docente-cta" onclick="AF.toggleDocenteChoice('choice-lucia-r')"><i class="fa fa-rocket"></i> Inscríbete conmigo</button>
+        <div class="docente-choice" id="choice-lucia-r">
+          <button type="button" onclick="AF.irADocente('Lucía Rangel','particular')">Clase particular</button>
+          <button type="button" onclick="AF.irADocente('Lucía Rangel','grupo')">Clase en grupo</button>
+        </div>
       </div>
     </div>
   </div>
@@ -2824,6 +2972,7 @@ window.AFMusic = (function(){
           <div class="summary-row"><span class="summary-key">Nivel</span><span class="summary-val" id="sum-nivel">por evaluar</span></div>
           <div class="summary-row"><span class="summary-key">Formato</span><span class="summary-val" id="sum-formato">—</span></div>
           <div class="summary-row"><span class="summary-key">Ritmo</span><span class="summary-val" id="sum-ritmo">—</span></div>
+          <div class="summary-row" id="sum-docente-row" style="display:none"><span class="summary-key">Profesor solicitado</span><span class="summary-val" id="sum-docente">—</span></div>
           <div class="summary-row"><span class="summary-key">Duración del ciclo</span><span class="summary-val">6 semanas (~1.5 meses)</span></div>
           <div class="summary-row"><span class="summary-key">Horas totales</span><span class="summary-val" id="sum-horas">—</span></div>
           <p class="summary-note">
@@ -3147,7 +3296,7 @@ const FAQ = [
 /* ──────────────────── APP ──────────────────── */
 const AF = (() => {
   let cat = null;
-  let estado = {sede:'',sedeName:'',curso:'',cursoNombre:'',nivel:'',formato:'',formatoNombre:'',ritmo:'',ritmoNombre:'',ritmoDetalle:'',step:1};
+  let estado = {sede:'',sedeName:'',curso:'',cursoNombre:'',nivel:'',formato:'',formatoNombre:'',ritmo:'',ritmoNombre:'',ritmoDetalle:'',docente:'',docenteModalidad:'',step:1};
 
   function init(){
     if(window.emailjs){ try{ emailjs.init(EMAILJS_PK); }catch(e){ console.warn('[EmailJS]',e); } }
@@ -3466,6 +3615,15 @@ const AF = (() => {
     set('sum-formato', estado.formatoNombre);
     set('sum-ritmo',   estado.ritmoNombre + (estado.ritmoDetalle ? ' · ' + estado.ritmoDetalle : ''));
     set('sum-horas',   horasPorRitmo(estado.ritmo, estado.curso));
+    const rowDocente = document.getElementById('sum-docente-row');
+    if(rowDocente){
+      if(estado.docente){
+        set('sum-docente', estado.docente + (estado.docenteModalidad ? ' · ' + (estado.docenteModalidad === 'particular' ? 'Clase particular' : 'Clase en grupo') : ''));
+        rowDocente.style.display = '';
+      } else {
+        rowDocente.style.display = 'none';
+      }
+    }
   }
 
   function horasPorRitmo(ritmo, curso){
@@ -3638,6 +3796,36 @@ const AF = (() => {
     }, 400);
   }
 
+  // Clic en "Inscríbete conmigo" desde la tarjeta de un docente → elige
+  // particular o grupo y salta a la preinscripción con ambos datos guardados,
+  // para que coordinación pueda enrutar la solicitud al profesor correcto.
+  function irADocente(docenteNombre, modalidad){
+    estado.docente = docenteNombre;
+    estado.docenteModalidad = modalidad;
+    const sec = document.getElementById('preinscripcion');
+    sec?.scrollIntoView({behavior:'smooth'});
+    if(!estado.sede) selectSede('virtual','AF Virtual');
+    else goToStep(2);
+    setTimeout(() => {
+      setFormato(modalidad === 'particular' ? 'individual' : 'grupal', modalidad === 'particular' ? 'Individual (1 a 1)' : 'Grupal');
+      const msgEl = document.getElementById('f-mensaje');
+      if(msgEl && !msgEl.value.trim()){
+        msgEl.value = `Me gustaría tomar clases ${modalidad === 'particular' ? 'particulares' : 'en grupo'} con ${docenteNombre}.`;
+      }
+      actualizarResumen();
+      guardarBorrador();
+    }, 400);
+  }
+
+  // Revela los botones "Clase particular" / "Clase en grupo" bajo el CTA
+  // de un docente. Cierra cualquier otra tarjeta que haya quedado abierta.
+  function toggleDocenteChoice(id){
+    document.querySelectorAll('.docente-choice').forEach(el => {
+      if(el.id !== id) el.classList.remove('show');
+    });
+    document.getElementById(id)?.classList.toggle('show');
+  }
+
   /* ─── Validación y envío ─── */
   function validateField(id, errId, test){
     const el = document.getElementById(id);
@@ -3686,6 +3874,8 @@ const AF = (() => {
       fuente:    document.getElementById('f-fuente').value || 'No indicado',
       inicio:    document.getElementById('f-inicio').value || 'lo_antes_posible',
       mensaje:   document.getElementById('f-mensaje').value.trim() || '(Sin mensaje)',
+      docente_solicitado: estado.docente || '(No indicado)',
+      docente_modalidad:  estado.docenteModalidad === 'particular' ? 'Clase particular' : (estado.docenteModalidad === 'grupo' ? 'Clase en grupo' : '(No indicado)'),
       fecha:     ahora,
       to_email:  'afsancris@gmail.com'
     };
@@ -3706,7 +3896,9 @@ const AF = (() => {
           email,
           telefono: tel,
           fuente: payload.fuente,
-          mensaje: payload.mensaje === '(Sin mensaje)' ? null : payload.mensaje
+          mensaje: payload.mensaje === '(Sin mensaje)' ? null : payload.mensaje,
+          docente_solicitado: estado.docente || null,
+          docente_modalidad: estado.docenteModalidad || null
         };
         const {error: dbErr} = await sb.from('inscripciones').insert(ins);
         if(dbErr) console.warn('[Supabase] insert falló (se continúa con EmailJS):', dbErr);
@@ -3740,7 +3932,7 @@ const AF = (() => {
 
   function resetForm(){
     borrarBorrador();
-    estado = {sede:'',sedeName:'',curso:'',cursoNombre:'',nivel:'',formato:'',formatoNombre:'',ritmo:'',ritmoNombre:'',ritmoDetalle:'',step:1};
+    estado = {sede:'',sedeName:'',curso:'',cursoNombre:'',nivel:'',formato:'',formatoNombre:'',ritmo:'',ritmoNombre:'',ritmoDetalle:'',docente:'',docenteModalidad:'',step:1};
     ['f-nombre','f-email','f-tel','f-mensaje'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
     ['f-curso','f-nivel','f-fuente','f-inicio'].forEach(id => { const el=document.getElementById(id); if(el) el.selectedIndex=0; });
     document.querySelectorAll('.sede-btn, .opt-pick').forEach(b => b.classList.remove('active'));
@@ -3844,7 +4036,7 @@ const AF = (() => {
       .catch(e => console.info('[Evidencias] sin datos publicables', e));
   }
 
-  return { init, toggleMenu, selectSede, goToStep, irA, irAConfig, updateModalidades, setFormato, setRitmo, actualizarResumen, enviarPreinscripcion, resetForm, toggleFAQ, toggleLang, renderParcours, renderEvidencias };
+  return { init, toggleMenu, selectSede, goToStep, irA, irAConfig, irADocente, toggleDocenteChoice, updateModalidades, setFormato, setRitmo, actualizarResumen, enviarPreinscripcion, resetForm, toggleFAQ, toggleLang, renderParcours, renderEvidencias };
 })();
 
 // ──────────────────── i18n (es/fr) ────────────────────

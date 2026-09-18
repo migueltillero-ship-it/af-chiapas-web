@@ -126,6 +126,21 @@ Aplica `supabase/schema_phase3.sql` sobre los esquemas anteriores.
 | `rechazada` | Muestra `notas_admin` + invita a contactar por WhatsApp. |
 | `cancelada` | "Cancelada. Escríbenos para reactivar." |
 
+## Fase 13 — Rastreo de "Inscríbete conmigo" por docente
+
+Aplica `supabase/schema_phase13.sql`.
+
+- La sección "Conoce a nuestro equipo" (`index.html`, `#equipo-docente`) tiene un botón
+  **Inscríbete conmigo** por cada docente. Al hacer clic, el visitante elige clase
+  particular o en grupo y se le redirige a la preinscripción con esos dos datos ya
+  guardados en el `estado` del formulario.
+- Dos columnas nuevas en `inscripciones`: `docente_solicitado` (nombre del docente) y
+  `docente_modalidad` (`particular` o `grupo`). Ambas quedan `null` si el visitante llegó
+  por cualquier otro camino (banner, tarjeta de ciclo, etc.) — no es un dato obligatorio.
+- En el admin, la tabla de inscripciones y el detalle de cada una muestran el docente
+  solicitado cuando existe, para que coordinación pueda enrutar esa solicitud al
+  profesor correcto.
+
 ## Fase 12 — Portal del alumno con cuenta propia
 
 Aplica `supabase/schema_phase12.sql`.
