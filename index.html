@@ -1056,12 +1056,13 @@ html[lang="fr"] .lang-toggle [data-lang-fr]{opacity:1;color:var(--gold)}
 .docente-card:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(13,31,51,0.10)}
 .docente-avatar{
   width:88px;height:88px;border-radius:50%;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
   background:linear-gradient(135deg,var(--dc),rgba(255,255,255,0.35));
   color:#fff;font-family:var(--poster);font-size:1.8rem;letter-spacing:0.02em;
   margin-bottom:1.1rem;border:3px solid rgba(255,255,255,0.6);
   box-shadow:0 6px 18px rgba(13,31,51,0.18);
 }
+.docente-avatar img{width:100%;height:100%;object-fit:cover;display:block}
 .docente-nombre{font-family:var(--display);font-size:1.3rem;font-weight:600;margin-bottom:0.15rem}
 .docente-tag{
   font-family:var(--mono);font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;
@@ -2157,7 +2158,12 @@ window.AFMusic = (function(){
 
     <div class="equipo-grid">
       <div class="docente-card" style="--dc:var(--blue)">
-        <div class="docente-avatar">AA</div>
+        <div class="docente-avatar">
+          <picture>
+            <source srcset="src/assets/img/docentes/alejandro-avendano.webp" type="image/webp">
+            <img src="src/assets/img/docentes/alejandro-avendano.jpg" alt="Alejandro Avendaño" loading="lazy" decoding="async">
+          </picture>
+        </div>
         <p class="docente-nombre">Alejandro Avendaño</p>
         <p class="docente-tag">Conversación y fonética</p>
         <p class="docente-bio">Alejandro cree que el francés se aprende hablando, no memorizando reglas. Sus clases están llenas de diálogos reales y ejercicios de pronunciación que te quitan el miedo a hablar desde la primera semana.</p>
@@ -2191,7 +2197,12 @@ window.AFMusic = (function(){
       </div>
 
       <div class="docente-card" style="--dc:var(--cyan)">
-        <div class="docente-avatar">FF</div>
+        <div class="docente-avatar">
+          <picture>
+            <source srcset="src/assets/img/docentes/fanny-franco.webp" type="image/webp">
+            <img src="src/assets/img/docentes/fanny-franco.jpg" alt="Fanny Franco" loading="lazy" decoding="async">
+          </picture>
+        </div>
         <p class="docente-nombre">Fanny Franco</p>
         <p class="docente-tag">Preparación DELF/DALF</p>
         <p class="docente-bio">Fanny acompaña a sus estudiantes hacia la certificación oficial DELF/DALF con simulacros de examen y retroalimentación honesta y detallada. Si tu meta es un diploma o una fecha límite, ella te lleva ahí con estrategia.</p>
@@ -2208,7 +2219,12 @@ window.AFMusic = (function(){
       </div>
 
       <div class="docente-card" style="--dc:var(--gold)">
-        <div class="docente-avatar">MT</div>
+        <div class="docente-avatar">
+          <picture>
+            <source srcset="src/assets/img/docentes/miguel-tillero.webp" type="image/webp">
+            <img src="src/assets/img/docentes/miguel-tillero.jpg" alt="Miguel Tillero" loading="lazy" decoding="async">
+          </picture>
+        </div>
         <p class="docente-nombre">Miguel Tillero</p>
         <p class="docente-tag">Fundador · dirección académica</p>
         <p class="docente-bio">Miguel fundó la Alliance Française San Cristóbal con la convicción de que aprender francés en línea puede sentirse tan cercano como en un salón físico. Combina la visión del programa con clases directas para quienes quieren aprender con el equipo fundador.</p>
@@ -2225,7 +2241,12 @@ window.AFMusic = (function(){
       </div>
 
       <div class="docente-card" style="--dc:var(--camp-orange)">
-        <div class="docente-avatar">LR</div>
+        <div class="docente-avatar">
+          <picture>
+            <source srcset="src/assets/img/docentes/lucia-rangel.webp" type="image/webp">
+            <img src="src/assets/img/docentes/lucia-rangel.jpg" alt="Lucía Rangel" loading="lazy" decoding="async">
+          </picture>
+        </div>
         <p class="docente-nombre">Lucía Rangel</p>
         <p class="docente-tag">Francés para niños y adolescentes</p>
         <p class="docente-bio">Lucía diseña cada clase como un juego con intención pedagógica: canciones, historias y actividades que mantienen a los más pequeños enganchados mientras absorben el idioma de forma natural.</p>
