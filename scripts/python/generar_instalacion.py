@@ -25,13 +25,14 @@ ORDEN = [
     ("schema_phase10.sql", "Egresos (finanzas)"),
     ("schema_phase11.sql", "Parámetros de grupo + feriados"),
     ("schema_phase12.sql", "Portal del alumno: cuenta propia, evaluaciones, validación de nivel, constancias"),
+    ("schema_phase13.sql", "Rastreo de docente y modalidad solicitados desde 'Inscríbete conmigo'"),
 ]
 
 CABECERA = """\
 -- ═══════════════════════════════════════════════════════════════════
 --  Alliance Française San Cristóbal · INSTALACIÓN COMPLETA
 --
---  Los once esquemas del proyecto, en el orden correcto de dependencias,
+--  Los doce esquemas del proyecto, en el orden correcto de dependencias,
 --  reunidos en un solo archivo para poder aplicarlos de una sola vez
 --  desde el SQL Editor de Supabase.
 --
