@@ -1,9 +1,10 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Ciclo estándar → preinscripción fluida', () => {
-  test('clic en tarjeta 12h/bimestre lleva al paso 3 con formato y ritmo preseleccionados', async ({ page }) => {
-    await page.goto('/');
+  test('clic en tarjeta 12h/bimestre lleva a preinscripción, paso 3, con formato y ritmo preseleccionados', async ({ page }) => {
+    await page.goto('/cursos-niveles.html');
     await page.locator('#ciclo .ciclo-card.ciclo-clic').first().click();
+    await page.waitForURL(/preinscripcion\.html/);
     await page.waitForTimeout(600);
     await expect(page.locator('#step-3')).toHaveClass(/active/);
     await expect(page.locator('#f-curso')).toHaveValue('adultos');
@@ -13,17 +14,19 @@ test.describe('Ciclo estándar → preinscripción fluida', () => {
     await expect(page.locator('#sum-ritmo')).toContainText('Ritmo Básico');
   });
 
-  test('clic en tarjeta de niños lleva al paso 2 con curso preseleccionado', async ({ page }) => {
-    await page.goto('/');
+  test('clic en tarjeta de niños lleva a preinscripción, paso 2, con curso preseleccionado', async ({ page }) => {
+    await page.goto('/cursos-niveles.html');
     await page.locator('#ciclo .ciclo-card.ciclo-clic[data-r="ninos"]').click();
+    await page.waitForURL(/preinscripcion\.html/);
     await page.waitForTimeout(600);
     await expect(page.locator('#step-2')).toHaveClass(/active/);
     await expect(page.locator('#f-curso')).toHaveValue('ninos');
   });
 
   test('dropdown de nivel incluye DELF, DALF y A1-C2', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/cursos-niveles.html');
     await page.locator('#ciclo .ciclo-card.ciclo-clic').first().click();
+    await page.waitForURL(/preinscripcion\.html/);
     await page.waitForTimeout(600);
     const options = await page.locator('#f-nivel option').allTextContents();
     const joined = options.join(' | ');

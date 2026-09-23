@@ -1,0 +1,75 @@
+<nav class="nav">
+  <a class="nav-brand" href="index.html">
+    <span class="af-lockup">
+      <img src="src/assets/brand/af-glyph-160.png" alt="af — Alliance Française" width="32" height="38">
+      <span class="af-lockup-text">
+        <span class="af-wordmark"><span class="w1">Alliance</span><span class="w2">Française</span></span>
+        <span class="af-sublocal">San Cristóbal de Las Casas</span>
+      </span>
+    </span>
+    <span class="nav-virtual">100% en línea</span>
+  </a>
+  <button class="nav-toggle" aria-label="Menú" onclick="AF.toggleMenu()"><i class="fa fa-bars"></i></button>
+  <ul class="nav-links" id="nav-links">
+    <li class="nav-item">
+      <button class="nav-drop-btn" aria-haspopup="true" data-i18n="nav.nosotros">Nosotros <i class="fa fa-chevron-down"></i></button>
+      <ul class="nav-drop">
+        <li><a href="historia-contacto.html#histoire"><i class="fa fa-landmark"></i> Historia y misión</a></li>
+        <li><a href="docentes.html#docentes-online"><i class="fa fa-chalkboard-user"></i> Profesores en línea</a></li>
+        <li><a href="docentes.html#equipo-docente"><i class="fa fa-user-group"></i> Conoce a nuestro equipo</a></li>
+        <li><a href="cursos-niveles.html#proceso"><i class="fa fa-route"></i> Cómo funciona</a></li>
+        <li><a href="cursos-niveles.html#delf-lasalle"><i class="fa fa-handshake"></i> DELF Junior · Colegio La Salle</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <button class="nav-drop-btn" aria-haspopup="true" data-i18n="nav.cursos">Cursos <i class="fa fa-chevron-down"></i></button>
+      <ul class="nav-drop">
+        <li><a href="index.html#bienvenida"><i class="fa fa-door-open"></i> Empiezo desde cero</a></li>
+        <li><a href="cursos-niveles.html#cursos"><i class="fa fa-graduation-cap"></i> Oferta académica</a></li>
+        <li><a href="cursos-niveles.html#parcours"><i class="fa fa-stairs"></i> El recorrido A1 → C2</a></li>
+        <li><a href="cursos-niveles.html#ciclo"><i class="fa fa-clock"></i> Ritmos y tarifas</a></li>
+        <li><a href="cursos-niveles.html#calendario"><i class="fa fa-calendar-days"></i> Calendario de ciclos</a></li>
+        <li><a href="vida-af.html#talleres"><i class="fa fa-pen-nib"></i> Talleres y clubes</a></li>
+        <li class="drop-sep" role="separator"></li>
+        <li><a href="preinscripcion.html?sede=virtual"><i class="fa fa-rocket"></i> Preinscribirme</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <button class="nav-drop-btn" aria-haspopup="true" data-i18n="nav.certificaciones">Certificaciones <i class="fa fa-chevron-down"></i></button>
+      <ul class="nav-drop">
+        <li><a href="vida-af.html#certifications"><i class="fa fa-certificate"></i> Preparación DELF/DALF</a></li>
+        <li><a href="vida-af.html#certifications"><i class="fa fa-passport"></i> TCF · TEF Canadá · DFP</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <button class="nav-drop-btn" aria-haspopup="true" data-i18n="nav.cultura">Cultura <i class="fa fa-chevron-down"></i></button>
+      <ul class="nav-drop">
+        <li><a href="vida-af.html#agenda"><i class="fa fa-calendar-days"></i> Eventos</a></li>
+        <li><a href="vida-af.html#galeria"><i class="fa fa-images"></i> Galería</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <button class="nav-drop-btn" aria-haspopup="true" data-i18n="nav.francia">Francia <i class="fa fa-chevron-down"></i></button>
+      <ul class="nav-drop">
+        <li><a href="vida-af.html#mobilite"><i class="fa fa-plane"></i> CAVILAM Vichy 2026</a></li>
+        <li><a href="vida-af.html#mobilite"><i class="fa fa-university"></i> Campus France</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <button class="nav-drop-btn" aria-haspopup="true" data-i18n="nav.miEspacio">Mi espacio <i class="fa fa-chevron-down"></i></button>
+      <ul class="nav-drop">
+        <li><a href="portal/mi-espacio.html"><i class="fa fa-user"></i> Mi espacio (alumno)</a></li>
+        <li><a href="portal/"><i class="fa fa-magnifying-glass"></i> Mi solicitud</a></li>
+        <li><a href="portal/docente.html"><i class="fa fa-chalkboard-teacher"></i> Portal docente</a></li>
+      </ul>
+    </li>
+    <li><a href="index.html#promociones"><i class="fa fa-gift" style="color:var(--red)"></i> Promos</a></li>
+    <li><a href="historia-contacto.html#contact" data-i18n="nav.contacto">Contacto</a></li>
+    <li>
+      <button class="lang-toggle" id="lang-toggle" onclick="AF.toggleLang()" aria-label="Cambiar idioma" title="Cambiar idioma">
+        <span data-lang-es>ES</span><span class="sep">/</span><span data-lang-fr>FR</span>
+      </button>
+    </li>
+    <li><a href="preinscripcion.html" class="nav-cta" data-i18n="nav.inscribirme">Inscribirme</a></li>
+  </ul>
+</nav>

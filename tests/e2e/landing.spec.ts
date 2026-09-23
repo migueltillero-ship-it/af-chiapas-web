@@ -15,13 +15,13 @@ test.describe('Landing pública', () => {
   });
 
   test('sección DELF reposicionada a "Preparación oficial"', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/vida-af.html');
     await page.locator('#certifications').scrollIntoViewIfNeeded();
     await expect(page.locator('#certifications .section-title')).toContainText(/Preparación/i);
   });
 
   test('galería de carteles carga los 6 carteles', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/vida-af.html');
     const posters = page.locator('#galeria .poster');
     await expect(posters).toHaveCount(6);
   });

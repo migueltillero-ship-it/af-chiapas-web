@@ -9,14 +9,14 @@ test.beforeEach(async ({ page }) => {
 
 test.describe('Le parcours · escalera MCER', () => {
   test('publica los seis niveles en orden A1 → C2', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/cursos-niveles.html');
     const niveles = page.locator('#parcours-ladder .niv');
     await expect(niveles).toHaveCount(6);
     await expect(niveles.locator('.niv-code')).toHaveText(['A1', 'A2', 'B1', 'B2', 'C1', 'C2']);
   });
 
   test('cada nivel arranca plegado y accesible', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/cursos-niveles.html');
     const btns = page.locator('#parcours-ladder .niv-btn');
     await expect(btns).toHaveCount(6);
     for (const b of await btns.all()) {
@@ -25,7 +25,7 @@ test.describe('Le parcours · escalera MCER', () => {
   });
 
   test('al abrir un nivel muestra su diploma y duración de examen', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/cursos-niveles.html');
     const a1 = page.locator('#parcours-ladder .niv[data-nivel="A1"]');
     await a1.locator('.niv-btn').click();
     await expect(a1.locator('.niv-btn')).toHaveAttribute('aria-expanded', 'true');
@@ -34,7 +34,7 @@ test.describe('Le parcours · escalera MCER', () => {
   });
 
   test('el nivel se vuelve a plegar al pulsarlo de nuevo', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/cursos-niveles.html');
     const btn = page.locator('#parcours-ladder .niv[data-nivel="B2"] .niv-btn');
     await btn.click();
     await expect(btn).toHaveAttribute('aria-expanded', 'true');
@@ -43,14 +43,14 @@ test.describe('Le parcours · escalera MCER', () => {
   });
 
   test('C1 y C2 declaran carga variable, no una cifra inventada', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/cursos-niveles.html');
     await expect(page.locator('.niv[data-nivel="C1"] .niv-hrs')).toContainText(/variable/i);
     await expect(page.locator('.niv[data-nivel="C2"] .niv-hrs')).toContainText(/variable/i);
   });
 
   test('el menú enlaza a la sección', async ({ page }) => {
     await page.goto('/');
-    await expect(page.locator('.nav-drop a[href="#parcours"]')).toHaveCount(1);
+    await expect(page.locator('.nav-drop a[href="cursos-niveles.html#parcours"]')).toHaveCount(1);
   });
 });
 
@@ -59,7 +59,7 @@ test.describe('Evidencias de calidad', () => {
   // para publicarse. Estas pruebas fijan que NO se publiquen mientras no
   // vuelva el objeto resultados_historicos al JSON.
   test('no publica cifras de resultados sin autorización', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/cursos-niveles.html');
     await expect(page.locator('#evidencias')).toBeHidden();
     await expect(page.locator('#evid-grid .evid-card')).toHaveCount(0);
   });
@@ -74,7 +74,7 @@ test.describe('Evidencias de calidad', () => {
   });
 
   test('la escalera MCER sigue intacta sin las evidencias', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/cursos-niveles.html');
     await expect(page.locator('#parcours-ladder .niv')).toHaveCount(6);
   });
 
@@ -94,7 +94,7 @@ test.describe('Evidencias de calidad', () => {
         },
       }),
     }));
-    await page.goto('/');
+    await page.goto('/cursos-niveles.html');
     const evid = page.locator('#evidencias');
     await expect(evid).toBeVisible();
     await expect(page.locator('#evid-grid .evid-card')).toHaveCount(3);

@@ -2,7 +2,7 @@ import { test, expect } from './fixtures';
 
 test.describe('Flujo de preinscripción', () => {
   test('avanza paso 1 → 2 → 3 con selección virtual', async ({ page }) => {
-    await page.goto('/#preinscripcion');
+    await page.goto('/preinscripcion.html');
     await expect(page.locator('#step-1')).toBeVisible();
 
     // Paso 1: seleccionar AF Virtual
@@ -24,7 +24,7 @@ test.describe('Flujo de preinscripción', () => {
   });
 
   test('valida campos requeridos del paso 3', async ({ page }) => {
-    await page.goto('/#preinscripcion');
+    await page.goto('/preinscripcion.html');
     await page.locator('.sede-btn.virtual').click();
     await page.locator('#f-curso').selectOption({ index: 1 });
     await page.locator('[data-formato="individual"]').click();

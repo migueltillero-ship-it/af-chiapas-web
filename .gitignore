@@ -21,6 +21,13 @@ node_modules/
 dist/
 build/
 
+# Jekyll
+_site/
+.jekyll-cache/
+.jekyll-metadata
+vendor/
+.bundle/
+
 # Playwright
 test-results/
 playwright-report/
