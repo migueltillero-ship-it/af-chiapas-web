@@ -917,6 +917,8 @@ Intensivo | 4 sesiones/semana | 48 h" style="width:100%;background:rgba(13,31,51
           <option data-nivel="A2">Entre nous 2</option>
           <option data-nivel="B1">Entre nous 3</option>
           <option data-nivel="B2">Entre nous 4</option>
+          <option data-nivel="B1">Édito B1</option>
+          <option data-nivel="B2">Édito B2</option>
           <option data-nivel="A1">La grammaire du français A1</option>
           <option data-nivel="A2">La grammaire du français A2</option>
           <option data-nivel="B1">La grammaire du français B1</option>
@@ -2488,22 +2490,16 @@ const ADMIN = (() => {
       'Unité 5', 'Unité 6', 'Unité 7', 'Unité 8'],
     'Entre nous 4': ['Unité 1', 'Unité 2 (santé, alimentation, âges de la vie, solidarité)', 'Unité 3', 'Unité 4',
       'Unité 5', 'Unité 6 (indignation, écologie)', 'Unité 7', 'Unité 8 (art, exil, migrations)'],
+    // Édito B1/B2: 12 unidades reales, con el título tal cual aparece en el índice del libro.
+    'Édito B1': ['Vivre ensemble', 'Le goût des nôtres', 'Travailler autrement',
+      'Date limite de consommation', 'Le français dans le monde', 'Médias en masse', "Et si on partait ?",
+      "La planète en héritage", 'Un tour en ville', "Soif d'apprendre", "Il va y avoir du sport !", 'Cultiver les talents'],
+    'Édito B2': ['À mon avis', "Quelque chose à déclarer ?", 'Ça presse !', 'Partir', 'Histoire de…',
+      'À votre santé !', 'Chassez le naturel…', "C'est de l'art !", 'De vous à moi', 'Au boulot !', "C'est pas net", 'Mais où va-t-on ?'],
   };
-  // Édito B1/B2: 12 unidades reales (título tal cual aparece en el libro).
-  UNIDADES_METODO['Édito A1'] = null; // sin índice recuperable todavía
-  const EDITO_B1_UNIDADES = ['Vivre ensemble', 'Le goût des nôtres', 'Travailler autrement',
-    'Date limite de consommation', 'Le français dans le monde', 'Médias en masse', "Et si on partait ?",
-    "La planète en héritage", 'Un tour en ville', "Soif d'apprendre", "Il va y avoir du sport !", 'Cultiver les talents'];
-  const EDITO_B2_UNIDADES = ['À mon avis', "Quelque chose à déclarer ?", 'Ça presse !', 'Partir', 'Histoire de…',
-    'À votre santé !', 'Chassez le naturel…', "C'est de l'art !", 'De vous à moi', 'Au boulot !', "C'est pas net", 'Mais où va-t-on ?'];
 
   function unidadesParaMetodo(metodo){
-    if(UNIDADES_METODO[metodo]) return UNIDADES_METODO[metodo];
-    // "Édito B1"/"Édito B2" no están en el catálogo del desplegable con ese nombre exacto
-    // todavía (el catálogo solo trae "Édito A1"); se dejan aquí por si se agregan.
-    if(metodo === 'Édito B1') return EDITO_B1_UNIDADES;
-    if(metodo === 'Édito B2') return EDITO_B2_UNIDADES;
-    return null;
+    return UNIDADES_METODO[metodo] || null;
   }
 
   // Reparte N unidades en S semanas lo más parejo posible (ej. 8 unidades en 6
@@ -2528,7 +2524,8 @@ const ADMIN = (() => {
     }
     const unidades = unidadesParaMetodo(metodo);
     if(!unidades){
-      cont.innerHTML = '<p style="font-size:0.82rem;color:var(--muted)">Todavía no hay unidades confirmadas para "' + escapeHtml(metodo) + '" — no se puede armar un plan sugerido sin inventar contenido. Métodos disponibles por ahora: Défi 1, Défi 2, Entre nous 1-4.</p>';
+      const disponibles = Object.keys(UNIDADES_METODO).join(', ');
+      cont.innerHTML = '<p style="font-size:0.82rem;color:var(--muted)">Todavía no hay unidades confirmadas para "' + escapeHtml(metodo) + '" — no se puede armar un plan sugerido sin inventar contenido. Métodos disponibles por ahora: ' + escapeHtml(disponibles) + '.</p>';
       return;
     }
     const plan = repartirEnSemanas(unidades, CICLO_SEMANAS);
