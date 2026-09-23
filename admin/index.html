@@ -837,7 +837,7 @@ Intensivo | 4 sesiones/semana | 48 h" style="width:100%;background:rgba(13,31,51
       <label>Curso *
         <select id="ng2-curso" onchange="ADMIN.suggestCodigo()"><option value="">— Selecciona —</option></select>
       </label>
-      <label>Nivel * <input type="text" id="ng2-nivel" placeholder="A1, A2, B1..." oninput="ADMIN.suggestCodigo()"></label>
+      <label>Nivel * <input type="text" id="ng2-nivel" placeholder="A1, A2, B1..." oninput="ADMIN.suggestCodigo(); ADMIN.suggestMetodos()"></label>
       <label>Formato *
         <select id="ng2-formato"><option value="grupal">Grupal</option><option value="individual">Individual</option></select>
       </label>
@@ -880,10 +880,10 @@ Intensivo | 4 sesiones/semana | 48 h" style="width:100%;background:rgba(13,31,51
           <option>À plus 3</option>
           <option>À plus 4</option>
           <option>À plus 5</option>
-          <option>A1</option>
-          <option>A2</option>
-          <option>B1</option>
-          <option>B2</option>
+          <option data-nivel="A1">A1</option>
+          <option data-nivel="A2">A2</option>
+          <option data-nivel="B1">B1</option>
+          <option data-nivel="B2">B2</option>
           <option>Cap sur... - pas à pas 1</option>
           <option>Cap sur... - pas à pas 2</option>
           <option>Cap sur... - pas à pas 3</option>
@@ -892,7 +892,7 @@ Intensivo | 4 sesiones/semana | 48 h" style="width:100%;background:rgba(13,31,51
           <option>Cap sur... 1</option>
           <option>Cap sur... 2</option>
           <option>Cap sur... 3</option>
-          <option>Capsules de phonétique [A1-A2]</option>
+          <option data-nivel="A1,A2">Capsules de phonétique [A1-A2]</option>
           <option>Carrousel 1</option>
           <option>Carrousel 2</option>
           <option>Carrousel 3</option>
@@ -900,41 +900,43 @@ Intensivo | 4 sesiones/semana | 48 h" style="width:100%;background:rgba(13,31,51
           <option>Club @dos 2</option>
           <option>Club @dos 3</option>
           <option>Club @dos 4</option>
-          <option>Défi 1</option>
-          <option>Défi 1 (anglophone)</option>
-          <option>Défi 2</option>
-          <option>Défi 3</option>
+          <option data-nivel="A1">Défi 1</option>
+          <option data-nivel="A1">Défi 1 (anglophone)</option>
+          <option data-nivel="A2">Défi 2</option>
+          <option data-nivel="B1">Défi 3</option>
           <option>Défi 4</option>
           <option>Défi 5</option>
           <option>Défi actuel 1</option>
           <option>Défi actuel 2</option>
           <option>Défi actuel 3</option>
           <option>Défi actuel 4</option>
-          <option>En route vers le DELF A1</option>
-          <option>En route vers le DELF A2</option>
-          <option>En route vers le DELF B1</option>
-          <option>Entre nous 1</option>
-          <option>Entre nous 2</option>
-          <option>Entre nous 3</option>
-          <option>Entre nous 4</option>
-          <option>La grammaire du français A1</option>
-          <option>La grammaire du français A2</option>
-          <option>La grammaire du français B1</option>
+          <option data-nivel="A1">En route vers le DELF A1</option>
+          <option data-nivel="A2">En route vers le DELF A2</option>
+          <option data-nivel="B1">En route vers le DELF B1</option>
+          <option data-nivel="A1">Entre nous 1</option>
+          <option data-nivel="A2">Entre nous 2</option>
+          <option data-nivel="B1">Entre nous 3</option>
+          <option data-nivel="B2">Entre nous 4</option>
+          <option data-nivel="B1">Édito B1</option>
+          <option data-nivel="B2">Édito B2</option>
+          <option data-nivel="A1">La grammaire du français A1</option>
+          <option data-nivel="A2">La grammaire du français A2</option>
+          <option data-nivel="B1">La grammaire du français B1</option>
           <option>La grammaire du français sans problème</option>
-          <option>Les clés du Delf A2 Édition actualisée</option>
-          <option>Les clés du Delf B1 Édition actualisée</option>
-          <option>Les clés du Delf B1 Nouvelle édition</option>
-          <option>Les clés du Delf B2 Nouvelle édition</option>
-          <option>Les clés du nouveau Delf A1</option>
-          <option>Les clés du nouveau Delf A2</option>
+          <option data-nivel="A2">Les clés du Delf A2 Édition actualisée</option>
+          <option data-nivel="B1">Les clés du Delf B1 Édition actualisée</option>
+          <option data-nivel="B1">Les clés du Delf B1 Nouvelle édition</option>
+          <option data-nivel="B2">Les clés du Delf B2 Nouvelle édition</option>
+          <option data-nivel="A1">Les clés du nouveau Delf A1</option>
+          <option data-nivel="A2">Les clés du nouveau Delf A2</option>
           <option>Les Globe-trotteurs 1</option>
           <option>Les Globe-trotteurs 2</option>
           <option>Les Globe-trotteurs 3</option>
           <option>Les Globe-trotteurs 4</option>
           <option>Les Globe-trotteurs 5</option>
           <option>Les mots de la rue</option>
-          <option>Lexville [A1-B1]</option>
-          <option>Littérature visuelle [A2-B2]</option>
+          <option data-nivel="A1,A2,B1">Lexville [A1-B1]</option>
+          <option data-nivel="A2,B1,B2">Littérature visuelle [A2-B2]</option>
           <option>Nouveau rond-point - pas à pas 1</option>
           <option>Nouveau rond-point - pas à pas 2</option>
           <option>Nouveau rond-point - pas à pas 3</option>
@@ -962,7 +964,7 @@ Intensivo | 4 sesiones/semana | 48 h" style="width:100%;background:rgba(13,31,51
           <option>Version originale 2</option>
           <option>Version originale 3</option>
           <option>Version originale 4</option>
-          <option>Vocabulaire en images [A1-A2]</option>
+          <option data-nivel="A1,A2">Vocabulaire en images [A1-A2]</option>
           <option>Activités interactives par thèmes pour travailler le lexique en contexte</option>
           <option>Zoom - pas à pas 1</option>
           <option>Zoom - pas à pas 2</option>
@@ -975,6 +977,12 @@ Intensivo | 4 sesiones/semana | 48 h" style="width:100%;background:rgba(13,31,51
           <option>Otro</option>
         </select>
       </label>
+      <p style="font-size:0.78rem;color:var(--muted);margin-top:-0.6rem" id="ng2-metodo-hint"></p>
+    </div>
+
+    <div style="margin-bottom:1rem">
+      <button type="button" class="btn btn-ghost" onclick="ADMIN.verPlanSugerido()"><i class="fa fa-calendar"></i> Ver plan sugerido (ciclo de 6 semanas)</button>
+      <div id="ng2-plan-sugerido" style="margin-top:0.6rem"></div>
     </div>
 
     <label class="kv-key" style="display:block;margin-bottom:0.5rem">Días de la semana</label>
@@ -2399,6 +2407,8 @@ const ADMIN = (() => {
     document.getElementById('ng2-horas-virtual').value = 0;
     document.getElementById('ng2-moneda').value = 'MXN';
     document.getElementById('ng2-metodo').value = '';
+    document.getElementById('ng2-metodo-hint').textContent = '';
+    document.getElementById('ng2-plan-sugerido').innerHTML = '';
     document.querySelectorAll('#ng2-dias input').forEach(cb => cb.checked = false);
     document.getElementById('modal-nuevo-grupo-bg').classList.add('open');
     attachAutosave('modal-nuevo-grupo-bg', 'nuevo-grupo');
@@ -2421,6 +2431,106 @@ const ADMIN = (() => {
     const mes = inicio ? inicio.slice(0,7).replace('-','') : '';
     if(!cursoPrefijo && !nivel) return;
     codigoEl.value = [cursoPrefijo, nivel, ritmo, sede, mes].filter(Boolean).join('-');
+  }
+
+  // Sugiere métodos/manuales acordes al nivel escrito, reordenando el desplegable.
+  // El nivel de cada método solo está marcado cuando lo confirma la matriz curricular
+  // de la Alianza o lo indica el propio título (ej. "[A1-A2]"); el resto del catálogo
+  // queda sin nivel asignado a propósito, para no inventar datos pedagógicos.
+  function suggestMetodos(){
+    const sel = document.getElementById('ng2-metodo');
+    const hint = document.getElementById('ng2-metodo-hint');
+    const nivel = document.getElementById('ng2-nivel').value.trim().toUpperCase();
+    const valorActual = sel.value;
+    const opciones = Array.from(sel.options).filter(o => o.value !== '' && o.value !== 'Otro');
+    if(!nivel){
+      hint.textContent = '';
+      return;
+    }
+    const coincide = o => (o.dataset.nivel || '').split(',').includes(nivel);
+    const sugeridos = opciones.filter(coincide);
+    if(!sugeridos.length){
+      hint.textContent = 'Sin métodos con nivel confirmado para "' + nivel + '" todavía — revisa el catálogo completo.';
+      return;
+    }
+    hint.textContent = sugeridos.length + ' método(s) sugerido(s) para nivel ' + nivel + ' (según la matriz curricular). Se movieron arriba del desplegable.';
+    const resto = opciones.filter(o => !coincide(o));
+    const vacio = sel.querySelector('option[value=""]');
+    const otro = sel.querySelector('option[value="Otro"]') || Array.from(sel.options).find(o => o.textContent === 'Otro');
+    sel.innerHTML = '';
+    sel.appendChild(vacio);
+    const grupoSugeridos = document.createElement('optgroup');
+    grupoSugeridos.label = 'Sugeridos para nivel ' + nivel;
+    sugeridos.forEach(o => grupoSugeridos.appendChild(o));
+    sel.appendChild(grupoSugeridos);
+    const grupoResto = document.createElement('optgroup');
+    grupoResto.label = 'Resto del catálogo';
+    resto.forEach(o => grupoResto.appendChild(o));
+    sel.appendChild(grupoResto);
+    if(otro) sel.appendChild(otro);
+    sel.value = valorActual;
+  }
+
+  // Todos los ciclos de la Alianza duran 6 semanas (confirmado). El plan sugerido
+  // reparte las unidades reales de cada método (recuperadas de la matriz curricular
+  // y de la revisión del equipo pedagógico) de forma pareja en esas 6 semanas.
+  // Solo se listan métodos con unidades confirmadas — el resto del catálogo no
+  // tiene todavía esa estructura verificada, así que no se inventa un plan para ellos.
+  const CICLO_SEMANAS = 6;
+  const UNIDADES_METODO = {
+    'Défi 1': ['Dossier de découverte', 'Unité 1 — Portrait-robot', "Unité 2 — D'ici et d'ailleurs",
+      'Unité 3 — Un air de famille', 'Unité 4 — Entre quatre murs', 'Unité 5 — Métro, boulot, dodo',
+      'Unité 6 — Échappées belles', "Unité 7 — À deux pas d'ici", 'Unité 8 — Une pincée de sel'],
+    'Défi 2': ['Unité 1 — La consommation', 'Unité 2 — Objets du quotidien', 'Unité 3', 'Unité 4',
+      'Unité 5', 'Unité 6', 'Unité 7', 'Unité 8'],
+    'Entre nous 1': ['Unité 1', 'Unité 2', 'Unité 3', 'Unité 4', 'Unité 5', 'Unité 6', 'Unité 7', 'Unité 8'],
+    'Entre nous 2': ['Unité 1', 'Unité 2', 'Unité 3', 'Unité 4 (lexique des émotions)', 'Unité 5',
+      'Unité 6 (lexique de la santé, du sport)', 'Unité 7', 'Unité 8 (consommation, écologie, conflits de travail)'],
+    'Entre nous 3': ['Unité 1', 'Unité 2', 'Unité 3 — Oser vivre sa vie', 'Unité 4 — Gérer son image',
+      'Unité 5', 'Unité 6', 'Unité 7', 'Unité 8'],
+    'Entre nous 4': ['Unité 1', 'Unité 2 (santé, alimentation, âges de la vie, solidarité)', 'Unité 3', 'Unité 4',
+      'Unité 5', 'Unité 6 (indignation, écologie)', 'Unité 7', 'Unité 8 (art, exil, migrations)'],
+    // Édito B1/B2: 12 unidades reales, con el título tal cual aparece en el índice del libro.
+    'Édito B1': ['Vivre ensemble', 'Le goût des nôtres', 'Travailler autrement',
+      'Date limite de consommation', 'Le français dans le monde', 'Médias en masse', "Et si on partait ?",
+      "La planète en héritage", 'Un tour en ville', "Soif d'apprendre", "Il va y avoir du sport !", 'Cultiver les talents'],
+    'Édito B2': ['À mon avis', "Quelque chose à déclarer ?", 'Ça presse !', 'Partir', 'Histoire de…',
+      'À votre santé !', 'Chassez le naturel…', "C'est de l'art !", 'De vous à moi', 'Au boulot !', "C'est pas net", 'Mais où va-t-on ?'],
+  };
+
+  function unidadesParaMetodo(metodo){
+    return UNIDADES_METODO[metodo] || null;
+  }
+
+  // Reparte N unidades en S semanas lo más parejo posible (ej. 8 unidades en 6
+  // semanas → semanas de 1,1,2,1,1,2 unidades, nunca una semana vacía si hay unidades).
+  function repartirEnSemanas(unidades, semanas){
+    const n = unidades.length;
+    const plan = [];
+    for(let s = 0; s < semanas; s++){
+      const desde = Math.floor(s * n / semanas);
+      const hasta = Math.floor((s + 1) * n / semanas);
+      plan.push(unidades.slice(desde, hasta));
+    }
+    return plan;
+  }
+
+  function verPlanSugerido(){
+    const metodo = document.getElementById('ng2-metodo').value;
+    const cont = document.getElementById('ng2-plan-sugerido');
+    if(!metodo){
+      cont.innerHTML = '<p style="font-size:0.82rem;color:var(--muted)">Selecciona primero un método/manual.</p>';
+      return;
+    }
+    const unidades = unidadesParaMetodo(metodo);
+    if(!unidades){
+      const disponibles = Object.keys(UNIDADES_METODO).join(', ');
+      cont.innerHTML = '<p style="font-size:0.82rem;color:var(--muted)">Todavía no hay unidades confirmadas para "' + escapeHtml(metodo) + '" — no se puede armar un plan sugerido sin inventar contenido. Métodos disponibles por ahora: ' + escapeHtml(disponibles) + '.</p>';
+      return;
+    }
+    const plan = repartirEnSemanas(unidades, CICLO_SEMANAS);
+    const filas = plan.map((us, i) => `<li><strong>Semana ${i+1}:</strong> ${us.map(escapeHtml).join(' · ')}</li>`).join('');
+    cont.innerHTML = `<p style="font-size:0.82rem;color:var(--muted);margin-bottom:0.4rem">Plan sugerido para <strong>${escapeHtml(metodo)}</strong> en un ciclo de ${CICLO_SEMANAS} semanas (reparto automático de las unidades reales del libro; ajústalo según el ritmo del grupo):</p><ul style="font-size:0.85rem;padding-left:1.2rem;margin:0">${filas}</ul>`;
   }
 
   async function crearGrupoCompleto(){
@@ -2631,7 +2741,7 @@ const ADMIN = (() => {
     openEgresoModal, closeEgresoModal, saveEgreso, deleteEgreso,
     exportReporteCurso, exportReporteDocente,
     agregarAlumnosSeleccionados,
-    openNuevoGrupoForm, closeNuevoGrupoForm, suggestCodigo, crearGrupoCompleto,
+    openNuevoGrupoForm, closeNuevoGrupoForm, suggestCodigo, suggestMetodos, verPlanSugerido, crearGrupoCompleto,
     openFeriadoForm, closeFeriadoForm, saveFeriado, deleteFeriado,
     openTipoConstanciaEditor, closeTipoConstanciaEditor, saveTipoConstancia, deleteTipoConstancia, cambiarEstadoSolicitud,
   };
