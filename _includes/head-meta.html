@@ -1,0 +1,72 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#fdfcf8">
+<title>{{ page.title }}</title>
+<meta name="description" content="{{ page.description }}">
+<meta name="keywords" content="clases de francés en línea, curso francés online México, Alliance Française virtual, aprender francés desde cero, preparación DELF DALF, francés San Cristóbal de Las Casas, nuevo ciclo septiembre 2026">
+<meta name="author" content="Alliance Française San Cristóbal de Las Casas">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_MX">
+<meta property="og:title" content="{{ page.title }}">
+<meta property="og:description" content="{{ page.description }}">
+<meta property="og:site_name" content="Alliance Française San Cristóbal">
+<meta property="og:url" content="{{ page.url | absolute_url }}">
+<meta property="og:image" content="{{ '/src/assets/img/posters/curso-en-linea.webp' | absolute_url }}">
+<meta property="og:image:type" content="image/webp">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ page.title }}">
+<meta name="twitter:description" content="{{ page.description }}">
+
+<link rel="canonical" href="{{ page.url | absolute_url }}">
+<link rel="icon" type="image/png" href="src/assets/brand/af-glyph-160.png">
+<link rel="apple-touch-icon" href="src/assets/brand/af-glyph-160.png">
+<link rel="manifest" href="manifest.webmanifest">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="assets/css/main.css">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
+
+<!-- Plausible Analytics (privacy-friendly, sin cookies). Activa cuando exista el subdominio en tu cuenta Plausible. -->
+<script>
+  if (location.hostname && !['localhost','127.0.0.1'].includes(location.hostname)) {
+    const s = document.createElement('script');
+    s.defer = true;
+    s.dataset.domain = location.hostname;
+    s.src = 'https://plausible.io/js/script.js';
+    document.head.appendChild(s);
+  }
+</script>
+<script src="https://unpkg.com/@supabase/supabase-js@2" defer></script>
+<script src="src/config/supabase.js" defer></script>
+
+<!-- JSON-LD Organization -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "name": "Alliance Française San Cristóbal de Las Casas",
+  "alternateName": "AF Virtual México",
+  "url": "{{ '/' | absolute_url }}",
+  "logo": "src/assets/brand/logo-af-sancristobal.png",
+  "description": "Primera Alliance Française 100% en línea de México. Clases en vivo con profesores certificados, tutor IA, comunidad francófona y preparación oficial DELF/DALF. Sin presencial, abierta al mundo.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "San Cristóbal de Las Casas",
+    "addressRegion": "Chiapas",
+    "addressCountry": "MX"
+  },
+  "telephone": "+52-967-172-1870",
+  "sameAs": [
+    "https://www.facebook.com/alianzafrancesasancristobal/",
+    "https://www.instagram.com/afsancristobal/"
+  ],
+  "email": "direccionsancristobal@alianzafr.edu.mx"
+}
+</script>

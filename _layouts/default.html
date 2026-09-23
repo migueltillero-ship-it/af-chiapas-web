@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+{% include head-meta.html %}
+</head>
+<body>
+{% if page.show_intro %}
+<!-- INTRO DE MARCA · se cierra solo al terminar el video -->
+<div id="af-intro" role="dialog" aria-label="Presentación Alliance Française San Cristóbal">
+  <video id="af-intro-video" muted playsinline preload="auto"
+         poster="src/assets/video/intro-af-poster.jpg" aria-hidden="true">
+    <source src="src/assets/video/intro-af.webm" type="video/webm">
+    <source src="src/assets/video/intro-af.mp4" type="video/mp4">
+  </video>
+  <button type="button" class="af-intro-sound" id="af-intro-sound" aria-label="Activar sonido">
+    <i class="fa fa-volume-xmark" aria-hidden="true"></i>
+  </button>
+  <button type="button" class="af-intro-skip" id="af-intro-skip">
+    Saltar <i class="fa fa-forward" aria-hidden="true"></i>
+  </button>
+</div>
+
+<!-- MÚSICA DE FONDO · arranca al terminar el intro.
+     Si el archivo no existe todavía, todo esto se desactiva solo. -->
+<audio id="af-bgm" loop preload="auto">
+  <source src="src/assets/audio/af-ambiente.ogg" type="audio/ogg">
+  <source src="src/assets/audio/af-ambiente.mp3" type="audio/mpeg">
+</audio>
+<button type="button" id="af-bgm-toggle" aria-label="Silenciar música">
+  <i class="fa fa-volume-high" aria-hidden="true"></i>
+</button>
+{% endif %}
+
+<!-- NAV -->
+{% include nav.html %}
+
+<!-- BANNERS DE CAMPAÑA (arriba del hero) -->
+{% include banners.html %}
+
+{{ content }}
+
+<!-- FOOTER -->
+{% include footer.html %}
+
+<!-- FAB WhatsApp -->
+{% include wa-fab.html %}
+
+<script src="assets/js/site.js" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const saved = (() => { try { return localStorage.getItem('af_lang'); } catch(e){ return null; } })();
+  applyI18n(saved || 'es');
+  AF.init();
+});
+</script>
+</body>
+</html>

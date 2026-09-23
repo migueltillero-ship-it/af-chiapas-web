@@ -1,0 +1,226 @@
+---
+layout: default
+title: "Preinscripción · Alliance Française San Cristóbal"
+description: "Preinscríbete al nuevo ciclo de la Alliance Française San Cristóbal en pocos pasos."
+show_intro: false
+---
+<section id="preinscripcion" class="section section-dark">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-watermark" aria-hidden="true">INSCRIPTION</span>
+      <span class="section-tag">Démarrez maintenant</span>
+      <h2 class="section-title">Preinscripción <em>en línea</em></h2>
+      <p class="section-sub">3 pasos. Te enviamos folio de seguimiento al instante y confirmación administrativa en menos de 24 horas hábiles.</p>
+    </div>
+    <div class="glass form-shell">
+      <ol class="form-stepper" id="form-stepper">
+        <li data-step="1" class="active">¿Dónde?</li>
+        <li data-step="2">Tu curso</li>
+        <li data-step="3">Tus datos</li>
+        <li data-step="4">¡Listo!</li>
+      </ol>
+
+      <!-- PASO 1: Bienvenida + selección de sede -->
+      <div class="form-step active" id="step-1">
+        <div class="welcome-hero">
+          <p class="welcome-eyebrow">Bienvenido / bienvenida a la AF 100% en línea</p>
+          <h3 class="welcome-title">¿Listo / lista para comenzar tu <em>aventura con el francés</em>?</h3>
+          <p class="welcome-sub">
+            Nuestras clases son <strong>100% en línea</strong>, en vivo, con profesores certificados.
+            Te acompañamos paso a paso. Configura tu curso a tu medida — en grupo o uno a uno, al ritmo que te funcione.
+          </p>
+        </div>
+        <div class="sede-grid" style="grid-template-columns:1fr;max-width:520px;margin:0 auto">
+          <button type="button" class="sede-btn virtual active" data-sede="virtual" onclick="AF.selectSede('virtual','AF Virtual')" style="padding:2rem;background:linear-gradient(135deg,#fff8e1,#ffffff)">
+            <i class="fa fa-globe" style="font-size:2rem;color:var(--blue)"></i>
+            <span class="sede-btn-name" style="font-size:1.4rem;color:var(--blue);font-weight:700">Continuar mi inscripción</span>
+            <span class="sede-btn-sub">100% en línea · clases en vivo · sin presencial</span>
+            <span class="sede-btn-badge" style="background:var(--camp-yellow);color:var(--blue-dark);padding:0.3rem 0.8rem;border-radius:99px;font-weight:700">⚡ ¡Empezar ahora!</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 2: Configura tu curso (programa + nivel + formato + ritmo) -->
+      <div class="form-step" id="step-2">
+        <h3 class="step-title">Configura tu curso</h3>
+        <p class="step-help"><strong style="color:var(--gold)">Paso 2 de 3</strong> · Personalízalo a tu medida. Si no sabes tu nivel, déjalo en blanco — te haremos prueba gratuita.</p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="f-curso">Programa *</label>
+            <select id="f-curso" class="af-select" onchange="AF.updateModalidades()">
+              <option value="">Cargando…</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-nivel">Nivel</label>
+            <select id="f-nivel" class="af-select" onchange="AF.actualizarResumen()">
+              <option value="">Selecciona programa primero</option>
+            </select>
+          </div>
+        </div>
+
+        <p class="form-label" style="margin:1.25rem 0 0.5rem">Formato de clase *</p>
+        <div class="opt-grid">
+          <button type="button" class="opt-pick" data-formato="individual" onclick="AF.setFormato('individual','Individual (1 a 1)')">
+            <i class="fa fa-user"></i>
+            <span class="opt-pick-name">Individual</span>
+            <span class="opt-pick-sub">1 a 1 · A tu medida</span>
+          </button>
+          <button type="button" class="opt-pick" data-formato="grupal" onclick="AF.setFormato('grupal','Grupal')">
+            <i class="fa fa-users"></i>
+            <span class="opt-pick-name">Grupal</span>
+            <span class="opt-pick-sub">Grupo reducido 8–15</span>
+          </button>
+        </div>
+
+        <p class="form-label" style="margin:1rem 0 0.5rem">Ritmo *</p>
+        <div class="opt-grid">
+          <button type="button" class="opt-pick" data-ritmo="regular" onclick="AF.setRitmo('regular','Regular','2 sesiones / semana')">
+            <i class="fa fa-leaf"></i>
+            <span class="opt-pick-name">Regular</span>
+            <span class="opt-pick-sub">2 sesiones / semana</span>
+          </button>
+          <button type="button" class="opt-pick" data-ritmo="intensivo" onclick="AF.setRitmo('intensivo','Intensivo','4 sesiones / semana')">
+            <i class="fa fa-bolt"></i>
+            <span class="opt-pick-name">Intensivo</span>
+            <span class="opt-pick-sub">4 sesiones / semana</span>
+          </button>
+          <button type="button" class="opt-pick" data-ritmo="superintensivo" onclick="AF.setRitmo('superintensivo','Super-intensivo','5 sesiones / semana')">
+            <i class="fa fa-rocket"></i>
+            <span class="opt-pick-name">Super-intensivo</span>
+            <span class="opt-pick-sub">5 sesiones / semana</span>
+          </button>
+          <button type="button" class="opt-pick" data-ritmo="sabatino" onclick="AF.setRitmo('sabatino','Sabatino','1 sesión larga · sábados')">
+            <i class="fa fa-calendar-day"></i>
+            <span class="opt-pick-name">Sabatino</span>
+            <span class="opt-pick-sub">Sábados · sesión larga</span>
+          </button>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="f-inicio">¿Cuándo quieres empezar?</label>
+          <select id="f-inicio" class="af-select">
+            <option value="lo_antes_posible">Lo antes posible</option>
+            <option value="proximo_bimestre">Próximo bimestre</option>
+            <option value="solo_consulta">Solo estoy consultando</option>
+          </select>
+        </div>
+
+        <div id="resumen-box" class="resumen" style="display:none">
+          <p class="resumen-label">Tu selección</p>
+          <p id="resumen-texto" class="resumen-texto"></p>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" onclick="AF.goToStep(1)"><i class="fa fa-arrow-left"></i> Atrás</button>
+          <button type="button" class="btn btn-primary" onclick="AF.goToStep(3)">Continuar <i class="fa fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- PASO 3: Datos personales + resumen con costos/horarios -->
+      <div class="form-step" id="step-3">
+        <h3 class="step-title">Tus datos</h3>
+        <p class="step-help"><strong style="color:var(--gold)">Paso 3 de 3</strong> · Verifica tu configuración y déjanos cómo contactarte.</p>
+
+        <div class="summary-card" id="summary-card">
+          <div class="summary-row"><span class="summary-key">Modalidad</span><span class="summary-val" id="sum-sede">—</span></div>
+          <div class="summary-row"><span class="summary-key">Programa</span><span class="summary-val" id="sum-curso">—</span></div>
+          <div class="summary-row"><span class="summary-key">Nivel</span><span class="summary-val" id="sum-nivel">por evaluar</span></div>
+          <div class="summary-row"><span class="summary-key">Formato</span><span class="summary-val" id="sum-formato">—</span></div>
+          <div class="summary-row"><span class="summary-key">Ritmo</span><span class="summary-val" id="sum-ritmo">—</span></div>
+          <div class="summary-row" id="sum-docente-row" style="display:none"><span class="summary-key">Profesor solicitado</span><span class="summary-val" id="sum-docente">—</span></div>
+          <div class="summary-row"><span class="summary-key">Duración del ciclo</span><span class="summary-val">6 semanas (~1.5 meses)</span></div>
+          <div class="summary-row"><span class="summary-key">Horas totales</span><span class="summary-val" id="sum-horas">—</span></div>
+          <p class="summary-note">
+            <strong>Costos y horarios:</strong> nuestro equipo te enviará el desglose exacto de tarifas y los horarios disponibles
+            para tu configuración en un plazo <strong>máximo de 48 horas hábiles</strong> tras esta solicitud.
+          </p>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="f-nombre">Nombre completo *</label>
+            <input type="text" id="f-nombre" class="af-input" placeholder="Prénom Nom" autocomplete="name">
+            <span class="form-error" id="err-nombre">Requerido</span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-email">Correo electrónico *</label>
+            <input type="email" id="f-email" class="af-input" placeholder="correo@ejemplo.com" autocomplete="email">
+            <span class="form-error" id="err-email">Correo inválido</span>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="f-tel">Teléfono / WhatsApp *</label>
+            <input type="tel" id="f-tel" class="af-input" placeholder="+52 967 000 0000" autocomplete="tel">
+            <span class="form-error" id="err-tel">Requerido</span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-fuente">¿Cómo nos conociste?</label>
+            <select id="f-fuente" class="af-select">
+              <option value="">Selecciona…</option>
+              <option>Redes sociales</option>
+              <option>Recomendación</option>
+              <option>Google</option>
+              <option>Institución educativa</option>
+              <option>Embajada / Campus France</option>
+              <option>Otro</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom:0">
+          <label class="form-label" for="f-mensaje">Mensaje (opcional)</label>
+          <textarea id="f-mensaje" class="af-input af-textarea" rows="3" placeholder="Horario preferido, preguntas, contexto…"></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" onclick="AF.goToStep(2)"><i class="fa fa-arrow-left"></i> Atrás</button>
+          <button type="button" class="btn btn-primary" id="btn-enviar" onclick="AF.enviarPreinscripcion()">
+            <i class="fa fa-paper-plane"></i> Enviar solicitud
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 4: Confirmación con promesa 48h + WhatsApp -->
+      <div class="form-step" id="step-ok">
+        <div class="confirm-box">
+          <div class="confirm-icon">✓</div>
+          <h3 class="confirm-titulo">¡Bienvenido / bienvenida, <span id="confirm-nombre">estudiante</span>!</h3>
+          <p class="confirm-msg">
+            Tu solicitud para <strong id="confirm-sede"></strong> fue <strong style="color:var(--green)">procesada con éxito</strong>.
+            Estamos felices de iniciar este camino contigo.
+          </p>
+          <p class="confirm-track">Folio de seguimiento: <strong id="confirm-folio"></strong></p>
+          <p style="font-size:0.85rem;color:var(--muted);margin-top:0.25rem">
+            Guarda tu folio. Consulta el estado de tu solicitud en cualquier momento desde
+            <a href="portal/" class="af-link">el portal del alumno</a>.
+          </p>
+
+          <div class="summary-card" style="text-align:left;width:100%;max-width:480px">
+            <div class="summary-row"><span class="summary-key">Procesada el</span><span class="summary-val" id="confirm-fecha">—</span></div>
+            <div class="summary-row"><span class="summary-key">Respuesta</span><span class="summary-val" style="color:var(--gold)">Máximo 48 h hábiles</span></div>
+            <div class="summary-row"><span class="summary-key">Canal</span><span class="summary-val">Correo + WhatsApp</span></div>
+          </div>
+
+          <p class="confirm-msg" style="font-size:0.92rem">
+            Recibirás de nuestro equipo:
+            <strong>(1)</strong> confirmación de cupo y horario asignado ·
+            <strong>(2)</strong> desglose de costos ·
+            <strong>(3)</strong> datos de pago ·
+            <strong>(4)</strong> acceso a la plataforma.
+          </p>
+
+          <a id="confirm-wa-btn" href="#" target="_blank" rel="noopener" class="btn btn-glow" style="background:#25d366;box-shadow:0 6px 28px rgba(37,211,102,0.45)">
+            <i class="fab fa-whatsapp"></i> Confirmar por WhatsApp ahora
+          </a>
+
+          <p style="font-size:0.82rem;color:var(--muted);max-width:480px">
+            Contacto directo:
+            <a href="mailto:afsancris@gmail.com" class="af-link">afsancris@gmail.com</a> ·
+            <a href="https://wa.me/529671721870" target="_blank" rel="noopener" class="af-link">+52 1 967 172 1870</a>
+          </p>
+          <button type="button" class="btn btn-secondary" onclick="AF.resetForm()">Nueva preinscripción</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

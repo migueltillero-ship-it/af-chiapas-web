@@ -40,23 +40,26 @@ test.describe('Campaña de relanzamiento', () => {
   });
 
   test('el calendario publica seis ciclos y abre el primero', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/cursos-niveles.html');
     await page.locator('#calendario').scrollIntoViewIfNeeded();
     await expect(page.locator('#calendario tbody tr')).toHaveCount(6);
     await expect(page.locator('#calendario tbody tr.destacado .cal-badge')).toContainText(/Abiertas ahora/i);
   });
 
-  test('las secciones de bienvenida, docentes y promos están presentes', async ({ page }) => {
+  test('bienvenida y promos están en Inicio, y docentes en su propia página', async ({ page }) => {
     await page.goto('/');
-    for (const id of ['#bienvenida', '#docentes-online', '#promociones']) {
+    for (const id of ['#bienvenida', '#promociones']) {
       await page.locator(id).scrollIntoViewIfNeeded();
       await expect(page.locator(id)).toBeVisible();
     }
     await expect(page.locator('#promociones .promo-card')).toHaveCount(3);
+
+    await page.goto('/docentes.html');
+    await expect(page.locator('#docentes-online')).toBeVisible();
   });
 
   test('el aviso deja claro que preparamos pero no certificamos', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/vida-af.html');
     const aviso = page.locator('.aviso-prep');
     await aviso.scrollIntoViewIfNeeded();
     await expect(aviso.locator('.aviso-prep-t')).toContainText(/No lo aplicamos/i);

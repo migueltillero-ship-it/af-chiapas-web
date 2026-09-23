@@ -15,10 +15,13 @@ export default defineConfig({
     reducedMotion: 'reduce',
   },
   webServer: {
-    command: 'python3 -m http.server 8080',
+    // El sitio es Jekyll (páginas con front matter + layouts/includes), así
+    // que hay que construirlo antes de servirlo — servir el repo crudo
+    // mostraría el "---" y los "{% include %}" sin procesar.
+    command: 'bundle exec jekyll build --destination _site && python3 -m http.server 8080 --directory _site',
     url: 'http://localhost:8080',
     reuseExistingServer: !process.env.CI,
-    timeout: 15_000,
+    timeout: 30_000,
   },
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },

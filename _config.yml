@@ -1,0 +1,15 @@
+title: "Alliance Française San Cristóbal"
+description: "Primera Alliance Française 100% en línea de México."
+url: "https://migueltillero-ship-it.github.io"
+baseurl: "/af-chiapas-web"
+markdown: kramdown
+exclude:
+  - node_modules
+  - tests
+  - playwright.config.ts
+  - package.json
+  - package-lock.json
+  - Gemfile
+  - Gemfile.lock
+  - CLAUDE.md
+  - schema_phase13.sql
