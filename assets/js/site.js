@@ -262,7 +262,10 @@ const AF = (() => {
   let cat = null;
   let estado = {sede:'',sedeName:'',curso:'',cursoNombre:'',nivel:'',formato:'',formatoNombre:'',ritmo:'',ritmoNombre:'',ritmoDetalle:'',docente:'',docenteModalidad:'',step:1};
 
+  let initDone = false;
   function init(){
+    if(initDone) return; // evita re-inicializar si algo dispara DOMContentLoaded/init dos veces
+    initDone = true;
     if(window.emailjs){ try{ emailjs.init(EMAILJS_PK); }catch(e){ console.warn('[EmailJS]',e); } }
     initSupabase();
     renderStats();
@@ -327,7 +330,10 @@ const AF = (() => {
           </a>
         </div>`;
       const container = sec.querySelector(':scope > .container');
-      if(container) container.insertAdjacentHTML('beforeend', html);
+      // Evita duplicar el bloque si injectWaCtas() se llama más de una vez
+      // en la misma carga de página (ej. un service worker desactualizado
+      // volviendo a disparar la inicialización).
+      if(container && !container.querySelector(':scope > .wa-cta')) container.insertAdjacentHTML('beforeend', html);
     });
   }
 
