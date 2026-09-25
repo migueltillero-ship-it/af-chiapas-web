@@ -29,14 +29,14 @@ Backend para validación administrativa de preinscripciones de la Alliance Fran�
 ### 4. Crear el primer usuario administrador
 
 1. Supabase Studio → **Authentication → Users → Add user**
-2. Email + password — ej. `direccionsancristobal@alianzafr.edu.mx`
+2. Email + password — ej. `afsancris@gmail.com`
 3. **SQL Editor** corre:
 
    ```sql
    insert into public.perfiles (id, nombre, rol)
    select id, 'Tu Nombre', 'admin'
    from auth.users
-   where email = 'direccionsancristobal@alianzafr.edu.mx';
+   where email = 'afsancris@gmail.com';
    ```
 
 ### 5. Verificar
