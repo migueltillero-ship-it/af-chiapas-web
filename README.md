@@ -60,7 +60,7 @@ Sitio oficial y plataforma de gestión académica de la Alliance Française San 
   y promociones de rentrée
 - **Aviso de preparación** — la AF SCLC prepara para DELF/DALF; la aplicación del
   examen y la emisión del diploma corresponden al centro evaluador acreditado
-- Sección Plataforma Virtual (aulas en vivo, tutor IA, gamificación)
+- Sección Plataforma Virtual (aulas en vivo, gamificación)
 - Proceso automatizado en 4 pasos
 - Catálogo de cursos con color por segmento + badge "Ciclo · 6 sem · X h"
 - Galería de campañas con los 5 carteles oficiales
