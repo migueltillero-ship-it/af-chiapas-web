@@ -69,7 +69,7 @@ Sitio oficial y plataforma de gestión académica de la Alliance Française San 
 - Preparación oficial DELF/DALF + TCF/TEF/DFP
 - Presentación institucional (Google Slides embed)
 - Agenda cultural + Mapa Google + Federación México
-- **Flujo de preinscripción inmersivo** en 3 pasos con:
+- **Flujo de preinscripción inmersivo** en 4 pasos con:
   - Bienvenida cálida
   - Programa + nivel + formato (individual/grupal) + ritmo (regular/intensivo/super/sabatino)
   - Resumen con costos + horarios diferidos + promesa de 48h
