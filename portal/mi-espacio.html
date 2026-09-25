@@ -226,7 +226,7 @@ tr:last-child td{border-bottom:none}
         <div class="stat-box"><div class="stat-num" id="mi-pendiente" style="font-size:1.5rem">—</div><div class="stat-lab">Pendiente</div></div>
       </div>
       <div class="table-wrap" style="margin-top:1rem">
-        <table><thead><tr><th>Concepto</th><th>Monto</th><th>Estado</th><th>Fecha</th></tr></thead><tbody id="tbody-pagos"></tbody></table>
+        <table><thead><tr><th>Concepto</th><th>Monto</th><th>Estado</th><th>Fecha</th><th></th></tr></thead><tbody id="tbody-pagos"></tbody></table>
       </div>
     </div>
 
@@ -448,7 +448,30 @@ const MI = (() => {
         <td>$${Number(p.monto).toFixed(2)} ${escapeHtml(p.moneda)}</td>
         <td><span class="badge b-${p.estado === 'pagado' ? 'pagado' : p.estado === 'rechazado' ? 'rechazado' : 'pendiente'}">${p.estado}</span></td>
         <td>${new Date(p.creado_en).toLocaleDateString('es-MX')}</td>
-      </tr>`).join('') : `<tr><td colspan="4" class="empty">Sin pagos registrados todavía.</td></tr>`;
+        <td>${(p.estado === 'pendiente' || p.estado === 'procesando')
+          ? `<button class="btn btn-primary" style="padding:0.45rem 0.8rem;font-size:0.55rem" onclick="MI.pagarAhora('${p.id}', this)"><i class="fa fa-credit-card"></i> Pagar ahora</button>`
+          : '—'}</td>
+      </tr>`).join('') : `<tr><td colspan="5" class="empty">Sin pagos registrados todavía.</td></tr>`;
+  }
+
+  async function pagarAhora(pagoId, btn){
+    const original = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Generando...';
+    try{
+      const {data, error} = await sb.functions.invoke('crear-checkout', {body: {pago_id: pagoId}});
+      if(error || !data?.url){
+        alert('No se pudo iniciar el pago: ' + (error?.message || data?.error || 'intenta de nuevo en unos minutos, o escríbenos por WhatsApp.'));
+        btn.disabled = false;
+        btn.innerHTML = original;
+        return;
+      }
+      window.location.href = data.url;
+    } catch(err){
+      alert('No se pudo iniciar el pago: ' + err.message);
+      btn.disabled = false;
+      btn.innerHTML = original;
+    }
   }
 
   async function cargarEvaluaciones(){
@@ -539,7 +562,7 @@ const MI = (() => {
     return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   }
 
-  return {init, showAuthTab, logout, descargarConstancia, solicitarConstancia};
+  return {init, showAuthTab, logout, descargarConstancia, solicitarConstancia, pagarAhora};
 })();
 
 window.addEventListener('DOMContentLoaded', () => setTimeout(() => MI.init(), 50));
