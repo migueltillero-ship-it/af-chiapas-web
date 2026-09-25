@@ -1680,7 +1680,7 @@ const ADMIN = (() => {
   async function cargarFinanzas(){
     await cargarGruposTodosSiFaltan();
     const [{data: pg, error: pgErr}, {data: eg, error: egErr}] = await Promise.all([
-      sb.from('pagos').select('*, inscripciones(folio,nombre,curso_id,curso_nombre,grupo_id)').order('creado_en', {ascending:false}),
+      sb.from('pagos').select('*, inscripciones(folio,nombre,curso_id,curso_nombre,grupo_id,telefono)').order('creado_en', {ascending:false}),
       sb.from('egresos').select('*, docentes(nombre)').order('fecha', {ascending:false})
     ]);
     if(pgErr) console.warn('[pagos]', pgErr);
@@ -1723,7 +1723,10 @@ const ADMIN = (() => {
         <td class="cell-folio">$${Number(p.monto).toFixed(2)} ${escapeHtml(p.moneda)}</td>
         <td><span class="badge b-pendiente">${p.estado}</span></td>
         <td class="cell-meta">${new Date(p.creado_en).toLocaleDateString('es-MX')}</td>
-        <td><button class="btn btn-green" style="padding:0.4rem 0.7rem;font-size:0.55rem" onclick="ADMIN.marcarPagado('${p.id}')"><i class="fa fa-check"></i> Marcar pagado</button></td>
+        <td style="display:flex;gap:0.4rem;flex-wrap:wrap">
+          <button class="btn btn-ghost" style="padding:0.4rem 0.7rem;font-size:0.55rem" onclick="ADMIN.generarLinkPago('${p.id}', this)"><i class="fa fa-link"></i> Link de pago</button>
+          <button class="btn btn-green" style="padding:0.4rem 0.7rem;font-size:0.55rem" onclick="ADMIN.marcarPagado('${p.id}')"><i class="fa fa-check"></i> Marcar pagado</button>
+        </td>
       </tr>`).join('');
   }
 
@@ -1732,6 +1735,34 @@ const ADMIN = (() => {
     const {error} = await sb.from('pagos').update({estado:'pagado', pagado_en: new Date().toISOString()}).eq('id', pagoId);
     if(error){ alert('Error: ' + error.message); return; }
     cargarFinanzas();
+  }
+
+  async function generarLinkPago(pagoId, btn){
+    const original = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Generando...';
+    try{
+      const {data, error} = await sb.functions.invoke('crear-checkout', {body: {pago_id: pagoId}});
+      if(error || !data?.url){
+        alert('No se pudo generar el link: ' + (error?.message || data?.error || 'revisa que Stripe esté configurado (ver supabase/README.md, Fase 9).'));
+        return;
+      }
+      const p = pagos.find(x => x.id === pagoId);
+      const tel = (p?.inscripciones?.telefono || '').replace(/\D/g,'');
+      if(tel){
+        const msg = `Hola ${p.inscripciones?.nombre || ''}, aquí está tu link seguro para pagar ${p.concepto || 'tu colegiatura'} ($${Number(p.monto).toFixed(2)} ${p.moneda}) con la Alliance Française: ${data.url}`;
+        window.open(`https://wa.me/${tel}?text=${encodeURIComponent(msg)}`, '_blank');
+      } else {
+        await navigator.clipboard.writeText(data.url).catch(() => {});
+        alert('Link generado y copiado al portapapeles:\n' + data.url);
+      }
+      cargarFinanzas();
+    } catch(err){
+      alert('Error: ' + err.message);
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = original;
+    }
   }
 
   function renderEgresosTabla(){
@@ -2737,7 +2768,7 @@ const ADMIN = (() => {
     openEventoEditor, closeEventoEditor, saveEvento, deleteEvento, openCursoEditor, closeCursoEditor, saveCurso, deleteCurso,
     toggleFinalizados, openGrupoDetail, closeGrupoDetail, guardarEstadoGrupo, crearSesion,
     openAsistencia, closeAsistencia, guardarAsistencia,
-    openPagoModal, closePagoModal, savePago, marcarPagado,
+    openPagoModal, closePagoModal, savePago, marcarPagado, generarLinkPago,
     openEgresoModal, closeEgresoModal, saveEgreso, deleteEgreso,
     exportReporteCurso, exportReporteDocente,
     agregarAlumnosSeleccionados,

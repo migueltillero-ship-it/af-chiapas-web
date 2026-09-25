@@ -179,6 +179,7 @@ label{display:block;font-family:var(--mono);font-size:0.55rem;letter-spacing:0.2
   </div>
 
   <div id="warn-zone"></div>
+  <div id="pago-banner"></div>
 
   <!-- Form de consulta -->
   <div class="card" id="view-form">
@@ -245,6 +246,7 @@ const PORTAL = (() => {
   let sb = null;
 
   function init(){
+    pintarBannerPago();
     if(!window.AF_CONFIG?.isSupabaseConfigured?.()){
       document.getElementById('warn-zone').innerHTML = `
         <div class="cfg-warn">
@@ -259,6 +261,32 @@ const PORTAL = (() => {
       window.AF_CONFIG.supabase.anonKey
     );
     document.getElementById('form-consulta').addEventListener('submit', consultar);
+  }
+
+  function pintarBannerPago(){
+    const params = new URLSearchParams(location.search);
+    const pago = params.get('pago');
+    const folio = params.get('folio');
+    if(folio){
+      const f = document.getElementById('f-folio');
+      if(f) f.value = folio.toUpperCase();
+    }
+    if(pago !== 'ok' && pago !== 'cancel') return;
+    const banner = document.getElementById('pago-banner');
+    if(!banner) return;
+    if(pago === 'ok'){
+      banner.innerHTML = `
+        <div class="msg aprobada" style="margin-bottom:1.25rem">
+          <strong><i class="fa fa-circle-check"></i> ¡Pago recibido!</strong>
+          <p style="margin-top:0.4rem">Gracias por tu pago. Puede tardar unos minutos en reflejarse aquí. Ingresa tu correo abajo para ver el detalle actualizado de tu solicitud.</p>
+        </div>`;
+    } else {
+      banner.innerHTML = `
+        <div class="msg cancelada" style="margin-bottom:1.25rem">
+          <strong><i class="fa fa-circle-info"></i> Pago cancelado</strong>
+          <p style="margin-top:0.4rem">No se completó el cobro — no se te hizo ningún cargo. Puedes intentarlo de nuevo desde tu solicitud o escribirnos por WhatsApp si necesitas ayuda.</p>
+        </div>`;
+    }
   }
 
   async function consultar(e){

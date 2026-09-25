@@ -202,10 +202,22 @@ Aplica `supabase/schema_phase10.sql`.
 
 Aplica `supabase/schema_phase9.sql`.
 
+**Código y flujo — completos:**
 - Tabla `pagos` con estado enum y datos Stripe
 - RPC `consulta_pagos(folio, email)` para que el alumno vea sus cobros
-- Edge Function `crear-checkout` (admin → crea sesión Stripe → guarda `checkout_url`)
+- Edge Function `crear-checkout` — crea la sesión de Stripe y guarda `checkout_url`.
+  Requiere un JWT de Supabase Auth válido; solo autoriza a admin/coordinación o
+  al alumno dueño del pago (su email de auth coincide con `inscripciones.email`)
 - Edge Function `stripe-webhook` (recibe eventos y actualiza estado, verifica firma HMAC)
+- Admin (tab Finanzas → cobros pendientes): botón **"Link de pago"** genera el
+  checkout y lo manda por WhatsApp al teléfono del alumno (o lo copia al
+  portapapeles si no hay teléfono registrado)
+- Alumno (`/portal/mi-espacio.html` → Mis pagos): botón **"Pagar ahora"** en
+  cada pago pendiente, abre el Checkout de Stripe directamente
+- `/portal/` muestra un aviso de pago exitoso/cancelado al volver de Stripe
+
+**Pendiente — activación de cuenta (solo lo puede hacer quien tenga acceso a
+Stripe y al proyecto de Supabase):**
 
 ```bash
 supabase secrets set STRIPE_SECRET_KEY=sk_test_... STRIPE_WEBHOOK_SECRET=whsec_... SITE_URL=...
@@ -213,7 +225,20 @@ supabase functions deploy crear-checkout
 supabase functions deploy stripe-webhook --no-verify-jwt
 ```
 
-Configurar webhook en dashboard.stripe.com/webhooks → `https://<REF>.supabase.co/functions/v1/stripe-webhook` con `checkout.session.completed`, `payment_intent.payment_failed`, `charge.refunded`.
+1. Crear/usar una cuenta de Stripe y copiar su `STRIPE_SECRET_KEY` (empieza en
+   modo test con `sk_test_...` antes de pasar a `sk_live_...`)
+2. Correr el `supabase secrets set` y los dos `supabase functions deploy` de arriba
+3. Configurar el webhook en dashboard.stripe.com/webhooks →
+   `https://<REF>.supabase.co/functions/v1/stripe-webhook` con los eventos
+   `checkout.session.completed`, `payment_intent.payment_failed`, `charge.refunded`
+   — Stripe entrega un `whsec_...` en ese paso; correr `supabase secrets set
+   STRIPE_WEBHOOK_SECRET=...` con ese valor y volver a desplegar `stripe-webhook`
+4. Hacer un pago de prueba con una [tarjeta de test de Stripe](https://stripe.com/docs/testing)
+   antes de pasar a claves `sk_live_...`
+
+Hasta que estos 4 pasos se completen, los botones de pago existen en el sitio
+pero devuelven el error "STRIPE_SECRET_KEY no configurada en secrets" — es
+intencional (falla de forma explícita en vez de simular un cobro).
 
 ## Fase 7 — Asistencias y calendario
 
