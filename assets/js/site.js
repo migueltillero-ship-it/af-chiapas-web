@@ -159,7 +159,7 @@ const STATS = [
   {n:'428K', s:'+', l:'Estudiantes anuales'},
   {n:'31',   s:'',  l:'Sedes en México'},
   {n:'6',    s:'',  l:'Niveles MCER que preparamos'},
-  {n:'24/7', s:'',  l:'Tutor IA disponible'}
+  {n:'24',   s:'h', l:'Respuesta a tu preinscripción'}
 ];
 
 const PORQUE_FALLBACK = [
@@ -236,7 +236,7 @@ const FAQ = [
   {cat:'Plataforma virtual', qs:[
     {q:'¿Las clases virtuales son grabadas o en vivo?', a:'Todas son en vivo con un profesor certificado. Además, cada sesión se graba y queda disponible 30 días para que puedas repasar.'},
     {q:'¿Necesito un equipo especial?',                 a:'No. Solo una computadora o tableta con cámara, micrófono y conexión estable. La plataforma funciona en navegador, sin instalar nada.'},
-    {q:'¿Qué es el tutor IA?',                          a:'Es un asistente disponible 24/7 para practicar conversación, recibir corrección instantánea y resolver dudas entre clase y clase. Diseñado por la AF, no es ChatGPT genérico.'}
+    {q:'¿Tengo acompañamiento entre clase y clase?',    a:'Sí. Puedes escribirle a tu profesor o a coordinación por WhatsApp para resolver dudas, pedir material extra o practicar entre sesiones.'}
   ]},
   {cat:'Inscripciones', qs:[
     {q:'¿Cómo me inscribo?',                a:'Completa el formulario en esta página. Recibirás un folio de seguimiento al instante. Nuestro equipo validará tu solicitud en menos de 24 horas hábiles.'},
@@ -1059,7 +1059,7 @@ const I18N = {
     'hero.pill':'Alliance Française 100% en línea · ¡Damos el vuelco!',
     'hero.t1':'Aprende francés','hero.t2':'100% en línea.',
     'hero.t3':'Desde donde estés, hacia donde sueñes.',
-    'hero.tagline':'Damos un vuelco innovador: la Alliance Française San Cristóbal ahora es 100% virtual. Clases en vivo con profesores certificados, tutor de IA 24/7, comunidad francófona global y preparación oficial DELF/DALF. Sin presencial. Sin desplazamientos. Abierta al mundo entero.',
+    'hero.tagline':'Damos un vuelco innovador: la Alliance Française San Cristóbal ahora es 100% virtual. Clases en vivo con profesores certificados, acompañamiento personalizado por WhatsApp, comunidad francófona global y preparación oficial DELF/DALF. Sin presencial. Sin desplazamientos. Abierta al mundo entero.',
     'hero.cta1':'Inscribirme ahora','hero.cta2':'Empezar preinscripción',
   },
   fr: {
