@@ -192,7 +192,7 @@ GitHub Actions corre en cada push a `main` y en cada PR:
 - [x] Fase 5: Eventos editables desde admin (CMS-like)
 - [x] Fase 6: Catálogo de cursos editable desde admin
 - [x] Fase 7: Sesiones y asistencias (portal del docente)
-- [x] Fase 9: Pagos en línea (Stripe) — código y flujo completos (admin genera el link, el alumno paga desde `/portal/mi-espacio.html`); falta la activación de cuenta (crear el proyecto Stripe, configurar secrets y desplegar las Edge Functions — ver `supabase/README.md`)
+- [x] Fase 9: Pagos en línea (Stripe) — activo y verificado en modo test (admin genera el link, el alumno paga desde `/portal/mi-espacio.html`, el webhook confirma el cobro solo); ver `supabase/README.md` para pasar a modo live
 - [x] Fase 10: Cursos del ciclo (roster + asistencia desde admin) y Finanzas (egresos + reportes)
 - [ ] Fase 11: App móvil nativa (Capacitor o PWA installable mejorada)
 
