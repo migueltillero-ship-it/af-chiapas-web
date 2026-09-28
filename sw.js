@@ -1,9 +1,9 @@
 // Alliance Française San Cristóbal · Service Worker
 // Cache app shell + assets para experiencia offline.
-// v3: el sitio pasó de una sola página a multipágina (Jekyll) — se sube la
-// versión para que los visitantes con el shell viejo cacheado reciban todo
-// limpio (activate() ya borra las cachés con otro nombre).
-const CACHE = 'af-sclc-v3';
+// v4: se retira del precache el logo viejo sin usar (5.3 MB, huérfano desde
+// que el footer pasó al logo horizontal oficial) y se agregan los que sí
+// usa el sitio (activate() ya borra las cachés con otro nombre).
+const CACHE = 'af-sclc-v4';
 const SHELL = [
   '/af-chiapas-web/',
   '/af-chiapas-web/index.html',
@@ -16,7 +16,8 @@ const SHELL = [
   '/af-chiapas-web/manifest.webmanifest',
   '/af-chiapas-web/assets/css/main.css',
   '/af-chiapas-web/assets/js/site.js',
-  '/af-chiapas-web/src/assets/brand/logo-af-sancristobal.png',
+  '/af-chiapas-web/src/assets/brand/af-glyph-160.png',
+  '/af-chiapas-web/src/assets/brand/logo-af-horizontal.png',
   '/af-chiapas-web/src/assets/img/posters/curso-en-linea.webp',
   '/af-chiapas-web/src/assets/img/posters/curso-ninos.webp',
   '/af-chiapas-web/src/assets/img/posters/cursos-particulares.webp',
