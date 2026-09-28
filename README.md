@@ -112,31 +112,44 @@ Sitio oficial y plataforma de gestión académica de la Alliance Française San 
 
 ## Estructura
 
+El sitio público es un proyecto Jekyll: `_config.yml`, `Gemfile`, `_layouts/`
+y las 7 páginas `.html` de nivel superior tienen que quedarse en la raíz —
+es la convención que Jekyll y GitHub Pages exigen para generar las URLs y
+aplicar el layout común. Todo lo demás sí está organizado por dominio:
+
 ```
 .
-├── .github/workflows/      # CI/CD (deploy + validación)
-├── index.html              # Sitio público
-├── manifest.webmanifest    # PWA
-├── robots.txt + sitemap.xml
-├── admin/index.html        # Panel administrativo
+├── .github/workflows/         # CI/CD (validate.yml, e2e.yml, deploy.yml)
+├── _config.yml, Gemfile*      # Config de Jekyll
+├── _layouts/default.html      # Layout único que envuelve las 7 páginas
+├── _includes/                 # head-meta, nav, footer, banners, wa-fab
+├── index.html                 # + cursos-niveles, docentes, preinscripcion,
+│                               #   vida-af, preguntas-frecuentes,
+│                               #   historia-contacto (las 7 páginas públicas)
+├── manifest.webmanifest, sw.js, robots.txt, sitemap.xml
+├── assets/
+│   ├── css/main.css           # Un solo stylesheet, compartido por las 7 páginas
+│   └── js/site.js             # Toda la lógica de cliente del sitio público
+├── admin/index.html           # Panel de coordinación (8 tabs)
 ├── portal/
-│   ├── index.html          # Consulta del alumno
-│   └── docente.html        # Portal del docente
+│   ├── index.html             # Consulta rápida del alumno (folio + correo)
+│   ├── mi-espacio.html        # Portal del alumno con cuenta propia
+│   └── docente.html           # Portal del docente
 ├── supabase/
-│   ├── schema.sql          # Fase 2A: inscripciones + perfiles
-│   ├── schema_phase2b.sql  # Fase 2B: docentes + grupos
-│   ├── schema_phase3.sql   # Fase 3:  consulta_inscripcion RPC
-│   ├── schema_phase3b.sql  # Fase 3B: policies docente
-│   └── README.md
+│   ├── schema.sql, schema_phase2b.sql … schema_phase13.sql
+│   │                          # Un archivo por fase, aplicados en ese orden
+│   ├── functions/             # Edge Functions: crear-checkout, stripe-webhook,
+│   │                          #   notificar-cambio-estado, _shared/
+│   └── README.md              # Guía de instalación y activación por fase
 ├── src/
 │   ├── assets/
-│   │   ├── brand/logo-af-sancristobal.png
-│   │   ├── img/posters/    # 5 carteles · WebP + PNG
-│   │   ├── data/           # JSON catalog (cursos, FAQ, etc.)
+│   │   ├── brand/              # Logos e íconos oficiales
+│   │   ├── img/posters/        # Carteles · WebP + PNG
+│   │   ├── data/                # JSON de catálogo, FAQ, eventos (respaldo)
 │   │   └── media/
-│   └── config/
-│       └── supabase.js     # Credenciales públicas (RELLENAR)
-└── scripts/python/         # Generador de catálogo
+│   └── config/supabase.js      # Credenciales públicas (anon/publishable key)
+├── scripts/python/              # generar_catalogo.py, generar_instalacion.py
+└── tests/e2e/                   # 47 pruebas Playwright (una spec por feature)
 ```
 
 ## Setup inicial (para desplegar tu propio fork)
