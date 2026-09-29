@@ -134,7 +134,8 @@ aplicar el layout común. Todo lo demás sí está organizado por dominio:
 ├── portal/
 │   ├── index.html             # Consulta rápida del alumno (folio + correo)
 │   ├── mi-espacio.html        # Portal del alumno con cuenta propia
-│   └── docente.html           # Portal del docente
+│   ├── docente.html           # Portal del docente
+│   └── restablecer-contrasena.html  # Olvidé mi contraseña (alumno/docente/admin)
 ├── supabase/
 │   ├── schema.sql, schema_phase2b.sql … schema_phase13.sql
 │   │                          # Un archivo por fase, aplicados en ese orden
@@ -149,7 +150,7 @@ aplicar el layout común. Todo lo demás sí está organizado por dominio:
 │   │   └── media/
 │   └── config/supabase.js      # Credenciales públicas (anon/publishable key)
 ├── scripts/python/              # generar_catalogo.py, generar_instalacion.py
-└── tests/e2e/                   # 47 pruebas Playwright (una spec por feature)
+└── tests/e2e/                   # 49 pruebas Playwright (una spec por feature)
 ```
 
 ## Setup inicial (para desplegar tu propio fork)
@@ -207,6 +208,7 @@ GitHub Actions corre en cada push a `main` y en cada PR:
 - [x] Fase 7: Sesiones y asistencias (portal del docente)
 - [x] Fase 9: Pagos en línea (Stripe) — activo y verificado en modo test (admin genera el link, el alumno paga desde `/portal/mi-espacio.html`, el webhook confirma el cobro solo); ver `supabase/README.md` para pasar a modo live
 - [x] Fase 10: Cursos del ciclo (roster + asistencia desde admin) y Finanzas (egresos + reportes)
+- [x] Recuperación de contraseña autoservicio (alumno, docente y coordinación) — ver `supabase/README.md` para el paso de configuración de URLs en Supabase Auth
 - [ ] Fase 11: App móvil nativa (Capacitor o PWA installable mejorada)
 
 ## Contacto

@@ -178,6 +178,37 @@ Nuevo tab **Constancias**: CRUD de `tipos_constancia` (nombre + costo) y bandeja
 Por cada alumno de un grupo: botones **Registrar evaluación** y **Validar nivel**
 (con comentario).
 
+## Recuperación de contraseña (autoservicio)
+
+`portal/restablecer-contrasena.html` — una sola página que sirve a los tres tipos de
+cuenta (alumno, docente, coordinación/admin), ya que todos son usuarios de la misma
+`auth.users` de Supabase. Cada login (`portal/mi-espacio.html`, `portal/docente.html`,
+`admin/index.html`) tiene un enlace **"¿Olvidaste tu contraseña?"** que lleva ahí.
+
+**Flujo**: el usuario pide el enlace con su correo (`resetPasswordForEmail`) → Supabase
+le manda un correo → al hacer clic, Supabase dispara el evento `PASSWORD_RECOVERY` en
+esta misma página → se le pide la nueva contraseña (`updateUser`) → se cierra la sesión
+y queda listo para iniciar sesión de nuevo con la contraseña nueva.
+
+⚠️ **Paso de configuración manual obligatorio, una sola vez** (sin esto, el enlace del
+correo redirige a `localhost:3000` y falla con `otp_expired`):
+
+1. Supabase Studio → **Authentication → URL Configuration**
+2. **Site URL**: `https://migueltillero-ship-it.github.io/af-chiapas-web/`
+3. **Redirect URLs**: agrega `https://migueltillero-ship-it.github.io/af-chiapas-web/portal/restablecer-contrasena.html`
+   (y `http://localhost:8080/portal/restablecer-contrasena.html` si pruebas en local)
+
+Antes de este flujo, el único método era el reseteo manual por SQL desde el SQL Editor:
+
+```sql
+update auth.users
+set encrypted_password = crypt('NuevaContraseña', gen_salt('bf'))
+where email = 'correo@ejemplo.com';
+```
+
+Ese método sigue funcionando como respaldo si coordinación necesita resetear una cuenta
+directamente, pero ya no es el único camino.
+
 ## Fase 11 — Parámetros completos de grupo + feriados
 
 Aplica `supabase/schema_phase11.sql`.
