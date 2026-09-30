@@ -381,12 +381,14 @@ const AF = (() => {
   }
 
   function toggleMenu(){
-    document.getElementById('nav-links')?.classList.toggle('open');
+    const abierto = document.getElementById('nav-links')?.classList.toggle('open');
+    document.querySelector('.nav-toggle')?.setAttribute('aria-expanded', abierto ? 'true' : 'false');
   }
 
   document.addEventListener('click', e => {
     if(e.target.matches('.nav-links a')) {
       document.getElementById('nav-links')?.classList.remove('open');
+      document.querySelector('.nav-toggle')?.setAttribute('aria-expanded', 'false');
     }
   });
 
