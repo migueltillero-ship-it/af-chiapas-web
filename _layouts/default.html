@@ -4,6 +4,7 @@
 {% include head-meta.html %}
 </head>
 <body>
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
 {% if page.show_intro %}
 <!-- INTRO DE MARCA · se cierra solo al terminar el video -->
 <div id="af-intro" role="dialog" aria-label="Presentación Alliance Française San Cristóbal">
@@ -37,7 +38,9 @@
 <!-- BANNERS DE CAMPAÑA (arriba del hero) -->
 {% include banners.html %}
 
+<main id="main-content">
 {{ content }}
+</main>
 
 <!-- FOOTER -->
 {% include footer.html %}

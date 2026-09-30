@@ -57,6 +57,14 @@ button{font-family:inherit;color:inherit}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
 
+.skip-link{
+  position:absolute;top:-100px;left:1rem;z-index:2000;
+  background:var(--ink);color:#fff;padding:0.75rem 1.25rem;border-radius:var(--r);
+  font-family:var(--mono);font-size:0.75rem;letter-spacing:0.05em;text-decoration:none;
+  transition:top 0.2s;
+}
+.skip-link:focus{top:1rem}
+
 /* ──────────────────── CAMPAÑA: tipografía editorial y acentos ──────────────────── */
 .poster-type{
   font-family:var(--poster);font-weight:400;letter-spacing:0.01em;
