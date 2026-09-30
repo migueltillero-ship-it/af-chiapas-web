@@ -247,7 +247,8 @@ const FAQ = [
   {cat:'Cursos', qs:[
     {q:'¿Necesito saber francés para inscribirme?', a:'No. Tenemos grupos para principiantes absolutos (A1). Si ya sabes algo, te hacemos prueba de nivel gratuita.'},
     {q:'¿Cuánto tiempo tarda llegar al B2?',         a:'Aproximadamente 2.5-3 años en ritmo regular (3h/semana). Con ritmo intensivo o virtual, puede reducirse a 18 meses.'},
-    {q:'¿Cuántos alumnos hay por grupo?',            a:'Grupos reducidos de 8 a 15 estudiantes. La modalidad particular es 1 a 1 o micro-grupos de hasta 3.'}
+    {q:'¿Cuántos alumnos hay por grupo?',            a:'Grupos reducidos de 8 a 15 estudiantes. La modalidad particular es 1 a 1 o micro-grupos de hasta 3.'},
+    {q:'Antes tenían una sede física, ¿qué pasó?',   a:'Cerramos nuestro espacio presencial en San Cristóbal de Las Casas y hoy somos una Alianza 100% virtual — sin gastos de renta ni de mantenimiento de un local. La calidad no cambió: mismos profesores, mismos grupos reducidos, misma preparación oficial DELF/DALF, ahora con la flexibilidad de tomar tus clases desde donde estés.'}
   ]},
   {cat:'Certificaciones DELF/DALF', qs:[
     {q:'¿El diploma DELF caduca?',                        a:'No. DELF y DALF son diplomas vitalicios. Una vez aprobados, su validez es permanente.'},
