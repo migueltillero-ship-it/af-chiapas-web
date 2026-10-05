@@ -1100,7 +1100,7 @@ if ('serviceWorker' in navigator) {
 
 // ──────────────────── COUNTDOWN AL NUEVO CICLO ────────────────────
 // ⚙️ FECHAS OFICIALES — editar aquí si el Consejo las cambia
-const AF_INICIO_CICLO = new Date('2026-09-28T09:00:00-06:00'); // primer día de clases
+const AF_INICIO_CICLO = new Date('2026-10-12T09:00:00-06:00'); // primer día de clases
 
 // El aviso de "inscripciones abiertas" deja de tener sentido una vez que
 // el ciclo ya arrancó, así que se retira solo en esa fecha.
