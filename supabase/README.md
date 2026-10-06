@@ -95,6 +95,30 @@ select id, 'Camille Dupont', email, '+33 ...', array['A1','A2','B1','B2'], true
 from auth.users where email = 'camille@alianzafr.edu.mx';
 ```
 
+### Alta pendiente: los 3 docentes reales del equipo
+
+`docentes.html` ya muestra a **Alejandro Avendaño**, **Alejandra Estrada** y **Fanny Franco**
+en el sitio público, pero todavía no existen como usuarios en Supabase — por eso no
+pueden entrar a `/portal/docente.html` ni se les puede asignar un grupo. Falta su correo
+real y los niveles que imparte cada uno; en cuanto se tengan, repetir por cada uno:
+
+```sql
+-- 1. Crea el usuario auth en Supabase Studio → Authentication → Add user
+--    (con su correo real y una contraseña temporal)
+-- 2. Inserta su perfil de docente:
+insert into public.docentes (id, nombre, email, telefono, niveles_que_imparte, activo)
+select id, 'Alejandro Avendaño', email, '+52 ...', array['A1','A2'], true  -- niveles pendientes de confirmar
+from auth.users where email = 'PENDIENTE@ejemplo.com';
+
+insert into public.docentes (id, nombre, email, telefono, niveles_que_imparte, activo)
+select id, 'Alejandra Estrada', email, '+52 ...', array['A1','A2'], true  -- niveles pendientes de confirmar
+from auth.users where email = 'PENDIENTE@ejemplo.com';
+
+insert into public.docentes (id, nombre, email, telefono, niveles_que_imparte, activo)
+select id, 'Fanny Franco', email, '+52 ...', array['B2','C1'], true  -- niveles pendientes de confirmar (asociada a prep. DELF/DALF)
+from auth.users where email = 'PENDIENTE@ejemplo.com';
+```
+
 ### Flujo en el panel
 
 1. Llega una inscripción → estado `pendiente`
