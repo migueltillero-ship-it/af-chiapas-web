@@ -170,14 +170,18 @@ Sigue `supabase/README.md`:
 Las credenciales ya están en `index.html` apuntando a `service_9wtrch3 / template_dtddfpk`. El template debe usar `{{to_email}} = afsancris@gmail.com` y los demás campos del payload.
 
 ### 4. Cambiar la fecha oficial
-La fecha vive en `index.html`:
+La fecha vive en `assets/js/site.js`:
 
 ```js
-const AF_INICIO_CICLO = new Date('2026-09-21T09:00:00-06:00'); // primer día de clases
+const AF_INICIO_CICLO = new Date('2026-10-12T09:00:00-06:00'); // primer día de clases
 ```
 
-- `AF_INICIO_CICLO` alimenta la cuenta regresiva. Si cambia, ajusta también la
-  tabla de `#calendario` y el `startDate`/`endDate` del JSON-LD.
+- `AF_INICIO_CICLO` alimenta la cuenta regresiva de `index.html`. Si cambia,
+  ajusta también a mano cada mención de la fecha en `index.html` (hero,
+  aviso de inscripciones, tarjeta de datos, link de WhatsApp, front matter
+  `title`/`description`), la tabla `#calendario` en `cursos-niveles.html`
+  (recuerda que mover el Ciclo 1 corre en cascada los Ciclos 2-6), y el
+  `keywords` de `_includes/head-meta.html`.
 - También gobierna el aviso «Inscripciones abiertas ahora», que **se retira
   solo** al arrancar el ciclo (ya no tiene sentido invitar a preinscribirse
   una vez que las clases empezaron).
