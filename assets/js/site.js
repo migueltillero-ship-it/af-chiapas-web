@@ -38,19 +38,21 @@ window.AFMusic = (function(){
     }
   }
 
-  // Si el autoplay se bloquea, el primer clic/tecla/scroll enciende la música.
+  // Si el autoplay se bloquea, el primer gesto del visitante enciende la música
+  // (incluye mover el mouse o hacer scroll, para que arranque lo antes posible).
+  var GESTURE_EVENTS = ['click','keydown','touchstart','wheel','scroll','mousemove','pointermove'];
   function armGesture(){
     if(armed) return;
     armed = true;
     toggle.classList.add('on');
     paint(false);
     var go = function(){
-      ['click','keydown','touchstart','wheel'].forEach(function(ev){
+      GESTURE_EVENTS.forEach(function(ev){
         document.removeEventListener(ev, go);
       });
       play();
     };
-    ['click','keydown','touchstart','wheel'].forEach(function(ev){
+    GESTURE_EVENTS.forEach(function(ev){
       document.addEventListener(ev, go, { once:false, passive:true });
     });
   }
