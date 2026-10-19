@@ -1,0 +1,154 @@
+/* ──────────────────── FONDOS, VELOS Y MOVIMIENTO ────────────────────
+   Capas reutilizables (inspiradas en banda-foto / hero-bg del sitio MiguelTillero,
+   adaptadas a la paleta de la Alianza: rojo, azul marino, dorado y crema).
+
+   <section class="bg-scene [on-dark|soft]">
+     <div class="bg-media" data-parallax> <picture>…</picture> | <video>… </div>
+     …contenido (.container ya queda por encima)…
+   </section>
+
+   El texto nunca va sobre la imagen sin velo: el degradado --velo vive en ::after.
+   Las fotos del equipo NO se usan como fondo; solo logos, textiles y color de marca. */
+
+:root{
+  --navy-veil:13,31,51;
+  --velo-hero:
+    radial-gradient(ellipse at 50% 42%,rgba(var(--navy-veil),.52) 0%,rgba(var(--navy-veil),.80) 78%),
+    linear-gradient(180deg,rgba(var(--navy-veil),.55) 0%,rgba(var(--navy-veil),.30) 40%,rgba(var(--navy-veil),.78) 100%);
+  --velo-ciclo:linear-gradient(135deg,rgba(26,43,74,.93) 0%,rgba(38,64,110,.84) 55%,rgba(26,43,74,.93) 100%);
+  --velo-rojo:linear-gradient(100deg,rgba(168,31,44,.97) 0%,rgba(168,31,44,.92) 50%,rgba(168,31,44,.78) 100%);
+  --velo-claro:linear-gradient(180deg,rgba(253,252,248,.80) 0%,rgba(253,252,248,.94) 55%,var(--void) 100%);
+  --edge-t:linear-gradient(transparent,transparent);
+  --edge-b:linear-gradient(transparent,transparent);
+}
+
+/* ── Escena con fondo ── */
+.bg-scene{position:relative;isolation:isolate;overflow:hidden}
+.bg-media{position:absolute;inset:-7% 0;z-index:-2;will-change:transform;background:#1a2b4a}
+.bg-media picture,.bg-media img,.bg-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--pos,center);display:block}
+.bg-scene::after{
+  content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:var(--edge-t),var(--edge-b),var(--velo,var(--velo-hero));
+}
+/* los bordes de la banda se funden con el crema de la página */
+.bg-scene.blend-t{--edge-t:linear-gradient(to bottom,var(--void) 0,rgba(253,252,248,0) 72px)}
+.bg-scene.blend-b{--edge-b:linear-gradient(to top,var(--void) 0,rgba(253,252,248,0) 72px)}
+
+/* video con póster de respaldo: la imagen siempre está debajo, el video entra en fundido */
+.bg-video{opacity:0;transition:opacity 1.2s ease}
+.bg-video.on{opacity:1}
+
+/* variante clara: textura sutil detrás de contenido oscuro */
+.bg-scene.soft{--velo:var(--velo-claro)}
+.bg-scene.soft .bg-media{background:var(--void);opacity:.3}
+
+/* variante oscura: recolorea los encabezados estándar */
+.bg-scene.on-dark .section-title{color:#fff}
+.bg-scene.on-dark .section-title em{color:var(--gold-light)}
+.bg-scene.on-dark .section-tag{color:var(--gold-light)}
+.bg-scene.on-dark .section-sub{color:rgba(255,255,255,.88)}
+
+/* tarjetas de vidrio sobre fondo oscuro: panel claro para que el texto navy se lea */
+.bg-scene.on-dark .glass{background:rgba(253,252,248,.96);box-shadow:0 18px 50px rgba(0,0,0,.35)}
+
+/* ── Hero con video ── */
+.hero.bg-scene{--velo:var(--velo-hero)}
+.hero.bg-scene::before{z-index:0}
+.hero.bg-scene .hero-title,.hero.bg-scene .hero-title span{color:#fff;text-shadow:0 2px 22px rgba(0,0,0,.45)}
+.hero.bg-scene .hero-title em{color:var(--gold-light)}
+.hero.bg-scene .hero-title .grad{
+  background:linear-gradient(135deg,#ffe9a8,#ffffff);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;
+}
+.hero.bg-scene .hero-francais{color:#fff;opacity:.07}
+.hero.bg-scene .hero-tagline{color:rgba(255,255,255,.92);text-shadow:0 1px 12px rgba(0,0,0,.5)}
+.hero.bg-scene .hero-tagline strong{color:#fff}
+.hero.bg-scene .hero-trust{color:rgba(255,255,255,.82)}
+.hero.bg-scene .hero-pill{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.45);color:#fff}
+.hero.bg-scene .hero-pill .dot{background:var(--gold-light);box-shadow:0 0 8px var(--gold-light)}
+.hero.bg-scene .vrail,.hero.bg-scene .vrail-red{color:var(--gold-light);text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.hero.bg-scene .btn-ghost{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.hero.bg-scene .btn-ghost:hover{background:rgba(255,255,255,.26);border-color:#fff}
+.hero.bg-scene{--edge-b:linear-gradient(to top,var(--void) 0,rgba(253,252,248,0) 56px)}
+
+/* ── Nuevo ciclo con video ── */
+.relanz.bg-scene{--velo:var(--velo-ciclo)}
+.relanz.bg-scene .bg-media{opacity:.9}
+
+/* ── Promo "clase gratis": fondo rojo de marca + cartel de campaña ── */
+.promo-banner.bg-scene{--velo:var(--velo-rojo);background:#a81f2c;isolation:isolate}
+.promo-banner.bg-scene::before{z-index:0}
+.promo-banner.bg-scene .bg-media{inset:0;--pos:50% 100%}
+.cta-band.rojo .bg-media{--pos:50% 100%}
+.promo-banner-card{position:relative;z-index:1;display:block;width:104px;flex:0 0 auto;border-radius:14px;overflow:hidden;box-shadow:0 12px 30px rgba(0,0,0,.38);border:2px solid rgba(255,255,255,.55);transform:rotate(3deg);transition:transform .35s}
+.promo-banner-card:hover{transform:rotate(0) translateY(-3px)}
+.promo-banner-card img{width:100%;height:auto}
+
+/* ── Tarjetas de campaña con llamada a la acción ── */
+.camp-strip{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:1.5rem;max-width:960px;margin:0 auto 2.75rem}
+.camp-strip .camp-card{flex:0 1 300px}
+.camp-card{position:relative;display:block;border-radius:var(--r-lg);overflow:hidden;text-decoration:none;color:#fff;box-shadow:var(--shadow);border:1px solid var(--border);background:#1a2b4a;transition:transform .35s,box-shadow .35s}
+.camp-card:hover{transform:translateY(-6px);box-shadow:0 22px 50px rgba(13,31,51,.26)}
+.camp-card img{width:100%;height:auto;aspect-ratio:var(--ar,4/5);object-fit:cover}
+.camp-card::after{content:'';position:absolute;inset:auto 0 0 0;height:46%;background:linear-gradient(to top,rgba(var(--navy-veil),.92),rgba(var(--navy-veil),0));pointer-events:none}
+.camp-cta{
+  position:absolute;z-index:1;left:1rem;right:1rem;bottom:1rem;display:flex;align-items:center;justify-content:space-between;gap:.6rem;
+  background:var(--red);color:#fff;padding:.8rem 1.1rem;border-radius:var(--r);
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;box-shadow:0 6px 20px rgba(212,43,58,.4);
+}
+.camp-card:hover .camp-cta{background:var(--red-dark)}
+.camp-strip .camp-wide{--ar:1307/721;flex:1 1 440px;max-width:620px}
+.camp-wide .camp-cta{left:auto;right:1rem;width:auto}
+
+/* ── Banda de llamada a la acción con fondo (inscripciones / exámenes) ── */
+.cta-band{
+  display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:2rem;align-items:center;max-width:960px;margin:0 auto 3rem;
+  padding:2rem 2.25rem;border-radius:var(--r-xl);color:#fff;box-shadow:var(--shadow);
+}
+.cta-band .bg-media{inset:-6% 0}
+.cta-band.rojo{--velo:var(--velo-rojo)}
+.cta-band.marino{--velo:linear-gradient(100deg,rgba(26,43,74,.95) 0%,rgba(26,43,74,.82) 52%,rgba(26,43,74,.55) 100%)}
+.cta-band-tag{font-family:var(--mono);font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-light);display:block;margin-bottom:.6rem}
+.cta-band h2,.cta-band h3{font-family:var(--display);font-size:clamp(1.6rem,3.4vw,2.4rem);font-weight:400;line-height:1.1;margin-bottom:.6rem;color:#fff}
+.cta-band h2 em,.cta-band h3 em{color:var(--gold-light);font-style:italic}
+.cta-band p{color:rgba(255,255,255,.9);font-size:.98rem;line-height:1.7;margin-bottom:1.25rem;max-width:46ch}
+.cta-band .btn-primary{background:#fff;color:var(--red-dark);box-shadow:0 8px 26px rgba(0,0,0,.28)}
+.cta-band .btn-primary:hover{background:var(--camp-cream)}
+.cta-band .camp-card{border:2px solid rgba(255,255,255,.55);transform:rotate(2.5deg)}
+.cta-band .camp-card:hover{transform:rotate(0) translateY(-4px)}
+.cta-band .camp-cta{display:none}
+.cta-band .camp-card::after{display:none}
+
+/* ── Equipo y video de presentación (solo en la sección de equipo) ── */
+.team-banner{max-width:960px;margin:0 auto 2.5rem;border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--border);position:relative}
+.team-banner img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover}
+.team-banner figcaption{position:absolute;inset:auto 0 0 0;padding:2.2rem 1.5rem 1rem;color:#fff;font-family:var(--mono);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;background:linear-gradient(to top,rgba(var(--navy-veil),.9),rgba(var(--navy-veil),0))}
+.video-card{max-width:880px;margin:3rem auto 0;border-radius:var(--r-xl);overflow:hidden;background:#0d1f33;box-shadow:var(--shadow);border:1px solid var(--border)}
+.video-card video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#0d1f33;object-fit:contain}
+.video-card figcaption{padding:.9rem 1.25rem;color:rgba(255,255,255,.85);font-size:.85rem}
+.video-card figcaption strong{color:var(--gold-light)}
+.video-brand{margin:2rem auto 0;max-width:880px;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow);background:#fff}
+.video-brand video{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+
+/* ── Transiciones de entrada suaves ── */
+.fx .rv{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s cubic-bezier(.16,1,.3,1)}
+.fx .rv.in{opacity:1;transform:none}
+.fx .rv[data-d="1"]{transition-delay:.1s}
+.fx .rv[data-d="2"]{transition-delay:.2s}
+
+/* ── Móvil: imágenes ligeras, sin parallax, bandas más compactas ── */
+@media(max-width:700px){
+  .bg-media{inset:0;will-change:auto}
+  .cta-band{grid-template-columns:1fr;padding:1.6rem 1.35rem;text-align:left}
+  .cta-band .camp-card{max-width:190px;transform:none}
+  .promo-banner-card{display:none}
+  .camp-wide .camp-cta{left:1rem}
+  .hero.bg-scene{--velo:linear-gradient(180deg,rgba(var(--navy-veil),.74),rgba(var(--navy-veil),.84))}
+}
+
+/* ── Accesibilidad: sin movimiento si el usuario lo pide ── */
+@media(prefers-reduced-motion:reduce){
+  .bg-media{transform:none!important;will-change:auto}
+  .bg-video{display:none}
+  .fx .rv{opacity:1;transform:none;transition:none}
+  .camp-card,.promo-banner-card{transition:none}
+}
