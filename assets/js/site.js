@@ -487,7 +487,7 @@ const AF = (() => {
         <p class="delf-desc">${d.desc}</p>
         <p class="delf-familia">${d.f} ${d.n}</p>
         <p class="delf-precio">${d.hrs}<span> · estimado</span></p>
-        <button type="button" class="btn btn-secondary" style="width:100%;justify-content:center;font-size:0.9rem"
+        <button type="button" class="btn btn-secondary" style="width:100%;justify-content:center;font-size:0.98rem"
                 onclick="AF.irA('delf_prep','${d.n}')">Prepararme</button>
       </div>`).join('');
   }
