@@ -4,19 +4,18 @@ title: "Alliance Française San Cristóbal · Nuevo ciclo 12 de octubre · Inscr
 description: "Inscripciones abiertas. Nuevo ciclo desde el 12 de octubre. Clases de francés 100% en línea, en vivo, con profesores certificados. Ciclos de 6 semanas, grupos de 4 a 12 alumnos y preparación oficial DELF/DALF. Primera clase gratis."
 show_intro: true
 ---
-<header id="accueil" class="hero bg-scene">
-  <div class="bg-media" data-parallax=".08" aria-hidden="true">
-    <picture><source media="(max-width:700px)" srcset="assets/video/web/hero-tapiz-poster-640.webp" type="image/webp"><img src="assets/video/web/hero-tapiz-poster-1280.webp" alt="" loading="eager" fetchpriority="high" decoding="async" width="1280" height="720"></picture>
-    <video class="bg-video" autoplay muted loop playsinline preload="metadata" poster="assets/video/web/hero-tapiz-poster-1280.webp" tabindex="-1">
-      <source data-src="assets/video/web/hero-tapiz.mp4" type="video/mp4">
-    </video>
-  </div>
+<header id="accueil" class="hero hero-white">
+  <div class="hero-aura" aria-hidden="true"><span class="hb hb1"></span><span class="hb hb2"></span><span class="hb hb3"></span></div>
+  <span class="hero-tri" aria-hidden="true"></span>
   <div class="hero-francais" aria-hidden="true">FRANÇAIS</div>
   <div class="hero-grid">
     <div class="hero-vrail">
       <span class="vrail vrail-red">Vive la expérience</span>
     </div>
     <div class="hero-inner">
+      <div class="hero-logo-wrap">
+        <img class="hero-logo" src="assets/img/web/logo-hero-1700.webp" srcset="assets/img/web/logo-hero-850.webp 850w, assets/img/web/logo-hero-1700.webp 1700w" sizes="(max-width:900px) 88vw, 820px" width="1704" height="533" alt="Alliance Française San Cristóbal de Las Casas" fetchpriority="high" decoding="async">
+      </div>
       <div class="hero-pill"><span class="dot"></span> <span data-i18n="hero.pill">Alliance Française 100% en línea · ¡Damos el vuelco!</span></div>
       <h1 class="hero-title">
         <span data-i18n="hero.t1">Aprende francés</span>
@@ -40,7 +39,10 @@ show_intro: true
       <span class="vrail">Clase muestra gratis</span>
     </div>
   </div>
+  <a class="hero-scroll" href="#proximos" aria-label="Seguir bajando"><i class="fa fa-chevron-down" aria-hidden="true"></i></a>
 </header>
+
+{% include banners.html %}
 
 <section class="section" style="padding:2rem 0 1rem">
   <div class="container">
@@ -61,11 +63,26 @@ show_intro: true
   </div>
 </section>
 
+<section id="proximos" class="section section-dark" data-wa-section="los eventos culturales">
+  <div class="container">
+    <div class="section-head rv">
+      <span class="section-tag">Agenda culturelle</span>
+      <h2 class="section-title">Vida cultural en la <em>Alianza</em></h2>
+      <p class="section-sub">Cine, música, gastronomía y encuentros con el mundo francófono.</p>
+    </div>
+    <div id="eventos-home" class="eventos-grid"></div>
+    <div style="text-align:center;margin-top:2.25rem">
+      <a href="vida-af.html#agenda" class="btn btn-secondary"><i class="fa fa-calendar" aria-hidden="true"></i> Ver toda la agenda</a>
+    </div>
+  </div>
+</section>
+
 <section id="relanzamiento" class="relanz bg-scene" data-wa-section="el nuevo ciclo de octubre">
   <div class="bg-media" data-parallax=".10" aria-hidden="true">
     <picture><source media="(max-width:700px)" srcset="assets/img/web/pizarra-640.webp" type="image/webp"><img src="assets/img/web/pizarra-1024.webp" alt="" loading="lazy" decoding="async" width="1024" height="682"></picture>
     <video class="bg-video" autoplay muted loop playsinline preload="none" poster="assets/video/web/ciclo-logo-oscuro-poster-1280.webp" tabindex="-1">
       <source data-src="assets/video/web/ciclo-logo-oscuro.mp4" type="video/mp4">
+      <source data-src="assets/video/web/ciclo-logo-oscuro.webm" type="video/webm">
     </video>
   </div>
   <div class="relanz-mark" aria-hidden="true">RENTRÉE</div>
@@ -132,32 +149,23 @@ show_intro: true
   </div>
 </section>
 
-<section id="por-dentro" class="section bg-scene soft blend-t blend-b" data-wa-section="la vida en la Alianza Francesa">
-  <div class="bg-media" data-parallax=".10" aria-hidden="true">
-    <picture><source media="(max-width:700px)" srcset="assets/img/web/textil-cursos-640.webp" type="image/webp"><img src="assets/img/web/textil-cursos-868.webp" alt="" loading="lazy" decoding="async" width="868" height="640"></picture>
-  </div>
+<section id="director" class="section" data-wa-section="la entrevista al director">
   <div class="container">
-    <div class="section-head rv">
-      <span class="section-tag">La vie à l'AF</span>
-      <h2 class="section-title">La Alianza <em>por dentro</em></h2>
-      <p class="section-sub">Talleres, clubes, encuentros y la identidad que nos une a 138 países. Míranos en acción.</p>
-    </div>
-    <div class="video-duo">
-      <figure class="video-card video-sq rv">
-        <video class="vid-lazy" autoplay muted loop playsinline preload="none" poster="assets/video/web/agenda-recopilacion-poster-720.webp" aria-label="Recopilación de carteles y eventos de la AF San Cristóbal">
-          <source data-src="assets/video/web/agenda-recopilacion.mp4" type="video/mp4">
+    <div class="director-grid">
+      <figure class="video-card rv">
+        <video controls playsinline preload="none" poster="assets/video/web/entrevista-director-poster-1280.webp" aria-label="Entrevista al director de la Alliance Française San Cristóbal">
+          <source src="assets/video/web/entrevista-director.mp4" type="video/mp4">
         </video>
-        <figcaption><strong>Vida AF</strong> · Carteles, talleres y encuentros.</figcaption>
       </figure>
-      <figure class="video-card rv" data-d="1">
-        <video controls playsinline preload="none" poster="assets/video/web/historia-proyeccion-poster-1280.webp" aria-label="Presentación de la Alliance Française San Cristóbal">
-          <source src="assets/video/proyeccion.mp4" type="video/mp4">
-        </video>
-        <figcaption><strong>Alliance Française San Cristóbal</strong> · Nuestra marca en movimiento (con sonido).</figcaption>
-      </figure>
-    </div>
-    <div style="text-align:center;margin-top:2.25rem">
-      <a href="vida-af.html#agenda" class="btn btn-secondary"><i class="fa fa-film" aria-hidden="true"></i> Ver más de la vida AF</a>
+      <div class="rv" data-d="1">
+        <span class="section-tag" style="text-align:left">Rencontre · Entrevista</span>
+        <h2 class="section-title" style="text-align:left">Conoce al <em>director</em></h2>
+        <p class="section-sub" style="text-align:left;margin:0 0 1.5rem">Miguel Tillero nos cuenta la visión de la primera Alliance Française 100% en línea de México y cómo aprenderás francés con nosotros.</p>
+        <div class="hero-actions" style="justify-content:flex-start;margin-bottom:0">
+          <a href="preinscripcion.html?sede=virtual" class="btn btn-primary"><i class="fa fa-rocket" aria-hidden="true"></i> Quiero inscribirme</a>
+          <a href="docentes.html#equipo-docente" class="btn btn-ghost"><i class="fa fa-user-group" aria-hidden="true"></i> Conocer al equipo</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -208,9 +216,12 @@ show_intro: true
   </div>
 </section>
 
-<section id="porque" class="section section-dark">
+<section id="porque" class="section bg-scene on-dark">
+  <div class="bg-media" data-parallax=".10" aria-hidden="true">
+    <picture><source media="(max-width:700px)" srcset="assets/img/web/tapiz-rojo-640.webp" type="image/webp"><img src="assets/img/web/tapiz-rojo-938.webp" alt="" loading="lazy" decoding="async" width="938" height="705"></picture>
+  </div>
   <div class="container">
-    <div class="section-head">
+    <div class="section-head rv">
       <span class="section-tag">Pourquoi le français ?</span>
       <h2 class="section-title">¿Por qué aprender <em>francés</em>?</h2>
       <p class="section-sub">El francés no es solo un idioma — es una llave hacia la educación de élite, el mundo laboral internacional y 300 millones de hablantes.</p>
@@ -221,9 +232,16 @@ show_intro: true
   </div>
 </section>
 
-<section id="promociones" class="section section-dark" data-wa-section="las promociones de relanzamiento">
+<section id="promociones" class="section bg-scene on-dark" data-wa-section="las promociones de relanzamiento">
+  <div class="bg-media" data-parallax=".08" aria-hidden="true">
+    <picture><source media="(max-width:700px)" srcset="assets/video/web/hero-tapiz-poster-640.webp" type="image/webp"><img src="assets/video/web/hero-tapiz-poster-1280.webp" alt="" loading="lazy" decoding="async" width="1280" height="720"></picture>
+    <video class="bg-video" autoplay muted loop playsinline preload="none" poster="assets/video/web/hero-tapiz-poster-1280.webp" tabindex="-1">
+      <source data-src="assets/video/web/hero-tapiz.mp4" type="video/mp4">
+      <source data-src="assets/video/web/hero-tapiz.webm" type="video/webm">
+    </video>
+  </div>
   <div class="container">
-    <div class="section-head">
+    <div class="section-head rv">
       <span class="section-watermark" aria-hidden="true">OFFRES</span>
       <span class="section-tag">Offres de rentrée · Por tiempo limitado</span>
       <h2 class="section-title">Promociones de <em>relanzamiento</em></h2>
@@ -240,7 +258,7 @@ show_intro: true
         <span class="tag"><i class="fa fa-gift"></i> Sin compromiso</span>
         <h3>Primera clase gratis</h3>
         <p>Entra a una sesión real, con profesor y grupo, antes de decidir. Si no es para ti, no pasa nada.</p>
-        <a href="https://wa.me/529671721870?text=Hola%2C%20quiero%20agendar%20mi%20clase%20muestra%20gratis." target="_blank" rel="noopener" class="btn btn-primary" style="font-size:0.55rem">
+        <a href="https://wa.me/529671721870?text=Hola%2C%20quiero%20agendar%20mi%20clase%20muestra%20gratis." target="_blank" rel="noopener" class="btn btn-primary" style="font-size:0.78rem">
           <i class="fab fa-whatsapp"></i> Agendar clase muestra
         </a>
         <span class="cond">Sujeta a disponibilidad de grupo y nivel.</span>
@@ -250,7 +268,7 @@ show_intro: true
         <span class="tag"><i class="fa fa-user-group"></i> Trae a alguien</span>
         <h3>Inscripción en pareja</h3>
         <p>Inscríbete con un amigo, tu pareja o un familiar en el mismo nivel y accedan a la tarifa <strong>semi-particular</strong> desde $245 por hora cada uno.</p>
-        <a href="preinscripcion.html?sede=virtual" class="btn btn-secondary" style="font-size:0.55rem">
+        <a href="preinscripcion.html?sede=virtual" class="btn btn-secondary" style="font-size:0.78rem">
           <i class="fa fa-arrow-right"></i> Ver modalidades
         </a>
         <span class="cond">Ambos deben cursar el mismo nivel y horario.</span>
@@ -260,7 +278,7 @@ show_intro: true
         <span class="tag"><i class="fa fa-bolt"></i> Ciclo de reapertura</span>
         <h3>Prioridad de horario</h3>
         <p>Quienes se preinscriban antes del inicio del Ciclo 1 <strong>eligen primero su horario</strong> entre los bloques disponibles.</p>
-        <a href="preinscripcion.html?sede=virtual" class="btn btn-secondary" style="font-size:0.55rem">
+        <a href="preinscripcion.html?sede=virtual" class="btn btn-secondary" style="font-size:0.78rem">
           <i class="fa fa-calendar-check"></i> Preinscribirme
         </a>
         <span class="cond">Hasta agotar cupo en cada bloque horario.</span>

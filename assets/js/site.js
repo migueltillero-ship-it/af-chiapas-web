@@ -11,6 +11,10 @@ window.AFMusic = (function(){
   var armed = false, dead = false;
 
   audio.volume = 0;
+  audio.addEventListener('loadedmetadata', function(){
+    try { var t = parseFloat(sessionStorage.getItem('af_t')); if(t && audio.duration) audio.currentTime = t % audio.duration; } catch(e){}
+  });
+  window.addEventListener('pagehide', function(){ try { sessionStorage.setItem('af_t', String(audio.currentTime||0)); } catch(e){} });
   audio.addEventListener('error', function(){ dead = true; toggle.classList.remove('on'); });
 
   function fadeIn(){
@@ -87,7 +91,11 @@ window.AFMusic = (function(){
    Nunca debe dejar la página bloqueada: cualquier fallo cierra el intro. */
 (function(){
   var box = document.getElementById('af-intro');
-  if(!box) return;
+  if(!box){
+    // Páginas sin intro: la música continúa (salvo que la persona la haya silenciado).
+    document.addEventListener('DOMContentLoaded', function(){ if(window.AFMusic) window.AFMusic.start(); });
+    return;
+  }
   var vid   = document.getElementById('af-intro-video');
   var skip  = document.getElementById('af-intro-skip');
   var sound = document.getElementById('af-intro-sound');
@@ -130,10 +138,30 @@ window.AFMusic = (function(){
   // Red de seguridad: pase lo que pase, a los 12 s la página queda libre.
   failsafe = setTimeout(close, 12000);
 
+  // La bienvenida debe oírse: se intenta con sonido. Si el navegador lo bloquea,
+  // el video corre en silencio y un toque (en cualquier parte) activa el audio.
+  var tap = document.getElementById('af-intro-tap');
+  function paintSound(){
+    sound.innerHTML = vid.muted ? '<i class="fa fa-volume-xmark" aria-hidden="true"></i>' : '<i class="fa fa-volume-high" aria-hidden="true"></i>';
+    sound.setAttribute('aria-label', vid.muted ? 'Activar sonido' : 'Silenciar');
+    if(tap) tap.style.display = vid.muted ? 'inline-flex' : 'none';
+  }
+  function unmute(e){
+    if(e && e.target && e.target.closest && e.target.closest('.af-intro-skip,.af-intro-sound')) return;
+    if(!vid.muted) return;
+    vid.muted = false; paintSound();
+    var q = vid.play(); if(q && q.catch) q.catch(function(){});
+  }
+  box.addEventListener('click', unmute);
+  box.addEventListener('touchstart', unmute, {passive:true});
+  vid.muted = false;
   var p = vid.play();
   if(p && typeof p.catch === 'function'){
-    // Si el navegador bloquea el autoplay, entramos directo al sitio.
-    p.catch(close);
+    p.then(paintSound).catch(function(){
+      vid.muted = true; paintSound();
+      var q = vid.play();
+      if(q && typeof q.catch === 'function') q.catch(close);
+    });
   }
 })();
 
@@ -459,35 +487,57 @@ const AF = (() => {
         <p class="delf-desc">${d.desc}</p>
         <p class="delf-familia">${d.f} ${d.n}</p>
         <p class="delf-precio">${d.hrs}<span> · estimado</span></p>
-        <button type="button" class="btn btn-secondary" style="width:100%;justify-content:center;font-size:0.55rem"
+        <button type="button" class="btn btn-secondary" style="width:100%;justify-content:center;font-size:0.78rem"
                 onclick="AF.irA('delf_prep','${d.n}')">Prepararme</button>
       </div>`).join('');
   }
 
-  function renderEventos(){
-    const c = document.getElementById('eventos-container');
-    if(!c) return;
-    const lista = window.EVENTOS_OVERRIDE || EVENTOS;
-    c.innerHTML = lista.map(ev => {
-      const d = new Date(ev.f);
-      const dia = d.getDate();
-      const mes = d.toLocaleDateString('es-MX',{month:'short'}).toUpperCase().replace('.','');
-      const modoBadge = ev.modo === 'virtual' ? '<span class="badge badge-cyan">Virtual</span>' : '';
-      return `<div class="glass evento-card">
-        <div class="evento-fecha">
-          <span class="evento-dia">${dia}</span>
-          <span class="evento-mes">${mes}</span>
-        </div>
-        <div>
-          <h3 class="evento-titulo">${ev.t}</h3>
-          <p class="evento-meta"><i class="fa fa-clock"></i> ${ev.h} h</p>
-          <p class="evento-meta"><i class="fa fa-map-marker-alt"></i> ${ev.l}</p>
-          <p class="evento-meta"><i class="fa fa-tag"></i> ${ev.cat}</p>
+  function evTipo(cat){
+    const c = (cat||'').toLowerCase();
+    if(/m[uú]sica/.test(c))                    return ['ev-musica','fa-music'];
+    if(/cine/.test(c))                          return ['ev-cine','fa-film'];
+    if(/diplomac|fiesta/.test(c))               return ['ev-diplomacia','fa-flag'];
+    if(/certific|preparaci|delf|dalf|examen/.test(c)) return ['ev-cert','fa-award'];
+    if(/gastronom|cocina/.test(c))              return ['ev-gastro','fa-utensils'];
+    return ['ev-comunidad','fa-users'];
+  }
+  function evCard(ev, hoy){
+    const d = new Date(String(ev.f).slice(0,10)+'T12:00:00');
+    const dia = d.getDate();
+    const mes = d.toLocaleDateString('es-MX',{month:'short'}).toUpperCase().replace('.','');
+    const past = d < hoy;
+    const [img, ico] = evTipo(ev.cat);
+    const wa = 'https://wa.me/529671721870?text=' + encodeURIComponent('Hola, quiero información sobre: ' + ev.t);
+    return `<article class="ev-card${past?' is-past':''}">
+      <div class="ev-thumb">
+        <img src="assets/img/web/${img}.webp" alt="" width="640" height="400" loading="lazy" decoding="async">
+        <span class="ev-date"><b>${dia}</b>${mes}</span>
+        <span class="ev-cat"><i class="fa ${ico}" aria-hidden="true"></i> ${ev.cat}</span>
+        ${past ? '<span class="ev-past">Realizado</span>' : ''}
+      </div>
+      <div class="ev-body">
+        <h3 class="ev-title">${ev.t}</h3>
+        <p class="ev-meta"><i class="fa fa-clock" aria-hidden="true"></i> ${ev.h} h</p>
+        <p class="ev-meta"><i class="fa fa-map-marker-alt" aria-hidden="true"></i> ${ev.l}</p>
+        <div class="ev-badges">
           <span class="badge ${ev.libre?'badge-green':'badge-red'}">${ev.libre?'Entrada libre':'Inscripción requerida'}</span>
-          ${modoBadge}
+          ${ev.modo === 'virtual' ? '<span class="badge badge-cyan">Virtual</span>' : ''}
         </div>
-      </div>`;
-    }).join('');
+        <a class="ev-cta" href="${wa}" target="_blank" rel="noopener">${past ? 'Avísame del próximo' : 'Quiero asistir'} <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+      </div>
+    </article>`;
+  }
+  function renderEventos(){
+    const full = document.getElementById('eventos-container');
+    const home = document.getElementById('eventos-home');
+    if(!full && !home) return;
+    const hoy = new Date(); hoy.setHours(0,0,0,0);
+    const ord = (window.EVENTOS_OVERRIDE || EVENTOS).slice().sort((a,b) => new Date(a.f) - new Date(b.f));
+    const fut = ord.filter(e => new Date(String(e.f).slice(0,10)+'T12:00:00') >= hoy);
+    const pas = ord.filter(e => new Date(String(e.f).slice(0,10)+'T12:00:00') <  hoy).reverse();
+    const lista = fut.concat(pas);
+    if(full) full.innerHTML = lista.map(e => evCard(e, hoy)).join('');
+    if(home) home.innerHTML = lista.slice(0,3).map(e => evCard(e, hoy)).join('');
   }
 
   function renderFAQ(){

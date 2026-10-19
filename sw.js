@@ -3,7 +3,7 @@
 // v4: se retira del precache el logo viejo sin usar (5.3 MB, huérfano desde
 // que el footer pasó al logo horizontal oficial) y se agregan los que sí
 // usa el sitio (activate() ya borra las cachés con otro nombre).
-const CACHE = 'af-sclc-v5';
+const CACHE = 'af-sclc-v6';
 const SHELL = [
   '/af-chiapas-web/',
   '/af-chiapas-web/index.html',

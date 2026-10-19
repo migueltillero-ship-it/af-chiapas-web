@@ -45,7 +45,7 @@ show_intro: false
         <div class="porque-icon-wrap"><i class="fa fa-user"></i></div>
         <h3 class="porque-titulo">Particulares</h3>
         <p class="porque-texto"><strong>$250 / hora</strong> · horarios y clases personalizados · clases online · avance rápido y personalizado.</p>
-        <p style="color:var(--gold);font-family:var(--mono);margin-top:0.5rem;font-size:0.85rem">
+        <p style="color:var(--gold);font-family:var(--mono);margin-top:0.5rem;font-size:0.92rem">
           Paquetes: 10 h + 1 tutoría · 20 h + 2 tutorías · 30 h + 3 tutorías
         </p>
       </div>
@@ -203,22 +203,24 @@ show_intro: false
   </div>
 </section>
 
-<section id="agenda" class="section section-dark" data-wa-section="los eventos culturales">
+<section id="agenda" class="section bg-scene on-dark" style="--velo:linear-gradient(180deg,rgba(13,31,51,.88),rgba(13,31,51,.94))" data-wa-section="los eventos culturales">
+  <div class="bg-media" data-parallax=".06" aria-hidden="true">
+    <picture><img src="assets/video/web/agenda-recopilacion-poster-720.webp" alt="" loading="lazy" decoding="async" width="720" height="720"></picture>
+    <video class="bg-video" autoplay muted loop playsinline preload="none" poster="assets/video/web/agenda-recopilacion-poster-720.webp" tabindex="-1">
+      <source data-src="assets/video/web/agenda-recopilacion.mp4" type="video/mp4">
+      <source data-src="assets/video/web/agenda-recopilacion.webm" type="video/webm">
+    </video>
+  </div>
   <div class="container">
-    <div class="section-head">
+    <div class="section-head rv">
       <span class="section-tag">Agenda culturelle</span>
       <h2 class="section-title">Eventos en <em>San Cristóbal</em> y en línea</h2>
       <p class="section-sub">Cine francés, música, gastronomía y encuentros virtuales con francófonos del mundo.</p>
     </div>
-    <div id="eventos-container" class="grid-3">
+    <div id="eventos-container" class="eventos-grid">
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
     </div>
-    <figure class="video-card video-sq rv">
-      <video class="vid-lazy" autoplay muted loop playsinline preload="none" poster="assets/video/web/agenda-recopilacion-poster-720.webp" aria-label="Recopilación de talleres, clubes y encuentros de la AF San Cristóbal">
-        <source data-src="assets/video/web/agenda-recopilacion.mp4" type="video/mp4">
-      </video>
-      <figcaption><strong>Vida AF</strong> · Talleres, clubes y encuentros que hemos vivido.</figcaption>
-    </figure>
+
   </div>
 </section>
 
