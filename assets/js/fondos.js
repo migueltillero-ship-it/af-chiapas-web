@@ -93,6 +93,21 @@
     els.forEach(function (e) { io.observe(e); });
   }
 
-  function init() { iniciarVideos(); iniciarParallax(); iniciarReveal(); }
+
+  /* Pista del menú desplegable: en móvil, una vez por sesión, en el inicio */
+  function pistaMenu() {
+    if (!narrow || !document.getElementById('accueil')) return;
+    try { if (sessionStorage.getItem('af_navhint')) return; } catch (e) {}
+    var tg = document.querySelector('.nav-toggle'); if (!tg) return;
+    var h = document.createElement('div');
+    h.className = 'nav-hint'; h.setAttribute('role', 'status');
+    h.innerHTML = 'Toca <b>Menú</b> para ver cursos, certificaciones, cultura y más <button type="button" aria-label="Cerrar">OK</button>';
+    function cerrar() { if (h.parentNode) h.parentNode.removeChild(h); try { sessionStorage.setItem('af_navhint', '1'); } catch (e) {} }
+    h.querySelector('button').addEventListener('click', cerrar);
+    tg.addEventListener('click', cerrar, { once: true });
+    setTimeout(function () { document.body.appendChild(h); setTimeout(cerrar, 9000); }, 3500);
+  }
+
+  function init() { iniciarVideos(); iniciarParallax(); iniciarReveal(); pistaMenu(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
