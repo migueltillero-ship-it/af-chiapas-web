@@ -11,9 +11,23 @@
 
   /* Video de fondo: solo escritorio con datos normales; si no, queda el póster. */
   function iniciarVideos() {
-    var vids = document.querySelectorAll('video.bg-video');
+    var vids = document.querySelectorAll('video.bg-video, video.vid-lazy');
     vids.forEach(function (v) {
-      if (lite || narrow) { v.removeAttribute('autoplay'); v.pause(); return; }
+      if (lite || narrow) {
+        v.removeAttribute('autoplay'); v.pause();
+        if (v.classList.contains('vid-lazy')) { /* en móvil: póster y no se descarga nada hasta tocar */
+          var fig = v.parentElement, badge = document.createElement('button');
+          badge.type = 'button'; badge.className = 'play-badge'; badge.setAttribute('aria-label', 'Reproducir video');
+          badge.innerHTML = '<i class="fa fa-play" aria-hidden="true"></i>';
+          fig.style.position = 'relative'; fig.insertBefore(badge, v.nextSibling);
+          badge.addEventListener('click', function () {
+            v.querySelectorAll('source[data-src]').forEach(function (s) { s.src = s.dataset.src; });
+            v.load(); v.controls = true; badge.remove();
+            var p = v.play(); if (p && p.catch) p.catch(function () {});
+          }, { once: true });
+        }
+        return;
+      }
       v.muted = true; v.defaultMuted = true; v.setAttribute('playsinline', '');
       var cargado = false;
       function arrancar() {
@@ -22,6 +36,7 @@
           v.querySelectorAll('source[data-src]').forEach(function (s) { s.src = s.dataset.src; });
           v.load();
           v.addEventListener('playing', function () { v.classList.add('on'); }, { once: true });
+          v.controls = v.classList.contains('vid-lazy');
         }
         var p = v.play(); if (p && p.catch) p.catch(function () { /* autoplay bloqueado: queda el póster */ });
       }

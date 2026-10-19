@@ -142,12 +142,11 @@ def videos():
     enc(['-i', src('video-alianza-francesa-af.mp4')],
         'scale=1280:720,setpts=3*PTS,fps=24,split[a][b];[b]reverse[r];[a][r]concat=n=2:v=1:a=0', 'hero-tapiz', 30)
     enc(['-i', src('video-alianza-francesa-af1.mp4')], 'scale=1280:720,fps=24', 'ciclo-logo-oscuro', 31)
-    enc(['-i', src('proyeccion.mp4')], 'scale=960:540,fps=24', 'historia-proyeccion', 32)
+    # mi-video: el contenido es un cuadrado 720x720 con barras negras; se recorta y se usa mudo en bucle
+    enc(['-i', src('mi-video.mp4')], 'crop=720:720:280:0,fps=24', 'agenda-recopilacion', 31)
     poster(src('video-alianza-francesa-af.mp4'), 'hero-tapiz-poster', 0.7)
     poster(src('video-alianza-francesa-af1.mp4'), 'ciclo-logo-oscuro-poster', 2.5)
-    poster(src('proyeccion.mp4'), 'historia-proyeccion-poster', 6)
     poster(src('diseno-sin-titulo.mp4'), 'presentacion-docente-poster', 9)
-    poster(src('mi-video.mp4'), 'agenda-recopilacion-poster', 22)
 
 if __name__ == '__main__':
     pasos = sys.argv[1:] or ['renombrar', 'img', 'video']
