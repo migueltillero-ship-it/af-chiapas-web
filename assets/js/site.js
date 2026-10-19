@@ -487,30 +487,31 @@ const AF = (() => {
         <p class="delf-desc">${d.desc}</p>
         <p class="delf-familia">${d.f} ${d.n}</p>
         <p class="delf-precio">${d.hrs}<span> · estimado</span></p>
-        <button type="button" class="btn btn-secondary" style="width:100%;justify-content:center;font-size:0.78rem"
+        <button type="button" class="btn btn-secondary" style="width:100%;justify-content:center;font-size:0.98rem"
                 onclick="AF.irA('delf_prep','${d.n}')">Prepararme</button>
       </div>`).join('');
   }
 
   function evTipo(cat){
     const c = (cat||'').toLowerCase();
-    if(/m[uú]sica/.test(c))                    return ['ev-musica','fa-music'];
-    if(/cine/.test(c))                          return ['ev-cine','fa-film'];
-    if(/diplomac|fiesta/.test(c))               return ['ev-diplomacia','fa-flag'];
-    if(/certific|preparaci|delf|dalf|examen/.test(c)) return ['ev-cert','fa-award'];
-    if(/gastronom|cocina/.test(c))              return ['ev-gastro','fa-utensils'];
-    return ['ev-comunidad','fa-users'];
+    if(/m[uú]sica/.test(c))                    return ['musica','fa-music','Musique'];
+    if(/cine/.test(c))                          return ['cine','fa-film','Cinéma'];
+    if(/diplomac|fiesta/.test(c))               return ['fiesta','fa-flag','14 Juillet'];
+    if(/certific|preparaci|delf|dalf|examen/.test(c)) return ['delf','fa-award','DELF · DALF'];
+    if(/gastronom|cocina/.test(c))              return ['cocina','fa-utensils','Cuisine'];
+    return ['club','fa-comments','Conversation'];
   }
   function evCard(ev, hoy){
     const d = new Date(String(ev.f).slice(0,10)+'T12:00:00');
     const dia = d.getDate();
     const mes = d.toLocaleDateString('es-MX',{month:'short'}).toUpperCase().replace('.','');
     const past = d < hoy;
-    const [img, ico] = evTipo(ev.cat);
+    const [tipo, ico, palabra] = evTipo(ev.cat);
     const wa = 'https://wa.me/529671721870?text=' + encodeURIComponent('Hola, quiero información sobre: ' + ev.t);
     return `<article class="ev-card${past?' is-past':''}">
-      <div class="ev-thumb">
-        <img src="assets/img/web/${img}.webp" alt="" width="640" height="400" loading="lazy" decoding="async">
+      <div class="ev-thumb ev-art ev-${tipo}" aria-hidden="true">
+        <span class="ev-word">${palabra}</span>
+        <i class="fa ${ico} ev-glyph"></i>
         <span class="ev-date"><b>${dia}</b>${mes}</span>
         <span class="ev-cat"><i class="fa ${ico}" aria-hidden="true"></i> ${ev.cat}</span>
         ${past ? '<span class="ev-past">Realizado</span>' : ''}
