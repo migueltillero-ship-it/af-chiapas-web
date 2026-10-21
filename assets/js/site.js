@@ -510,6 +510,7 @@ const AF = (() => {
     const wa = 'https://wa.me/529671721870?text=' + encodeURIComponent('Hola, quiero información sobre: ' + ev.t);
     return `<article class="ev-card${past?' is-past':''}">
       <div class="ev-thumb ev-art ev-${tipo}" aria-hidden="true">
+        <img class="ev-photo" src="assets/img/eventos/${tipo}.webp" alt="" loading="lazy" decoding="async" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()">
         <span class="ev-word">${palabra}</span>
         <i class="fa ${ico} ev-glyph"></i>
         <span class="ev-date"><b>${dia}</b>${mes}</span>

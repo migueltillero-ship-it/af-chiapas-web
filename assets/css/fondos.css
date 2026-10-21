@@ -74,7 +74,7 @@
 .camp-cta{
   position:absolute;z-index:1;left:1rem;right:1rem;bottom:1rem;display:flex;align-items:center;justify-content:space-between;gap:.6rem;
   background:var(--red);color:#fff;padding:.8rem 1.1rem;border-radius:var(--r);
-  font-family:var(--mono);font-size:0.98rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;box-shadow:0 6px 20px rgba(212,43,58,.4);
+  font-family:var(--mono);font-size:0.98rem;letter-spacing:.07em;text-transform:uppercase;font-weight:700;box-shadow:0 6px 20px rgba(212,43,58,.4);
 }
 .camp-card:hover .camp-cta{background:var(--red-dark)}
 .camp-strip .camp-wide{--ar:1307/721;flex:1 1 440px;max-width:620px}
@@ -88,7 +88,7 @@
 .cta-band .bg-media{inset:-6% 0}
 .cta-band.rojo{--velo:var(--velo-rojo)}
 .cta-band.marino{--velo:linear-gradient(100deg,rgba(26,43,74,.95) 0%,rgba(26,43,74,.82) 52%,rgba(26,43,74,.55) 100%)}
-.cta-band-tag{font-family:var(--mono);font-size:0.98rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-light);display:block;margin-bottom:.6rem}
+.cta-band-tag{font-family:var(--mono);font-size:0.98rem;letter-spacing:.07em;text-transform:uppercase;color:var(--gold-light);display:block;margin-bottom:.6rem}
 .cta-band h2,.cta-band h3{font-family:var(--display);font-size:clamp(1.6rem,3.4vw,2.4rem);font-weight:400;line-height:1.1;margin-bottom:.6rem;color:#fff}
 .cta-band h2 em,.cta-band h3 em{color:var(--gold-light);font-style:italic}
 .cta-band p{color:rgba(255,255,255,.9);font-size:1.05rem;line-height:1.7;margin-bottom:1.25rem;max-width:46ch}
@@ -102,7 +102,7 @@
 /* ── Equipo y video de presentación (solo en la sección de equipo) ── */
 .team-banner{max-width:960px;margin:0 auto 2.5rem;border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--border);position:relative}
 .team-banner img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover}
-.team-banner figcaption{position:absolute;inset:auto 0 0 0;padding:2.2rem 1.5rem 1rem;color:#fff;font-family:var(--mono);font-size:0.98rem;letter-spacing:.22em;text-transform:uppercase;background:linear-gradient(to top,rgba(var(--navy-veil),.9),rgba(var(--navy-veil),0))}
+.team-banner figcaption{position:absolute;inset:auto 0 0 0;padding:2.2rem 1.5rem 1rem;color:#fff;font-family:var(--mono);font-size:0.98rem;letter-spacing:.07em;text-transform:uppercase;background:linear-gradient(to top,rgba(var(--navy-veil),.9),rgba(var(--navy-veil),0))}
 .video-card{max-width:880px;margin:3rem auto 0;border-radius:var(--r-xl);overflow:hidden;background:#0d1f33;box-shadow:var(--shadow);border:1px solid var(--border)}
 .video-card video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#0d1f33;object-fit:contain}
 .video-card figcaption{padding:.9rem 1.25rem;color:rgba(255,255,255,.85);font-size:1.05rem}
@@ -200,9 +200,9 @@
 .ev-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .7s}
 .ev-card:hover .ev-thumb img{transform:scale(1.07)}
 .ev-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(var(--navy-veil),.62),rgba(var(--navy-veil),0) 55%)}
-.ev-date{position:absolute;z-index:2;left:1rem;top:1rem;background:var(--red);color:#fff;border-radius:12px;padding:.55rem .8rem;text-align:center;font-family:var(--mono);font-size:0.98rem;letter-spacing:.14em;line-height:1.1;box-shadow:0 8px 20px rgba(0,0,0,.3)}
+.ev-date{position:absolute;z-index:2;left:1rem;top:1rem;background:var(--red);color:#fff;border-radius:12px;padding:.55rem .8rem;text-align:center;font-family:var(--mono);font-size:0.98rem;letter-spacing:.07em;line-height:1.1;box-shadow:0 8px 20px rgba(0,0,0,.3)}
 .ev-date b{display:block;font-size:1.7rem;letter-spacing:0}
-.ev-cat{position:absolute;z-index:2;left:1rem;bottom:.9rem;color:#fff;font-family:var(--mono);font-size:0.98rem;letter-spacing:.14em;text-transform:uppercase}
+.ev-cat{position:absolute;z-index:2;left:1rem;bottom:.9rem;color:#fff;font-family:var(--mono);font-size:0.98rem;letter-spacing:.07em;text-transform:uppercase}
 .ev-cat i{color:var(--gold-light);margin-right:.35rem}
 .ev-past{position:absolute;z-index:2;right:1rem;top:1rem;background:rgba(13,31,51,.82);color:#fff;border-radius:99px;padding:.3rem .8rem;font-family:var(--mono);font-size:0.98rem;letter-spacing:.1em;text-transform:uppercase}
 .ev-card.is-past .ev-thumb img{filter:saturate(.7)}
@@ -211,7 +211,7 @@
 .ev-meta{display:flex;align-items:center;gap:.5rem;font-size:1.05rem;color:var(--muted);margin:0}
 .ev-meta i{color:var(--gold);width:1rem}
 .ev-badges{display:flex;gap:.5rem;flex-wrap:wrap;margin:.6rem 0 1rem}
-.ev-cta{margin-top:auto;display:inline-flex;align-items:center;justify-content:space-between;gap:.6rem;background:var(--red);color:#fff;text-decoration:none;padding:.8rem 1.1rem;border-radius:var(--r);font-family:var(--mono);font-size:0.98rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;transition:background .25s}
+.ev-cta{margin-top:auto;display:inline-flex;align-items:center;justify-content:space-between;gap:.6rem;background:var(--red);color:#fff;text-decoration:none;padding:.8rem 1.1rem;border-radius:var(--r);font-family:var(--mono);font-size:0.98rem;letter-spacing:.07em;text-transform:uppercase;font-weight:700;transition:background .25s}
 .ev-cta:hover{background:var(--red-dark)}
 #eventos-container,#eventos-home{max-width:1100px;margin:0 auto}
 
@@ -241,7 +241,7 @@
 .nav-virtual{font-size:.5rem!important;white-space:nowrap}
 .nav .ctrl-btn{font-size:.56rem!important}
 .nav-drop a{font-size:.82rem!important;letter-spacing:.02em!important}
-.hero-white .hero-pill{letter-spacing:.14em;font-size:0.98rem}
+.hero-white .hero-pill{letter-spacing:.07em;font-size:0.98rem}
 .nav{padding:0 1rem}
 .nav-links a,.nav-drop-btn{padding-left:.4rem;padding-right:.4rem;letter-spacing:.06em!important}
 @media(max-width:960px){
@@ -272,7 +272,7 @@
 .ev-art::before{content:'';position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at 80% 15%,rgba(255,255,255,.28),transparent 45%),repeating-linear-gradient(135deg,rgba(255,255,255,.07) 0 2px,transparent 2px 22px)}
 .ev-art::after{z-index:0}
 .ev-glyph{position:relative;z-index:1;font-size:4.6rem;filter:drop-shadow(0 8px 18px rgba(0,0,0,.35));opacity:.96}
-.ev-word{position:absolute;z-index:0;right:-.4rem;bottom:-.9rem;font-family:var(--poster);font-size:5.6rem;line-height:1;white-space:nowrap;color:rgba(255,255,255,.16);letter-spacing:.01em}
+.ev-word{position:absolute;z-index:0;right:-.4rem;bottom:-.9rem;font-family:var(--poster);font-weight:700;font-size:5.6rem;line-height:1;white-space:nowrap;color:rgba(255,255,255,.16);letter-spacing:.01em}
 .ev-delf{background:linear-gradient(135deg,#1a2b4a,#3559b1)}
 .ev-cine{background:linear-gradient(135deg,#0d1f33,#6d3fc7)}
 .ev-musica{background:linear-gradient(135deg,#a81f2c,#e8793a)}
@@ -335,3 +335,23 @@
   .af-lockup img{height:clamp(36px,2vw,58px)}
   .nav{height:clamp(62px,3.2vw,100px)}
 }
+
+/* ══════════ Tipografía oficial: Bodoni (carta gráfica de la Fundación Alliance Française) ══════════
+   Libre Bodoni como versión libre de Bodoni. Book/Roman para texto, Bold para títulos y botones. */
+body{font-weight:400;font-variant-numeric:lining-nums;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3,.section-title,.hero-title{font-weight:500}
+.btn,.camp-cta,.ev-cta,.promo-banner-cta,.nav-cta{font-weight:700}
+.section-tag,.cta-band-tag,.promo-banner-eyebrow,.relanz-eyebrow,.rf-k,.cd-lab,.badge,.ev-cat,.ev-date,.ev-past{font-weight:600;text-transform:uppercase}
+.btn,.wa-cta-btn,.camp-cta,.ev-cta{white-space:normal;text-align:center;line-height:1.25}
+.btn{justify-content:center}
+/* foto real del evento (si existe en assets/img/eventos/<tipo>.webp); si no, queda la ilustración */
+.ev-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.ev-art.has-photo .ev-glyph,.ev-art.has-photo .ev-word{display:none}
+.ev-art.has-photo::before{display:none}
+
+/* Menú superior con Bodoni: más compacto para que quepa a 1366 px */
+.nav-links a,.nav-drop-btn{font-size:11px!important;letter-spacing:.03em!important;padding-left:.3rem!important;padding-right:.3rem!important;font-weight:600}
+.nav-links{gap:.05rem}
+@media(max-width:1500px){.nav-virtual{display:none}}
+@media(max-width:1180px){.nav-links a,.nav-drop-btn{font-size:10.5px!important}}
+.section-watermark{max-width:100%;overflow:hidden}
