@@ -24,10 +24,10 @@ html{scroll-behavior:smooth;font-size:clamp(19px,.68vw + 14px,26px);-webkit-text
   --cyan:#3e4f56;
   --violet:#a9005d;
   --green:#16a34a;
-  --display:'Libre Bodoni','Bodoni MT','Bodoni 72',Didot,'Times New Roman',serif;
-  --sans:'Libre Bodoni','Bodoni MT','Bodoni 72',Didot,'Times New Roman',serif;
-  --mono:'Libre Bodoni','Bodoni MT','Bodoni 72',Didot,'Times New Roman',serif;
-  --poster:'Libre Bodoni','Bodoni MT','Bodoni 72',Didot,'Times New Roman',serif;
+  --display:'Bodoni Std','Libre Bodoni','Bodoni MT','Bodoni 72',Didot,'Times New Roman',serif;
+  --sans:'Bodoni Std','Libre Bodoni','Bodoni MT','Bodoni 72',Didot,'Times New Roman',serif;
+  --mono:'Bodoni Std','Libre Bodoni','Bodoni MT','Bodoni 72',Didot,'Times New Roman',serif;
+  --poster:'Bodoni Std','Libre Bodoni','Bodoni MT','Bodoni 72',Didot,'Times New Roman',serif;
   /* Paleta de campaña por segmento */
   --camp-orange:#a9005d;
   --camp-orange-light:#e8a0ad;

@@ -1,0 +1,6 @@
+/* Bodoni Std: tipografía oficial de la Fondation Alliance Française (carta gráfica).
+   Archivos recibidos de la propia Alianza; se sirven desde el sitio, sin servicios externos. */
+@font-face{font-family:'Bodoni Std';font-style:normal;font-weight:100 550;font-display:swap;src:url(../fonts/bodoni-std-book.woff2) format('woff2')}
+@font-face{font-family:'Bodoni Std';font-style:normal;font-weight:551 900;font-display:swap;src:url(../fonts/bodoni-std-bold.woff2) format('woff2')}
+@font-face{font-family:'Bodoni Std';font-style:italic;font-weight:100 550;font-display:swap;src:url(../fonts/bodoni-std-bookitalic.woff2) format('woff2')}
+@font-face{font-family:'Bodoni Std';font-style:italic;font-weight:551 900;font-display:swap;src:url(../fonts/bodoni-std-bolditalic.woff2) format('woff2')}
