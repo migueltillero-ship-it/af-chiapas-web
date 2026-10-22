@@ -505,3 +505,11 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   .footer-ref{font-size:.85rem;letter-spacing:.03em}
   .footer-bottom{flex-direction:column;align-items:flex-start;gap:.5rem}
 }
+
+/* Glifo AF en 3D limpio: fondo ambiental de la primera pantalla */
+.hero-glyph{position:absolute;z-index:1;right:-16%;top:48%;height:min(108vh,70rem);width:auto;aspect-ratio:896/968;transform:translateY(-50%) rotate(-6deg);opacity:.3;pointer-events:none;user-select:none;
+  -webkit-mask-image:radial-gradient(closest-side,#000 55%,transparent 100%);mask-image:radial-gradient(closest-side,#000 55%,transparent 100%);animation:glyph-float 14s ease-in-out infinite}
+@keyframes glyph-float{0%,100%{transform:translateY(-50%) rotate(-6deg)}50%{transform:translateY(-52%) rotate(-3deg)}}
+@media(max-width:900px){.hero-glyph{right:-22%;top:34%;height:32rem;opacity:.2}}
+@media(prefers-reduced-motion:reduce){.hero-glyph{animation:none}}
+.footer-logo{display:block;width:min(100%,15rem);height:auto;aspect-ratio:850/266;margin-bottom:.9rem}
