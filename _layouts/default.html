@@ -50,8 +50,8 @@
 <!-- FAB WhatsApp -->
 {% include wa-fab.html %}
 
-<script src="assets/js/site.js" defer></script>
-<script src="assets/js/fondos.js" defer></script>
+<script src="assets/js/site.js?v={{ site.time | date: '%Y%m%d%H%M%S' }}" defer></script>
+<script src="assets/js/fondos.js?v={{ site.time | date: '%Y%m%d%H%M%S' }}" defer></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const saved = (() => { try { return localStorage.getItem('af_lang'); } catch(e){ return null; } })();
