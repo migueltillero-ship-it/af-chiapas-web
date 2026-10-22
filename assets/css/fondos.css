@@ -220,7 +220,6 @@
 .director-grid .video-card{margin:0;max-width:none}
 
 /* ══════════ Intro: tocar para activar el sonido ══════════ */
-.af-intro-tap{position:absolute;z-index:5;left:50%;bottom:12%;transform:translateX(-50%);display:none;align-items:center;gap:.7rem;background:var(--red);color:#fff;border:2px solid #fff;border-radius:99px;padding:.95rem 1.7rem;font-family:var(--mono);font-size:1.05rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;cursor:pointer;box-shadow:0 14px 40px rgba(0,0,0,.45);animation:tap-pulse 1.8s ease-in-out infinite}
 @keyframes tap-pulse{0%,100%{box-shadow:0 14px 40px rgba(0,0,0,.45),0 0 0 0 rgba(218,0,46,.6)}50%{box-shadow:0 14px 40px rgba(0,0,0,.45),0 0 0 16px rgba(218,0,46,0)}}
 
 @media(max-width:980px){
@@ -232,8 +231,7 @@
   .hero-white{padding-top:5.4rem}
 }
 @media(prefers-reduced-motion:reduce){
-  .hb,.hero-logo,.hero-logo-wrap::after,.hero-pill,.hero-title,.hero-tagline,.hero-actions,.hero-trust,.hero-scroll,.af-intro-tap{animation:none!important}
-  .hero-logo-wrap::after{display:none}
+  .hb,.hero-logo,.hero-logo-wrap::after,.hero-pill,.hero-title,.hero-tagline,.hero-actions,.hero-trust,.hero-scroll,  .hero-logo-wrap::after{display:none}
 }
 
 /* Menú: conserva su tamaño compacto (el resto del sitio sube de escala) */
@@ -491,3 +489,8 @@ section[hidden]{display:none!important}
 .bienv-card:nth-child(1){--c:#da002e}.bienv-card:nth-child(2){--c:#3e4f56}.bienv-card:nth-child(3){--c:#a9005d}.bienv-card:nth-child(4){--c:#740d10}
 .bienv-card:nth-child(1) .bienv-n{color:#fff!important}
 .ev-empty{grid-column:1/-1}
+
+/* Gesto discreto: un aro suave que late junto a la bocina mientras el sonido sigue apagado */
+.af-intro-sound.hint::after,#af-bgm-toggle.hint::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1.5px solid rgba(255,255,255,.75);opacity:0;pointer-events:none;animation:bocina-hint 2.6s ease-out 1.2s infinite}
+#af-bgm-toggle.hint::after{border-color:rgba(218,0,46,.55)}
+@keyframes bocina-hint{0%{transform:scale(.9);opacity:.9}70%,100%{transform:scale(1.7);opacity:0}}

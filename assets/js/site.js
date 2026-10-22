@@ -31,6 +31,7 @@ window.AFMusic = (function(){
       ? '<i class="fa fa-volume-high" aria-hidden="true"></i>'
       : '<i class="fa fa-volume-xmark" aria-hidden="true"></i>';
     toggle.setAttribute('aria-label', playing ? 'Silenciar música' : 'Activar música');
+    toggle.classList.toggle('hint', !playing);
   }
 
   function play(){
@@ -140,11 +141,10 @@ window.AFMusic = (function(){
 
   // La bienvenida debe oírse: se intenta con sonido. Si el navegador lo bloquea,
   // el video corre en silencio y un toque (en cualquier parte) activa el audio.
-  var tap = document.getElementById('af-intro-tap');
   function paintSound(){
     sound.innerHTML = vid.muted ? '<i class="fa fa-volume-xmark" aria-hidden="true"></i>' : '<i class="fa fa-volume-high" aria-hidden="true"></i>';
     sound.setAttribute('aria-label', vid.muted ? 'Activar sonido' : 'Silenciar');
-    if(tap) tap.style.display = vid.muted ? 'inline-flex' : 'none';
+    sound.classList.toggle('hint', vid.muted);
   }
   function unmute(e){
     if(e && e.target && e.target.closest && e.target.closest('.af-intro-skip,.af-intro-sound')) return;
