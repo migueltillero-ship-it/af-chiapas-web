@@ -8,18 +8,18 @@
 <link rel="icon" type="image/png" href="../src/assets/brand/af-glyph-160.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 <script src="../src/config/supabase.js" defer></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --void:#fdfcf8; --deep:#ffffff; --panel:rgba(13,31,51,0.04); --panel-hover:rgba(13,31,51,0.07);
-  --border:rgba(13,31,51,0.12); --border-gold:rgba(201,164,78,0.4);
-  --white:#0d1f33; --muted:rgba(13,31,51,0.62); --hint:rgba(13,31,51,0.40);
-  --gold:#c9a44e; --gold-light:#e8c97a; --red:#d42b3a; --green:#22c55e; --cyan:#4fd1c5; --amber:#fbbf24;
-  --display:'Cormorant Garamond',Georgia,serif; --sans:'Syne',system-ui,sans-serif; --mono:'Space Mono',monospace;
+  --void:#ffffff; --deep:#ffffff; --panel:rgba(26,23,27,0.04); --panel-hover:rgba(26,23,27,0.07);
+  --border:rgba(26,23,27,0.12); --border-gold:rgba(152,17,31,0.4);
+  --white:#1a171b; --muted:rgba(26,23,27,0.62); --hint:rgba(26,23,27,0.40);
+  --gold:#98111f; --gold-light:#e8a0ad; --red:#da002e; --green:#22c55e; --cyan:#a9005d; --amber:#e8a0ad;
+  --display:'Libre Bodoni','Bodoni MT','Bodoni 72',Didot,'Times New Roman',serif; --sans:'Libre Bodoni','Bodoni MT','Bodoni 72',Didot,'Times New Roman',serif; --mono:'Libre Bodoni','Bodoni MT','Bodoni 72',Didot,'Times New Roman',serif;
   --r:10px; --r-lg:18px;
 }
 body{
@@ -29,8 +29,8 @@ body{
 body::before{
   content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
   background:
-    radial-gradient(ellipse 80% 60% at 15% 10%, rgba(53,89,177,0.05) 0%, transparent 55%),
-    radial-gradient(ellipse 60% 50% at 85% 90%, rgba(252,196,25,0.05) 0%, transparent 55%);
+    radial-gradient(ellipse 80% 60% at 15% 10%, rgba(62,79,86,0.05) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 85% 90%, rgba(232,160,173,0.05) 0%, transparent 55%);
 }
 .shell{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:1.5rem}
 
@@ -43,12 +43,12 @@ body::before{
 .af-lockup img{height:34px;width:auto;display:block}
 .af-lockup-text{display:flex;flex-direction:column;line-height:1.05}
 .af-wordmark{font-family:var(--display);font-size:1.05rem;font-weight:600}
-.af-wordmark .w1{color:#1a1a1a}
-.af-wordmark .w2{color:#8a8a8a}
-.af-sublocal{font-family:var(--display);font-style:italic;font-weight:500;font-size:0.68rem;color:#3a3a3a;margin-top:0.1rem}
+.af-wordmark .w1{color:#1a171b}
+.af-wordmark .w2{color:#87888a}
+.af-sublocal{font-family:var(--display);font-style:italic;font-weight:500;font-size:0.78rem;color:#1a171b;margin-top:0.1rem}
 
 .brand em{color:var(--gold);font-style:italic}
-.topbar-tag{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold)}
+.topbar-tag{font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;text-transform:uppercase;color:var(--gold)}
 .topbar-actions{display:flex;align-items:center;gap:0.75rem}
 .user-pill{font-family:var(--mono);font-size:0.7rem;color:var(--muted);background:var(--panel);padding:0.5rem 0.8rem;border-radius:var(--r);border:1px solid var(--border)}
 
@@ -56,7 +56,7 @@ body::before{
 .btn{
   display:inline-flex;align-items:center;gap:0.5rem;
   padding:0.65rem 1.1rem;border-radius:var(--r);border:none;cursor:pointer;
-  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;
+  font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;text-transform:uppercase;font-weight:700;
   text-decoration:none;transition:transform 0.2s,background 0.2s,box-shadow 0.2s;
 }
 .btn:hover{transform:translateY(-1px)}
@@ -82,46 +82,46 @@ body::before{
 .stat-card[data-k="rechazada"]   {--c:var(--red)}
 .stat-card[data-k="cancelada"]   {--c:var(--hint)}
 .stat-card[data-k="total"]       {--c:var(--gold)}
-.stat-key{font-family:var(--mono);font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted)}
-.stat-num{font-family:'Bebas Neue',var(--sans);font-size:2.8rem;line-height:0.9;color:var(--white);margin:0.4rem 0 0.25rem}
+.stat-key{font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.stat-num{font-family:var(--display);font-weight:700;font-size:2.8rem;line-height:0.9;color:var(--white);margin:0.4rem 0 0.25rem}
 .stat-sub{font-size:0.72rem;color:var(--hint)}
 
 /* Filtros */
 .filters{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem}
 .chip{
   background:var(--panel);border:1px solid var(--border);color:var(--muted);
-  padding:0.45rem 0.85rem;border-radius:99px;font-family:var(--mono);font-size:0.6rem;
-  letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;
+  padding:0.45rem 0.85rem;border-radius:99px;font-family:var(--mono);font-size:0.78rem;
+  letter-spacing:.07em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;
 }
 .chip:hover{color:var(--white);border-color:var(--gold)}
 .chip.active{background:var(--gold);color:var(--void);border-color:var(--gold)}
 
 /* Tabla */
-.table-wrap{overflow-x:auto;border-radius:var(--r-lg);border:1px solid var(--border);background:rgba(13,31,51,0.04)}
+.table-wrap{overflow-x:auto;border-radius:var(--r-lg);border:1px solid var(--border);background:rgba(26,23,27,0.04)}
 table{width:100%;border-collapse:collapse;font-size:0.85rem}
-thead{background:rgba(13,31,51,0.05)}
+thead{background:rgba(26,23,27,0.05)}
 th{
-  text-align:left;font-family:var(--mono);font-size:0.55rem;letter-spacing:0.18em;
+  text-align:left;font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;
   text-transform:uppercase;color:var(--gold);padding:0.85rem 1rem;border-bottom:1px solid var(--border);
 }
 td{padding:0.85rem 1rem;border-bottom:1px solid var(--border);vertical-align:middle}
-tr:hover{background:rgba(13,31,51,0.03);cursor:pointer}
+tr:hover{background:rgba(26,23,27,0.03);cursor:pointer}
 .cell-folio{font-family:var(--mono);font-size:0.78rem;color:var(--gold)}
 .cell-nombre{font-weight:600}
 .cell-meta{font-size:0.72rem;color:var(--muted)}
 .badge{
-  display:inline-block;font-family:var(--mono);font-size:0.55rem;letter-spacing:0.15em;
+  display:inline-block;font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;
   text-transform:uppercase;padding:0.22rem 0.55rem;border-radius:4px;
 }
 .b-pendiente   {background:rgba(251,191,36,0.12);color:var(--amber);border:1px solid rgba(251,191,36,0.3)}
-.b-en_revision {background:rgba(79,209,197,0.12);color:var(--cyan);border:1px solid rgba(79,209,197,0.3)}
+.b-en_revision {background:rgba(169,0,93,0.12);color:var(--cyan);border:1px solid rgba(169,0,93,0.3)}
 .b-aprobada    {background:rgba(34,197,94,0.12);color:var(--green);border:1px solid rgba(34,197,94,0.3)}
-.b-rechazada   {background:rgba(212,43,58,0.12);color:var(--red);border:1px solid rgba(212,43,58,0.3)}
-.b-cancelada   {background:rgba(13,31,51,0.06);color:var(--hint);border:1px solid var(--border)}
+.b-rechazada   {background:rgba(218,0,46,0.12);color:var(--red);border:1px solid rgba(218,0,46,0.3)}
+.b-cancelada   {background:rgba(26,23,27,0.06);color:var(--hint);border:1px solid var(--border)}
 
 /* Modal */
 .modal-bg{
-  position:fixed;inset:0;z-index:1000;background:rgba(13,31,51,0.45);backdrop-filter:blur(8px);
+  position:fixed;inset:0;z-index:1000;background:rgba(26,23,27,0.45);backdrop-filter:blur(8px);
   display:none;align-items:center;justify-content:center;padding:1.5rem;
 }
 .modal-bg.open{display:flex}
@@ -130,12 +130,12 @@ tr:hover{background:rgba(13,31,51,0.03);cursor:pointer}
   max-width:640px;width:100%;max-height:90vh;overflow:auto;padding:2rem;
 }
 .modal h2{font-family:var(--display);font-size:1.8rem;font-weight:300;margin-bottom:0.4rem}
-.modal-folio{font-family:var(--mono);font-size:0.7rem;color:var(--gold);letter-spacing:0.15em;margin-bottom:1.5rem}
+.modal-folio{font-family:var(--mono);font-size:0.7rem;color:var(--gold);letter-spacing:.07em;margin-bottom:1.5rem}
 .kv{display:grid;grid-template-columns:140px 1fr;gap:0.5rem 1rem;margin-bottom:1.5rem}
-.kv-key{font-family:var(--mono);font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);align-self:center}
+.kv-key{font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);align-self:center}
 .kv-val{color:var(--white)}
 .modal textarea{
-  width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);
+  width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);
   color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.85rem;min-height:80px;resize:vertical;
 }
 .modal-actions{display:flex;gap:0.5rem;justify-content:flex-end;flex-wrap:wrap;margin-top:1.5rem}
@@ -152,15 +152,15 @@ tr:hover{background:rgba(13,31,51,0.03);cursor:pointer}
 .login-card h1{font-family:var(--display);font-size:1.8rem;font-weight:300;margin-bottom:0.4rem}
 .login-card .sub{color:var(--muted);font-size:0.85rem;margin-bottom:1.75rem}
 .login-card label{
-  display:block;font-family:var(--mono);font-size:0.55rem;letter-spacing:0.2em;
+  display:block;font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;
   text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;
 }
 .login-card input{
-  width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);
+  width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);
   color:var(--white);padding:0.85rem 1rem;font-family:var(--sans);font-size:0.95rem;margin-bottom:1rem;
 }
 .login-card input:focus{outline:none;border-color:var(--gold)}
-.login-card .btn{width:100%;justify-content:center;padding:0.85rem 1.4rem;font-size:0.65rem}
+.login-card .btn{width:100%;justify-content:center;padding:0.85rem 1.4rem;font-size:0.78rem}
 .login-error{color:var(--red);font-size:0.85rem;margin-bottom:1rem;display:none}
 .login-error.show{display:block}
 
@@ -170,7 +170,7 @@ tr:hover{background:rgba(13,31,51,0.03);cursor:pointer}
 .tabs{display:flex;gap:0.5rem;margin-bottom:1.25rem;border-bottom:1px solid var(--border);flex-wrap:wrap}
 .tab{
   background:transparent;border:none;color:var(--muted);cursor:pointer;
-  padding:0.75rem 1.1rem;font-family:var(--mono);font-size:0.6rem;letter-spacing:0.18em;
+  padding:0.75rem 1.1rem;font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;
   text-transform:uppercase;font-weight:700;border-bottom:2px solid transparent;
   transition:color 0.2s,border-color 0.2s;
 }
@@ -182,22 +182,22 @@ tr:hover{background:rgba(13,31,51,0.03);cursor:pointer}
 /* Grupo assignment block in modal */
 .grupo-asig{
   margin-top:1.5rem;padding:1rem 1.25rem;border-radius:var(--r);
-  background:rgba(79,209,197,0.06);border:1px solid rgba(79,209,197,0.25);
+  background:rgba(169,0,93,0.06);border:1px solid rgba(169,0,93,0.25);
 }
 .grupo-asig label{
-  display:block;font-family:var(--mono);font-size:0.55rem;letter-spacing:0.2em;
+  display:block;font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;
   text-transform:uppercase;color:var(--cyan);margin-bottom:0.5rem;
 }
 .grupo-asig select,.grupo-asig input{
-  width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);
+  width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);
   border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.85rem;
   margin-bottom:0.6rem;
 }
 .grupo-asig select option{background:#ffffff;color:var(--white)}
 .grupo-asig .hint{font-size:0.78rem;color:var(--muted);margin-bottom:0.5rem}
 .grupo-asig .btn-small{
-  font-size:0.55rem;padding:0.5rem 0.9rem;background:var(--panel);color:var(--cyan);
-  border:1px solid rgba(79,209,197,0.4);
+  font-size:0.78rem;padding:0.5rem 0.9rem;background:var(--panel);color:var(--cyan);
+  border:1px solid rgba(169,0,93,0.4);
 }
 
 /* Cursos del ciclo — grid de tarjetas */
@@ -210,27 +210,27 @@ tr:hover{background:rgba(13,31,51,0.03);cursor:pointer}
 .curso-card:hover{transform:translateY(-2px);border-color:var(--gold)}
 .curso-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--c,var(--gold))}
 .curso-card[data-estado="finalizado"]{opacity:0.6}
-.cc-codigo{font-family:var(--mono);font-size:0.6rem;color:var(--gold);letter-spacing:0.1em}
+.cc-codigo{font-family:var(--mono);font-size:0.78rem;color:var(--gold);letter-spacing:0.1em}
 .cc-nombre{font-family:var(--display);font-size:1.3rem;font-weight:500;margin:0.2rem 0 0.6rem}
 .cc-meta{font-size:0.75rem;color:var(--muted);margin-bottom:0.15rem}
 .cc-stats{display:flex;gap:1rem;margin-top:0.9rem}
-.cc-stat-num{font-family:'Bebas Neue',var(--sans);font-size:1.8rem;line-height:1}
-.cc-stat-lab{font-size:0.6rem;color:var(--hint);text-transform:uppercase;letter-spacing:0.1em}
+.cc-stat-num{font-family:var(--display);font-weight:700;font-size:1.8rem;line-height:1}
+.cc-stat-lab{font-size:0.78rem;color:var(--hint);text-transform:uppercase;letter-spacing:0.1em}
 .cc-pend{color:var(--amber)}
 
 /* Detalle de grupo / sesiones / alumnos */
 .gd-head{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.6rem 1rem;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
-.gd-section-title{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase;margin:1.25rem 0 0.6rem}
+.gd-section-title{font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;color:var(--gold);text-transform:uppercase;margin:1.25rem 0 0.6rem}
 .mini-form{display:flex;gap:0.5rem;flex-wrap:wrap;align-items:flex-end;margin-bottom:0.75rem}
-.mini-form label{display:flex;flex-direction:column;gap:0.25rem;font-size:0.65rem;color:var(--muted);font-family:var(--mono)}
+.mini-form label{display:flex;flex-direction:column;gap:0.25rem;font-size:0.78rem;color:var(--muted);font-family:var(--mono)}
 .mini-form input,.mini-form select{
-  background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);
+  background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);
   color:var(--white);padding:0.5rem 0.6rem;font-family:var(--sans);font-size:0.82rem;
 }
 .asist-row{display:flex;justify-content:space-between;align-items:center;gap:0.75rem;padding:0.55rem 0;border-bottom:1px solid var(--border)}
 .asist-row:last-child{border-bottom:none}
 .asist-row select{
-  background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);
+  background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);
   color:var(--white);padding:0.4rem 0.6rem;font-family:var(--sans);font-size:0.8rem;
 }
 .candidatos-list{max-height:180px;overflow-y:auto;border:1px solid var(--border);border-radius:var(--r);margin-bottom:0.75rem}
@@ -242,18 +242,18 @@ tr:hover{background:rgba(13,31,51,0.03);cursor:pointer}
 .dias-semana{display:flex;gap:0.4rem;flex-wrap:wrap}
 .dias-semana label{
   display:flex;align-items:center;gap:0.3rem;font-size:0.72rem;color:var(--muted);
-  background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:99px;padding:0.35rem 0.7rem;cursor:pointer;
+  background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:99px;padding:0.35rem 0.7rem;cursor:pointer;
 }
 .dias-semana input{width:14px;height:14px}
 .form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0.75rem;margin-bottom:1rem}
-.form-grid label{display:flex;flex-direction:column;gap:0.3rem;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);font-family:var(--mono)}
+.form-grid label{display:flex;flex-direction:column;gap:0.3rem;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);font-family:var(--mono)}
 .form-grid input,.form-grid select,.form-grid textarea{
-  background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);
+  background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);
   color:var(--white);padding:0.6rem 0.7rem;font-family:var(--sans);font-size:0.85rem;
 }
 
 /* New grupo dialog */
-.new-grupo{margin-top:0.5rem;padding-top:0.75rem;border-top:1px dashed rgba(79,209,197,0.3)}
+.new-grupo{margin-top:0.5rem;padding-top:0.75rem;border-top:1px dashed rgba(169,0,93,0.3)}
 .new-grupo .row{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem}
 @media(max-width:540px){.new-grupo .row{grid-template-columns:1fr}}
 .cfg-warn{
@@ -262,7 +262,7 @@ tr:hover{background:rgba(13,31,51,0.03);cursor:pointer}
 }
 .cfg-warn h3{font-family:var(--display);color:var(--amber);font-size:1.25rem;margin-bottom:0.5rem}
 .cfg-warn p{color:var(--muted);font-size:0.9rem}
-.cfg-warn code{background:rgba(13,31,51,0.06);padding:0.15rem 0.4rem;border-radius:3px;font-family:var(--mono);font-size:0.8rem}
+.cfg-warn code{background:rgba(26,23,27,0.06);padding:0.15rem 0.4rem;border-radius:3px;font-family:var(--mono);font-size:0.8rem}
 
 @media(max-width:640px){
   .shell{padding:1rem}
@@ -355,7 +355,7 @@ tr:hover{background:rgba(13,31,51,0.03);cursor:pointer}
   <div class="tab-pane" id="pane-grupos">
     <div class="card">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem">
-        <p style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase">Grupos activos</p>
+        <p style="font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;color:var(--gold);text-transform:uppercase">Grupos activos</p>
         <button class="btn btn-primary" onclick="ADMIN.openNuevoGrupoForm()"><i class="fa fa-plus"></i> Nuevo grupo</button>
       </div>
       <div class="table-wrap">
@@ -381,7 +381,7 @@ tr:hover{background:rgba(13,31,51,0.03);cursor:pointer}
   <div class="tab-pane" id="pane-cursos">
     <div class="card" style="margin-bottom:1.25rem">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem">
-        <p style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase">Grupos del ciclo · clic para abrir</p>
+        <p style="font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;color:var(--gold);text-transform:uppercase">Grupos del ciclo · clic para abrir</p>
         <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
           <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:var(--muted)">
             <input type="checkbox" id="chk-finalizados" onchange="ADMIN.toggleFinalizados()" style="width:16px;height:16px">
@@ -395,7 +395,7 @@ tr:hover{background:rgba(13,31,51,0.03);cursor:pointer}
 
     <div class="card">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem">
-        <p style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase">Días feriados / no laborables</p>
+        <p style="font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;color:var(--gold);text-transform:uppercase">Días feriados / no laborables</p>
         <button class="btn btn-ghost" onclick="ADMIN.openFeriadoForm()"><i class="fa fa-plus"></i> Agregar feriado</button>
       </div>
       <div class="table-wrap">
@@ -416,7 +416,7 @@ tr:hover{background:rgba(13,31,51,0.03);cursor:pointer}
 
     <div class="card" style="margin-bottom:1.25rem">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem">
-        <p style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase">Pagos pendientes de cobro</p>
+        <p style="font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;color:var(--gold);text-transform:uppercase">Pagos pendientes de cobro</p>
         <button class="btn btn-primary" onclick="ADMIN.openPagoModal(null,'finanzas')"><i class="fa fa-plus"></i> Registrar pago</button>
       </div>
       <div class="table-wrap">
@@ -431,7 +431,7 @@ tr:hover{background:rgba(13,31,51,0.03);cursor:pointer}
 
     <div class="card" style="margin-bottom:1.25rem">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem">
-        <p style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase">Egresos</p>
+        <p style="font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;color:var(--gold);text-transform:uppercase">Egresos</p>
         <button class="btn btn-primary" onclick="ADMIN.openEgresoModal()"><i class="fa fa-plus"></i> Registrar egreso</button>
       </div>
       <div class="table-wrap">
@@ -446,7 +446,7 @@ tr:hover{background:rgba(13,31,51,0.03);cursor:pointer}
 
     <div class="card" style="margin-bottom:1.25rem">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem">
-        <p style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase">Ingresos por curso</p>
+        <p style="font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;color:var(--gold);text-transform:uppercase">Ingresos por curso</p>
         <button class="btn btn-ghost" onclick="ADMIN.exportReporteCurso()"><i class="fa fa-file-csv"></i> Exportar CSV</button>
       </div>
       <div class="table-wrap">
@@ -461,7 +461,7 @@ tr:hover{background:rgba(13,31,51,0.03);cursor:pointer}
 
     <div class="card">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem">
-        <p style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase">Balance por docente</p>
+        <p style="font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;color:var(--gold);text-transform:uppercase">Balance por docente</p>
         <button class="btn btn-ghost" onclick="ADMIN.exportReporteDocente()"><i class="fa fa-file-csv"></i> Exportar CSV</button>
       </div>
       <div class="table-wrap">
@@ -482,7 +482,7 @@ tr:hover{background:rgba(13,31,51,0.03);cursor:pointer}
   <div class="tab-pane" id="pane-catalogo">
     <div class="card">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem">
-        <p style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase">Catálogo de cursos</p>
+        <p style="font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;color:var(--gold);text-transform:uppercase">Catálogo de cursos</p>
         <button class="btn btn-primary" onclick="ADMIN.openCursoEditor()"><i class="fa fa-plus"></i> Nuevo curso</button>
       </div>
       <div class="table-wrap">
@@ -511,7 +511,7 @@ tr:hover{background:rgba(13,31,51,0.03);cursor:pointer}
   <div class="tab-pane" id="pane-eventos">
     <div class="card">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem">
-        <p style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase">Agenda cultural</p>
+        <p style="font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;color:var(--gold);text-transform:uppercase">Agenda cultural</p>
         <button class="btn btn-primary" onclick="ADMIN.openEventoEditor()"><i class="fa fa-plus"></i> Nuevo evento</button>
       </div>
       <div class="table-wrap">
@@ -535,7 +535,7 @@ tr:hover{background:rgba(13,31,51,0.03);cursor:pointer}
   <!-- TAB: DOCENTES -->
   <div class="tab-pane" id="pane-docentes">
     <div class="card">
-      <p style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem">Docentes registrados</p>
+      <p style="font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem">Docentes registrados</p>
       <div class="table-wrap">
         <table>
           <thead>
@@ -560,7 +560,7 @@ tr:hover{background:rgba(13,31,51,0.03);cursor:pointer}
   <div class="tab-pane" id="pane-constancias">
     <div class="card" style="margin-bottom:1.25rem">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem">
-        <p style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase">Tipos de constancia · catálogo con costos</p>
+        <p style="font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;color:var(--gold);text-transform:uppercase">Tipos de constancia · catálogo con costos</p>
         <button class="btn btn-primary" onclick="ADMIN.openTipoConstanciaEditor()"><i class="fa fa-plus"></i> Nuevo tipo</button>
       </div>
       <div class="table-wrap">
@@ -575,7 +575,7 @@ tr:hover{background:rgba(13,31,51,0.03);cursor:pointer}
     </div>
 
     <div class="card">
-      <p style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem">Solicitudes de alumnos</p>
+      <p style="font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem">Solicitudes de alumnos</p>
       <div class="table-wrap">
         <table>
           <thead><tr><th>Alumno</th><th>Constancia</th><th>Estado</th><th>Fecha</th><th></th></tr></thead>
@@ -592,27 +592,27 @@ tr:hover{background:rgba(13,31,51,0.03);cursor:pointer}
     <h2 id="cu-title">Nuevo curso</h2>
     <p class="modal-folio" id="cu-id-display">—</p>
     <div class="kv">
-      <span class="kv-key">ID *</span>            <input id="cu-id" type="text" placeholder="adultos, junior, ninos..." style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.85rem">
-      <span class="kv-key">Nombre *</span>        <input id="cu-nombre" type="text" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
-      <span class="kv-key">Subtítulo</span>       <input id="cu-subtitulo" type="text" placeholder="Les Adultes / Junior..." style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
-      <span class="kv-key">Edad</span>            <input id="cu-edad" type="text" placeholder="15 años en adelante" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
-      <span class="kv-key">Icono</span>           <input id="cu-icono" type="text" placeholder="fa-user-graduate" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.85rem">
-      <span class="kv-key">Color</span>           <input id="cu-color" type="color" value="#c9a44e" style="width:80px;height:38px;background:transparent;border:1px solid var(--border);border-radius:var(--r);padding:0.2rem">
-      <span class="kv-key">Descripción</span>     <textarea id="cu-descripcion" rows="3" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem"></textarea>
-      <span class="kv-key">Manual</span>          <input id="cu-manual" type="text" placeholder="Défi (tomos 1-4)" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
-      <span class="kv-key">Evaluación</span>      <input id="cu-evaluacion" type="text" placeholder="Continua + simulacros DELF" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
-      <span class="kv-key">Orden</span>           <input id="cu-orden" type="number" value="100" min="0" style="width:120px;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.85rem">
+      <span class="kv-key">ID *</span>            <input id="cu-id" type="text" placeholder="adultos, junior, ninos..." style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.85rem">
+      <span class="kv-key">Nombre *</span>        <input id="cu-nombre" type="text" style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Subtítulo</span>       <input id="cu-subtitulo" type="text" placeholder="Les Adultes / Junior..." style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Edad</span>            <input id="cu-edad" type="text" placeholder="15 años en adelante" style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Icono</span>           <input id="cu-icono" type="text" placeholder="fa-user-graduate" style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.85rem">
+      <span class="kv-key">Color</span>           <input id="cu-color" type="color" value="#98111f" style="width:80px;height:38px;background:transparent;border:1px solid var(--border);border-radius:var(--r);padding:0.2rem">
+      <span class="kv-key">Descripción</span>     <textarea id="cu-descripcion" rows="3" style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem"></textarea>
+      <span class="kv-key">Manual</span>          <input id="cu-manual" type="text" placeholder="Défi (tomos 1-4)" style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Evaluación</span>      <input id="cu-evaluacion" type="text" placeholder="Continua + simulacros DELF" style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Orden</span>           <input id="cu-orden" type="number" value="100" min="0" style="width:120px;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.85rem">
       <span class="kv-key">Activo</span>          <label style="display:flex;align-items:center;gap:0.5rem;color:var(--white)"><input id="cu-activo" type="checkbox" checked style="width:18px;height:18px"> Visible en el sitio público</label>
     </div>
 
-    <p class="kv-key" style="margin-top:1rem">Niveles (uno por línea, formato: <code style="background:rgba(13,31,51,0.05);padding:0.1rem 0.3rem;border-radius:3px">CÓDIGO | Nombre | Horas</code>)</p>
+    <p class="kv-key" style="margin-top:1rem">Niveles (uno por línea, formato: <code style="background:rgba(26,23,27,0.05);padding:0.1rem 0.3rem;border-radius:3px">CÓDIGO | Nombre | Horas</code>)</p>
     <textarea id="cu-niveles" rows="5" placeholder="A1 | Débutant | 30
 A2 | Élémentaire | 30
-B1 | Intermédiaire | 30" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.82rem;margin-bottom:1rem"></textarea>
+B1 | Intermédiaire | 30" style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.82rem;margin-bottom:1rem"></textarea>
 
-    <p class="kv-key">Modalidades (uno por línea, formato: <code style="background:rgba(13,31,51,0.05);padding:0.1rem 0.3rem;border-radius:3px">Nombre | Sesiones | Horas</code>)</p>
+    <p class="kv-key">Modalidades (uno por línea, formato: <code style="background:rgba(26,23,27,0.05);padding:0.1rem 0.3rem;border-radius:3px">Nombre | Sesiones | Horas</code>)</p>
     <textarea id="cu-modalidades" rows="4" placeholder="Regular | 2 sesiones/semana | 24 h
-Intensivo | 4 sesiones/semana | 48 h" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.82rem"></textarea>
+Intensivo | 4 sesiones/semana | 48 h" style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.82rem"></textarea>
 
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="ADMIN.closeCursoEditor()">Cancelar</button>
@@ -628,15 +628,15 @@ Intensivo | 4 sesiones/semana | 48 h" style="width:100%;background:rgba(13,31,51
     <h2 id="ev-title">Nuevo evento</h2>
     <p class="modal-folio" id="ev-id">—</p>
     <div class="kv">
-      <span class="kv-key">Título *</span>      <input id="ev-titulo" class="field" type="text" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
-      <span class="kv-key">Descripción</span>   <textarea id="ev-desc" rows="3" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem"></textarea>
-      <span class="kv-key">Fecha *</span>       <input id="ev-fecha" type="date" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
-      <span class="kv-key">Hora</span>          <input id="ev-hora" type="time" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
-      <span class="kv-key">Lugar</span>         <input id="ev-lugar" type="text" placeholder="Sede SC · Por confirmar..." style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
-      <span class="kv-key">Categoría</span>     <input id="ev-categoria" type="text" placeholder="Música · Cine · Diplomacia..." style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
-      <span class="kv-key">Modo</span>          <select id="ev-modo" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem"><option value="presencial">Presencial</option><option value="virtual">Virtual</option><option value="hibrido">Híbrido</option></select>
+      <span class="kv-key">Título *</span>      <input id="ev-titulo" class="field" type="text" style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Descripción</span>   <textarea id="ev-desc" rows="3" style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem"></textarea>
+      <span class="kv-key">Fecha *</span>       <input id="ev-fecha" type="date" style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Hora</span>          <input id="ev-hora" type="time" style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Lugar</span>         <input id="ev-lugar" type="text" placeholder="Sede SC · Por confirmar..." style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Categoría</span>     <input id="ev-categoria" type="text" placeholder="Música · Cine · Diplomacia..." style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Modo</span>          <select id="ev-modo" style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem"><option value="presencial">Presencial</option><option value="virtual">Virtual</option><option value="hibrido">Híbrido</option></select>
       <span class="kv-key">Entrada libre</span> <label style="display:flex;align-items:center;gap:0.5rem;color:var(--white)"><input id="ev-libre" type="checkbox" checked style="width:18px;height:18px"> Sí, evento abierto al público</label>
-      <span class="kv-key">URL inscripción</span><input id="ev-url" type="url" placeholder="https://..." style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">URL inscripción</span><input id="ev-url" type="url" placeholder="https://..." style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
       <span class="kv-key">Destacado</span>     <label style="display:flex;align-items:center;gap:0.5rem;color:var(--white)"><input id="ev-destacado" type="checkbox" style="width:18px;height:18px"> Destacar en agenda</label>
       <span class="kv-key">Publicado</span>     <label style="display:flex;align-items:center;gap:0.5rem;color:var(--white)"><input id="ev-publicado" type="checkbox" checked style="width:18px;height:18px"> Visible en el sitio público</label>
     </div>
@@ -722,7 +722,7 @@ Intensivo | 4 sesiones/semana | 48 h" style="width:100%;background:rgba(13,31,51
           <option value="finalizado">Finalizado</option>
         </select>
       </label>
-      <button class="btn btn-ghost" style="padding:0.5rem 0.9rem;font-size:0.55rem" onclick="ADMIN.guardarEstadoGrupo()"><i class="fa fa-save"></i> Actualizar estado</button>
+      <button class="btn btn-ghost" style="padding:0.5rem 0.9rem;font-size:0.78rem" onclick="ADMIN.guardarEstadoGrupo()"><i class="fa fa-save"></i> Actualizar estado</button>
     </div>
 
     <p class="gd-section-title">Alumnos (<span id="gd-alumnos-count">0</span>)</p>
@@ -741,7 +741,7 @@ Intensivo | 4 sesiones/semana | 48 h" style="width:100%;background:rgba(13,31,51
     </p>
     <div id="gd-candidatos" class="candidatos-list"></div>
     <div class="mini-form">
-      <button class="btn btn-primary" style="padding:0.5rem 0.9rem;font-size:0.55rem" onclick="ADMIN.agregarAlumnosSeleccionados()"><i class="fa fa-user-plus"></i> Agregar seleccionados</button>
+      <button class="btn btn-primary" style="padding:0.5rem 0.9rem;font-size:0.78rem" onclick="ADMIN.agregarAlumnosSeleccionados()"><i class="fa fa-user-plus"></i> Agregar seleccionados</button>
     </div>
 
     <p class="gd-section-title">Sesiones y asistencia</p>
@@ -750,7 +750,7 @@ Intensivo | 4 sesiones/semana | 48 h" style="width:100%;background:rgba(13,31,51
       <label>Hora inicio <input type="time" id="gs-hora-inicio"></label>
       <label>Hora fin <input type="time" id="gs-hora-fin"></label>
       <label>Tema <input type="text" id="gs-tema" placeholder="Unité 3 · Le passé composé" style="min-width:220px"></label>
-      <button class="btn btn-primary" style="padding:0.5rem 0.9rem;font-size:0.55rem" onclick="ADMIN.crearSesion()"><i class="fa fa-plus"></i> Agregar sesión</button>
+      <button class="btn btn-primary" style="padding:0.5rem 0.9rem;font-size:0.78rem" onclick="ADMIN.crearSesion()"><i class="fa fa-plus"></i> Agregar sesión</button>
     </div>
     <div class="table-wrap">
       <table>
@@ -785,12 +785,12 @@ Intensivo | 4 sesiones/semana | 48 h" style="width:100%;background:rgba(13,31,51
     <p class="modal-folio" id="pg-alumno-display">—</p>
     <div class="kv">
       <span class="kv-key" id="pg-alumno-key">Alumno</span>
-      <select id="pg-alumno-sel" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.85rem"></select>
-      <span class="kv-key">Concepto</span>   <input id="pg-concepto" type="text" placeholder="Colegiatura ciclo 1 · A1 grupal" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
-      <span class="kv-key">Monto</span>      <input id="pg-monto" type="number" min="0" step="0.01" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.9rem">
-      <span class="kv-key">Moneda</span>     <input id="pg-moneda" type="text" value="MXN" style="width:100px;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.85rem">
+      <select id="pg-alumno-sel" style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.85rem"></select>
+      <span class="kv-key">Concepto</span>   <input id="pg-concepto" type="text" placeholder="Colegiatura ciclo 1 · A1 grupal" style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Monto</span>      <input id="pg-monto" type="number" min="0" step="0.01" style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.9rem">
+      <span class="kv-key">Moneda</span>     <input id="pg-moneda" type="text" value="MXN" style="width:100px;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.85rem">
       <span class="kv-key">Estado</span>
-      <select id="pg-estado" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <select id="pg-estado" style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
         <option value="pendiente">Pendiente</option>
         <option value="procesando">Procesando</option>
         <option value="pagado">Pagado</option>
@@ -810,15 +810,15 @@ Intensivo | 4 sesiones/semana | 48 h" style="width:100%;background:rgba(13,31,51
   <div class="modal">
     <h2>Registrar egreso</h2>
     <div class="kv">
-      <span class="kv-key">Concepto *</span>  <input id="eg-concepto" type="text" placeholder="Nómina docente · septiembre" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
-      <span class="kv-key">Categoría</span>   <input id="eg-categoria" type="text" placeholder="Nómina · Plataforma · Marketing..." style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
-      <span class="kv-key">Monto *</span>     <input id="eg-monto" type="number" min="0" step="0.01" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.9rem">
-      <span class="kv-key">Fecha</span>       <input id="eg-fecha" type="date" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Concepto *</span>  <input id="eg-concepto" type="text" placeholder="Nómina docente · septiembre" style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Categoría</span>   <input id="eg-categoria" type="text" placeholder="Nómina · Plataforma · Marketing..." style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Monto *</span>     <input id="eg-monto" type="number" min="0" step="0.01" style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.9rem">
+      <span class="kv-key">Fecha</span>       <input id="eg-fecha" type="date" style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
       <span class="kv-key">Docente</span>
-      <select id="eg-docente" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <select id="eg-docente" style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
         <option value="">— Sin docente asociado —</option>
       </select>
-      <span class="kv-key">Notas</span>       <textarea id="eg-notas" rows="2" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem"></textarea>
+      <span class="kv-key">Notas</span>       <textarea id="eg-notas" rows="2" style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem"></textarea>
     </div>
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="ADMIN.closeEgresoModal()">Cancelar</button>
@@ -998,7 +998,7 @@ Intensivo | 4 sesiones/semana | 48 h" style="width:100%;background:rgba(13,31,51
     </div>
 
     <label class="kv-key" style="display:block;margin-bottom:0.5rem">Notas</label>
-    <textarea id="ng2-notas" rows="2" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.85rem;margin-bottom:1rem"></textarea>
+    <textarea id="ng2-notas" rows="2" style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.85rem;margin-bottom:1rem"></textarea>
 
     <p style="font-size:0.78rem;color:var(--muted)" id="ng2-hint">Se recomienda un mínimo de 4 alumnos por grupo grupal antes de confirmarlo como "en curso".</p>
 
@@ -1014,9 +1014,9 @@ Intensivo | 4 sesiones/semana | 48 h" style="width:100%;background:rgba(13,31,51
   <div class="modal">
     <h2>Agregar día feriado</h2>
     <div class="kv">
-      <span class="kv-key">Fecha *</span>  <input id="fr-fecha" type="date" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
-      <span class="kv-key">Nombre *</span> <input id="fr-nombre" type="text" placeholder="Día de la Independencia" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
-      <span class="kv-key">País</span>     <input id="fr-pais" type="text" value="MX" style="width:100px;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.85rem">
+      <span class="kv-key">Fecha *</span>  <input id="fr-fecha" type="date" style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Nombre *</span> <input id="fr-nombre" type="text" placeholder="Día de la Independencia" style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">País</span>     <input id="fr-pais" type="text" value="MX" style="width:100px;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.85rem">
     </div>
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="ADMIN.closeFeriadoForm()">Cancelar</button>
@@ -1030,10 +1030,10 @@ Intensivo | 4 sesiones/semana | 48 h" style="width:100%;background:rgba(13,31,51
   <div class="modal">
     <h2 id="tc-title">Nuevo tipo de constancia</h2>
     <div class="kv">
-      <span class="kv-key">Nombre *</span>      <input id="tc-nombre" type="text" placeholder="Constancia de validación de nivel" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
-      <span class="kv-key">Descripción</span>   <textarea id="tc-descripcion" rows="2" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem"></textarea>
-      <span class="kv-key">Costo *</span>       <input id="tc-costo" type="number" min="0" step="0.01" style="width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.9rem">
-      <span class="kv-key">Moneda</span>        <input id="tc-moneda" type="text" value="MXN" style="width:100px;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.85rem">
+      <span class="kv-key">Nombre *</span>      <input id="tc-nombre" type="text" placeholder="Constancia de validación de nivel" style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem">
+      <span class="kv-key">Descripción</span>   <textarea id="tc-descripcion" rows="2" style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--sans);font-size:0.9rem"></textarea>
+      <span class="kv-key">Costo *</span>       <input id="tc-costo" type="number" min="0" step="0.01" style="width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.9rem">
+      <span class="kv-key">Moneda</span>        <input id="tc-moneda" type="text" value="MXN" style="width:100px;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.7rem;font-family:var(--mono);font-size:0.85rem">
       <span class="kv-key">Activo</span>        <label style="display:flex;align-items:center;gap:0.5rem;color:var(--white)"><input id="tc-activo" type="checkbox" checked style="width:18px;height:18px"> Visible para los alumnos en su portal</label>
     </div>
     <div class="modal-actions">
@@ -1374,7 +1374,7 @@ const ADMIN = (() => {
         <td><span class="badge b-${a.estado}">${a.estado.replace('_',' ')}</span></td>
         <td>${asistBadge}${riesgo}</td>
         <td>${pagoBadge}</td>
-        <td><button class="btn btn-ghost" style="padding:0.4rem 0.7rem;font-size:0.55rem" onclick="ADMIN.openPagoModal('${a.id}','grupo')"><i class="fa fa-dollar-sign"></i> Pago</button></td>
+        <td><button class="btn btn-ghost" style="padding:0.4rem 0.7rem;font-size:0.78rem" onclick="ADMIN.openPagoModal('${a.id}','grupo')"><i class="fa fa-dollar-sign"></i> Pago</button></td>
       </tr>`;
     }).join('');
   }
@@ -1446,7 +1446,7 @@ const ADMIN = (() => {
         <td class="cell-meta">${s.fecha}</td>
         <td class="cell-meta">${(s.hora_inicio||'').slice(0,5)}${s.hora_fin ? ' – '+s.hora_fin.slice(0,5) : ''}</td>
         <td>${escapeHtml(s.tema || '—')}</td>
-        <td><button class="btn btn-ghost" style="padding:0.4rem 0.7rem;font-size:0.55rem" onclick="event.stopPropagation();ADMIN.openAsistencia('${s.id}')"><i class="fa fa-clipboard-check"></i> Asistencia</button></td>
+        <td><button class="btn btn-ghost" style="padding:0.4rem 0.7rem;font-size:0.78rem" onclick="event.stopPropagation();ADMIN.openAsistencia('${s.id}')"><i class="fa fa-clipboard-check"></i> Asistencia</button></td>
       </tr>`).join('');
   }
 
@@ -1529,7 +1529,7 @@ const ADMIN = (() => {
         <td class="cell-meta">${f.fecha}</td>
         <td class="cell-nombre">${escapeHtml(f.nombre)}</td>
         <td class="cell-meta">${escapeHtml(f.pais)}</td>
-        <td><button class="btn btn-ghost" style="padding:0.4rem 0.7rem;font-size:0.55rem" onclick="ADMIN.deleteFeriado('${f.id}')"><i class="fa fa-trash"></i></button></td>
+        <td><button class="btn btn-ghost" style="padding:0.4rem 0.7rem;font-size:0.78rem" onclick="ADMIN.deleteFeriado('${f.id}')"><i class="fa fa-trash"></i></button></td>
       </tr>`).join('');
   }
 
@@ -1592,7 +1592,7 @@ const ADMIN = (() => {
         <td><div class="cell-nombre">${escapeHtml(t.nombre)}</div>${t.descripcion ? `<div class="cell-meta">${escapeHtml(t.descripcion)}</div>` : ''}</td>
         <td class="cell-folio">$${Number(t.costo).toFixed(2)} ${escapeHtml(t.moneda)}</td>
         <td><span class="badge ${t.activo ? 'b-aprobada' : 'b-cancelada'}">${t.activo ? 'activo' : 'inactivo'}</span></td>
-        <td><button class="btn btn-ghost" style="padding:0.4rem 0.7rem;font-size:0.55rem" onclick="ADMIN.openTipoConstanciaEditor('${t.id}')"><i class="fa fa-pen"></i> Editar</button></td>
+        <td><button class="btn btn-ghost" style="padding:0.4rem 0.7rem;font-size:0.78rem" onclick="ADMIN.openTipoConstanciaEditor('${t.id}')"><i class="fa fa-pen"></i> Editar</button></td>
       </tr>`).join('');
   }
 
@@ -1663,7 +1663,7 @@ const ADMIN = (() => {
       <tr>
         <td><div class="cell-nombre">${escapeHtml(s.inscripciones?.nombre || '—')}</div><div class="cell-meta">${escapeHtml(s.inscripciones?.folio || '')}</div></td>
         <td class="cell-meta">${escapeHtml(s.tipos_constancia?.nombre || '—')}</td>
-        <td><select onchange="ADMIN.cambiarEstadoSolicitud('${s.id}', this.value)" style="background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.4rem 0.6rem;font-family:var(--sans);font-size:0.8rem">${opciones.map(o => `<option value="${o}" ${s.estado===o?'selected':''}>${o.replace('_',' ')}</option>`).join('')}</select></td>
+        <td><select onchange="ADMIN.cambiarEstadoSolicitud('${s.id}', this.value)" style="background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);color:var(--white);padding:0.4rem 0.6rem;font-family:var(--sans);font-size:0.8rem">${opciones.map(o => `<option value="${o}" ${s.estado===o?'selected':''}>${o.replace('_',' ')}</option>`).join('')}</select></td>
         <td class="cell-meta">${new Date(s.creado_en).toLocaleDateString('es-MX')}</td>
         <td class="cell-meta">${escapeHtml(s.notas || '—')}</td>
       </tr>`).join('');
@@ -1725,8 +1725,8 @@ const ADMIN = (() => {
         <td><span class="badge b-pendiente">${p.estado}</span></td>
         <td class="cell-meta">${new Date(p.creado_en).toLocaleDateString('es-MX')}</td>
         <td style="display:flex;gap:0.4rem;flex-wrap:wrap">
-          <button class="btn btn-ghost" style="padding:0.4rem 0.7rem;font-size:0.55rem" onclick="ADMIN.generarLinkPago('${p.id}', this)"><i class="fa fa-link"></i> Link de pago</button>
-          <button class="btn btn-green" style="padding:0.4rem 0.7rem;font-size:0.55rem" onclick="ADMIN.marcarPagado('${p.id}')"><i class="fa fa-check"></i> Marcar pagado</button>
+          <button class="btn btn-ghost" style="padding:0.4rem 0.7rem;font-size:0.78rem" onclick="ADMIN.generarLinkPago('${p.id}', this)"><i class="fa fa-link"></i> Link de pago</button>
+          <button class="btn btn-green" style="padding:0.4rem 0.7rem;font-size:0.78rem" onclick="ADMIN.marcarPagado('${p.id}')"><i class="fa fa-check"></i> Marcar pagado</button>
         </td>
       </tr>`).join('');
   }
@@ -1780,7 +1780,7 @@ const ADMIN = (() => {
         <td class="cell-meta">${escapeHtml(e.categoria || '—')}</td>
         <td class="cell-meta">${escapeHtml(e.docentes?.nombre || '—')}</td>
         <td class="cell-folio">$${Number(e.monto).toFixed(2)}</td>
-        <td><button class="btn btn-ghost" style="padding:0.4rem 0.7rem;font-size:0.55rem" onclick="ADMIN.openEgresoModal('${e.id}')"><i class="fa fa-pen"></i></button></td>
+        <td><button class="btn btn-ghost" style="padding:0.4rem 0.7rem;font-size:0.78rem" onclick="ADMIN.openEgresoModal('${e.id}')"><i class="fa fa-pen"></i></button></td>
       </tr>`).join('');
   }
 
@@ -2013,12 +2013,12 @@ const ADMIN = (() => {
     }
     tb.innerHTML = cursos.map(c => `<tr>
       <td class="cell-folio">${escapeHtml(c.id)}</td>
-      <td><div class="cell-nombre"><i class="fa ${escapeHtml(c.icono||'fa-book')}" style="color:${escapeHtml(c.color||'#c9a44e')};margin-right:0.5rem"></i>${escapeHtml(c.nombre)}</div><div class="cell-meta">${escapeHtml((c.descripcion||'').slice(0,80))}${c.descripcion?.length>80?'…':''}</div></td>
+      <td><div class="cell-nombre"><i class="fa ${escapeHtml(c.icono||'fa-book')}" style="color:${escapeHtml(c.color||'#98111f')};margin-right:0.5rem"></i>${escapeHtml(c.nombre)}</div><div class="cell-meta">${escapeHtml((c.descripcion||'').slice(0,80))}${c.descripcion?.length>80?'…':''}</div></td>
       <td class="cell-meta">${escapeHtml(c.edad||'—')}</td>
       <td class="cell-meta">${c.niveles.length}</td>
       <td class="cell-meta">${c.modalidades.length}</td>
       <td><span class="badge ${c.activo ? 'b-aprobada' : 'b-cancelada'}">${c.activo ? 'activo' : 'inactivo'}</span></td>
-      <td><button class="btn btn-ghost" style="padding:0.4rem 0.7rem;font-size:0.55rem" onclick="ADMIN.openCursoEditor('${c.id}')"><i class="fa fa-pen"></i> Editar</button></td>
+      <td><button class="btn btn-ghost" style="padding:0.4rem 0.7rem;font-size:0.78rem" onclick="ADMIN.openCursoEditor('${c.id}')"><i class="fa fa-pen"></i> Editar</button></td>
     </tr>`).join('');
   }
 
@@ -2050,7 +2050,7 @@ const ADMIN = (() => {
       document.getElementById('cu-id').disabled = false;
       document.getElementById('cu-btn-delete').style.display = 'none';
       ['id','nombre','subtitulo','edad','icono','descripcion','manual','evaluacion','niveles','modalidades'].forEach(k=>set(k,''));
-      set('color','#c9a44e');
+      set('color','#98111f');
       set('orden','100');
       setChk('activo', true);
       restoreDraftIfAny('modal-curso-bg', 'curso-nuevo');
@@ -2076,7 +2076,7 @@ const ADMIN = (() => {
       subtitulo:   get('subtitulo') || null,
       edad:        get('edad') || null,
       icono:       get('icono') || 'fa-book',
-      color:       get('color') || '#c9a44e',
+      color:       get('color') || '#98111f',
       descripcion: get('descripcion') || null,
       manual:      get('manual') || null,
       evaluacion:  get('evaluacion') || null,
@@ -2137,14 +2137,14 @@ const ADMIN = (() => {
       const fecha = new Date(ev.fecha + 'T00:00:00').toLocaleDateString('es-MX',{dateStyle:'medium'});
       const hora  = ev.hora ? ' · '+ev.hora.slice(0,5) : '';
       const pubBadge = ev.publicado ? 'b-aprobada' : 'b-cancelada';
-      const destBadge = ev.destacado ? '<span class="badge" style="background:rgba(201,164,78,0.15);color:var(--gold);border:1px solid var(--border-gold);margin-left:0.4rem">Destacado</span>' : '';
+      const destBadge = ev.destacado ? '<span class="badge" style="background:rgba(152,17,31,0.15);color:var(--gold);border:1px solid var(--border-gold);margin-left:0.4rem">Destacado</span>' : '';
       return `<tr>
         <td class="cell-meta">${fecha}${hora}</td>
         <td><div class="cell-nombre">${escapeHtml(ev.titulo)}</div><div class="cell-meta">${escapeHtml((ev.descripcion||'').slice(0,80))}${ev.descripcion?.length>80?'…':''}</div></td>
         <td class="cell-meta">${escapeHtml(ev.categoria||'—')} · <span class="badge">${ev.modo}</span></td>
         <td class="cell-meta">${escapeHtml(ev.lugar||'—')}</td>
         <td><span class="badge ${pubBadge}">${ev.publicado ? 'publicado' : 'borrador'}</span>${destBadge}</td>
-        <td><button class="btn btn-ghost" style="padding:0.4rem 0.7rem;font-size:0.55rem" onclick="ADMIN.openEventoEditor('${ev.id}')"><i class="fa fa-pen"></i> Editar</button></td>
+        <td><button class="btn btn-ghost" style="padding:0.4rem 0.7rem;font-size:0.78rem" onclick="ADMIN.openEventoEditor('${ev.id}')"><i class="fa fa-pen"></i> Editar</button></td>
       </tr>`;
     }).join('');
   }

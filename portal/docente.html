@@ -8,27 +8,27 @@
 <link rel="icon" type="image/png" href="../src/assets/brand/af-glyph-160.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 <script src="../src/config/supabase.js" defer></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --void:#fdfcf8; --deep:#ffffff; --panel:rgba(13,31,51,0.04); --panel-hover:rgba(13,31,51,0.07);
-  --border:rgba(13,31,51,0.12); --border-gold:rgba(201,164,78,0.4);
-  --white:#0d1f33; --muted:rgba(13,31,51,0.62); --hint:rgba(13,31,51,0.40);
-  --gold:#c9a44e; --gold-light:#e8c97a; --red:#d42b3a; --green:#22c55e; --cyan:#4fd1c5; --amber:#fbbf24;
-  --display:'Cormorant Garamond',Georgia,serif; --sans:'Syne',system-ui,sans-serif;
-  --mono:'Space Mono',monospace; --poster:'Bebas Neue','Syne',sans-serif;
+  --void:#ffffff; --deep:#ffffff; --panel:rgba(26,23,27,0.04); --panel-hover:rgba(26,23,27,0.07);
+  --border:rgba(26,23,27,0.12); --border-gold:rgba(152,17,31,0.4);
+  --white:#1a171b; --muted:rgba(26,23,27,0.62); --hint:rgba(26,23,27,0.40);
+  --gold:#98111f; --gold-light:#e8a0ad; --red:#da002e; --green:#22c55e; --cyan:#a9005d; --amber:#e8a0ad;
+  --display:'Libre Bodoni','Bodoni MT','Bodoni 72',Didot,'Times New Roman',serif; --sans:'Libre Bodoni','Bodoni MT','Bodoni 72',Didot,'Times New Roman',serif;
+  --mono:'Libre Bodoni','Bodoni MT','Bodoni 72',Didot,'Times New Roman',serif; --poster:'Libre Bodoni','Bodoni MT','Bodoni 72',Didot,'Times New Roman',serif;
   --r:10px; --r-lg:18px;
 }
 body{background:var(--void);color:var(--white);font-family:var(--sans);font-size:15px;min-height:100vh;line-height:1.5}
 body::before{
   content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
   background:
-    radial-gradient(ellipse 80% 60% at 15% 10%, rgba(53,89,177,0.05) 0%, transparent 55%),
-    radial-gradient(ellipse 60% 50% at 85% 90%, rgba(252,196,25,0.05) 0%, transparent 55%);
+    radial-gradient(ellipse 80% 60% at 15% 10%, rgba(62,79,86,0.05) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 85% 90%, rgba(232,160,173,0.05) 0%, transparent 55%);
 }
 .shell{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:1.5rem}
 
@@ -40,18 +40,18 @@ body::before{
 .af-lockup img{height:34px;width:auto;display:block}
 .af-lockup-text{display:flex;flex-direction:column;line-height:1.05}
 .af-wordmark{font-family:var(--display);font-size:1.05rem;font-weight:600}
-.af-wordmark .w1{color:#1a1a1a}
-.af-wordmark .w2{color:#8a8a8a}
-.af-sublocal{font-family:var(--display);font-style:italic;font-weight:500;font-size:0.68rem;color:#3a3a3a;margin-top:0.1rem}
+.af-wordmark .w1{color:#1a171b}
+.af-wordmark .w2{color:#87888a}
+.af-sublocal{font-family:var(--display);font-style:italic;font-weight:500;font-size:0.78rem;color:#1a171b;margin-top:0.1rem}
 
 .brand em{color:var(--gold);font-style:italic}
-.brand-tag{font-family:var(--mono);font-size:0.55rem;letter-spacing:0.18em;color:var(--cyan);text-transform:uppercase}
+.brand-tag{font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;color:var(--cyan);text-transform:uppercase}
 .user-pill{font-family:var(--mono);font-size:0.7rem;color:var(--muted);background:var(--panel);padding:0.5rem 0.8rem;border-radius:var(--r);border:1px solid var(--border)}
 .topbar-actions{display:flex;align-items:center;gap:0.75rem}
 
 .btn{
   display:inline-flex;align-items:center;gap:0.5rem;padding:0.65rem 1.1rem;border-radius:var(--r);border:none;cursor:pointer;
-  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;
+  font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;text-transform:uppercase;font-weight:700;
   text-decoration:none;transition:transform 0.2s,background 0.2s;
 }
 .btn:hover{transform:translateY(-1px)}
@@ -75,16 +75,16 @@ body::before{
   cursor:pointer;transition:transform 0.25s,border-color 0.25s,box-shadow 0.25s;position:relative;overflow:hidden;
 }
 .grupo-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold)}
-.grupo-card:hover{transform:translateY(-3px);border-color:var(--border-gold);box-shadow:0 12px 32px rgba(13,31,51,0.10)}
-.grupo-card.active{border-color:var(--gold);box-shadow:0 0 24px rgba(201,164,78,0.2)}
-.grupo-codigo{font-family:var(--mono);font-size:0.75rem;color:var(--gold);letter-spacing:0.15em;margin-bottom:0.4rem}
+.grupo-card:hover{transform:translateY(-3px);border-color:var(--border-gold);box-shadow:0 12px 32px rgba(26,23,27,0.10)}
+.grupo-card.active{border-color:var(--gold);box-shadow:0 0 24px rgba(152,17,31,0.2)}
+.grupo-codigo{font-family:var(--mono);font-size:0.75rem;color:var(--gold);letter-spacing:.07em;margin-bottom:0.4rem}
 .grupo-titulo{font-family:var(--display);font-size:1.35rem;font-weight:600;margin-bottom:0.3rem}
 .grupo-meta{font-size:0.82rem;color:var(--muted);margin-bottom:0.3rem;display:flex;align-items:center;gap:0.5rem}
 .grupo-meta i{color:var(--gold);width:14px}
 .grupo-cupo{
-  display:inline-block;font-family:var(--mono);font-size:0.6rem;letter-spacing:0.15em;
-  background:rgba(79,209,197,0.1);color:var(--cyan);padding:0.3rem 0.7rem;border-radius:99px;
-  border:1px solid rgba(79,209,197,0.3);margin-top:0.75rem;
+  display:inline-block;font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;
+  background:rgba(169,0,93,0.1);color:var(--cyan);padding:0.3rem 0.7rem;border-radius:99px;
+  border:1px solid rgba(169,0,93,0.3);margin-top:0.75rem;
 }
 
 .alumnos-card{
@@ -94,8 +94,8 @@ body::before{
 .alumnos-titulo{font-family:var(--display);font-size:1.3rem;font-weight:400}
 .table-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--border)}
 table{width:100%;border-collapse:collapse;font-size:0.85rem}
-thead{background:rgba(13,31,51,0.05)}
-th{text-align:left;font-family:var(--mono);font-size:0.55rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);padding:0.85rem 1rem;border-bottom:1px solid var(--border)}
+thead{background:rgba(26,23,27,0.05)}
+th{text-align:left;font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;text-transform:uppercase;color:var(--gold);padding:0.85rem 1rem;border-bottom:1px solid var(--border)}
 td{padding:0.85rem 1rem;border-bottom:1px solid var(--border);vertical-align:middle}
 tr:last-child td{border-bottom:none}
 .cell-meta{font-size:0.72rem;color:var(--muted)}
@@ -107,39 +107,39 @@ tr:last-child td{border-bottom:none}
 .cal-head{display:flex;align-items:center;justify-content:space-between;gap:0.5rem;margin-bottom:0.75rem;flex-wrap:wrap}
 .cal-title{font-family:var(--display);font-size:1.2rem;font-weight:400}
 .cal-nav{display:flex;gap:0.4rem;align-items:center}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:0.4rem;background:rgba(13,31,51,0.04);border:1px solid var(--border);border-radius:var(--r-lg);padding:0.6rem}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:0.4rem;background:rgba(26,23,27,0.04);border:1px solid var(--border);border-radius:var(--r-lg);padding:0.6rem}
 .cal-day{
   min-height:90px;padding:0.5rem;border-radius:var(--r);
   background:var(--panel);border:1px solid var(--border);
   display:flex;flex-direction:column;gap:0.25rem;
 }
-.cal-day.today{border-color:var(--gold);box-shadow:0 0 12px rgba(201,164,78,0.18)}
-.cal-day-name{font-family:var(--mono);font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted)}
+.cal-day.today{border-color:var(--gold);box-shadow:0 0 12px rgba(152,17,31,0.18)}
+.cal-day-name{font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
 .cal-day-num{font-family:var(--poster);font-size:1.4rem;line-height:1;color:var(--white);margin-bottom:0.2rem}
 .cal-sesion{
-  background:linear-gradient(135deg,rgba(79,209,197,0.18),rgba(79,209,197,0.04));
-  border:1px solid rgba(79,209,197,0.35);
-  border-radius:6px;padding:0.3rem 0.4rem;font-size:0.65rem;
+  background:linear-gradient(135deg,rgba(169,0,93,0.18),rgba(169,0,93,0.04));
+  border:1px solid rgba(169,0,93,0.35);
+  border-radius:6px;padding:0.3rem 0.4rem;font-size:0.78rem;
   color:var(--white);cursor:pointer;line-height:1.3;
   transition:transform 0.15s,border-color 0.15s;
 }
 .cal-sesion:hover{transform:translateY(-1px);border-color:var(--cyan)}
-.cal-sesion .h{font-family:var(--mono);font-size:0.55rem;color:var(--cyan);display:block}
+.cal-sesion .h{font-family:var(--mono);font-size:0.78rem;color:var(--cyan);display:block}
 .cal-sesion .g{font-weight:600;font-size:0.7rem}
 
 /* Modal asistencias */
-.asist-modal-bg{position:fixed;inset:0;z-index:1000;background:rgba(13,31,51,0.45);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:1.5rem}
+.asist-modal-bg{position:fixed;inset:0;z-index:1000;background:rgba(26,23,27,0.45);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:1.5rem}
 .asist-modal-bg.open{display:flex}
 .asist-modal{background:var(--deep);border:1px solid var(--border-gold);border-radius:var(--r-lg);max-width:680px;width:100%;max-height:90vh;overflow:auto;padding:2rem}
 .asist-modal h3{font-family:var(--display);font-size:1.5rem;font-weight:300;margin-bottom:0.4rem}
-.asist-modal .meta{font-family:var(--mono);font-size:0.65rem;color:var(--gold);letter-spacing:0.15em;margin-bottom:1.25rem}
+.asist-modal .meta{font-family:var(--mono);font-size:0.78rem;color:var(--gold);letter-spacing:.07em;margin-bottom:1.25rem}
 .asist-row{display:grid;grid-template-columns:1fr auto;gap:1rem;padding:0.6rem 0;border-bottom:1px solid var(--border);align-items:center}
 .asist-row:last-child{border-bottom:none}
 .asist-name{font-weight:600}
 .asist-meta{font-size:0.72rem;color:var(--muted)}
 .asist-btns{display:flex;gap:0.3rem}
 .asist-btn{
-  font-family:var(--mono);font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;
+  font-family:var(--mono);font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;
   padding:0.35rem 0.55rem;border-radius:6px;border:1px solid var(--border);background:var(--panel);
   color:var(--muted);cursor:pointer;transition:all 0.15s;
 }
@@ -151,23 +151,23 @@ tr:last-child td{border-bottom:none}
 
 /* Login */
 .login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem;position:relative;z-index:1}
-.login-card{background:var(--panel);border:1px solid rgba(79,209,197,0.4);border-radius:var(--r-lg);padding:2.5rem;max-width:420px;width:100%;backdrop-filter:blur(20px)}
+.login-card{background:var(--panel);border:1px solid rgba(169,0,93,0.4);border-radius:var(--r-lg);padding:2.5rem;max-width:420px;width:100%;backdrop-filter:blur(20px)}
 .login-card h1{font-family:var(--display);font-size:1.8rem;font-weight:300;margin-bottom:0.4rem}
 .login-card .sub{color:var(--muted);font-size:0.85rem;margin-bottom:1.75rem}
-.login-card label{display:block;font-family:var(--mono);font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem}
+.login-card label{display:block;font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem}
 .login-card input{
-  width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);
+  width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);
   color:var(--white);padding:0.85rem 1rem;font-family:var(--sans);font-size:0.95rem;margin-bottom:1rem;
 }
 .login-card input:focus{outline:none;border-color:var(--cyan)}
-.login-card .btn{width:100%;justify-content:center;padding:0.85rem 1.4rem;font-size:0.65rem;background:var(--cyan);color:var(--void)}
-.login-card .btn:hover{background:#7be3d5}
+.login-card .btn{width:100%;justify-content:center;padding:0.85rem 1.4rem;font-size:0.78rem;background:var(--cyan);color:var(--void)}
+.login-card .btn:hover{background:#e8a0ad}
 .login-error{color:var(--red);font-size:0.85rem;margin-bottom:1rem;display:none}
 .login-error.show{display:block}
 
 .cfg-warn{background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.3);border-radius:var(--r-lg);padding:1.5rem;margin-bottom:1.5rem}
 .cfg-warn h3{font-family:var(--display);color:var(--amber);font-size:1.2rem;margin-bottom:0.5rem}
-.cfg-warn code{background:rgba(13,31,51,0.06);padding:0.15rem 0.4rem;border-radius:3px;font-family:var(--mono);font-size:0.8rem}
+.cfg-warn code{background:rgba(26,23,27,0.06);padding:0.15rem 0.4rem;border-radius:3px;font-family:var(--mono);font-size:0.8rem}
 
 @media(max-width:640px){
   .shell{padding:1rem}
@@ -382,11 +382,11 @@ const DOC = (() => {
           <span>${escapeHtml(a.telefono || '—')}</span>
         </td>
         <td>
-          ${tel ? `<a href="https://wa.me/${tel}?text=${waMsg}" target="_blank" rel="noopener" class="btn btn-wa" style="padding:0.5rem 0.9rem;font-size:0.55rem"><i class="fab fa-whatsapp"></i> Escribir</a>` : '—'}
+          ${tel ? `<a href="https://wa.me/${tel}?text=${waMsg}" target="_blank" rel="noopener" class="btn btn-wa" style="padding:0.5rem 0.9rem;font-size:0.78rem"><i class="fab fa-whatsapp"></i> Escribir</a>` : '—'}
         </td>
         <td style="display:flex;gap:0.4rem;flex-wrap:wrap">
-          <button class="btn btn-ghost" style="padding:0.5rem 0.8rem;font-size:0.55rem" onclick="DOC.abrirEvaluacion('${a.id}')"><i class="fa fa-clipboard-check"></i> Evaluar</button>
-          <button class="btn btn-ghost" style="padding:0.5rem 0.8rem;font-size:0.55rem" onclick="DOC.abrirValidacion('${a.id}')"><i class="fa fa-award"></i> Validar nivel</button>
+          <button class="btn btn-ghost" style="padding:0.5rem 0.8rem;font-size:0.78rem" onclick="DOC.abrirEvaluacion('${a.id}')"><i class="fa fa-clipboard-check"></i> Evaluar</button>
+          <button class="btn btn-ghost" style="padding:0.5rem 0.8rem;font-size:0.78rem" onclick="DOC.abrirValidacion('${a.id}')"><i class="fa fa-award"></i> Validar nivel</button>
         </td>
       </tr>`;
     }).join('');
@@ -436,7 +436,7 @@ const DOC = (() => {
         ${sesionesDia.map(s => `<div class="cal-sesion" onclick="DOC.abrirAsistencia('${s.id}')">
           <span class="h">${(s.hora_inicio||'').slice(0,5) || '—'}</span>
           <span class="g">${escapeHtml(s.grupos?.codigo || '?')}</span>
-          ${s.grupos ? `<span style="font-size:0.6rem;color:rgba(13,31,51,0.65)">${escapeHtml(s.grupos.curso_nombre || s.grupos.curso_id || '')}</span>` : ''}
+          ${s.grupos ? `<span style="font-size:0.78rem;color:rgba(26,23,27,0.65)">${escapeHtml(s.grupos.curso_nombre || s.grupos.curso_id || '')}</span>` : ''}
         </div>`).join('')}
       </div>`;
     }
@@ -538,13 +538,13 @@ const DOC = (() => {
     m.innerHTML = `<div class="asist-modal" style="max-width:480px">
       <h3>Registrar evaluación</h3>
       <p class="meta" id="eval-meta">—</p>
-      <label style="display:block;font-family:var(--mono);font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin:1rem 0 0.4rem">Tipo</label>
+      <label style="display:block;font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:1rem 0 0.4rem">Tipo</label>
       <select id="eval-tipo" class="field" style="width:100%"><option value="continua">Continua</option><option value="final">Final</option></select>
-      <label style="display:block;font-family:var(--mono);font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin:1rem 0 0.4rem">Título</label>
+      <label style="display:block;font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:1rem 0 0.4rem">Título</label>
       <input type="text" id="eval-titulo" class="field" style="width:100%" placeholder="Examen unidad 3">
-      <label style="display:block;font-family:var(--mono);font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin:1rem 0 0.4rem">Calificación</label>
+      <label style="display:block;font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:1rem 0 0.4rem">Calificación</label>
       <input type="number" id="eval-calificacion" class="field" style="width:100%" min="0" max="100" step="0.1">
-      <label style="display:block;font-family:var(--mono);font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin:1rem 0 0.4rem">Comentario</label>
+      <label style="display:block;font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:1rem 0 0.4rem">Comentario</label>
       <textarea id="eval-comentario" class="field" style="width:100%;min-height:70px"></textarea>
       <div style="display:flex;justify-content:flex-end;gap:0.5rem;margin-top:1.25rem">
         <button class="btn btn-ghost" onclick="DOC.cerrarEvaluacion()">Cerrar</button>
@@ -604,7 +604,7 @@ const DOC = (() => {
         <input type="checkbox" id="valid-check" style="width:18px;height:18px">
         El alumno demuestra las competencias del nivel
       </label>
-      <label style="display:block;font-family:var(--mono);font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem">Comentario</label>
+      <label style="display:block;font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem">Comentario</label>
       <textarea id="valid-comentario" class="field" style="width:100%;min-height:80px" placeholder="Observaciones sobre el desempeño del alumno..."></textarea>
       <div style="display:flex;justify-content:flex-end;gap:0.5rem;margin-top:1.25rem">
         <button class="btn btn-ghost" onclick="DOC.cerrarValidacion()">Cerrar</button>

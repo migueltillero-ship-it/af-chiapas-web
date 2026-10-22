@@ -8,41 +8,41 @@
 <link rel="icon" type="image/png" href="../src/assets/brand/af-glyph-160.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 <script src="../src/config/supabase.js" defer></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --void:#fdfcf8; --deep:#ffffff; --panel:rgba(13,31,51,0.04);
-  --border:rgba(13,31,51,0.12); --border-gold:rgba(201,164,78,0.4);
-  --white:#0d1f33; --muted:rgba(13,31,51,0.62);
-  --gold:#c9a44e; --gold-light:#e8c97a; --red:#d42b3a; --green:#22c55e; --cyan:#4fd1c5;
-  --display:'Cormorant Garamond',Georgia,serif; --sans:'Syne',system-ui,sans-serif;
-  --mono:'Space Mono',monospace; --r:10px; --r-lg:18px;
+  --void:#ffffff; --deep:#ffffff; --panel:rgba(26,23,27,0.04);
+  --border:rgba(26,23,27,0.12); --border-gold:rgba(152,17,31,0.4);
+  --white:#1a171b; --muted:rgba(26,23,27,0.62);
+  --gold:#98111f; --gold-light:#e8a0ad; --red:#da002e; --green:#22c55e; --cyan:#a9005d;
+  --display:'Libre Bodoni','Bodoni MT','Bodoni 72',Didot,'Times New Roman',serif; --sans:'Libre Bodoni','Bodoni MT','Bodoni 72',Didot,'Times New Roman',serif;
+  --mono:'Libre Bodoni','Bodoni MT','Bodoni 72',Didot,'Times New Roman',serif; --r:10px; --r-lg:18px;
 }
 body{background:var(--void);color:var(--white);font-family:var(--sans);font-size:15px;min-height:100vh;line-height:1.5}
 .login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem}
-.login-card{background:var(--panel);border:1px solid rgba(79,209,197,0.4);border-radius:var(--r-lg);padding:2.5rem;max-width:440px;width:100%;backdrop-filter:blur(20px)}
+.login-card{background:var(--panel);border:1px solid rgba(169,0,93,0.4);border-radius:var(--r-lg);padding:2.5rem;max-width:440px;width:100%;backdrop-filter:blur(20px)}
 .login-card h1{font-family:var(--display);font-size:1.7rem;font-weight:300;margin-bottom:0.4rem}
 .login-card .sub{color:var(--muted);font-size:0.85rem;margin-bottom:1.75rem}
-.login-card label{display:block;font-family:var(--mono);font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem}
+.login-card label{display:block;font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem}
 .login-card input{
-  width:100%;background:rgba(13,31,51,0.05);border:1px solid var(--border);border-radius:var(--r);
+  width:100%;background:rgba(26,23,27,0.05);border:1px solid var(--border);border-radius:var(--r);
   color:var(--white);padding:0.85rem 1rem;font-family:var(--sans);font-size:0.95rem;margin-bottom:1rem;
 }
 .login-card input:focus{outline:none;border-color:var(--cyan)}
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;width:100%;padding:0.85rem 1.4rem;border-radius:var(--r);border:none;cursor:pointer;
-  font-family:var(--mono);font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;
+  font-family:var(--mono);font-size:0.78rem;letter-spacing:.07em;text-transform:uppercase;font-weight:700;
   background:var(--cyan);color:var(--void);transition:background 0.2s,transform 0.2s;
 }
-.btn:hover{background:#7be3d5;transform:translateY(-1px)}
+.btn:hover{background:#e8a0ad;transform:translateY(-1px)}
 .btn:disabled{opacity:0.55;cursor:default;transform:none}
 .msg{font-size:0.85rem;margin-bottom:1rem;display:none;padding:0.85rem 1rem;border-radius:var(--r)}
 .msg.show{display:block}
-.msg-error{background:rgba(212,43,58,0.08);color:var(--red);border:1px solid rgba(212,43,58,0.25)}
+.msg-error{background:rgba(218,0,46,0.08);color:var(--red);border:1px solid rgba(218,0,46,0.25)}
 .msg-ok{background:rgba(34,197,94,0.08);color:#16803f;border:1px solid rgba(34,197,94,0.25)}
 .links{margin-top:1.5rem;display:flex;flex-direction:column;gap:0.6rem;font-size:0.85rem}
 .links a{color:var(--white);text-decoration:none;border-bottom:1px dotted var(--border-gold)}

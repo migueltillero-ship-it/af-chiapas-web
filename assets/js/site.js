@@ -231,20 +231,13 @@ const NIVELES_ESTANDAR = [
 const DELF = [
   {n:'A1',c:'#4caf50',f:'DELF',desc:'Débutant',       hrs:'~80 h prep'},
   {n:'A2',c:'#8bc34a',f:'DELF',desc:'Élémentaire',    hrs:'~100 h prep'},
-  {n:'B1',c:'#ffc107',f:'DELF',desc:'Intermédiaire',  hrs:'~180 h prep'},
-  {n:'B2',c:'#ff9800',f:'DELF',desc:'Avancé',         hrs:'~240 h prep'},
+  {n:'B1',c:'#e8a0ad',f:'DELF',desc:'Intermédiaire',  hrs:'~180 h prep'},
+  {n:'B2',c:'#e8a0ad',f:'DELF',desc:'Avancé',         hrs:'~240 h prep'},
   {n:'C1',c:'#f44336',f:'DALF',desc:'Autonome',       hrs:'~360 h prep'},
   {n:'C2',c:'#9c27b0',f:'DALF',desc:'Maîtrise',       hrs:'~450 h prep'}
 ];
 
-const EVENTOS = [
-  {t:'Fête de la Musique 2026',     f:'2026-06-21',h:'18:00',l:'San Cristóbal · presencial', cat:'Música',       libre:true,  modo:'presencial'},
-  {t:'Tour de Cine Francés 2026',   f:'2026-10-10',h:'19:00',l:'Por confirmar · SCSC',        cat:'Cine',         libre:true,  modo:'presencial'},
-  {t:'Fiesta Nacional Francesa',    f:'2026-07-14',h:'19:00',l:'Alliance Française',          cat:'Diplomacia',   libre:true,  modo:'presencial'},
-  {t:'Taller pre-examen DELF/DALF', f:'2026-09-06',h:'09:00',l:'Sede San Cristóbal',          cat:'Preparación',  libre:false, modo:'presencial'},
-  {t:'Club de Conversation en Ligne',f:'2026-07-05',h:'19:00',l:'Plataforma AF Virtual',       cat:'Comunidad',    libre:true,  modo:'virtual'},
-  {t:'Taller de Cocina Francesa',   f:'2026-07-18',h:'11:00',l:'Sede San Cristóbal',          cat:'Gastronomía',  libre:false, modo:'presencial'}
-];
+const EVENTOS = [];  // sin eventos publicados; se cargan desde Supabase cuando existan
 
 const CICLOS_POR_SEG = {
   adultos:    '24 h regular · 48 h intensivo',
@@ -538,6 +531,12 @@ const AF = (() => {
     const fut = ord.filter(e => new Date(String(e.f).slice(0,10)+'T12:00:00') >= hoy);
     const pas = ord.filter(e => new Date(String(e.f).slice(0,10)+'T12:00:00') <  hoy).reverse();
     const lista = fut.concat(pas);
+    if(!lista.length){
+      // sin eventos: la agenda muestra un aviso y el bloque del inicio se oculta
+      if(full) full.innerHTML = `<div class="ev-empty"><i class="fa fa-calendar-days" aria-hidden="true"></i><h3>Próximamente nuevos eventos</h3><p>Estamos preparando la agenda cultural. Escríbenos por WhatsApp y te avisamos de las próximas actividades.</p><a class="btn btn-primary" href="https://wa.me/529671721870?text=${encodeURIComponent('Hola, quiero que me avisen de los próximos eventos.')}" target="_blank" rel="noopener"><i class="fab fa-whatsapp" aria-hidden="true"></i> Avísame de los próximos</a></div>`;
+      if(home){ const sec = home.closest('section'); if(sec) sec.hidden = true; }
+      return;
+    }
     if(full) full.innerHTML = lista.map(e => evCard(e, hoy)).join('');
     if(home) home.innerHTML = lista.slice(0,3).map(e => evCard(e, hoy)).join('');
   }
