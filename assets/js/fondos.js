@@ -116,7 +116,7 @@
     function size() { W = hero.clientWidth; H = hero.clientHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
     function reset(p, first) {
       p.a = Math.random() * Math.PI * 2; p.r = 0.55 + Math.random() * 0.5; p.s = (0.0016 + Math.random() * 0.0035) * (Math.random() < .5 ? 1 : -1);
-      p.z = 1 + Math.random() * 3.2; p.c = Math.random() < .18 ? '212,43,58' : (Math.random() < .5 ? '53,89,177' : '201,164,78'); p.o = .25 + Math.random() * .5; p.w = Math.random() * 6.28;
+      p.z = 1 + Math.random() * 3.2; p.c = Math.random() < .18 ? '218,0,46' : (Math.random() < .5 ? '62,79,86' : '152,17,31'); p.o = .25 + Math.random() * .5; p.w = Math.random() * 6.28;
     }
     for (var i = 0; i < N; i++) { var p = {}; reset(p, true); parts.push(p); }
     function frame(t) {
