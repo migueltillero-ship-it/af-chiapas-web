@@ -495,3 +495,13 @@ section[hidden]{display:none!important}
 .af-intro-sound.hint::after,#af-bgm-toggle.hint::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1.5px solid rgba(255,255,255,.75);opacity:0;pointer-events:none;animation:bocina-hint 2.6s ease-out 1.2s infinite}
 #af-bgm-toggle.hint::after{border-color:rgba(218,0,46,.55)}
 @keyframes bocina-hint{0%{transform:scale(.9);opacity:.9}70%,100%{transform:scale(1.7);opacity:0}}
+
+/* Pie de página en teléfonos: sin inflado automático de texto de Chrome y sin desbordes */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.footer-grid>*{min-width:0}
+.footer,.footer p,.footer a{overflow-wrap:anywhere}
+@media(max-width:700px){
+  .footer-brand-sub{font-size:1rem}
+  .footer-ref{font-size:.85rem;letter-spacing:.03em}
+  .footer-bottom{flex-direction:column;align-items:flex-start;gap:.5rem}
+}
