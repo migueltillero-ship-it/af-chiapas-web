@@ -231,7 +231,8 @@
   .hero-white{padding-top:5.4rem}
 }
 @media(prefers-reduced-motion:reduce){
-  .hb,.hero-logo,.hero-logo-wrap::after,.hero-pill,.hero-title,.hero-tagline,.hero-actions,.hero-trust,.hero-scroll,  .hero-logo-wrap::after{display:none}
+  .hb,.hero-logo,.hero-logo-wrap::after,.hero-pill,.hero-title,.hero-tagline,.hero-actions,.hero-trust,.hero-scroll,.hint::after{animation:none!important}
+  .hero-logo-wrap::after{display:none}
 }
 
 /* Menú: conserva su tamaño compacto (el resto del sitio sube de escala) */
